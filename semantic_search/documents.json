@@ -1,0 +1,127 @@
+[
+  {
+    "topic": "astronomy",
+    "text": "A light-year measures distance, not time - it is the distance light travels in one year.",
+    "id": 0
+  },
+  {
+    "topic": "astronomy",
+    "text": "Saturn rings are made mostly of ice and rock chunks orbiting the planet.",
+    "id": 1
+  },
+  {
+    "topic": "astronomy",
+    "text": "A black hole is a region where gravity is so strong that nothing, not even light, can escape.",
+    "id": 2
+  },
+  {
+    "topic": "astronomy",
+    "text": "The Sun is a medium-sized star at the center of our solar system, about 150 million kilometers from Earth.",
+    "id": 3
+  },
+  {
+    "topic": "astronomy",
+    "text": "Jupiter is the largest planet in our solar system with more than 80 known moons.",
+    "id": 4
+  },
+  {
+    "topic": "cooking",
+    "text": "Searing meat does not seal in juices - the crust forms from the Maillard browning reaction.",
+    "id": 5
+  },
+  {
+    "topic": "cooking",
+    "text": "Pasta water should be salted heavily so the pasta absorbs flavor as it cooks.",
+    "id": 6
+  },
+  {
+    "topic": "cooking",
+    "text": "Yeast leavens bread by converting sugars into carbon dioxide gas and ethanol.",
+    "id": 7
+  },
+  {
+    "topic": "cooking",
+    "text": "Tomatoes are botanically fruits but are used as vegetables in savory cooking.",
+    "id": 8
+  },
+  {
+    "topic": "cooking",
+    "text": "A roux is a mixture of equal parts flour and fat used to thicken sauces and soups.",
+    "id": 9
+  },
+  {
+    "topic": "sports",
+    "text": "A marathon is a long-distance race covering exactly 42.195 kilometers.",
+    "id": 10
+  },
+  {
+    "topic": "sports",
+    "text": "In basketball, a free throw is worth one point and is awarded after certain fouls.",
+    "id": 11
+  },
+  {
+    "topic": "sports",
+    "text": "The offside rule in soccer prevents attackers from staying goal-side of the last defender.",
+    "id": 12
+  },
+  {
+    "topic": "sports",
+    "text": "Tennis grand slam matches are played to the best of three or five sets.",
+    "id": 13
+  },
+  {
+    "topic": "sports",
+    "text": "A hat-trick in hockey or soccer means a player scores three goals in a single game.",
+    "id": 14
+  },
+  {
+    "topic": "music",
+    "text": "A major chord is built from the root, major third, and perfect fifth notes of a scale.",
+    "id": 15
+  },
+  {
+    "topic": "music",
+    "text": "A standard piano has 88 keys spanning seven octaves plus a minor third.",
+    "id": 16
+  },
+  {
+    "topic": "music",
+    "text": "Tempo in music is measured in beats per minute, often abbreviated as BPM.",
+    "id": 17
+  },
+  {
+    "topic": "music",
+    "text": "A symphony is a long-form musical composition for orchestra, usually in four movements.",
+    "id": 18
+  },
+  {
+    "topic": "music",
+    "text": "Vinyl records store audio as physical grooves that a needle vibrates to reproduce sound.",
+    "id": 19
+  },
+  {
+    "topic": "history",
+    "text": "The printing press, invented by Gutenberg around 1440, made books widely affordable.",
+    "id": 20
+  },
+  {
+    "topic": "history",
+    "text": "The Roman Empire fell in 476 AD when the last western emperor was deposed.",
+    "id": 21
+  },
+  {
+    "topic": "history",
+    "text": "The Magna Carta, signed in 1215, limited the power of the English king.",
+    "id": 22
+  },
+  {
+    "topic": "history",
+    "text": "World War II ended in 1945 after the surrender of Japan and Germany.",
+    "id": 23
+  },
+  {
+    "topic": "history",
+    "text": "The Berlin Wall, separating East and West Berlin, stood from 1961 until 1989.",
+    "id": 24
+  }
+]
