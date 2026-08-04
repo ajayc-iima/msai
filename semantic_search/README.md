@@ -67,3 +67,16 @@ The result has the shape **`(number_of_documents, 2)`**, meaning each document i
 
 When the points are colored by topic, documents with similar content should naturally appear close together, forming visible clusters. This makes it easy to see how well the document embeddings separate different topics.
 
+### What the plot shows (non-technical)
+
+## Step 4 (continued): What the plot shows
+
+Each dot represents one document. Similar documents appear close together, while different ones are farther apart.
+PCA reduces high-dimensional embeddings to two dimensions (PC1 and PC2) so they can be visualized.
+
+In offline mode, clusters are not perfectly separated because documents are grouped by shared words rather than meaning.
+History forms the clearest cluster, while music, sports, and astronomy overlap more.
+ Since the first two principal components capture only about 23% of the variation, the plot is a simplified view. 
+ Semantic (API) embeddings would produce much cleaner clusters.
+
+

@@ -98,5 +98,16 @@ def _get_embedding_api(text, input_type="passage"):
 
 def get_embedding(text, input_type="passage"):
     if EMBEDDING_MODE == "api":
-        return _get_embedding_api(text, input_type=input_type)
+        try:
+            return _get_embedding_api(text, input_type=input_type)
+        except Exception as e:
+            # If the API key is wrong, the request fails, or the network drops,
+            # fall back to the offline mode so the pipeline still runs instead
+            # of crashing. Offline results are weaker (word-overlap, not
+            # meaning) but they keep the notebook usable.
+            print(
+                f"[warning] API embedding failed ({e}); falling back to offline "
+                "hashed bag-of-words mode."
+            )
+            return _get_embedding_offline(text)
     return _get_embedding_offline(text)

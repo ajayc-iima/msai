@@ -17,12 +17,24 @@ def build_embedding_matrix(documents):
 
     One row per document, using whichever embedding mode is active. Embeddings
     are cached to CACHE_FILE so the API is only hit on the first run, or when
-    the corpus size changes (the cache-miss signal).
+    the corpus size or the embedding dimension changes (cache-miss signals).
     """
     if os.path.exists(CACHE_FILE):
-        with open(CACHE_FILE, "r", encoding="utf-8") as f:
-            cached_embeddings = json.load(f)
-        if len(cached_embeddings) == len(documents):
+        try:
+            with open(CACHE_FILE, "r", encoding="utf-8") as f:
+                cached_embeddings = json.load(f)
+        except (json.JSONDecodeError, ValueError):
+            # Cache file is empty or corrupt (e.g. only partly written, or a
+            # leftover file with no content). Treat it as a miss and rebuild.
+            cached_embeddings = []
+        # Probe the current mode's embedding dimension for one document so we
+        # detect a cache written under a different vector size (e.g. a leftover
+        # 1024-dim API cache when the query is now 64-dim offline).
+        probe_dim = len(get_embedding(documents[0].get("text", ""), input_type="passage"))
+        if (
+            len(cached_embeddings) == len(documents)
+            and len(cached_embeddings[0]) == probe_dim
+        ):
             return np.array(cached_embeddings)
 
     embeddings = [
