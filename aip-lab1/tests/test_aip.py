@@ -264,3 +264,53 @@ def test_unpriced_models_are_not_reported_as_free():
     assert b.unpriced_calls == 1
     assert "UNPRICED" in b.report()
     assert b.as_dict()["unpriced_calls"] == 1
+
+
+# --- Lab 1 Part C deterministic rules ---------------------------------------
+def test_extract_deterministic_policy_and_pii():
+    from labs.lab1.extract import extract_deterministic
+
+    # Regular live policy and phone
+    t1 = "My policy is AUR-1234567. Please call 9876543210."
+    d1 = extract_deterministic(t1)
+    assert d1["policy_number"] == "AUR-1234567"
+    assert d1["contains_pii"] is True
+
+    # No policy, no PII
+    t2 = "How do I download the health card?"
+    d2 = extract_deterministic(t2)
+    assert d2["policy_number"] is None
+    assert d2["contains_pii"] is False
+
+    # Quoted reply trap (C3)
+    t3 = (
+        "I need help with my claim.\n\n"
+        "Thanks,\nRahul\n\n"
+        "> On 10 Mar 2026, Aurora Support <support@aurorahealth.example> wrote:\n"
+        "> Reference is policy AUR-9999999.\n"
+    )
+    d3 = extract_deterministic(t3)
+    assert d3["policy_number"] is None, "policy in quoted text must be ignored"
+    assert d3["contains_pii"] is False, "Aurora support email is not customer PII"
+
+    # Customer email PII
+    t4 = "Contact me at user.test@example.com."
+    d4 = extract_deterministic(t4)
+    assert d4["contains_pii"] is True
+
+
+def test_apply_business_rules_escalate():
+    from labs.lab1.extract import apply_business_rules
+
+    # Urgency >= 4 triggers escalation
+    assert apply_business_rules({"urgency": 4}, "general text")["escalate"] is True
+    assert apply_business_rules({"urgency": 5}, "general text")["escalate"] is True
+
+    # Urgency < 4 does not escalate unless ombudsman is mentioned
+    assert apply_business_rules({"urgency": 1}, "general text")["escalate"] is False
+    assert apply_business_rules({"urgency": 3}, "general text")["escalate"] is False
+
+    # Ombudsman keyword triggers escalation regardless of urgency
+    assert apply_business_rules({"urgency": 1}, "I will escalate to the Ombudsman.")["escalate"] is True
+    assert apply_business_rules({"urgency": 2}, "Complaint with OMBUDSMAN")["escalate"] is True
+

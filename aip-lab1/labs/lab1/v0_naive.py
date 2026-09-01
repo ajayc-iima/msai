@@ -21,11 +21,11 @@ import re
 import sys
 from collections import Counter
 from pathlib import Path
-
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from aip import chat  # noqa: E402
 from aip.cost import Budget  # noqa: E402
+from aip.llm import extract_json  # noqa: E402
 
 PROMPT = """Extract the following from this support ticket and return JSON:
 category, urgency, sentiment, policy_number, product.

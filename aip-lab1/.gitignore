@@ -1,0 +1,24 @@
+# Environment & API keys
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+.venv/
+.venv_win/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.class
+.pytest_cache/
+
+# AIP cache & traces
+.aip_cache/
+.aip_traces/
+
+# IDE
+.vscode/
+.idea/
