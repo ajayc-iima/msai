@@ -1,6 +1,10 @@
 # Lab 1 Technical Report: The Reliable Extractor
 
 **Course**: AI in Practice — 1  
+**Student Name**: Ajay Choudhary  
+**Student ID**: P20260002  
+**Email**: ajay.pg26@plaksha.edu.in  
+**Institution**: Plaksha University  
 **Module**: T2 Structured Output & Deterministic Ensembling  
 **System Evaluated**: Aurora Health Insurance Customer Support Extractor  
 
