@@ -26,4 +26,5 @@ Over 30,451 held-out 2021–2024 query groups (gold=set, 14.2% ambiguous size≥
 ## 4. What would you do next?
 (a) human-written queries (titles overstate every system); (b) cross-lingual slice (Hindi in 23.6% rows,
 155/3,500 Hindi-only — a real benchmark); (c) full-scale chunked dense (head-only labelled baseline because
-~93% lose their tail; at my measured r it <does/does not> fit).
+~93% lose their tail; at my measured r≈1.4 docs/s it does not fit —
+≈469.5k compute-min, ~11 months on this CPU).
