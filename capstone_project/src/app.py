@@ -130,7 +130,6 @@ def _retrieve(question: str, k: int = 8, system: str = "auto") -> List[Dict]:
         return _dense_scores(*Runtime.dense, question, k)
 
     dense_vecs, dense_doc_ids = Runtime.dense
-    dense_index = {d: i for i, d in enumerate(dense_doc_ids)}
     dense_res = _dense_scores(dense_vecs, dense_doc_ids, question, k)
     bm25_res = _bm25_scores(vectorizer, doc_vectors, question, k, bm25_doc_ids)
     fused = rrf_fuse([[r["doc_id"] for r in bm25_res], [r["doc_id"] for r in dense_res]], k=k)
@@ -142,7 +141,9 @@ def _retrieve(question: str, k: int = 8, system: str = "auto") -> List[Dict]:
         reranked = rerank_block(block, {"user": fused_run}, Runtime.corpus, Runtime.rerank_model,
                                 top_k=k, batch_size=64)
         return reranked[0]["ranked_list"]
-    return [{"doc_id": d, "score": float(dscores[dense_index.get(d, 0)]),
+    bm25_scores = {r["doc_id"]: r["score"] for r in bm25_res}
+    dense_scores = {r["doc_id"]: r["score"] for r in dense_res}
+    return [{"doc_id": d, "score": float(bm25_scores.get(d, 0.0) + dense_scores.get(d, 0.0)),
              "rank": i + 1} for i, d in enumerate(fused)]
 
 

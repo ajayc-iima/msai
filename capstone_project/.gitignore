@@ -29,3 +29,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# Excluded by user
+APPROVAL.md
+presentation_script.md
+*.mp4
