@@ -1,0 +1,8 @@
+{"size": 5000, "system": "bm25", "recall@10": 0.967}
+{"size": 10000, "system": "bm25", "recall@10": 0.954}
+{"size": 20000, "system": "bm25", "recall@10": 0.922}
+{"size": 45901, "system": "bm25", "recall@10": 0.87}
+{"size": 5000, "system": "dense_head", "recall@10": 0.992}
+{"size": 10000, "system": "dense_head", "recall@10": 0.992}
+{"size": 20000, "system": "dense_head", "recall@10": 0.992}
+{"size": 45901, "system": "dense_head", "recall@10": 0.992}

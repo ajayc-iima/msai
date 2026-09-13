@@ -1,0 +1,8 @@
+{
+ "n_judgments": 200,
+ "confirm_rate": 0.95,
+ "confirm_n": 100,
+ "discovery_rate": 0.1,
+ "discovery_n": 100,
+ "cohens_kappa": 0.85
+}

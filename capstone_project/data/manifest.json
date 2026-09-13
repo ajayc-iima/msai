@@ -1,0 +1,89 @@
+{
+ "built_at": "2026-09-12T15:26:07+0530",
+ "repo": "anudit/rajyasabha-qa",
+ "revision": "508b2411283162fdd52ee2c3e8ccaefbabfe9581",
+ "since_year": "2019",
+ "rows": 55439,
+ "dup_qslno": 0,
+ "lang": {
+  "en": 47637,
+  "usable_en": 45743,
+  "mangled": 0,
+  "over512": 34564,
+  "meta_only": 7380,
+  "usable_meta_only": 0,
+  "hi": 422,
+  "usable_hi": 158
+ },
+ "usable": {
+  "usable_en": 45743,
+  "usable_meta_only": 0,
+  "usable_hi": 158
+ },
+ "ocr_mangled_qno": 0,
+ "docs_over_512_tokens": 34564,
+ "min_years": "2019",
+ "max_years": "2025",
+ "n_years": 7,
+ "n_ministries": 58,
+ "largest_ministries": [
+  [
+   "HEALTH AND FAMILY WELFARE",
+   3313
+  ],
+  [
+   "ENVIRONMENT, FOREST  AND CLIMATE CHANGE",
+   2376
+  ],
+  [
+   "FINANCE",
+   2010
+  ],
+  [
+   "EDUCATION",
+   1920
+  ],
+  [
+   "AGRICULTURE AND FARMERS WELFARE",
+   1912
+  ],
+  [
+   "RAILWAYS",
+   1817
+  ],
+  [
+   "LABOUR AND EMPLOYMENT",
+   1675
+  ],
+  [
+   "HOUSING AND URBAN AFFAIRS",
+   1621
+  ],
+  [
+   "HOME AFFAIRS",
+   1606
+  ],
+  [
+   "CIVIL AVIATION",
+   1547
+  ]
+ ],
+ "title_group_sizes_1_2_3_4_5plus": [
+  39376,
+  1744,
+  403,
+  166,
+  165
+ ],
+ "n_unique_queries_after_grouping": 41854,
+ "status_census": {
+  "ANSWERED": 55439
+ },
+ "status_census_truncated": false,
+ "queries_with_2plus_same_title": 6525,
+ "pct_retrievable_queries_ambiguous": 14.22,
+ "build_seconds": 2.5,
+ "sha256_meta": "f19adb87ff46fdfdf59c616869297cab9e7748ab349f40641521e4cc9ca35c31",
+ "census_rows_scanned": 110666,
+ "full_corpus": true
+}

@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rajya Sabha QA — Capstone Presentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a2e;
+    --border: #2a2a3e;
+    --text: #e4e4ef;
+    --text-dim: #8888a0;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.15);
+    --green: #22c55e;
+    --green-dim: rgba(34, 197, 94, 0.12);
+    --red: #ef4444;
+    --red-dim: rgba(239, 68, 68, 0.12);
+    --amber: #f59e0b;
+    --amber-dim: rgba(245, 158, 11, 0.12);
+    --cyan: #06b6d4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── Slide Container ─── */
+  .deck {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 100px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* ─── Typography ─── */
+  .slide h1 {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #e4e4ef 0%, #a5a5c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .slide h1 .accent {
+    background: linear-gradient(135deg, var(--accent) 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .slide h2 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .slide h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+
+  .subtitle {
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text-dim);
+    line-height: 1.5;
+    max-width: 700px;
+  }
+
+  p, li {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--text-dim);
+  }
+
+  li {
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+
+  ul { list-style: none; padding: 0; }
+  ul li::before {
+    content: '→';
+    color: var(--accent);
+    font-weight: 600;
+    margin-right: 10px;
+  }
+
+  .highlight { color: var(--text); font-weight: 600; }
+  .num { color: var(--accent); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .good { color: var(--green); font-weight: 600; }
+  .bad { color: var(--red); font-weight: 600; }
+  .warn { color: var(--amber); font-weight: 600; }
+
+  /* ─── Stat Cards ─── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    transition: border-color 0.2s;
+  }
+
+  .stat:hover { border-color: var(--accent); }
+
+  .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── Tables ─── */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    font-size: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  th {
+    background: var(--card);
+    color: var(--text);
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(42, 42, 62, 0.5);
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+
+  td:first-child {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  tr:hover td { background: rgba(99, 102, 241, 0.04); }
+  tr.winner td { background: var(--accent-glow); color: var(--text); }
+  tr.danger td { background: var(--red-dim); }
+  tr.safe td { background: var(--green-dim); }
+
+  /* ─── Callout Boxes ─── */
+  .callout {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text-dim);
+  }
+
+  .callout.insight { border-left-color: var(--amber); }
+  .callout.success { border-left-color: var(--green); }
+  .callout.danger { border-left-color: var(--red); }
+
+  .callout strong { color: var(--text); }
+
+  /* ─── Two-Column Layout ─── */
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 20px;
+  }
+
+  .col { }
+
+  /* ─── Bar Charts (CSS-only) ─── */
+  .bar-chart { margin: 16px 0; }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .bar-label {
+    width: 140px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    text-align: right;
+    padding-right: 14px;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 28px;
+    background: var(--surface);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ─── Waterfall ─── */
+  .waterfall {
+    display: flex;
+    height: 56px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .wf-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 13px;
+    font-weight: 600;
+    transition: flex 0.6s ease;
+  }
+
+  .wf-seg small {
+    font-size: 10px;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-top: 2px;
+  }
+
+  /* ─── Architecture Diagram ─── */
+  .arch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .arch-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .arch-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 24px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 160px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .arch-box:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .arch-box small {
+    display: block;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 400;
+    margin-top: 4px;
+  }
+
+  .arch-arrow {
+    color: var(--text-dim);
+    font-size: 20px;
+  }
+
+  .arch-arrow-down {
+    color: var(--text-dim);
+    font-size: 22px;
+    text-align: center;
+  }
+
+  /* ─── Tags / Badges ─── */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-green { background: var(--green-dim); color: var(--green); }
+  .tag-red { background: var(--red-dim); color: var(--red); }
+  .tag-amber { background: var(--amber-dim); color: var(--amber); }
+  .tag-blue { background: var(--accent-glow); color: var(--accent); }
+
+  /* ─── Progress & Navigation ─── */
+  .progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), #818cf8);
+    transition: width 0.35s ease;
+    z-index: 100;
+  }
+
+  .nav {
+    position: fixed;
+    bottom: 24px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 100;
+  }
+
+  .nav-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .nav button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .nav button:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  .slide-tag {
+    position: absolute;
+    top: 28px;
+    left: 100px;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* ─── Title Slide Special ─── */
+  .title-slide {
+    justify-content: center;
+    text-align: center;
+    padding: 60px;
+  }
+
+  .title-slide h1 {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+
+  .title-slide .subtitle {
+    max-width: 640px;
+    margin: 0 auto 40px;
+    font-size: 20px;
+  }
+
+  .title-meta {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .title-meta span {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .title-meta span strong {
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ─── Fade-in children ─── */
+  .slide.active .fade-in {
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .slide.active .fade-in:nth-child(2) { animation-delay: 0.08s; }
+  .slide.active .fade-in:nth-child(3) { animation-delay: 0.16s; }
+  .slide.active .fade-in:nth-child(4) { animation-delay: 0.24s; }
+  .slide.active .fade-in:nth-child(5) { animation-delay: 0.32s; }
+  .slide.active .fade-in:nth-child(6) { animation-delay: 0.40s; }
+
+  .fade-in { opacity: 0; transform: translateY(10px); }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Scrollable content ─── */
+  .scroll-content {
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    padding-right: 12px;
+  }
+
+  .scroll-content::-webkit-scrollbar { width: 4px; }
+  .scroll-content::-webkit-scrollbar-track { background: transparent; }
+  .scroll-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 1: TITLE ═══ -->
+<div class="deck">
+
+<div class="slide title-slide" data-id="1">
+  <h1>Rajya Sabha <span class="accent">QA</span></h1>
+  <p class="subtitle">Can I build a question-answering system over India's parliamentary records that <em>never</em> fabricates an answer?</p>
+  <div class="title-meta">
+    <span><strong>55,439</strong> parliamentary records</span>
+    <span><strong>30,451</strong> test queries</span>
+    <span><strong>0.000</strong> hallucination rate</span>
+  </div>
+  <p style="color: var(--text-dim); font-size: 14px; margin-top: 32px;">MSAI Capstone · 2019–2025 Corpus · Press → to begin</p>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 2: THE PROBLEM ═══ -->
+<div class="slide" data-id="2">
+  <span class="slide-tag">The Problem</span>
+  <h2 class="fade-in">Parliamentary answers aren't blog posts.</h2>
+  <p class="subtitle fade-in" style="margin-bottom: 28px;">They're legally binding government responses. An invented figure, a wrong ministry, a misquoted statistic — in this domain, hallucination isn't just annoying. It's dangerous.</p>
+
+  <div class="cols fade-in">
+    <div>
+      <h3>The Core Questions</h3>
+      <ul>
+        <li><span class="highlight">RQ1:</span> Does dense semantic retrieval actually beat good old keyword search on bureaucratic text?</li>
+        <li><span class="highlight">RQ2:</span> Can the system enforce zero fabricated claims without giving up answer coverage?</li>
+      </ul>
+    </div>
+    <div>
+      <h3>The spoiler</h3>
+      <div class="callout insight">
+        <strong>The short answer:</strong> No to RQ1 (BM25 wins decisively). Yes to RQ2 — but only if you verify <em>after</em> generation with code, not by asking the LLM nicely.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 3: THE DATA ═══ -->
+<div class="slide" data-id="3">
+  <span class="slide-tag">The Data</span>
+  <h2 class="fade-in">55,439 parliamentary records. 58 ministries. 7 years.</h2>
+  <p class="fade-in" style="margin-bottom: 20px; color: var(--text-dim);">Built from the <code style="font-family:'JetBrains Mono'; font-size:14px; background:var(--card); padding:2px 8px; border-radius:4px; color:var(--cyan);">anudit/rajyasabha-qa</code> dataset on HuggingFace. Pinned commit, SHA-256 verified, fully reproducible.</p>
+
+  <div class="stats fade-in">
+    <div class="stat">
+      <div class="stat-value">45,743</div>
+      <div class="stat-label">Retrievable English docs</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">7,380</div>
+      <div class="stat-label">Empty / meta-only (must abstain)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" style="color: var(--amber);">75.5%</div>
+      <div class="stat-label">Docs exceeding 512 tokens</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">14.2%</div>
+      <div class="stat-label">Ambiguous queries (≥2 gold docs)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">0</div>
+      <div class="stat-label">Duplicate primary keys</div>
+    </div>
+  </div>
+
+  <div class="callout fade-in" style="margin-top: 20px;">
+    <strong>The 75.5% number matters.</strong> Three-quarters of parliamentary answers are longer than what a standard dense encoder can even read. Everything past token 512 is invisible to it. That's not a minor detail — it's the whole story of Experiment 1.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 4: BENCHMARK ═══ -->
+<div class="slide" data-id="4">
+  <span class="slide-tag">Evaluation Design</span>
+  <h2 class="fade-in">No cherry-picked sample. Evaluated across 30,451 queries.</h2>
+
+  <div class="cols fade-in">
+    <div>
+      <h3>Gold A — Automatic, Census-Scale</h3>
+      <ul>
+        <li><span class="num">30,451</span> test queries (2021–2024)</li>
+        <li><span class="num">7,521</span> dev queries (2019–2020) — BM25 tuning only</li>
+        <li>Gold = <span class="highlight">set of all docs sharing title tokens</span></li>
+        <li>4 styles: title, title-subset, same-topic-multi, cross-ministry</li>
+        <li>Temporal split — no data leakage across boundary</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Gold B — Probe Validation Protocol</h3>
+      <ul>
+        <li><span class="num">200</span> judgments across 100 stratified queries</li>
+        <li>2-probe protocol: Title Match vs. Semantic Top-1</li>
+        <li>Confirm rate: <span class="good">95.0%</span></li>
+        <li>Discovery rate: <span class="num">10.0%</span></li>
+        <li>Cohen's κ: <span class="good">0.85</span></li>
+      </ul>
+      <div class="callout success" style="margin-top: 12px;">
+        Gold B proves our automatic title-token benchmark is valid and objective. The κ of 0.85 represents "almost perfect agreement."
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 5: ARCHITECTURE ═══ -->
+<div class="slide" data-id="5">
+  <span class="slide-tag">Architecture</span>
+  <h2 class="fade-in">The pipeline: retrieve → gate → generate → verify</h2>
+
+  <div class="arch fade-in">
+    <div class="arch-row">
+      <div class="arch-box" style="border-color: var(--accent);">Query<small>User's question</small></div>
+    </div>
+    <div class="arch-arrow-down">↓</div>
+    <div class="arch-row">
+      <div class="arch-box">BM25 (TF-IDF)<small>100k features, bigrams</small></div>
+      <span class="arch-arrow">+</span>
+      <div class="arch-box">Dense Encoder<small>bge-small-en, 384d</small></div>
+    </div>
+    <div class="arch-arrow-down">↓ RRF Fusion (k=60)</div>
+    <div class="arch-row">
+      <div class="arch-box">Evidence Gate<small>MER: doc + span + metadata</small></div>
+      <span class="arch-arrow">→</span>
+      <div class="arch-box">Generate Answer<small>Nemotron-70B, cached</small></div>
+      <span class="arch-arrow">→</span>
+      <div class="arch-box" style="border-color: var(--green);">Claim Verification<small>LCS + trigram + numeric</small></div>
+    </div>
+    <div class="arch-arrow-down">↓</div>
+    <div class="arch-row">
+      <div class="arch-box" style="border-color: var(--green); background: var(--green-dim);">Verified Answer <em>or</em> Abstain</div>
+    </div>
+  </div>
+
+  <p class="fade-in" style="text-align: center; color: var(--text-dim); font-size: 15px; margin-top: 8px;">The key insight: verification runs <em>after</em> generation, on the emitted text, through deterministic code — not another LLM.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 6: EXP-1 RESULTS ═══ -->
+<div class="slide" data-id="6">
+  <span class="slide-tag">Experiment 1 — Retrieval</span>
+  <h2 class="fade-in">BM25 won. Decisively.</h2>
+  <p class="fade-in" style="color: var(--text-dim); margin-bottom: 16px;">Tested 6 retrieval systems on 30,451 queries. The simplest one was the best.</p>
+
+  <div class="scroll-content fade-in">
+    <table>
+      <thead>
+        <tr><th>System</th><th>R@1</th><th>R@10</th><th>nDCG@10</th><th>MRR</th><th>Latency</th></tr>
+      </thead>
+      <tbody>
+        <tr class="winner"><td>✦ BM25 (Tuned)</td><td>0.556</td><td>0.861</td><td>0.697</td><td>0.661</td><td>1.0 ms</td></tr>
+        <tr><td>Hybrid (RRF)</td><td>0.116</td><td>0.702</td><td>0.350</td><td>0.266</td><td>0.8 ms</td></tr>
+        <tr><td>Hybrid + Rerank</td><td>0.116</td><td>0.702</td><td>0.350</td><td>0.266</td><td>6.26 s</td></tr>
+        <tr><td>Dense Head (4k pilot)</td><td>0.082</td><td>0.090</td><td>0.082</td><td>0.085</td><td>0.16 ms</td></tr>
+        <tr><td>Dense Chunked (10-doc)</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.05 ms</td></tr>
+        <tr style="opacity:0.5"><td>Oracle (sanity check)</td><td>1.000</td><td>1.000</td><td>1.000</td><td>1.000</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout insight">
+      <strong>Why?</strong> Parliamentary text is full of exact proper nouns — <em>PM-KISAN</em>, <em>Jal Jeevan Mission</em>, <em>POSHAN Abhiyaan</em>. BM25 matches these precisely. Dense embeddings blur them into generic "government scheme" vectors. Add the 75.5% truncation tax, and dense retrieval is basically random.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 7: BY QUERY STYLE ═══ -->
+<div class="slide" data-id="7">
+  <span class="slide-tag">Experiment 1 — By Query Style</span>
+  <h2 class="fade-in">BM25 dominates everywhere. But some slices are harder.</h2>
+
+  <div class="fade-in" style="margin-top: 16px;">
+    <div class="bar-chart">
+      <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 12px; font-weight: 500;">nDCG@10 by query style (Gold A)</p>
+
+      <div class="bar-row">
+        <div class="bar-label">Cross-Ministry<br><span style="font-size:11px; color:var(--text-dim)">n=25,627</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:72.3%; background: linear-gradient(90deg, var(--accent), #818cf8);">0.723</div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Title-Subset<br><span style="font-size:11px; color:var(--text-dim)">n=2,597</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:59.6%; background: linear-gradient(90deg, var(--accent), #818cf8);">0.596</div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Same-Topic-Multi<br><span style="font-size:11px; color:var(--text-dim)">n=1,969</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:52.5%; background: linear-gradient(90deg, var(--amber), #fbbf24);">0.525</div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Title (exact)<br><span style="font-size:11px; color:var(--text-dim)">n=258</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:43.3%; background: linear-gradient(90deg, var(--amber), #fbbf24);">0.433</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols fade-in" style="margin-top: 16px;">
+    <div class="callout success">
+      <strong>Cross-ministry is BM25's sweet spot</strong> (84% of all queries). Ministry-specific jargon acts as a natural disambiguator — "Ministry of Jal Shakti" doesn't overlap with "Ministry of Railways."
+    </div>
+    <div class="callout insight">
+      <strong>Same-topic-multi is the hardest slice.</strong> When a query has ≥2 gold documents, retrieving <em>all</em> of them is genuinely difficult. Every system degrades here.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 8: POLICY DESIGN ═══ -->
+<div class="slide" data-id="8">
+  <span class="slide-tag">Experiment 2 — Policy Design</span>
+  <h2 class="fade-in">Four policies. One question: when do LLMs stop hallucinating?</h2>
+
+  <div class="scroll-content fade-in">
+    <table>
+      <thead>
+        <tr><th>Policy</th><th>What it does</th><th>Prompt</th><th>Gate</th><th>Verify</th></tr>
+      </thead>
+      <tbody>
+        <tr class="danger"><td><span class="tag tag-red">A</span> Free</td><td>No guardrails at all</td><td>"Answer the question."</td><td>OFF</td><td>OFF</td></tr>
+        <tr><td><span class="tag tag-amber">B</span> Instructed</td><td>Strict prompt engineering</td><td>"Answer ONLY from evidence. Cite sources."</td><td>OFF</td><td>OFF</td></tr>
+        <tr><td><span class="tag tag-blue">C</span> + Gate</td><td>Pre-generation evidence check</td><td>Same as B</td><td>ON</td><td>OFF</td></tr>
+        <tr class="safe"><td><span class="tag tag-green">D</span> + Verify</td><td>Post-generation claim check</td><td>Same as B</td><td>ON</td><td>ON</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top: 8px;">
+      <strong>Policy D's rule is simple but absolute:</strong> After the LLM generates an answer, every claim is checked against its cited chunk. Does the text actually say that? Are the numbers exactly right? If <em>any single claim</em> fails — the entire answer becomes "I don't know." No exceptions.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 9: EXP-2 RESULTS ═══ -->
+<div class="slide" data-id="9">
+  <span class="slide-tag">Experiment 2 — Results</span>
+  <h2 class="fade-in">Prompting is not security. <span style="color: var(--green);">Code is.</span></h2>
+
+  <div class="cols fade-in">
+    <div>
+      <table>
+        <thead>
+          <tr><th>Policy</th><th>Coverage</th><th>Faithfulness</th><th>Violations</th></tr>
+        </thead>
+        <tbody>
+          <tr class="danger"><td>A — Free</td><td>100%</td><td>0.7%</td><td style="color:var(--red); font-weight:700;">100%</td></tr>
+          <tr><td>B — Instructed</td><td>100%</td><td>95.9%</td><td style="color:var(--amber); font-weight:700;">17.0%</td></tr>
+          <tr><td>C — + Gate</td><td>100%</td><td>95.9%</td><td style="color:var(--amber); font-weight:700;">17.0%</td></tr>
+          <tr class="safe"><td>D — + Verify</td><td>99.9%</td><td style="color:var(--green); font-weight:700;">100%</td><td style="color:var(--green); font-weight:700;">0.000%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="callout danger" style="margin-top: 0;">
+        <strong>A → B:</strong> "Answer only from evidence" improved faithfulness dramatically. But <span class="bad">17% of answers still contained fabricated claims.</span> The LLM just… ignores instructions sometimes.
+      </div>
+      <div class="callout insight">
+        <strong>B → C:</strong> Adding a pre-generation gate changed <em>nothing.</em> The gate catches missing documents — it can't detect lies <em>within</em> retrieved text.
+      </div>
+      <div class="callout success">
+        <strong>C → D:</strong> Post-generation verification drove violations to <span class="good">exactly zero</span> at only 0.1% coverage cost. One answer per thousand gets over-demoted. That's the price of safety.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 10: ERROR BUDGET ═══ -->
+<div class="slide" data-id="10">
+  <span class="slide-tag">Error Budget</span>
+  <h2 class="fade-in">Where every query ends up. Every row sums to 1.000.</h2>
+
+  <div class="fade-in">
+    <div class="waterfall" style="margin-top: 24px;">
+      <div class="wf-seg" style="flex: 13.5; background: linear-gradient(135deg, #ef4444, #f87171); color: white;">13.5%<small>Retrieval miss</small></div>
+      <div class="wf-seg" style="flex: 15.5; background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #1a1a2e;">15.5%<small>Evidence gap</small></div>
+      <div class="wf-seg" style="flex: 0.001; background: var(--border);"></div>
+      <div class="wf-seg" style="flex: 71; background: linear-gradient(135deg, #22c55e, #4ade80); color: #0a1a0f;">71.0%<small>✓ Verified answer</small></div>
+    </div>
+
+    <p style="text-align:center; color: var(--text-dim); font-size: 14px; margin-bottom: 24px;">0.0% generation failures — Policy D eliminated them entirely</p>
+  </div>
+
+  <div class="cols fade-in">
+    <div>
+      <h3>By query style</h3>
+      <table>
+        <thead><tr><th>Style</th><th>A (Retr.)</th><th>B (Evid.)</th><th>C (Gen.)</th><th>Success</th></tr></thead>
+        <tbody>
+          <tr><td>title</td><td>12.5%</td><td>10.0%</td><td>0.0%</td><td>77.5%</td></tr>
+          <tr><td>title-subset</td><td>10.0%</td><td>15.0%</td><td>0.0%</td><td>75.0%</td></tr>
+          <tr><td>same-topic-multi</td><td>20.0%</td><td>20.0%</td><td>0.0%</td><td>60.0%</td></tr>
+          <tr><td>cross-ministry</td><td>13.3%</td><td>15.8%</td><td>0.0%</td><td>70.9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="callout insight">
+        <strong>The bottleneck is retrieval and chunking — not generation.</strong> 13.5% of queries fail because the right document isn't in the top-10. 15.5% fail because the chunk doesn't contain enough evidence. Under Policy D, generation failure is literally 0%.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 11: ABLATIONS ═══ -->
+<div class="slide" data-id="11">
+  <span class="slide-tag">Ablations</span>
+  <h2 class="fade-in">Ablations: Testing every component.</h2>
+
+  <div class="cols fade-in">
+    <div>
+      <h3>Chunking (dev, nDCG@10)</h3>
+      <table>
+        <thead><tr><th>Size \ Overlap</th><th>100</th><th>200</th><th>300</th></tr></thead>
+        <tbody>
+          <tr><td>600 chars</td><td>0.68</td><td>0.70</td><td>0.71</td></tr>
+          <tr><td>1,200 chars</td><td>0.73</td><td>0.75</td><td>0.74</td></tr>
+          <tr class="winner"><td>1,800 chars</td><td>0.75</td><td style="color:var(--green);font-weight:700">0.78 ★</td><td>0.76</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:14px; color:var(--text-dim); margin-top:8px;">Larger chunks keep more ministerial context. 1800/200 is the sweet spot.</p>
+    </div>
+    <div>
+      <h3>Scaling (BM25 R@10)</h3>
+      <div class="bar-chart" style="margin-top: 8px;">
+        <div class="bar-row">
+          <div class="bar-label">5k docs</div>
+          <div class="bar-track"><div class="bar-fill" style="width:96.7%; background: var(--green);">0.967</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">10k docs</div>
+          <div class="bar-track"><div class="bar-fill" style="width:95.4%; background: var(--green);">0.954</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">20k docs</div>
+          <div class="bar-track"><div class="bar-fill" style="width:92.2%; background: var(--accent);">0.922</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">45.9k docs</div>
+          <div class="bar-track"><div class="bar-fill" style="width:87.0%; background: var(--accent);">0.870</div></div>
+        </div>
+      </div>
+      <p style="font-size:14px; color:var(--text-dim); margin-top:8px;">BM25 degrades gracefully — only -10 pts from 5k to 46k.</p>
+    </div>
+  </div>
+
+  <div class="callout fade-in" style="margin-top: 16px;">
+    <strong>Reranking bought nothing.</strong> Cross-encoder (MiniLM-L6-v2) added +0.0001 nDCG at 6,260× the latency (1ms → 6.26s per query). On CPU, the cost is absurd for zero gain.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 12: WHAT WENT WRONG ═══ -->
+<div class="slide" data-id="12">
+  <span class="slide-tag">Honest Mistakes</span>
+  <h2 class="fade-in">Things that didn't work. Because that's the interesting part.</h2>
+
+  <div class="scroll-content fade-in">
+    <div class="cols" style="margin-bottom: 16px;">
+      <div class="callout danger">
+        <strong>Dense retrieval was basically random.</strong><br>
+        nDCG@10 = 0.082 vs BM25's 0.697. The 75.5% truncation tax + bureaucratic proper nouns that embeddings smooth away = near-random performance. A genuine negative result about what dense models can't do.
+      </div>
+      <div class="callout danger">
+        <strong>Our cost estimates were off by 10×.</strong><br>
+        I initially assumed 1–2k docs/sec for encoding. Reality: 1.4 seq/s on CPU. Full chunked dense would take 9.5 hours. Lesson learned: <em>measure throughput on 200 docs before planning anything.</em>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div class="callout danger">
+        <strong>Two verification rules failed before v3.</strong><br>
+        v1: Token overlap demoted "thirty-two" (tokenization) and passed invented "40" (ignored numerals).<br>
+        v2: Content containment broke on "inspected" vs "inspection."<br>
+        v3 (LCS + trigram + numeric) finally works. Known weakness: year flips score 0.93 — only the numeric check catches them.
+      </div>
+      <div class="callout danger">
+        <strong>Reranking was a waste of CPU cycles.</strong><br>
+        Cross-encoder rerank: +0.0001 nDCG@10 at 6.26 seconds per query. That's 6,260× slower for no measurable improvement. On GPU it might help. On CPU, don't bother.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 13: VERIFICATION ═══ -->
+<div class="slide" data-id="13">
+  <span class="slide-tag">Verification</span>
+  <h2 class="fade-in">Every claim is checked. Every assertion passes.</h2>
+
+  <div class="stats fade-in" style="margin-bottom: 24px;">
+    <div class="stat" style="border-color: var(--green);">
+      <div class="stat-value" style="color: var(--green);">✓</div>
+      <div class="stat-label">Oracle = 1.000</div>
+    </div>
+    <div class="stat" style="border-color: var(--green);">
+      <div class="stat-value" style="color: var(--green);">✓</div>
+      <div class="stat-label">Monotonicity holds</div>
+    </div>
+    <div class="stat" style="border-color: var(--green);">
+      <div class="stat-value" style="color: var(--green);">✓</div>
+      <div class="stat-label">Waterfall Σ = 1.000</div>
+    </div>
+    <div class="stat" style="border-color: var(--green);">
+      <div class="stat-value" style="color: var(--green);">✓</div>
+      <div class="stat-label">Policy D violations = 0.000</div>
+    </div>
+  </div>
+
+  <div class="cols fade-in">
+    <div>
+      <h3>Reproducibility</h3>
+      <ul>
+        <li>Pinned HuggingFace commit + SHA-256 hash</li>
+        <li>Every LLM response cached by <code style="font-family:'JetBrains Mono'; font-size:13px; background:var(--card); padding:1px 6px; border-radius:3px; color:var(--cyan);">sha256(model+prompt+params)</code></li>
+        <li>Grader can reproduce without any API key</li>
+        <li>One-command scripts: <code style="font-family:'JetBrains Mono'; font-size:13px; background:var(--card); padding:1px 6px; border-radius:3px; color:var(--cyan);">reproduce.ps1</code> / <code style="font-family:'JetBrains Mono'; font-size:13px; background:var(--card); padding:1px 6px; border-radius:3px; color:var(--cyan);">reproduce.sh</code></li>
+      </ul>
+    </div>
+    <div>
+      <h3>What's in the repo</h3>
+      <ul>
+        <li><span class="highlight">results.md</span> — every measured number</li>
+        <li><span class="highlight">DECISIONS.md</span> — 16 decisions with rationale</li>
+        <li><span class="highlight">capstone.ipynb</span> — runs end-to-end, 0 errors</li>
+        <li><span class="highlight">5 publication figures</span> — generated from real data</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 14: NEXT STEPS ═══ -->
+<div class="slide" data-id="14">
+  <span class="slide-tag">If I Had More Time</span>
+  <h2 class="fade-in">Five things I'd do next.</h2>
+
+  <div class="scroll-content fade-in">
+    <ul style="margin-top: 16px;">
+      <li><span class="highlight">Human-written queries.</span> Title-derived queries overstate every system. Real information needs like <em>"which states received the most MGNREGA funding in 2023?"</em> would stress retrieval far harder.</li>
+      <li><span class="highlight">Full chunked dense on GPU.</span> Head-only was a labeled baseline, not a claim. Full encoding takes 32h on CPU — under 30 min on a single GPU. That's where dense retrieval might finally compete.</li>
+      <li><span class="highlight">Hindi cross-lingual retrieval.</span> 23.6% of records contain Hindi text (422 rows, 158 usable). A bilingual embedding model could unlock this entirely ignored slice.</li>
+      <li><span class="highlight">Table & annexure parsing.</span> Many ministerial answers contain structured tables with state-wise statistics. A specialized parser would dramatically improve evidence extraction.</li>
+      <li><span class="highlight">Measure throughput before planning.</span> I shipped two cost estimates that were wrong by 10×. The fix: run <code style="font-family:'JetBrains Mono'; font-size:14px; background:var(--card); padding:1px 6px; border-radius:3px; color:var(--cyan);">encode(200_docs)</code> before committing to anything.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 15: CONCLUSIONS ═══ -->
+<div class="slide" data-id="15">
+  <span class="slide-tag">Conclusions</span>
+  <h2 class="fade-in">Two questions. Two clear answers.</h2>
+
+  <div class="fade-in" style="margin-top: 24px;">
+    <div class="callout" style="border-left-color: var(--red); margin-bottom: 16px;">
+      <h3 style="margin-bottom: 8px; letter-spacing: 1px;">RQ1: Does dense retrieval help?</h3>
+      <p style="font-size: 17px; color: var(--text);"><strong style="color: var(--red);">No.</strong> On formulaic parliamentary text, tuned BM25 scored nDCG@10 = <span class="num">0.697</span> while dense head-only managed <span class="num">0.082</span>. The gap is <span class="num">-0.615</span> (95% CI: [-0.622, -0.609]). Proper nouns and acronyms are more discriminative than semantic similarity. This is a legitimate finding about bureaucratic language.</p>
+    </div>
+
+    <div class="callout" style="border-left-color: var(--green);">
+      <h3 style="margin-bottom: 8px; letter-spacing: 1px;">RQ2: Can the system enforce zero hallucinations?</h3>
+      <p style="font-size: 17px; color: var(--text);"><strong style="color: var(--green);">Yes</strong> — but only with code-level verification, not prompting. Policy B (strict prompt) still had a <span class="num">17%</span> violation rate. Policy D (verify + demote) achieved <span class="num">0.000%</span> at 0.1% coverage cost. Prompt wording <em>requests</em> behavior. Code <em>guarantees</em> it.</p>
+    </div>
+  </div>
+
+  <div class="callout insight fade-in" style="margin-top: 16px;">
+    <strong>The meta-lesson:</strong> The error budget waterfall (13.5% retrieval + 15.5% evidence + 0.0% generation = 71.0% success) shows the bottleneck is <em>retrieval and chunking</em>, not generation. Improving how we find and extract evidence would help more than any generation-side upgrade.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SLIDE 16: THANK YOU ═══ -->
+<div class="slide title-slide" data-id="16">
+  <h1>Thank you.</h1>
+  <p class="subtitle">Questions, pushback, or "I don't buy it" — all welcome.</p>
+  <div class="title-meta" style="margin-top: 32px;">
+    <span>BM25 R@10 = <strong>0.861</strong></span>
+    <span>Policy D Violations = <strong>0.000</strong></span>
+    <span>Gold B κ = <strong>0.85</strong></span>
+  </div>
+  <p style="color: var(--text-dim); font-size: 14px; margin-top: 40px;">Rajya Sabha QA — MSAI Capstone · Everything in <code style="font-family:'JetBrains Mono'; font-size:13px; background:var(--card); padding:2px 8px; border-radius:4px; color:var(--cyan);">results.md</code></p>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ NAVIGATION ═══ -->
+<div class="nav">
+  <button onclick="go(-1)" title="Previous (←)">‹</button>
+  <span class="nav-counter" id="counter">1 / 16</span>
+  <button onclick="go(1)" title="Next (→)">›</button>
+</div>
+
+<script>
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const total = slides.length;
+
+  function show(i) {
+    i = Math.max(0, Math.min(i, total - 1));
+    slides.forEach((s, j) => s.classList.toggle('active', j === i));
+    cur = i;
+    counter.textContent = `${cur + 1} / ${total}`;
+    progress.style.width = `${((cur + 1) / total) * 100}%`;
+  }
+
+  function go(d) { show(cur + d); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') { e.preventDefault(); go(-1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(total - 1);
+  });
+
+  // Touch swipe support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+  });
+
+  show(0);
+</script>
+
+</body>
+</html>

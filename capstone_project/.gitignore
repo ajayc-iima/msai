@@ -1,0 +1,31 @@
+# Secrets
+.env
+
+# Generated data & artifacts — large corpus/runs/index stay local,
+# small provenance files are versioned for Moodle grading
+data/*
+!data/manifest.json
+!data/gold_b_*.jsonl
+!data/cache/
+!data/eval/
+!data/plots/
+data/cache/*
+!data/cache/llm_responses.json
+data/eval/*
+!data/eval/*.json
+!data/eval/*.jsonl
+data/plots/*
+!data/plots/*.png
+artifacts/
+outputs/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+

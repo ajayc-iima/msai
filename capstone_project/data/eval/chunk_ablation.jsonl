@@ -1,0 +1,9 @@
+{"chunk_size": 600, "overlap": 100, "nDCG@10": 0.68}
+{"chunk_size": 600, "overlap": 200, "nDCG@10": 0.7}
+{"chunk_size": 600, "overlap": 300, "nDCG@10": 0.71}
+{"chunk_size": 1200, "overlap": 100, "nDCG@10": 0.73}
+{"chunk_size": 1200, "overlap": 200, "nDCG@10": 0.75}
+{"chunk_size": 1200, "overlap": 300, "nDCG@10": 0.74}
+{"chunk_size": 1800, "overlap": 100, "nDCG@10": 0.75}
+{"chunk_size": 1800, "overlap": 200, "nDCG@10": 0.78}
+{"chunk_size": 1800, "overlap": 300, "nDCG@10": 0.76}
