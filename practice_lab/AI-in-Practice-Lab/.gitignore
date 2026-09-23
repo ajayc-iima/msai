@@ -1,0 +1,16 @@
+# Environment / secrets
+.env
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# aip runtime artefacts
+.aip_cache/
+.aip_traces/
+reports/
+
+# agent workspace
+.opencode/

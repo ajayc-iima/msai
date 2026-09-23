@@ -1,0 +1,14 @@
+# AI in Practice — Labs 1–3
+# Python 3.11+
+httpx>=0.27.0          # plain HTTP to OpenAI-compatible provider endpoints
+pydantic>=2.9.0        # schemas, validation, the repair loop
+python-dotenv>=1.0.0   # .env loading
+jupyterlab>=4.0        # Track N — open labs/labN/labN.ipynb
+nbformat>=5.0          # notebook format read/validate
+ipykernel>=6.0         # notebook kernel
+
+# Lab 3 — retrieval stack
+numpy>=1.26.0          # exact dense search (matmul + argsort)
+rank-bm25>=0.2.2       # BM25Retriever
+sentence-transformers>=3.3.0  # local embed + cross-encoder reranker
+chromadb>=0.5.20       # ChromaRetriever (HNSW / metadata filter, Part D)
