@@ -1,25 +1,31 @@
-# Vidhi Guardian — Statistical Evidence & Validity Firewall
-# CPU-only, store baked at build time. No API key required for the
-# deterministic path; the optional LLM polish is off by default.
+# Use the repo's Windows venv (has uvicorn, litellm, esankhyiki).
+# CPU-only; bge-small (~133 MB) downloads on first run and is cached.
 FROM python:3.12-slim
 
-# sentence-transformers needs a compiler for some wheels; keep image small.
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential && rm -rf /var/lib/apt/lists/*
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    AIP_OFFLINE=1 \
+    HF_HUB_OFFLINE=0
 
 WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir uvicorn sse-starlette fastapi \
+       "git+https://github.com/nso-india/mospi-esankhyiki"
 
-# Dependencies first (better layer caching).
-COPY requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+COPY aip/ aip/
+COPY vidhi/ vidhi/
+COPY data/ data/
+COPY evaluation/ evaluation/
+COPY scripts/ scripts/
+COPY tests/ tests/
 
-# App code + baked store. Raw PDFs (~150 MB) are excluded via .dockerignore;
-# only store.json + excerpts are needed at runtime.
-COPY . /app
+# Bake the store + warm the embedding index at build time so the first
+# request never pays model-load latency.
+# Rebuild store if raw PDFs are present; otherwise use the committed store.json.
+# (Raw PDFs are excluded from the image to keep it small.)
+RUN (python scripts/vidhi_build.py || echo "vidhi_build skipped (no raw PDFs); using committed store.json") \
+ && python -c "from vidhi import answer as A; A._get_model()"
 
-# Pre-warm the embedding model so the first user query is fast.
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-small-en-v1.5')"
-
-ENV AIP_OFFLINE=0
-EXPOSE 7860
-CMD ["sh", "-c", "python -m uvicorn vidhi.service:app --host 0.0.0.0 --port ${PORT:-7860}"]
+EXPOSE 8001
+CMD ["python", "-m", "uvicorn", "vidhi.service:app", "--host", "0.0.0.0", "--port", "8001"]
