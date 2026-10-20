@@ -1,0 +1,9 @@
+{
+  "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "load_s": 8.1,
+  "n": 34,
+  "bi_match1": 34,
+  "ce_match1": 34,
+  "rerank_p50_ms": 269.8,
+  "verdict": "DROP: no relevance gain over bi-encoder blend"
+}

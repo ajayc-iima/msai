@@ -1,0 +1,60 @@
+# Vidhi Guardian — comparability rules (deterministic, versioned)
+# No rule fires without source_doc + source_page + verbatim caveat_quote.
+version: 3
+rules:
+  - rule_id: R_COMPARABILITY_PLFS_2025_REVAMP
+    applies_when:
+      surveys: [PLFS_2023_24, PLFS_2025]
+      claim_type: comparative
+    verdict: WARN
+    sub_code: WARN_COMPARABILITY
+    reason_code: R_COMPARABILITY_PLFS_REVAMP
+    caveat_quote: "The sampling methodology of PLFS has been revamped from January 2025. Unlike the revamped PLFS design in force from January 2025, there was no provision of revisits for the rural samples. PLFS 2025 reports January-December 2025 (Table 1 scope note); earlier annuals report July-June."
+    source_doc: mospi_PLFS_Changes-in-2025_rev.pdf (PDF pp4/7) + mospi_PLFS_2025_F_REV_29052026.pdf (PDF p22)
+    source_page: "pp4,7; p22"
+    active: true
+  - rule_id: R_COMPARABILITY_HCES_METHOD
+    applies_when:
+      surveys: [HCES_2011_12, HCES_2022_23]
+      claim_type: comparative
+    verdict: WARN
+    sub_code: WARN_COMPARABILITY
+    reason_code: R_COMPARABILITY_HCES_METHOD
+    caveat_quote: "The estimates of MPCE are based on Modified Mixed Reference Period (MMRP): last 7 days for perishables, last 365 days for clothing/education/medical-hospitalisation/durables, last 30 days for all other items. Cite the round's own method note when comparing levels across rounds."
+    source_doc: mospi_HCES_2023-24_Factsheet.pdf (PDF p7, Statement 2 note)
+    source_page: "PDF p7"
+    active: true
+  - rule_id: R_COMPARABILITY_HCES_POVERTY_REFUSE
+    applies_when:
+      surveys: [HCES_2011_12, HCES_2022_23]
+      claim_type: comparative
+      asserts: [real_change, poverty_change]
+    verdict: REFUSE
+    sub_code: REFUSE_COMPARABILITY
+    reason_code: R_COMPARABILITY_HCES_METHOD
+    caveat_quote: "HCES: 2022-23 has undergone some changes as compared to the previous surveys on consumption expenditure. As a methodology identical to that of HCES: 2022-23 and the same set questionnaires (except for some modifications in Questionnaire HCQ) have been used in HCES: 2023-24, the following are required to be noted while comparing the results of HCES: 2023-24 with those of the surveys conducted in 2011-12 and earlier. (i) Item Coverage: 347 items in 2011-12 vs 405 items in 2022-23/2023-24. (ii) A single questionnaire has been used in all NSS surveys prior to HCES: 2022-23; in HCES: 2022-23 & 2023-24 three separate questionnaires (food, consumables-services, durables) + HCQ have been used. (iii) Contrary to single-visit practice prior to 2022-23, FDQ/CSQ/DGQ canvassed in three consecutive monthly visits. (iv) CAPI adopted in 2022-23 & 2023-24 while all earlier surveys used PAPI."
+    source_doc: "mospi_HCES_2023-24_FinalReport.pdf (NSS Report 592, Ch1 p10-11, Sec 1.12) + microdata_DDI-IND-MOSPI-NSSO-HCES22-23__HCES2022_Vol_I_1.pdf + microdata_DDI-IND-MOSPI-NSSO-HCES22-23__Survey_methodology_and_estimation_procedure_1.pdf"
+    source_page: "FinalReport pp10-11 Sec 1.12.0-1.12.1"
+    active: true
+  - rule_id: R_COMPARABILITY_PLFS_STATUS
+    applies_when:
+      surveys: [PLFS_2022_23]
+      mixes: [usual_status_ps_ss, CWS]
+    verdict: WARN
+    sub_code: WARN_COMPARABILITY
+    reason_code: R_COMPARABILITY_STATUS_MIX
+    caveat_quote: "Usual status (ps+ss): persons who either worked or were seeking/available for work for a relatively long part of the 365 days preceding the date of survey and also those among the remaining population who had worked at least for 30 days during the 365 days. CWS: those who worked for at least 1 hour or was seeking/available for at least 1 hour on any day during the 7 days preceding the date of survey. Reference period: 1 year (usual) vs 1 week (CWS); do not mix."
+    source_doc: "mospi_PLFS_2023-24_AnnualReport.pdf (Ch2) + microdata_DDI-IND-CSO-PLFS-2022-23__Note_on_changes_PLFS_2022_23.pdf + microdata_DDI-IND-CSO-PLFS-2022-23__3_1_Estimation_Procedure_PLFS.pdf (Sec 1.0 twin objectives)"
+    source_page: "PLFS2023-24 Ch2 LFPR/WPR sections; Estimation Sec 1.0"
+    active: true
+  - rule_id: R_COMPARABILITY_EUS_PLFS
+    applies_when:
+      surveys: [NSS_EUS_2011_12, PLFS_2022_23]
+      claim_type: comparative
+    verdict: WARN
+    sub_code: WARN_COMPARABILITY
+    reason_code: R_COMPARABILITY_EUS_PLFS
+    caveat_quote: "Certain changes were introduced in the sampling design and structure of the Schedule of inquiry. The results of the PLFS thus need to be understood and used in the context with which the survey methodology and sample selection has been designed (vis-a-vis EUS quinquennial rounds 2011-12 and earlier)."
+    source_doc: mospi_PLFS_2023-24_AnnualReport.pdf (PDF p5, Explanatory Note)
+    source_page: "PDF p5"
+    active: true

@@ -1,0 +1,39 @@
+{
+  "variant": "v1",
+  "pipeline": {
+    "rerank": false,
+    "completeness": false,
+    "system": "lab4 ANSWER_SYSTEM"
+  },
+  "stage1": {
+    "hit_rate@1": 0.8571428571428571,
+    "hit_rate@10": 1.0,
+    "hit_rate@3": 1.0,
+    "hit_rate@5": 1.0,
+    "mrr": 0.9246031746031746,
+    "ndcg@1": 0.8571428571428571,
+    "ndcg@10": 0.8830198454400702,
+    "ndcg@3": 0.8513512819867602,
+    "ndcg@5": 0.8753154002740277,
+    "precision@1": 0.8571428571428571,
+    "precision@10": 0.15000000000000002,
+    "precision@3": 0.4523809523809524,
+    "precision@5": 0.2904761904761905,
+    "recall@1": 0.5873015873015873,
+    "recall@10": 0.9345238095238095,
+    "recall@3": 0.871031746031746,
+    "recall@5": 0.9186507936507937
+  },
+  "cost": {
+    "calls": 136,
+    "prompt_tokens": 80677,
+    "completion_tokens": 77667,
+    "cost_usd": 0.0,
+    "unpriced_calls": 122
+  },
+  "gen_latency_ms": {
+    "p50": 6351.2,
+    "p95": 26877.5
+  },
+  "throttle_waits": 0
+}

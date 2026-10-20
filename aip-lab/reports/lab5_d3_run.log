@@ -1,0 +1,49 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+18 failures out of 45
+
+
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 105/105 [00:00<00:00, 5945.99it/s]
+[lab5] cross-encoder loaded in 18.2s
+  Q01   generation           all-gold-material fixes it: True; 5 gold-only chunks fix it: True; answer span PRESENT in the delivered 5-chunk window (100% of 3 content words) -> the delivered window was sufficient and the generator under-used it
+  Q04   generation           the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (60% of 10 content words; missing numbers ['12']; missing words ['bought', 'inception', 'reduce', 'rider'])
+  Q05   generation           the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (65% of 17 content words; missing words ['bonus', 'continuity', 'operate', 'periods', 'preserves', 'waiting'])
+  Q10   generation           the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (100% of 15 content words)
+  Q11   generation           the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (89% of 19 content words; missing words ['additionally', 'platinum'])
+  Q12   generation           all-gold-material fixes it: True; 5 gold-only chunks fix it: True; answer span PRESENT in the delivered 5-chunk window (94% of 18 content words; missing words ['yes']) -> the delivered window was sufficient and the generator under-used it
+  Q19   reranker             generator could do it (all-gold-material fixes it: True; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (75% of 24 content words; missing words ['anaesthetist', 'applied', 'investigations', 'linked', 'nursing', 'surgeon'])) and every gold doc reached the window, but the answer span did not (75% of 24 content words; missing words ['anaesthetist', 'applied', 'investigations', 'linked', 'nursing', 'surgeon']) -- the answer-carrying chunk inside the right document lost the cut [HAND]
+  Q20   generation           the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (50% of 32 content words; missing numbers ['10%', '60']; missing words ['above', 'age', 'alternative', 'applies', 'citizen', 'claim', 'every', 'extra'])
+  Q22   generation           the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (100% of 30 content words)
+  Q26   generation           the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (14% of 21 content words; missing numbers ['24', '50', '50']; missing words ['000', 'apply', 'bronze', 'carries', 'following', 'gold', 'hip', 'joint'])
+  Q29   generation           the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (31% of 16 content words; missing numbers ['2026', '2024']; missing words ['2024', '2026', 'april', 'archived', 'current', 'effective', 'must', 'policies'])
+  Q30   generation           all-gold-material fixes it: True; 5 gold-only chunks fix it: True; answer span PRESENT in the delivered 5-chunk window (80% of 10 content words; missing words ['current', 'says']) -> the delivered window was sufficient and the generator under-used it
+  Q32   ranking              all-gold-material fixes it: True; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (92% of 12 content words; missing words ['platinum']) -> a 5-chunk window cannot hold this answer even when every slot is filled with a gold-document chunk, while more gold material fixes it. Context budget: not a ranking quality problem and not a generation problem
+  Q34   ranking              generator could do it (all-gold-material fixes it: True; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (60% of 15 content words; missing words ['dependent', 'law', 'parents', 'permits', 'platinum', 'tier'])), but gold doc(s) ['dependents-and-family-floater'] were in the top 30 (best ranks [7]) and never reached the 5-chunk window
+  Q35   generation           the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (62% of 21 content words; missing words ['check', 'cleaning', 'excluded', 'one', 'opd', 'optional', 'rider', 'year'])
+  Q37   embedding_mismatch   generator could do it (all-gold-material fixes it: True; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (42% of 26 content words; missing words ['addendum', 'corpus', 'details', 'emergency', 'excluded', 'exists', 'india', 'international'])) but gold doc exclusions never reached the top 30, while its own text retrieves it by its own text -> query/embedding mismatch
+  Q39   missing_content      gold answer content not found in the relevant documents
+  Q41   reranker             generator could do it (all-gold-material fixes it: True; 5 gold-only chunks fix it: True; answer span ABSENT in the delivered 5-chunk window (61% of 23 content words; missing words ['beyond', 'bonus', 'continuity', 'fresh', 'losing', 'lost', 'restart', 'treated'])) and every gold doc reached the window, but the answer span did not (61% of 23 content words; missing words ['beyond', 'bonus', 'continuity', 'fresh', 'losing', 'lost', 'restart', 'treated']) -- the answer-carrying chunk inside the right document lost the cut [HAND]
+
+2 hand label(s) override the script; 0 case(s) still need a human look (Part A2).
+
+mode 1  missing content     n = 1
+mode 2  chunk boundary      n = 0
+mode 3  embedding mismatch  n = 1
+mode 4  ranking             n = 2
+mode 5  reranker            n = 2
+mode 6  generation          n = 12
+mode 7  presentation        n = 0
+                               --------
+total                           18
+
+failure mode          n    share   cumulative
+generation            12   66.7%   66.7%  ████████████████████
+reranker               2   11.1%   77.8%  ███
+ranking                2   11.1%   88.9%  ███
+embedding_mismatch     1    5.6%   94.4%  ██
+missing_content        1    5.6%   100.0%  ██
+
+0 case(s) need a human look (Part A2). Open the chunks around the gold answer and record the judgement.
+
+saved -> C:\Users\chou_\OneDrive - Plaksha University\Documents\msai_projects\msai\practice_lab\AI in Practice – 1\AI-in-Practice-Lab\aip-lab\reports\lab5_diagnosis_v2b.json
+saved -> C:\Users\chou_\OneDrive - Plaksha University\Documents\msai_projects\msai\practice_lab\AI in Practice – 1\AI-in-Practice-Lab\aip-lab\reports\lab5_d3_summary.json

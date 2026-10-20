@@ -1,0 +1,826 @@
+{
+  "baseline": "lab5_v1",
+  "arms": {
+    "lab4-original": {
+      "metrics": {
+        "n": 45,
+        "n_answerable": 40,
+        "n_unanswerable": 5,
+        "n_failures": 16,
+        "correctness_raw": 1.575,
+        "correctness_norm": 0.7875,
+        "faithfulness": 0.7954545454545454,
+        "faithfulness_parse_failures": 1,
+        "citation_validity": 1.0,
+        "repair_rate": 0.2222222222222222,
+        "refusal_recall": 1.0,
+        "refusal_precision": 0.8333333333333334,
+        "n_refusals": 6,
+        "gold_doc_coverage": 0.9067460317460319,
+        "distinct_docs": 3.4444444444444446,
+        "answer_chars": null,
+        "variant": "lab4 (as run 2026-09-22)",
+        "note": "no .meta.json: cost and latency were not recorded per arm in the Lab 4 run, only in its log"
+      },
+      "by_kind": {
+        "aggregation": {
+          "normalised": 0.625,
+          "n": 4
+        },
+        "multi_hop": {
+          "normalised": 0.65,
+          "n": 10
+        },
+        "paraphrase": {
+          "normalised": 1.0,
+          "n": 5
+        },
+        "single_hop": {
+          "normalised": 0.8333333333333334,
+          "n": 18
+        },
+        "trap_archived": {
+          "normalised": 0.8333333333333334,
+          "n": 3
+        }
+      }
+    },
+    "lab5_v1": {
+      "metrics": {
+        "n": 45,
+        "n_answerable": 40,
+        "n_unanswerable": 5,
+        "n_failures": 18,
+        "correctness_raw": 1.525,
+        "correctness_norm": 0.7625,
+        "faithfulness": 0.7555555555555555,
+        "faithfulness_parse_failures": 0,
+        "citation_validity": 1.0,
+        "repair_rate": 0.0,
+        "refusal_recall": 1.0,
+        "refusal_precision": 1.0,
+        "n_refusals": 5,
+        "gold_doc_coverage": 0.9067460317460319,
+        "distinct_docs": 3.4444444444444446,
+        "answer_chars": 137.57777777777778,
+        "ndcg@10": 0.8830198454400702,
+        "recall@5": 0.9186507936507937,
+        "mrr": 0.9246031746031746,
+        "hit_rate@1": 0.8571428571428571,
+        "calls_per_query": 3.022222222222222,
+        "tokens_per_query": 3518.7555555555555,
+        "prompt_tokens_per_query": 1792.8222222222223,
+        "completion_tokens_per_query": 1725.9333333333334,
+        "cost_usd": 0.0,
+        "unpriced_calls": 122,
+        "latency_p50_ms": 6351.2,
+        "latency_p95_ms": 26877.5,
+        "variant": "v1",
+        "pipeline": {
+          "rerank": false,
+          "completeness": false,
+          "system": "lab4 ANSWER_SYSTEM"
+        }
+      },
+      "by_kind": {
+        "aggregation": {
+          "normalised": 0.625,
+          "n": 4
+        },
+        "multi_hop": {
+          "normalised": 0.7,
+          "n": 10
+        },
+        "paraphrase": {
+          "normalised": 0.8,
+          "n": 5
+        },
+        "single_hop": {
+          "normalised": 0.8333333333333334,
+          "n": 18
+        },
+        "trap_archived": {
+          "normalised": 0.6666666666666666,
+          "n": 3
+        }
+      }
+    },
+    "lab5_v2a": {
+      "metrics": {
+        "n": 45,
+        "n_answerable": 40,
+        "n_unanswerable": 5,
+        "n_failures": 19,
+        "correctness_raw": 1.525,
+        "correctness_norm": 0.7625,
+        "faithfulness": 0.7111111111111111,
+        "faithfulness_parse_failures": 0,
+        "citation_validity": 1.0,
+        "repair_rate": 0.0,
+        "refusal_recall": 0.8,
+        "refusal_precision": 1.0,
+        "n_refusals": 4,
+        "gold_doc_coverage": 0.9067460317460319,
+        "distinct_docs": 3.4444444444444446,
+        "answer_chars": 148.9777777777778,
+        "ndcg@10": 0.8830198454400702,
+        "recall@5": 0.9186507936507937,
+        "mrr": 0.9246031746031746,
+        "hit_rate@1": 0.8571428571428571,
+        "calls_per_query": 2.9555555555555557,
+        "tokens_per_query": 3732.8,
+        "prompt_tokens_per_query": 1838.5333333333333,
+        "completion_tokens_per_query": 1894.2666666666667,
+        "cost_usd": 0.0,
+        "unpriced_calls": 123,
+        "latency_p50_ms": 11719.9,
+        "latency_p95_ms": 34289.8,
+        "variant": "v2a",
+        "pipeline": {
+          "rerank": false,
+          "completeness": true,
+          "system": "lab5 ANSWER_SYSTEM_V2 (completeness clause)"
+        }
+      },
+      "by_kind": {
+        "aggregation": {
+          "normalised": 0.625,
+          "n": 4
+        },
+        "multi_hop": {
+          "normalised": 0.7,
+          "n": 10
+        },
+        "paraphrase": {
+          "normalised": 0.8,
+          "n": 5
+        },
+        "single_hop": {
+          "normalised": 0.8611111111111112,
+          "n": 18
+        },
+        "trap_archived": {
+          "normalised": 0.5,
+          "n": 3
+        }
+      }
+    },
+    "lab5_v2b": {
+      "metrics": {
+        "n": 45,
+        "n_answerable": 40,
+        "n_unanswerable": 5,
+        "n_failures": 16,
+        "correctness_raw": 1.55,
+        "correctness_norm": 0.775,
+        "faithfulness": 0.7555555555555555,
+        "faithfulness_parse_failures": 0,
+        "citation_validity": 1.0,
+        "repair_rate": 0.0,
+        "refusal_recall": 0.8,
+        "refusal_precision": 1.0,
+        "n_refusals": 4,
+        "gold_doc_coverage": 0.8809523809523809,
+        "distinct_docs": 3.7333333333333334,
+        "answer_chars": 148.57777777777778,
+        "ndcg@10": 0.8830198454400702,
+        "recall@5": 0.9186507936507937,
+        "mrr": 0.9246031746031746,
+        "hit_rate@1": 0.8571428571428571,
+        "calls_per_query": 2.977777777777778,
+        "tokens_per_query": 3512.6666666666665,
+        "prompt_tokens_per_query": 1827.3333333333333,
+        "completion_tokens_per_query": 1685.3333333333333,
+        "cost_usd": 0.0,
+        "unpriced_calls": 111,
+        "latency_p50_ms": 8380.9,
+        "latency_p95_ms": 36020.0,
+        "variant": "v2b",
+        "pipeline": {
+          "rerank": true,
+          "completeness": true,
+          "system": "lab5 ANSWER_SYSTEM_V2 (completeness clause)"
+        }
+      },
+      "by_kind": {
+        "aggregation": {
+          "normalised": 0.625,
+          "n": 4
+        },
+        "multi_hop": {
+          "normalised": 0.75,
+          "n": 10
+        },
+        "paraphrase": {
+          "normalised": 0.9,
+          "n": 5
+        },
+        "single_hop": {
+          "normalised": 0.8333333333333334,
+          "n": 18
+        },
+        "trap_archived": {
+          "normalised": 0.5,
+          "n": 3
+        }
+      }
+    }
+  },
+  "before_after": {
+    "lab5_v1 -> lab5_v2a": {
+      "correctness_norm": {
+        "label": "correctness (normalised 0-1)",
+        "baseline": 0.7625,
+        "arm": 0.7625,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "correctness_raw": {
+        "label": "correctness (raw 0-2)",
+        "baseline": 1.525,
+        "arm": 1.525,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "faithfulness": {
+        "label": "faithfulness",
+        "baseline": 0.7555555555555555,
+        "arm": 0.7111111111111111,
+        "delta": -0.0444444444444444,
+        "higher_is_better": true
+      },
+      "citation_validity": {
+        "label": "citation validity",
+        "baseline": 1.0,
+        "arm": 1.0,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "refusal_recall": {
+        "label": "refusal recall",
+        "baseline": 1.0,
+        "arm": 0.8,
+        "delta": -0.19999999999999996,
+        "higher_is_better": true
+      },
+      "refusal_precision": {
+        "label": "refusal precision",
+        "baseline": 1.0,
+        "arm": 1.0,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "repair_rate": {
+        "label": "repair rate",
+        "baseline": 0.0,
+        "arm": 0.0,
+        "delta": 0.0,
+        "higher_is_better": null
+      },
+      "gold_doc_coverage": {
+        "label": "gold-doc coverage in window",
+        "baseline": 0.9067460317460319,
+        "arm": 0.9067460317460319,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "distinct_docs": {
+        "label": "distinct docs in window",
+        "baseline": 3.4444444444444446,
+        "arm": 3.4444444444444446,
+        "delta": 0.0,
+        "higher_is_better": null
+      },
+      "answer_chars": {
+        "label": "mean answer chars",
+        "baseline": 137.57777777777778,
+        "arm": 148.9777777777778,
+        "delta": 11.400000000000006,
+        "higher_is_better": null
+      },
+      "ndcg@10": {
+        "label": "nDCG@10 (stage 1)",
+        "baseline": 0.8830198454400702,
+        "arm": 0.8830198454400702,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "recall@5": {
+        "label": "recall@5 (stage 1)",
+        "baseline": 0.9186507936507937,
+        "arm": 0.9186507936507937,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "mrr": {
+        "label": "MRR (stage 1)",
+        "baseline": 0.9246031746031746,
+        "arm": 0.9246031746031746,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "hit_rate@1": {
+        "label": "hit_rate@1 (stage 1)",
+        "baseline": 0.8571428571428571,
+        "arm": 0.8571428571428571,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "calls_per_query": {
+        "label": "model calls / query",
+        "baseline": 3.022222222222222,
+        "arm": 2.9555555555555557,
+        "delta": -0.06666666666666643,
+        "higher_is_better": false
+      },
+      "tokens_per_query": {
+        "label": "tokens / query",
+        "baseline": 3518.7555555555555,
+        "arm": 3732.8,
+        "delta": 214.0444444444447,
+        "higher_is_better": false
+      },
+      "prompt_tokens_per_query": {
+        "label": "prompt tokens / query",
+        "baseline": 1792.8222222222223,
+        "arm": 1838.5333333333333,
+        "delta": 45.711111111110995,
+        "higher_is_better": false
+      },
+      "completion_tokens_per_query": {
+        "label": "completion tokens / query",
+        "baseline": 1725.9333333333334,
+        "arm": 1894.2666666666667,
+        "delta": 168.33333333333326,
+        "higher_is_better": false
+      },
+      "latency_p50_ms": {
+        "label": "generation p50 (ms)",
+        "baseline": 6351.2,
+        "arm": 11719.9,
+        "delta": 5368.7,
+        "higher_is_better": false
+      },
+      "latency_p95_ms": {
+        "label": "generation p95 (ms)",
+        "baseline": 26877.5,
+        "arm": 34289.8,
+        "delta": 7412.300000000003,
+        "higher_is_better": false
+      }
+    },
+    "lab5_v1 -> lab5_v2b": {
+      "correctness_norm": {
+        "label": "correctness (normalised 0-1)",
+        "baseline": 0.7625,
+        "arm": 0.775,
+        "delta": 0.012500000000000067,
+        "higher_is_better": true
+      },
+      "correctness_raw": {
+        "label": "correctness (raw 0-2)",
+        "baseline": 1.525,
+        "arm": 1.55,
+        "delta": 0.025000000000000133,
+        "higher_is_better": true
+      },
+      "faithfulness": {
+        "label": "faithfulness",
+        "baseline": 0.7555555555555555,
+        "arm": 0.7555555555555555,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "citation_validity": {
+        "label": "citation validity",
+        "baseline": 1.0,
+        "arm": 1.0,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "refusal_recall": {
+        "label": "refusal recall",
+        "baseline": 1.0,
+        "arm": 0.8,
+        "delta": -0.19999999999999996,
+        "higher_is_better": true
+      },
+      "refusal_precision": {
+        "label": "refusal precision",
+        "baseline": 1.0,
+        "arm": 1.0,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "repair_rate": {
+        "label": "repair rate",
+        "baseline": 0.0,
+        "arm": 0.0,
+        "delta": 0.0,
+        "higher_is_better": null
+      },
+      "gold_doc_coverage": {
+        "label": "gold-doc coverage in window",
+        "baseline": 0.9067460317460319,
+        "arm": 0.8809523809523809,
+        "delta": -0.025793650793650924,
+        "higher_is_better": true
+      },
+      "distinct_docs": {
+        "label": "distinct docs in window",
+        "baseline": 3.4444444444444446,
+        "arm": 3.7333333333333334,
+        "delta": 0.28888888888888875,
+        "higher_is_better": null
+      },
+      "answer_chars": {
+        "label": "mean answer chars",
+        "baseline": 137.57777777777778,
+        "arm": 148.57777777777778,
+        "delta": 11.0,
+        "higher_is_better": null
+      },
+      "ndcg@10": {
+        "label": "nDCG@10 (stage 1)",
+        "baseline": 0.8830198454400702,
+        "arm": 0.8830198454400702,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "recall@5": {
+        "label": "recall@5 (stage 1)",
+        "baseline": 0.9186507936507937,
+        "arm": 0.9186507936507937,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "mrr": {
+        "label": "MRR (stage 1)",
+        "baseline": 0.9246031746031746,
+        "arm": 0.9246031746031746,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "hit_rate@1": {
+        "label": "hit_rate@1 (stage 1)",
+        "baseline": 0.8571428571428571,
+        "arm": 0.8571428571428571,
+        "delta": 0.0,
+        "higher_is_better": true
+      },
+      "calls_per_query": {
+        "label": "model calls / query",
+        "baseline": 3.022222222222222,
+        "arm": 2.977777777777778,
+        "delta": -0.04444444444444429,
+        "higher_is_better": false
+      },
+      "tokens_per_query": {
+        "label": "tokens / query",
+        "baseline": 3518.7555555555555,
+        "arm": 3512.6666666666665,
+        "delta": -6.08888888888896,
+        "higher_is_better": false
+      },
+      "prompt_tokens_per_query": {
+        "label": "prompt tokens / query",
+        "baseline": 1792.8222222222223,
+        "arm": 1827.3333333333333,
+        "delta": 34.51111111111095,
+        "higher_is_better": false
+      },
+      "completion_tokens_per_query": {
+        "label": "completion tokens / query",
+        "baseline": 1725.9333333333334,
+        "arm": 1685.3333333333333,
+        "delta": -40.600000000000136,
+        "higher_is_better": false
+      },
+      "latency_p50_ms": {
+        "label": "generation p50 (ms)",
+        "baseline": 6351.2,
+        "arm": 8380.9,
+        "delta": 2029.6999999999998,
+        "higher_is_better": false
+      },
+      "latency_p95_ms": {
+        "label": "generation p95 (ms)",
+        "baseline": 26877.5,
+        "arm": 36020.0,
+        "delta": 9142.5,
+        "higher_is_better": false
+      }
+    }
+  },
+  "regressions": [
+    {
+      "comparison": "lab5_v1 -> lab5_v2a",
+      "metric": "faithfulness",
+      "label": "faithfulness",
+      "baseline": 0.7555555555555555,
+      "arm": 0.7111111111111111,
+      "delta": -0.0444444444444444
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2a",
+      "metric": "refusal_recall",
+      "label": "refusal recall",
+      "baseline": 1.0,
+      "arm": 0.8,
+      "delta": -0.19999999999999996
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2a",
+      "metric": "tokens_per_query",
+      "label": "tokens / query",
+      "baseline": 3518.7555555555555,
+      "arm": 3732.8,
+      "delta": 214.0444444444447
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2a",
+      "metric": "prompt_tokens_per_query",
+      "label": "prompt tokens / query",
+      "baseline": 1792.8222222222223,
+      "arm": 1838.5333333333333,
+      "delta": 45.711111111110995
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2a",
+      "metric": "completion_tokens_per_query",
+      "label": "completion tokens / query",
+      "baseline": 1725.9333333333334,
+      "arm": 1894.2666666666667,
+      "delta": 168.33333333333326
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2a",
+      "metric": "latency_p50_ms",
+      "label": "generation p50 (ms)",
+      "baseline": 6351.2,
+      "arm": 11719.9,
+      "delta": 5368.7
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2a",
+      "metric": "latency_p95_ms",
+      "label": "generation p95 (ms)",
+      "baseline": 26877.5,
+      "arm": 34289.8,
+      "delta": 7412.300000000003
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2b",
+      "metric": "refusal_recall",
+      "label": "refusal recall",
+      "baseline": 1.0,
+      "arm": 0.8,
+      "delta": -0.19999999999999996
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2b",
+      "metric": "gold_doc_coverage",
+      "label": "gold-doc coverage in window",
+      "baseline": 0.9067460317460319,
+      "arm": 0.8809523809523809,
+      "delta": -0.025793650793650924
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2b",
+      "metric": "prompt_tokens_per_query",
+      "label": "prompt tokens / query",
+      "baseline": 1792.8222222222223,
+      "arm": 1827.3333333333333,
+      "delta": 34.51111111111095
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2b",
+      "metric": "latency_p50_ms",
+      "label": "generation p50 (ms)",
+      "baseline": 6351.2,
+      "arm": 8380.9,
+      "delta": 2029.6999999999998
+    },
+    {
+      "comparison": "lab5_v1 -> lab5_v2b",
+      "metric": "latency_p95_ms",
+      "label": "generation p95 (ms)",
+      "baseline": 26877.5,
+      "arm": 36020.0,
+      "delta": 9142.5
+    }
+  ],
+  "transitions": {
+    "lab5_v1 -> lab5_v2a": {
+      "gained": [
+        {
+          "id": "Q07",
+          "kind": "single_hop",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "id": "Q08",
+          "kind": "single_hop",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "id": "Q24",
+          "kind": "multi_hop",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "id": "Q29",
+          "kind": "trap_archived",
+          "from": 0,
+          "to": 1
+        }
+      ],
+      "lost": [
+        {
+          "id": "Q01",
+          "kind": "single_hop",
+          "from": 2,
+          "to": 1,
+          "answer": "You have 30 days to submit a reimbursement claim after discharge [1][2].  \nThe archived 2024 rules state a 15‑day deadline for the main reimbursement claim [3].  \nThus the sources disagree on the required time frame [1][2][3]."
+        },
+        {
+          "id": "Q25",
+          "kind": "multi_hop",
+          "from": 2,
+          "to": 1,
+          "answer": "₹60,000 [1]"
+        },
+        {
+          "id": "Q30",
+          "kind": "trap_archived",
+          "from": 2,
+          "to": 1,
+          "answer": "Source [1] states that a planned cashless admission must be notified 72 hours before admission [1].  \nSource [2] states that a planned cashless admission must be notified 48 hours before admission [2].  \nThe sources disagree on the required notice period [1][2]."
+        },
+        {
+          "id": "Q31",
+          "kind": "trap_archived",
+          "from": 2,
+          "to": 1,
+          "answer": "Aurora settles a reimbursement claim within 15 working days of receiving the last required document, and if a query is raised the deadline restarts when the requested document is supplied [1][2]"
+        },
+        {
+          "id": "Q37",
+          "kind": "unanswerable",
+          "from": 1,
+          "to": 0,
+          "answer": "Aurora does not cover treatment in Singapore as it is excluded under permanent exclusions [2]. No coverage limit applies."
+        }
+      ],
+      "unchanged": [
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q09",
+        "Q10",
+        "Q11",
+        "Q12",
+        "Q13",
+        "Q14",
+        "Q15",
+        "Q16",
+        "Q17",
+        "Q18",
+        "Q19",
+        "Q20",
+        "Q21",
+        "Q22",
+        "Q23",
+        "Q26",
+        "Q27",
+        "Q28",
+        "Q32",
+        "Q33",
+        "Q34",
+        "Q35",
+        "Q36",
+        "Q38",
+        "Q39",
+        "Q40",
+        "Q41",
+        "Q42",
+        "Q43",
+        "Q44",
+        "Q45"
+      ]
+    },
+    "lab5_v1 -> lab5_v2b": {
+      "gained": [
+        {
+          "id": "Q07",
+          "kind": "single_hop",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "id": "Q08",
+          "kind": "single_hop",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "id": "Q21",
+          "kind": "multi_hop",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "id": "Q24",
+          "kind": "multi_hop",
+          "from": 1,
+          "to": 2
+        },
+        {
+          "id": "Q43",
+          "kind": "paraphrase",
+          "from": 1,
+          "to": 2
+        }
+      ],
+      "lost": [
+        {
+          "id": "Q01",
+          "kind": "single_hop",
+          "from": 2,
+          "to": 1,
+          "answer": "Group corporate plans allow a reimbursement claim submission window of 60 days from discharge [1].  \nStandard (non‑group) claims must be submitted within 30 days of discharge [2][3].  \nThe archived 2024 rules specify a 15‑day deadline for the main reimbursement claim [4]."
+        },
+        {
+          "id": "Q12",
+          "kind": "single_hop",
+          "from": 2,
+          "to": 1,
+          "answer": "Mental illness is covered (in‑patient treatment) [1]."
+        },
+        {
+          "id": "Q26",
+          "kind": "multi_hop",
+          "from": 1,
+          "to": 0,
+          "answer": "No, knee replacement is not covered immediately after I buy the policy; it is covered only after a 30‑day waiting period for illness (and possibly longer for some conditions) [1]"
+        },
+        {
+          "id": "Q30",
+          "kind": "trap_archived",
+          "from": 2,
+          "to": 1,
+          "answer": "A planned cashless admission must be notified 48 hours before admission [1]. The hospital must notify a planned cashless admission at least 72 hours before admission [2][4]."
+        },
+        {
+          "id": "Q39",
+          "kind": "unanswerable",
+          "from": 2,
+          "to": 0,
+          "answer": "No, the Aurora policy does not cover a dog’s veterinary bills. [2]"
+        }
+      ],
+      "unchanged": [
+        "Q02",
+        "Q03",
+        "Q04",
+        "Q05",
+        "Q06",
+        "Q09",
+        "Q10",
+        "Q11",
+        "Q13",
+        "Q14",
+        "Q15",
+        "Q16",
+        "Q17",
+        "Q18",
+        "Q19",
+        "Q20",
+        "Q22",
+        "Q23",
+        "Q25",
+        "Q27",
+        "Q28",
+        "Q29",
+        "Q31",
+        "Q32",
+        "Q33",
+        "Q34",
+        "Q35",
+        "Q36",
+        "Q37",
+        "Q38",
+        "Q40",
+        "Q41",
+        "Q42",
+        "Q44",
+        "Q45"
+      ]
+    }
+  }
+}

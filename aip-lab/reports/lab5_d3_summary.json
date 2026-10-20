@@ -1,0 +1,36 @@
+{
+  "input": "reports/lab5_v2b.json",
+  "n_rows": 45,
+  "n_failures": 18,
+  "tally": {
+    "missing_content": 1,
+    "chunk_boundary": 0,
+    "embedding_mismatch": 1,
+    "ranking": 2,
+    "reranker": 2,
+    "generation": 12,
+    "presentation": 0
+  },
+  "tally_by_id": {
+    "generation": "Q35",
+    "reranker": "Q41",
+    "ranking": "Q34",
+    "embedding_mismatch": "Q37",
+    "missing_content": "Q39"
+  },
+  "script_tally": {
+    "missing_content": 1,
+    "chunk_boundary": 2,
+    "embedding_mismatch": 1,
+    "ranking": 2,
+    "reranker": 0,
+    "generation": 12,
+    "presentation": 0
+  },
+  "overridden": [
+    "Q19",
+    "Q41"
+  ],
+  "needs_human_check": [],
+  "pareto": "failure mode          n    share   cumulative\ngeneration            12   66.7%   66.7%  ████████████████████\nreranker               2   11.1%   77.8%  ███\nranking                2   11.1%   88.9%  ███\nembedding_mismatch     1    5.6%   94.4%  ██\nmissing_content        1    5.6%   100.0%  ██"
+}

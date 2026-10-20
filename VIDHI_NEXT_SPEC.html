@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Vidhi Next — Standalone Advanced Build Spec</title>
+<style>
+  :root{
+    --paper:#FAF6EE; --card:#FFFFFF; --tint:#F5EFE0; --tint2:#EFE7D4;
+    --ink:#22302B; --ink-soft:#3E4A44; --muted:#6B7280;
+    --accent:#B4530A; --accent-ink:#92400E; --gold:#9A6B0F; --teal:#134E4A;
+    --line:#E3DCCB; --line-soft:#EDE7D6;
+    --ok-bg:#E7F0E4; --ok-fg:#1E6B34;
+    --warn-bg:#FBF0D9; --warn-fg:#8A5A00; --warn-bar:#D97706;
+    --ref-bg:#F9E4E1; --ref-fg:#A93226; --ref-bar:#B3261E;
+    --info-bg:#E8EFF0; --info-bar:#134E4A;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Cascadia Mono",monospace;
+    --serif:Georgia,"Palatino Linotype","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --focus:2px solid var(--accent);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:15px;line-height:1.6}
+  a{color:var(--accent-ink)}
+  code,kbd{font-family:var(--mono);font-size:.86em;background:var(--tint);
+    padding:.12em .4em;border-radius:5px;border:1px solid var(--line-soft)}
+  pre{background:#1F2A27;color:#E8F0EC;border-radius:10px;padding:16px 18px;
+    overflow:auto;font-size:12.5px;line-height:1.55;border:1px solid #31403A}
+  pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit;white-space:pre}
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(250,246,238,.94);
+    border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+  .topbar-in{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:17px;color:var(--teal);white-space:nowrap}
+  .brand .mark{display:inline-flex;width:26px;height:26px;border-radius:7px;background:var(--teal);color:#fff;
+    align-items:center;justify-content:center;font-size:15px;flex:none}
+  .topbar .meta{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+  .layout{max-width:1120px;margin:0 auto;padding:0 20px 80px;display:grid;
+    grid-template-columns:260px minmax(0,1fr);gap:36px;align-items:start}
+  nav.toc{position:sticky;top:64px;font-size:13px;max-height:calc(100vh - 80px);overflow:auto;padding:24px 0}
+  nav.toc h2{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:0 0 10px;font-weight:700}
+  nav.toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
+  nav.toc li{margin:1px 0}
+  nav.toc a{display:block;padding:5px 10px;border-radius:7px;color:var(--ink-soft);text-decoration:none;border-left:2px solid transparent}
+  nav.toc a:hover{background:var(--tint);color:var(--accent-ink)}
+  nav.toc a.sub{padding-left:22px;font-size:12.5px;color:var(--muted)}
+  main{padding:28px 0;min-width:0}
+  header.hero{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:8px}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+  h1{font-family:var(--serif);font-size:38px;line-height:1.15;font-weight:700;color:var(--teal);margin:0 0 10px}
+  .lede{font-size:17px;color:var(--ink-soft);max-width:70ch;margin:0 0 16px}
+  .byline{font-size:13px;color:var(--muted)}
+  h2{font-family:var(--serif);font-size:26px;color:var(--teal);margin:44px 0 10px;padding-top:8px;border-top:2px solid var(--line)}
+  h3{font-family:var(--serif);font-size:19px;color:var(--ink);margin:26px 0 8px}
+  h4{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-ink);margin:20px 0 6px}
+  p{margin:0 0 12px;max-width:78ch}
+  ul,ol{max-width:78ch;padding-left:22px;margin:0 0 12px}
+  li{margin:4px 0}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;background:var(--card);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);font-style:italic;padding:0 0 6px}
+  th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line-soft)}
+  thead th{background:var(--tint2);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft)}
+  tbody tr:last-child td{border-bottom:0}
+  td code{white-space:nowrap}
+  .wrap{overflow-x:auto}
+  .callout{border-left:4px solid var(--warn-bar);background:var(--warn-bg);border-radius:0 9px 9px 0;padding:13px 16px;margin:16px 0}
+  .callout.info{border-color:var(--info-bar);background:var(--info-bg)}
+  .callout.ok{border-color:var(--ok-fg);background:var(--ok-bg)}
+  .callout.ref{border-color:var(--ref-bar);background:var(--ref-bg)}
+  .callout b{color:var(--accent-ink)}
+  .callout p:last-child{margin-bottom:0}
+  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;padding:2px 9px;border-radius:999px;white-space:nowrap}
+  .pill.p0{background:var(--ref-bg);color:var(--ref-fg)}
+  .pill.p1{background:var(--warn-bg);color:var(--warn-fg)}
+  .pill.p2{background:var(--info-bg);color:var(--info-bar)}
+  .pill.ok{background:var(--ok-bg);color:var(--ok-fg)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;box-shadow:0 1px 3px rgba(60,50,20,.06)}
+  .tile h4{margin:0 0 6px}
+  .tile p{margin:0;font-size:13px;color:var(--ink-soft)}
+  .kpi{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+  .kpi div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-width:130px}
+  .kpi b{display:block;font-family:var(--serif);font-size:24px;color:var(--gold);line-height:1.1}
+  .kpi span{font-size:11.5px;color:var(--muted)}
+  .filetree{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow:auto;color:var(--ink-soft)}
+  .mono{font-family:var(--mono);font-size:12.5px}
+  .muted{color:var(--muted)}
+  .anchor{color:var(--muted);text-decoration:none;font-size:.7em;vertical-align:middle}
+  .promptbox{position:relative;margin:14px 0}
+  .promptbox .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:#fff;background:var(--teal);border-radius:6px 6px 0 0;padding:4px 12px}
+  .promptbox pre{border-radius:0 10px 10px 10px;margin-top:0}
+  hr{border:0;border-top:1px dotted var(--line);margin:30px 0}
+  footer{border-top:2px solid var(--line);margin-top:40px;padding-top:18px;font-size:12.5px;color:var(--muted)}
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .toc a:focus-visible,.wrap a:focus-visible{outline:var(--focus);outline-offset:2px}
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr;gap:0}
+    nav.toc{position:static;max-height:none;border-bottom:1px solid var(--line);padding-bottom:14px}
+    h1{font-size:30px}
+  }
+  @media print{
+    .topbar,nav.toc{display:none}
+    .layout{display:block;max-width:none;padding:0}
+    body{background:#fff;font-size:11pt}
+    h2{page-break-after:avoid}
+    pre{background:#f4f4f4;color:#111;border-color:#ddd}
+    a{color:#000;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-in">
+    <span class="brand"><span class="mark" aria-hidden="true">§</span> Vidhi Next</span>
+    <span class="meta">Standalone advanced build spec<br>from Vidhi Guardian v1 · not part of aip-lab</span>
+  </div>
+</div>
+
+<div class="layout">
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#how">How to use this document</a></li>
+    <li><a href="#mission">1. What we are trying to do</a></li>
+    <li><a href="#today">2. What exists today (v1)</a></li>
+    <li><a href="#independence">3. The independence mandate</a></li>
+    <li><a href="#advanced">4. What “advanced” means</a></li>
+    <li><a href="#architecture">5. Target architecture &amp; contracts</a></li>
+    <li><a href="#judge">6. The deterministic spec (the judge)</a></li>
+    <li><a href="#data">7. Data &amp; corpus plan</a></li>
+    <li><a href="#eval">8. Evaluation, gates &amp; CI</a></li>
+    <li><a href="#capabilities">9. New capability specs</a></li>
+    <li><a href="#deliverables">10. Deliverables &amp; done</a></li>
+    <li><a href="#nongoals">11. Non-goals, limits, risks</a></li>
+    <li><a href="#prompts">12. Ready-to-paste prompts</a></li>
+    <li><a href="#appendix">Appendix</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero">
+  <p class="kicker">Build specification · paste-ready instruction for an AI coding agent</p>
+  <h1>Vidhi Next — a standalone, advanced statistical-validity firewall</h1>
+  <p class="lede">A deterministic governance layer that decides whether a claim about Indian official survey statistics may be <em>said at all</em> — before any model writes a word — and proves the decision with a cited rule, a verified source cell, and a frozen hash. This document captures the intent, the current system, and a complete, phased plan to rebuild it as an independent project.</p>
+  <p class="byline">Author of the base system: Ajay Choudhary (MSAI @ Plaksha University). Spec derived from <code>aip-lab/vidhi</code> (Vidhi Guardian v1). Prepared as a hand-off instruction for the next build.</p>
+</header>
+
+<!-- ============================================================= -->
+<section id="how">
+<h2>How to use this document</h2>
+<p>This is the single source of truth for the rebuild. It is written to be handed to an AI coding agent (or a new engineer) as the authoritative brief. Everything the agent needs — mission, current architecture, the decoupling constraint, the target design, module contracts, the exact deterministic rules, the evaluation bar, and the definition of done — is here.</p>
+<div class="callout info">
+  <p><b>Suggested workflow.</b> (1) Read §1–§3 to lock the intent and the independence rule. (2) Start with the <b>Master kickoff prompt</b> in §12 to bootstrap the repo. (3) Build <b>Phase P0</b> in §4, checking each phase's acceptance test in §8 before moving on. (4) For each phase, paste that phase's prompt from §12. (5) Never accept a claim without a measured number (see the ethos in §1).</p>
+</div>
+<div class="callout">
+  <p><b>Assumptions baked into this spec</b> (change them explicitly if you disagree, before coding):</p>
+  <ul>
+    <li>The new project is a <b>new top-level repository/folder</b>, not a folder inside <code>aip-lab</code>. It must not import anything from <code>aip-lab/</code> or the <code>aip</code> toolkit.</li>
+    <li>It stays <b>Python-first</b>, CPU-only, offline-capable, and free to run (no GPU, no paid API needed for the core path).</li>
+    <li>The first corpus remains <b>MoSPI Indian official statistics</b> (PLFS, HCES, TUS, MIS) because that is where the current evidence and rules live; the architecture must stay survey-agnostic.</li>
+    <li>The core promise is unchanged: <b>rules judge, models translate; freeze before retrieval</b>. The “advanced” work extends coverage, safety calibration, extraction robustness, performance and explainability — it does <b>not</b> relax the guarantees.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============================================================= -->
+<section id="mission">
+<h2>1. What we are trying to do <a class="anchor" href="#mission">#</a></h2>
+
+<h3>1.1 The one-liner</h3>
+<div class="callout ok">
+  <p><b>“Find the number is solved. Whether you are allowed to say it is not.”</b><br>
+  Government statistical assistants (e.g. MoSPI’s StatsDoc pilot) help users <em>retrieve</em> official figures. Vidhi Next is the governance layer that checks whether a claim is <em>statistically defensible</em> — and stops the user, with a cited rule, when it is not.</p>
+</div>
+
+<h3>1.2 The problem we are solving</h3>
+<p>Generative AI over sovereign statistics fails at <b>governance</b>, not retrieval. Retrieval over official PDFs is largely a solved engineering problem. The unsolved problem is that a fluent model will happily:</p>
+<ol>
+  <li><b>Hallucinate statutory definitions.</b> Example: expanding MPCE as “<em>Mean</em> Per Capita Expenditure” when the statute says “<em>Monthly</em> Per Capita Consumption Expenditure”.</li>
+  <li><b>Do unguided cross-round arithmetic.</b> Example: quoting ~40% MPCE growth between HCES 2011-12 and 2023-24 without warning that the 2023-24 round switched from single-visit paper canvassing to three-visit CAPI with a restructured item list — a methodological break that makes a raw level comparison invalid.</li>
+  <li><b>Be subverted by its own evidence.</b> Retrieved document chunks can carry instructions (prompt injection via RAG), so a poisoned passage can flip a verdict.</li>
+</ol>
+<p>A fourth, quieter failure: on a slice it has no data for, an unconstrained RAG system <b>guesses</b> instead of saying “I have no verified figure for this slice.”</p>
+
+<h3>1.3 The thesis (why deterministic)</h3>
+<p>You cannot fix a probabilistic system with more probabilistic system prompts. The decision — <em>is this claim allowed?</em> — must be made by <b>versioned, transparent, deterministic rules</b>, before generation. The model may only <em>translate</em> a question into structure, and <em>phrase</em> an already-frozen answer. It may never move the verdict.</p>
+
+<h3>1.4 The six non-negotiable guarantees</h3>
+<p>These are the soul of the system. Every advanced feature must preserve all six, and each must have an automated test (see §8).</p>
+<div class="grid">
+  <div class="tile"><h4>1 · Rules judge, models translate</h4><p>No LLM output can change a verdict. Verdicts come only from deterministic, versioned rules.</p></div>
+  <div class="tile"><h4>2 · Freeze before retrieval</h4><p>The verdict hash — <span class="mono">SHA-256(claim + decision + reason + rules)</span> — is computed <em>before</em> any document text is read. Poisoned chunks cannot move it. (“Safety-B”.)</p></div>
+  <div class="tile"><h4>3 · No cosine threshold is safe</h4><p>Danger-pair and paraphrase similarity ranges overlap on every embedder we measured. Cache reuse requires exact match on all critical fields, not a similarity score.</p></div>
+  <div class="tile"><h4>4 · No PASS without provenance</h4><p>A numeric answer requires a <span class="mono">verified</span> store row whose value traces to cited source text. Anything else is WARN or REFUSE.</p></div>
+  <div class="tile"><h4>5 · Ambiguity is never contradiction</h4><p>Post-retrieval checks only contradict on same round + same filters + same measure basis + same unit. When in doubt, do not downgrade silently — and never upgrade.</p></div>
+  <div class="tile"><h4>6 · Honest coverage</h4><p>Uncovered slices return <span class="mono">WARN_NO_DATA</span> plus a live coverage note naming the requested slice and the closest verified context — never endorsed, never guessed.</p></div>
+</div>
+
+<h3>1.5 The ethos: “No number, no claim”</h3>
+<p>“The prompt got better” scores zero. A deliverable is a measured, reproducible claim with a confidence interval: <em>“verdict accuracy 100/100 [Wilson 95% CI 0.963–1.000] on the 100-query golden set, reproducible offline in one command.”</em> A negative result, honestly measured, is full credit. A fabricated number is a hard failure.</p>
+
+<h3>1.6 Who this is for</h3>
+<p>Journalists, fact-checkers, legislative researchers, statistical agencies, and any AI assistant that needs a trustworthy authority for “what can I safely claim from this data?” Vidhi Next should be usable both as a <b>standalone service/CLI</b> and as an <b>MCP tool</b> that other agents call as a governance oracle.</p>
+</section>
+
+<!-- ============================================================= -->
+<section id="today">
+<h2>2. What exists today (Vidhi Guardian v1) <a class="anchor" href="#today">#</a></h2>
+<p>The reference implementation lives in <code>aip-lab/vidhi/</code>. It works, it is measured, and it is the behavioural baseline the rebuild must match or beat. This section is the inventory you are cloning the <em>behaviour</em> of, while discarding the <em>coupling</em>.</p>
+
+<h3>2.1 End-to-end pipeline</h3>
+<div class="wrap">
+<pre><code>Question
+  → trace_id
+  → exact cache (normalized question)
+  → translation: NL → typed Claim (heuristic by default; LLM optional, translate-only)
+  → confidence gate (structural, floor 0.60)
+  → semantic cache on canonical Claim JSON (field-guarded; cosine proposes, fields dispose)
+  → FIREWALL  [ Scope → Safety-A → Comparability → Metadata → Numeric ]  (first rule fires)
+  → frozen verdict: PASS | WARN | REFUSE  +  sub_code  +  reason_code  +  SHA-256 hash
+  → retrieval (UNTRUSTED, post-freeze; curated excerpts + full-corpus hybrid)
+  → consistency check (post-retrieval; may only DOWNGRADE PASS → WARN)
+  → templated generation (WARN/REFUSE wording fixed; optional LLM polish on PASS only)
+  → citation validation (every [n] must resolve to a retrieved chunk)
+  → Response (figure · evidence tier · caveats · citations · coverage · frozen hash · trace)</code></pre>
+</div>
+
+<h3>2.2 The five firewall stages (fixed order, first rule fires)</h3>
+<div class="wrap">
+<table>
+  <caption>Stage order is a contract: tests assert it never changes.</caption>
+  <thead><tr><th>#</th><th>Stage</th><th>Purpose</th><th>Refuse / Warn reason codes</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><b>Scope</b></td><td>Block out-of-jurisdiction topics</td><td><code>R_FORECAST</code>, <code>R_CAUSAL</code>, <code>R_POLITICAL</code>, <code>R_MICRODATA</code>, <code>R_SCOPE_OUT</code></td></tr>
+    <tr><td>2</td><td><b>Safety-A</b></td><td>Reject prompt-injection directives in the question</td><td><code>R_PROMPT_INJECTION</code></td></tr>
+    <tr><td>3</td><td><b>Comparability</b></td><td>Enforce survey-break caveats (versioned YAML)</td><td><code>R_COMPARABILITY_HCES_METHOD</code>, <code>R_COMPARABILITY_PLFS_REVAMP</code>, <code>R_COMPARABILITY_EUS_PLFS</code>, <code>R_COMPARABILITY_STATUS_MIX</code></td></tr>
+    <tr><td>4</td><td><b>Metadata</b></td><td>Validate survey/indicator/measure/disaggregation against a taxonomy</td><td><code>R_METADATA_UNKNOWN_SURVEY</code>, <code>R_METADATA_UNKNOWN_INDICATOR</code>, <code>R_METADATA_UNSUPPORTED_MEASURE</code>, <code>R_METADATA_UNSUPPORTED_DISAGGREGATION</code></td></tr>
+    <tr><td>5</td><td><b>Numeric</b></td><td>Verify against the <span class="mono">verified</span> ground-truth store (confidence gate embedded)</td><td><code>R_OK</code>, <code>R_NO_CURATED_ROW</code>, <code>R_NUMERIC_MISMATCH</code>, <code>R_LOW_EXTRACTION_CONF</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>2.3 Decisions and sub-codes</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>Decision</th><th>Sub-codes</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><b>PASS</b></td><td><code>PASS_WITH_NUMBER</code>, <code>PASS_METHODOLOGY_ONLY</code></td><td>A verified row exists (or a definitional/methodology question is answered from official excerpts). Only <span class="mono">verified</span> rows may PASS.</td></tr>
+    <tr><td><b>WARN</b></td><td><code>WARN_COMPARABILITY</code>, <code>WARN_METADATA</code>, <code>WARN_NO_DATA</code>, <code>WARN_NUMERIC_MISMATCH</code>, <code>WARN_LOW_CONFIDENCE</code></td><td>Answerable only with a caveat, or uncoverable — never a silent guess. WARN may still carry a verified figure <em>with</em> its caveat.</td></tr>
+    <tr><td><b>REFUSE</b></td><td><code>REFUSE_SCOPE</code>, <code>REFUSE_SAFETY</code>, <code>REFUSE_COMPARABILITY</code></td><td>Out of scope, injected, or inference across a methodology break (e.g. poverty/real-change across HCES 2011-12). REFUSE is reserved for speculation, politics and injections — never for an answerable number.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>2.4 The Response contract (what the user receives)</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>decision</code>, <code>sub_code</code>, <code>reason_code</code></td><td>The verdict and the rule that produced it.</td></tr>
+    <tr><td><code>headline</code></td><td>Templated prose. WARN/REFUSE wording is fixed; a PASS may be optionally polished by an LLM but numbers and <code>[n]</code> tags must stay byte-identical.</td></tr>
+    <tr><td><code>figure</code></td><td><code>{value, unit, row_id, source, round}</code> or null. Only populated from a verified row (or a clearly-labelled SOURCED tier).</td></tr>
+    <tr><td><code>evidence_tier</code></td><td><code>VERIFIED</code> (from the frozen store) | <code>SOURCED</code> (live API, labelled “sourced, not certified”) | <code>NONE</code>.</td></tr>
+    <tr><td><code>caveats</code>, <code>citations</code>, <code>coverage</code></td><td>The methodological caveat(s), the retrieved evidence with indices, and a live coverage note for uncovered slices.</td></tr>
+    <tr><td><code>verdict_frozen_hash</code>, <code>rule_version</code></td><td>The frozen committee of record. Recompute and compare to prove integrity.</td></tr>
+    <tr><td><code>trace_id</code>, <code>latency_ms</code></td><td>Observability.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>2.5 Data, provenance and the audit gate</h3>
+<ul>
+  <li><b>Store</b> (<code>store.json</code>): the built truth artifact, generated — never hand-edited. Each row carries <span class="mono">survey, round, indicator, measure, geography, state, residence, sex, age_group, activity, value, unit, source_document, table_or_section, verification_status, provenance{extractor, pdf_sha256, …}</span> and a per-row <span class="mono">audit_note</span>.</li>
+  <li><b>Audit gate</b> (<code>audit.py</code>): every candidate value must be traceable to its cited source text (value near its anchor word or state name). Untraceable values or duplicate row IDs <b>fail the build</b>. A dual-source rule requires API and PDF parsers to agree exactly on any overlapping row.</li>
+  <li><b>Current coverage:</b> 173 verified rows — HCES state MPCE (both imputation legs, all states/UTs, rural+urban), PLFS national LFPR/WPR/UR, TUS activity minutes. Measured store coverage of the golden set ≈ 54/173 (31.2%).</li>
+  <li><b>Comparability rules</b> (<code>data/vidhi/comparability_rules.yaml</code>, v3): each rule carries <span class="mono">verdict, sub_code, reason_code, caveat_quote (verbatim), source_doc, source_page, active</span>. Rules are <b>data</b>, so the frozen hash binds the exact YAML version.</li>
+  <li><b>Survey taxonomy</b> (<code>data/vidhi/survey_metadata.yaml</code>, v3): in-corpus surveys with indicators, measures, allowed disaggregations; plus <span class="mono">reference_only</span> surveys (kept so cross-round comparisons hit Comparability rather than blunt out-of-scope).</li>
+</ul>
+
+<h3>2.6 Retrieval, service, agent, MCP, demo</h3>
+<ul>
+  <li><b>Retrieval</b> (post-freeze, untrusted): curated excerpts first, then a hybrid BM25 + dense (RRF) pass over a full-PDF index; bi-encoder rerank blends cosine (0.7) with keyword score (0.3).</li>
+  <li><b>Service</b>: FastAPI — <code>POST /ask</code>, <code>POST /ask/stream</code> (SSE, validate-before-stream), <code>POST /analyze</code> (agent), <code>GET /demo</code>, <code>GET /health</code> (index size, rules hash, staleness), <code>GET /metrics</code> (cost, p99, index).</li>
+  <li><b>MCP server</b>: JSON-RPC 2.0 over stdio with four tools — <code>adjudicate_statistical_claim</code>, <code>check_survey_comparability</code>, <code>lookup_verified_ground_truth</code>, <code>get_survey_metadata</code>. Arg schemas validated before dispatch.</li>
+  <li><b>Policy agent</b>: decomposes compound inquiries into atomic claims, adjudicates each, and synthesises a typed <code>PolicyBriefing</code> (governance status, integrity score, risk scorecard, defensible-phrasing recommendation) using five defence layers (L1 untrusted delimiters → L5 citation integrity).</li>
+  <li><b>Demo UI</b> (<code>demo.html</code>): a single self-contained file — editorial theme, example chips, verdict cards, citation cards, coverage note, frozen hash line, history, health badge. No build step, offline-safe.</li>
+</ul>
+
+<h3>2.7 Measured results (the regression baseline)</h3>
+<div class="kpi">
+  <div><b>100/100</b><span>verdict accuracy<br>[Wilson 0.963–1.000]</span></div>
+  <div><b>100/100</b><span>reason-code accuracy</span></div>
+  <div><b>59/59</b><span>numeric exact match<br>[0.939–1.000]</span></div>
+  <div><b>0</b><span>danger-pair collisions<br>of 19</span></div>
+  <div><b>173/173</b><span>verified store rows<br>with provenance</span></div>
+  <div><b>$0.00</b><span>cost per query<br>(deterministic path)</span></div>
+  <div><b>138 ms</b><span>p50 latency<br>in-process, CPU-only</span></div>
+</div>
+<div class="callout">
+  <p>These are the numbers the rebuild must <b>match on the same golden set</b> and then <b>extend</b> (larger golden set, more danger pairs, calibrated safety). Keep them as the frozen baseline in <code>eval/baseline_v1.json</code>.</p>
+</div>
+</section>
+
+<!-- ============================================================= -->
+<section id="independence">
+<h2>3. The independence mandate <a class="anchor" href="#independence">#</a></h2>
+<p><b>Goal:</b> the new project must stand alone. It must not import from <code>aip-lab/</code> or the shared <code>aip</code> toolkit, and it must not read files under the <code>aip-lab</code> tree at runtime. Clone the <em>behaviour</em>, not the <em>dependency</em>.</p>
+
+<h3>3.1 Current coupling inventory (what to replace)</h3>
+<p>Vidhi v1 borrows these utilities from the course toolkit. Each is small; reimplement or vendor each into the new package under <code>vidhi_next/core/</code> (or a small internal <code>_vendor</code>).</p>
+<div class="wrap">
+<table>
+  <thead><tr><th>Current import (aip-lab)</th><th>Used for</th><th>Standalone replacement</th></tr></thead>
+  <tbody>
+    <tr><td><code>aip.llm.generate / chat</code></td><td>Optional LLM translator + PASS polish</td><td>Own thin client behind a <code>Translator</code>/<code>Polisher</code> interface; default OFF; provider-agnostic (env-configured). No hard dependency.</td></tr>
+    <tr><td><code>aip.embed.embed</code></td><td>Dense embeddings / rerank</td><td>Own <code>Embedder</code> interface with a local <code>sentence-transformers</code> backend and a deterministic hash-based fallback for CI.</td></tr>
+    <tr><td><code>aip.chunking.Chunk</code>, <code>aip.retrieval.Bm25Retriever</code></td><td>Full-corpus hybrid retrieval</td><td>Own <code>chunking</code> + <code>bm25</code> modules (BM25 is ~100 lines; make it testable and offline).</td></tr>
+    <tr><td><code>aip.guards.detect_injection</code></td><td>Safety-A</td><td>Own <code>safety</code> module. Keep a transparent regex/rule baseline <b>and</b> add the calibrated classifier from §9 (this is the weakest current component).</td></tr>
+    <tr><td><code>aip.guards.redact_pii</code></td><td>Trace hygiene</td><td>Own <code>redact</code> module.</td></tr>
+    <tr><td><code>aip.cost.global_budget</code></td><td>Cost ceiling + metrics</td><td>Own <code>budget</code> module (budget ledger, percentile latency, JSON metrics).</td></tr>
+    <tr><td><code>aip.tracing.trace</code></td><td>Structured traces</td><td>Own <code>tracing</code> module (context manager emitting JSONL spans, append-only audit log from §9).</td></tr>
+    <tr><td><code>aip.cache.stats</code></td><td>Health/metrics</td><td>Own <code>cache</code> module (exact + field-guarded semantic cache, stats).</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>3.2 Independence rules (acceptance)</h3>
+<ul>
+  <li><b>Zero</b> occurrences of <code>import aip</code>, <code>from aip</code>, or any path containing <code>aip-lab</code> in the new codebase. Add a test that greps the source tree and fails on any match.</li>
+  <li>The package installs and runs from a clean checkout with <b>no network</b>: <code>pip install -e ".[dev]"</code> then the full test + eval suite must be green offline.</li>
+  <li>Data (PDFs, store, rules, golden set) is <b>copied into the new repo</b> (or re-fetched by the new repo’s own fetcher) — never read from <code>aip-lab/</code>.</li>
+  <li>A single command runs everything: <code>make verify</code> (ingest → audit → build store → eval → tests). Non-zero exit on any failure.</li>
+</ul>
+</section>
+
+<!-- ============================================================= -->
+<section id="advanced">
+<h2>4. What “advanced” means <a class="anchor" href="#advanced">#</a></h2>
+<p>“Advanced” is defined as measurable extensions that keep all six guarantees. Build in priority order; each item lists its acceptance test.</p>
+
+<h3>4.1 P0 — Must (the rebuild is not done without these)</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>ID</th><th>Capability</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td>A0.1</td><td><b>Full independence.</b> New self-contained package; no <code>aip</code> imports; offline.</td><td>Grep test finds zero; clean-clone offline <code>make verify</code> green.</td></tr>
+    <tr><td>A0.2</td><td><b>Behavioural parity.</b> Same verdict + reason + value on the v1 golden set and danger pairs.</td><td><code>eval/parity_v1</code> reports 100/100 verdict, 100/100 reason, 59/59 numeric, 0/19 collisions.</td></tr>
+    <tr><td>A0.3</td><td><b>Coverage-scaling ingestion engine.</b> A template/registry-driven PDF → verified-row pipeline so new tables are added without touching the firewall.</td><td>Adding one new survey family = new parser + registry entry + golden cases; no change to <code>rules</code>/<code>store.lookup</code>. Coverage demonstrably grows.</td></tr>
+    <tr><td>A0.4</td><td><b>Calibrated Safety-A.</b> Replace regex-only injection detection with a transparent baseline <em>plus</em> a measured classifier.</td><td>Precision ≥ 0.90 at recall ≥ 0.80 on a committed red-team set of ≥ 100 injections and ≥ 100 benign questions; both scores reported with CIs.</td></tr>
+    <tr><td>A0.5</td><td><b>Measured LLM translator.</b> NL→Claim via LLM, translate-only, with a schema-repair loop.</td><td>Extraction accuracy measured on a labelled paraphrase set; participates only when it beats the heuristic; falls back safely.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>4.2 P1 — Should (the big quality jumps)</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>ID</th><th>Capability</th><th>Acceptance</th></tr></thead>
+  <tbody>
+    <tr><td>A1.1</td><td><b>Adversarial scale-up.</b> Danger pairs 19 → 100+ (incl. paraphrases, synonyms, word order, numerals); Safety-B fuzzing.</td><td>0 collisions at every threshold on the expanded set; Safety-B hash invariant across >50 poisoned variants.</td></tr>
+    <tr><td>A1.2</td><td><b>Freshness &amp; signed manifest.</b> Scheduled rebuild, staleness alert, signed/hashed store manifest.</td><td><code>/health</code> exposes staleness days + manifest hash; a stale store raises a visible warning; signature verifies.</td></tr>
+    <tr><td>A1.3</td><td><b>Performance &amp; load.</b> Concurrency-safe caches + a load test.</td><td>p95 SLO met at 20+ concurrent; the first bottleneck is measured and documented, not “unknown”.</td></tr>
+    <tr><td>A1.4</td><td><b>Explainability &amp; audit log.</b> Every verdict explains which rule fired, the source cell, and the recomputable hash; append-only log.</td><td><code>GET /verdict/{trace_id}</code> returns the full trace; a <code>verify</code> subcommand recomputes the hash and matches.</td></tr>
+    <tr><td>A1.5</td><td><b>API v2 + Python SDK + CLI.</b> Versioned endpoints, a typed client, and a <code>vidhi ask</code> CLI.</td><td>SDK round-trip test; OpenAPI schema committed; CLI returns the same verdict object as the service.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>4.3 P2 — Could (stretch)</h3>
+<ul>
+  <li><b>A2.1 Multilingual queries</b> (e.g. Hindi) that still resolve to the same typed Claim and the same verdict.</li>
+  <li><b>A2.2 More surveys/registers</b> (e.g. NAS, CPI scope-note, NFHS) — proving the architecture is survey-agnostic.</li>
+  <li><b>A2.3 “Verify this sentence” mode</b> for journalists: paste a claim, get a PASS/WARN/REFUSE with the rule and the source cell.</li>
+  <li><b>A2.4 Deployment &amp; monitoring</b> (container, pinned CA, secret manager, metrics/alerting) for a Ministry-grade bar.</li>
+</ul>
+</section>
+
+<!-- ============================================================= -->
+<section id="architecture">
+<h2>5. Target architecture &amp; contracts <a class="anchor" href="#architecture">#</a></h2>
+
+<h3>5.1 Package layout</h3>
+<div class="filetree">vidhi-next/
+├─ pyproject.toml              # single installable package + extras [dev,llm,serve]
+├─ Makefile                    # make verify = ingest → audit → build → eval → test
+├─ README.md
+├─ docs/
+│  ├─ DESIGN.md                # guarantees ↔ tests
+│  ├─ EVALUATION.md            # measured report, honest limits
+│  └─ RULES.md                 # rule catalog + reason codes
+├─ src/vidhi/
+│  ├─ __init__.py
+│  ├─ core/                    # the standalone replacements for aip.*
+│  │  ├─ embed.py  bm25.py  chunking.py
+│  │  ├─ llm.py  tracing.py  budget.py  cache.py  redact.py
+│  ├─ claims.py                # Claim schema + canonical()/key() + heuristic extract
+│  ├─ translator.py            # LLM translator (translate-only) + schema repair
+│  ├─ rules.py                 # the judge: 5 stages + freeze + Verdict
+│  ├─ store.py                 # built artifact, strict verified-only lookup, coverage
+│  ├─ audit.py                 # provenance gate; fails the build
+│  ├─ sources/                 # one module per table family + registry.py
+│  │  ├─ registry.py  factsheet.py  plfs.py  tus.py  esankhyiki.py
+│  ├─ retrieve.py              # post-freeze evidence lookup (untrusted)
+│  ├─ consistency.py           # post-retrieval contradiction check (downgrade only)
+│  ├─ render.py                # Response object + templates + citation validation
+│  ├─ pipeline.py              # ask(): orchestration, caches, trace, cost
+│  ├─ safety.py                # injection detection baseline + classifier
+│  ├─ service.py               # FastAPI: /ask /ask/stream /analyze /health /metrics /demo /verdict/{id}
+│  ├─ mcp_server.py            # JSON-RPC stdio, 4 tools, arg schemas
+│  ├─ agent.py                 # PolicyBriefing agent
+│  ├─ report.py                # PolicyBriefing schema + synthesis
+│  └─ cli.py                   # vidhi ask / verify / eval
+├─ data/
+│  ├─ raw/                     # official PDFs + sha256 manifest
+│  ├─ truth/store.json         # BUILT artifact (generated)
+│  ├─ rules/comparability_rules.yaml
+│  ├─ taxonomy/survey_metadata.yaml
+│  └─ excerpts/                # curated verbatim excerpts + Safety-B probe
+├─ eval/
+│  ├─ golden.jsonl             # ≥100 verdict+reason+value cases
+│  ├─ danger_pairs.jsonl       # ≥100 no-collision pairs
+│  ├─ redteam/                 # injection set + benign set (for calibration)
+│  ├─ paraphrase/              # labelled extraction set
+│  ├─ baseline_v1.json         # frozen v1 numbers (parity target)
+│  └─ thresholds.yml           # gates
+├─ tests/                      # guarantee tests (see §8)
+├─ scripts/
+│  ├─ build_store.py  audit_store.py  index_corpus.py  make_docs.py  loadtest.py
+└─ .github/workflows/verify.yml</div>
+
+<h3>5.2 Plane dependency rule (dependencies point down only)</h3>
+<div class="wrap">
+<pre><code>service / demo / mcp / agent / cli        ← thin; no adjudication logic
+pipeline (ask)                            ← orchestration + traces + cost
+retrieve + consistency + render           ← POST-FREEZE only (untrusted text)
+rules (5-stage firewall + freeze)         ← THE JUDGE
+claims (+ translator)                     ← THE TRANSLATOR
+store (built artifact + manifest)         ← generated; read only via store.lookup
+sources (parsers w/ provenance)           ← machine extraction; raise, never guess</code></pre>
+</div>
+<p><b>Cross-plane invariants:</b> nothing above <code>rules</code> may alter a verdict; nothing may read store rows except through <code>store.lookup</code> (verified-only); retrieval output is untrusted by construction.</p>
+
+<h3>5.3 Core data schemas</h3>
+<h4>Claim (the only thing rules adjudicate)</h4>
+<div class="wrap">
+<pre><code>Claim:
+  survey, round, indicator, measure, geography, state,
+  residence, sex, age_group, activity          # identity fields
+  claim_type: descriptive | comparative | causal | forecast
+            | microdata | out_of_scope | definitional
+  comparison_surveys: list[str]
+  mixes_measures: list[str]
+  user_asserted_value: float | None
+  user_asserted_unit: str | None
+  asserted_pairs: list[{value, round}]
+  wants_forecast, wants_causal, wants_political_judgment, wants_microdata: bool
+  asserts_poverty_or_real_change: bool
+  extraction_confidence: float
+  extraction_notes: str
+  raw_question: str
+
+CANON_FIELDS    = (survey, round, indicator, measure, geography, state,
+                   residence, sex, age_group, activity, claim_type)
+CRITICAL_FIELDS = all of the above   # cache reuse requires exact match on these
+canonical(): dict  → lower-cased, null-dropped, sorted JSON
+key(): sha256(canonical())         # exact-cache key
+</code></pre>
+</div>
+
+<h4>Verdict</h4>
+<div class="wrap">
+<pre><code>Verdict:
+  decision: PASS | WARN | REFUSE
+  sub_code: str            # e.g. PASS_WITH_NUMBER, WARN_NO_DATA
+  reason_code: str         # e.g. R_OK, R_NO_CURATED_ROW
+  message: str
+  stage: scope|safety|comparability|metadata|numeric|confidence|consistency
+  row_id, value, unit      # populated only from a verified row
+  frozen_hash: str         # set by freeze()
+  rule_version: str
+  citations: list[str]
+
+freeze(claim, rule_version):
+  hash = sha256(JSON({claim.canonical(),
+                      verdict:[decision, sub_code, reason_code],
+                      rules:rule_version}, sort_keys=True))[:16]
+</code></pre>
+</div>
+
+<h4>Store row (built, verified-only can PASS)</h4>
+<div class="wrap">
+<pre><code>StoreRow:
+  row_id                     # unique; duplicates fail the build
+  survey, round, indicator, measure, geography, state,
+  residence, sex, age_group, activity
+  reference_period, value, unit
+  source_document, table_or_section
+  verification_status: verified | unverified
+  provenance: { extractor, pdf_sha256, pdf_page?, params?, cross_check? }
+  audit_note: str            # why it is trusted
+</code></pre>
+</div>
+
+<h3>5.4 Configuration (env) — keep it explicit and documented</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>Variable</th><th>Default</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td><code>VIDHI_OFFLINE</code></td><td><code>1</code></td><td>No network on the query path; live sourcing disabled.</td></tr>
+    <tr><td><code>VIDHI_USE_LLM</code></td><td><code>0</code></td><td>Enable the LLM translator (translate-only). Measured, opt-in.</td></tr>
+    <tr><td><code>VIDHI_LLM_PROVIDER</code>, <code>VIDHI_LLM_MODEL</code>, <code>…_API_KEY</code></td><td>—</td><td>Provider-agnostic client config; never logged.</td></tr>
+    <tr><td><code>VIDHI_STORE_PATH</code></td><td><code>data/truth/store.json</code></td><td>The built artifact.</td></tr>
+    <tr><td><code>VIDHI_SEMCACHE_THRESHOLD</code></td><td><code>0.97</code></td><td>Cosine gate only; safety comes from the field-guard, never this.</td></tr>
+    <tr><td><code>VIDHI_SAFETY_MODE</code></td><td><code>baseline</code></td><td><code>baseline</code> | <code>classifier</code> | <code>ensemble</code>.</td></tr>
+    <tr><td><code>VIDHI_STALENESS_DAYS</code></td><td><code>90</code></td><td>Store age that flips <code>/health</code> to stale.</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<!-- ============================================================= -->
+<section id="judge">
+<h2>6. The deterministic spec (the judge) <a class="anchor" href="#judge">#</a></h2>
+<p>This is the part that must be reproduced exactly. It is deliberately small, explicit and boring — that is the point.</p>
+
+<h3>6.1 Adjudication algorithm</h3>
+<div class="wrap">
+<pre><code>def adjudicate(claim) -> Verdict:
+    for stage in (scope, safety, comparability, metadata):   # fixed order
+        v = stage(claim)
+        if v is not None:
+            return v.freeze(claim, rule_version)             # first rule fires
+    if claim.extraction_confidence < 0.60 and claim.claim_type != "definitional":
+        v = numeric(claim)
+        if v.decision == "PASS":
+            return warn(WARN_LOW_CONFIDENCE, R_LOW_EXTRACTION_CONF).freeze(...)
+        return v.freeze(...)
+    return numeric(claim).freeze(claim, rule_version)</code></pre>
+</div>
+
+<h3>6.2 Stage semantics (authoritative behaviour to clone)</h3>
+<ul>
+  <li><b>Scope:</b> REFUSE <code>R_FORECAST</code> if <code>wants_forecast</code>/<code>claim_type==forecast</code>; <code>R_CAUSAL</code> for causal; <code>R_POLITICAL</code> for political judgment; <code>R_MICRODATA</code> for individual/household microdata; <code>R_SCOPE_OUT</code> when the question is unanchored to the corpus.</li>
+  <li><b>Safety-A:</b> REFUSE <code>R_PROMPT_INJECTION</code> when injection signals are detected in the <em>question</em>. (Refine with the calibrated classifier in §9.)</li>
+  <li><b>Comparability:</b> evaluate the set of surveys referenced (claim survey + comparison surveys) against versioned rules and emit the matching WARN/REFUSE with the rule’s verbatim caveat. Poverty/real-change across the HCES 2011-12 break is a REFUSE; a plain level comparison is a WARN. Status-mix (usual vs CWS) and EUS-vs-PLFS get their own WARN codes.</li>
+  <li><b>Metadata:</b> skip for definitional claims; otherwise validate survey → indicator → measure → allowed disaggregations (sex/residence/state/activity/age_group). Unknown or unsupported → WARN with a named code. Round compatibility is intentionally <em>not</em> checked here — the strict store lookup enforces it (no row for that round → <code>WARN_NO_DATA</code>).</li>
+  <li><b>Numeric:</b> definitional → <code>PASS_METHODOLOGY_ONLY</code>. Asserted two-value pairs → verify each round cell-by-cell (<code>R_NUMERIC_MISMATCH</code> on disagreement, else PASS). Same-survey split comparison (rural vs urban, male vs female) → answer every verified side. Otherwise <code>store.lookup</code>: a user-asserted figure is compared (<code>R_NUMERIC_MISMATCH</code> on mismatch); a found row → <code>PASS_WITH_NUMBER</code>; no row → <code>WARN_NO_DATA</code>.</li>
+</ul>
+
+<h3>6.3 store.lookup strictness (subpopulation reification guard)</h3>
+<ul>
+  <li>Only <code>verification_status == "verified"</code> rows are ever considered.</li>
+  <li>Survey and indicator must match. If the claim names a round, the row’s round must match.</li>
+  <li>For <span class="mono">residence/sex/state/geography/activity</span>: if the claim leaves a field unspecified it prefers the aggregate row; if the claim specifies a value, the row must match it — <b>an all-India row can never answer a state/sex slice</b>. Prefer the row with the most specified fields, then the most aggregate remaining.</li>
+  <li>For <span class="mono">measure/age_group</span>: match when both are specified; unspecified on either side is allowed.</li>
+  <li><b>Invariant test:</b> a national figure must never be returned for a state/sex query; a confident wrong subgroup number is worse than a WARN.</li>
+</ul>
+
+<h3>6.4 Field-guarded semantic cache</h3>
+<ul>
+  <li>Exact cache: normalized-question key → full response (~0 ms).</li>
+  <li>Semantic cache: cosine similarity over canonical Claim JSON <b>proposes</b> a hit, but reuse happens <b>only if</b> <code>field_compatible(a, b)</code> — every CRITICAL_FIELD that both sides specify agrees exactly. Confirmed empirically: danger and paraphrase ranges overlap (danger 0.80–0.97 vs paraphrase 0.78–0.95 on bge-small), so <b>no</b> threshold isolates danger pairs. The field-guard is the safety, not the threshold.</li>
+  <li><b>Test:</b> 0 collisions across the danger set at every tested threshold, canonical and pipeline.</li>
+</ul>
+
+<h3>6.5 Comparability rule schema (data, not code)</h3>
+<div class="wrap">
+<pre><code>version: &lt;int&gt;                 # bump when any caveat changes → changes rule_version/hash
+rules:
+  - rule_id: R_COMPARABILITY_* 
+    applies_when: { surveys: [...], claim_type: comparative, asserts: [...] , mixes: [...] }
+    verdict: WARN | REFUSE
+    sub_code: WARN_COMPARABILITY | REFUSE_COMPARABILITY
+    reason_code: R_COMPARABILITY_*
+    caveat_quote: "&lt;verbatim text from the official source&gt;"
+    source_doc: "&lt;pdf name (page/section)&gt;"
+    source_page: "&lt;pp&gt;"
+    active: true</code></pre>
+</div>
+<p><b>Rule:</b> no rule may fire without a source doc, a page/section, and a verbatim caveat quote. <code>rule_version = sha256([rules_blob, row_count])[:12]</code> and is bound into every frozen verdict.</p>
+
+<h3>6.6 Survey taxonomy schema</h3>
+<div class="wrap">
+<pre><code>version: &lt;int&gt;
+in_corpus:
+  - id: &lt;SURVEY_ID&gt;
+    name, round, reference_period, geographic_coverage, methodology_notes
+    indicators:
+      - indicator: &lt;IND&gt;
+        measures: [...]
+        definition_ref: ...
+        allowed_disaggregations: [sex, residence, state, activity, age_group_15plus]
+reference_only:            # known but out-of-corpus → hit Comparability, not blunt REFUSE
+  - id: &lt;OLD_ROUND_ID&gt;
+    note: "superseded round; kept for round-mismatch guard"</code></pre>
+</div>
+
+<h3>6.7 Consistency attribution rules (post-retrieval; downgrade only)</h3>
+<p>A retrieved excerpt may downgrade <code>PASS → WARN_NUMERIC_MISMATCH</code> <b>only</b> on genuine disagreement: same round AND same filters AND same measure basis AND same unit. Every rule below exists because a real incident proved the naive version wrong — reproduce them all:</p>
+<ul>
+  <li>Percent-gap figures (“difference as % of rural MPCE: 69.7”) are <b>not</b> currency levels (unit screen).</li>
+  <li>In “2022-23: … 6,459. 2023-24: …” lists, a number belongs to the <b>preceding</b> round token, not the nearer following one (segment ownership).</li>
+  <li>An excerpt silent on imputation basis cannot contradict a with/without-imputation claim (<b>unknown is never contradiction</b>).</li>
+  <li>Activity-aware for TUS: a same-sex number for a different activity is not a contradiction unless its activity anchor is near.</li>
+  <li>Plural tolerance (“Females spent 289” matches “female”); small counters (“7 days”, “Table 7”) are not figures; calendar years are not figures.</li>
+  <li>Pair claims (two-round) are verified cell-by-cell in <code>rules</code>, never by single-round excerpt attribution.</li>
+</ul>
+</section>
+
+<!-- ============================================================= -->
+<section id="data">
+<h2>7. Data &amp; corpus plan <a class="anchor" href="#data">#</a></h2>
+
+<h3>7.1 Source principles</h3>
+<ul>
+  <li><b>Machine extraction, no hand-typed values.</b> Every value comes from a parser that reads the source PDF/API; each carries cell provenance (document, table, page, sha256).</li>
+  <li><b>Raise, don’t guess.</b> A parser that cannot find its anchor <b>raises</b> (layout drift), rather than guessing. The audit gate catches everything else.</li>
+  <li><b>Dual-source where possible.</b> When two independent channels (e.g. a PDF parser and the live eSankhyiki API) cover the same cell, they must agree exactly; disagreement fails the build.</li>
+  <li><b>Release-time vs query-time.</b> Live/internet ingestion happens at build time only; the query path is offline against the frozen store.</li>
+</ul>
+
+<h3>7.2 The coverage-scaling ingestion engine (P0, A0.3)</h3>
+<p>The single most valuable piece of “advanced” work: make adding data a data problem, not a code problem.</p>
+<ol>
+  <li><b>Parser registry.</b> Each source module declares its tables and exposes <code>records(raw_dir) → (rows, manifest)</code>. The build script iterates the registry; no orchestration changes per source.</li>
+  <li><b>Template families.</b> Group parsers by table shape (e.g. “state × rural/urban two-column”, “round header + 9-value block”, “sentence-anchored highlight”). One robust template serves many tables.</li>
+  <li><b>Verification by construction.</b> Where a table has a known cross-check (e.g. an all-India total, or an API twin), assert it inside the parser so drift fails loudly.</li>
+  <li><b>Coverage dashboard.</b> Emit, per build, a report of verified rows by survey/indicator/slice and the golden-set coverage %, so growth is visible and regressions are obvious.</li>
+</ol>
+<div class="callout">
+  <p><b>Definition of “scaled”:</b> add a new survey family (parser + registry entry + a handful of golden cases) and the golden-set coverage rises, with the firewall, store and rules <b>unchanged</b>. If adding data ever requires editing adjudication logic, the abstraction is wrong.</p>
+</div>
+
+<h3>7.3 Provenance &amp; audit gate (must clone exactly)</h3>
+<ul>
+  <li>Each candidate row is checked: the value must sit near its anchor (an indicator/table phrase for national rows; the state name for state rows), using tolerant numeric variants (<code>4122</code>, <code>4,122</code>, <code>4122.0</code>).</li>
+  <li>Unreadable source, untraceable value, or duplicate row id → <b>build failure</b> (non-zero exit).</li>
+  <li>Every row is frozen with an <code>audit_note</code> explaining why it is trusted.</li>
+</ul>
+</section>
+
+<!-- ============================================================= -->
+<section id="eval">
+<h2>8. Evaluation, gates &amp; CI <a class="anchor" href="#eval">#</a></h2>
+<p>Every claim of quality must be produced by one offline command and reported with uncertainty. No number, no claim.</p>
+
+<h3>8.1 Evaluation suites</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>Suite</th><th>What it proves</th><th>Current baseline</th></tr></thead>
+  <tbody>
+    <tr><td><b>Golden battery</b> (≥100)</td><td>Verdict + reason-code + numeric exactness across all stages/decisions/surveys.</td><td>100/100, 100/100, 59/59</td></tr>
+    <tr><td><b>Danger pairs</b> (≥100)</td><td>No cache collision on slices that differ only by a critical field; canonical + pipeline.</td><td>0/19 collisions</td></tr>
+    <tr><td><b>Safety-B</b></td><td>The frozen hash computed without retrieval equals the pipeline hash; poisoned corpus does not move it.</td><td>identical under injection</td></tr>
+    <tr><td><b>Store audit</b></td><td>Uniqueness + verified-only + provenance for every row.</td><td>173/173</td></tr>
+    <tr><td><b>Determinism</b></td><td>Repeat asks return identical hash/decision/value.</td><td>ok</td></tr>
+    <tr><td><b>Red-team calibration</b> <span class="pill p0">new</span></td><td>Injection precision/recall with CIs on a committed set.</td><td>— (add)</td></tr>
+    <tr><td><b>Extraction / paraphrase</b> <span class="pill p0">new</span></td><td>Heuristic vs LLM translator accuracy on labelled paraphrases.</td><td>— (add)</td></tr>
+    <tr><td><b>Load test</b> <span class="pill p1">new</span></td><td>p95 SLO at 20+ concurrent; first bottleneck identified.</td><td>unmeasured</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>8.2 Gate thresholds (fail the build below these)</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>Gate</th><th>Threshold</th></tr></thead>
+  <tbody>
+    <tr><td>Verdict accuracy</td><td>≥ 0.75 (do not regress below the v1 baseline; target parity 1.000)</td></tr>
+    <tr><td>Reason-code accuracy</td><td>parity with v1 = 1.000 on the shared set</td></tr>
+    <tr><td>Citation validity</td><td>≥ 0.98 (v1 = 1.00)</td></tr>
+    <tr><td>Danger-pair collisions</td><td>= 0 at every tested threshold</td></tr>
+    <tr><td>Safety-B</td><td>hash invariant (hard fail otherwise)</td></tr>
+    <tr><td>Store</td><td>0 unverified rows, 0 duplicate ids, 0 missing provenance</td></tr>
+    <tr><td>Injection precision @ recall ≥ 0.80</td><td>≥ 0.90</td></tr>
+    <tr><td>Independence grep</td><td>0 matches for <code>aip</code> / <code>aip-lab</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>8.3 CI</h3>
+<p>One GitHub Actions workflow on every push/PR: install (offline), <code>make verify</code> (ingest → audit → build → eval → tests), publish the eval JSON as an artifact. A red gate blocks merge. Include a deliberate “break-it” test that plants a bad row / a poisoned excerpt and asserts the gate catches it.</p>
+
+<h3>8.4 Reporting style</h3>
+<p>Report every rate with n and a Wilson confidence interval; separate what we <b>measured</b> from what is <b>anecdotal</b> (e.g. observations of a third-party assistant, which must be labelled study-protocol-only and never presented as our measured baseline). State limitations before successes in the summary.</p>
+</section>
+
+<!-- ============================================================= -->
+<section id="capabilities">
+<h2>9. New capability specs <a class="anchor" href="#capabilities">#</a></h2>
+
+<h3>9.1 Calibrated Safety-A <span class="pill p0">P0</span></h3>
+<ul>
+  <li><b>Interface:</b> <code>safety.check(text) → {flagged, signals, score, mode}</code>; the firewall treats <code>flagged &amp; “override”</code> as the REFUSE trigger, exactly as today.</li>
+  <li><b>Baseline:</b> keep the transparent, testable rule/regex detector as the offline default.</li>
+  <li><b>Classifier:</b> a small local model or a well-specified scoring function, with a committed red-team set (≥100 injections of many families: override, role-switch, exfiltration, encoded blobs, tool abuse) and ≥100 benign questions (including statistics questions that merely <em>mention</em> instructions).</li>
+  <li><b>Report:</b> precision, recall, F1 with CIs; the operating point chosen for a target recall; both modes compared side by side.</li>
+</ul>
+
+<h3>9.2 LLM translator, translate-only <span class="pill p0">P0</span></h3>
+<ul>
+  <li>The LLM maps NL → the exact <code>Claim</code> keys and <b>never</b> touches the verdict. Output is schema-validated; any failure falls back to the heuristic.</li>
+  <li>Include the tolerant JSON repair loop (strip fences, extract object, fix trailing commas/single quotes, default invalid enums).</li>
+  <li>Measure on a labelled paraphrase set against the heuristic; ship whichever wins, with the other as fallback. Off by default; never required for the core path.</li>
+</ul>
+
+<h3>9.3 Explainability &amp; audit log <span class="pill p1">P1</span></h3>
+<ul>
+  <li>Append-only JSONL audit log: one record per ask (redacted question, trace_id, claim, stage that fired, decision/sub/reason, row_id used, rule_version, frozen_hash, latency).</li>
+  <li><code>vidhi verify &lt;trace_id&gt;</code> (CLI) or <code>GET /verdict/{trace_id}</code> recomputes the frozen hash from the stored claim+verdict+rule_version and confirms equality.</li>
+  <li>The demo UI gains a “why this verdict” panel: the rule that fired, its verbatim caveat, and the source cell.</li>
+</ul>
+
+<h3>9.4 Freshness, signed manifest, deployment <span class="pill p1">P1</span></h3>
+<ul>
+  <li>Manifest carries <code>built_at</code>, source sha256 list, rule version, row count, and a signature/hash. <code>/health</code> exposes staleness days and flips stale past the threshold.</li>
+  <li>Container build bakes the store; startup pre-warms the embedder (no first-query cliff). TLS verification on for any live source; secrets from a manager, never <code>.env</code> in production.</li>
+</ul>
+
+<h3>9.5 Service v2, SDK, CLI <span class="pill p1">P1</span></h3>
+<ul>
+  <li>Versioned REST (<code>/v1/ask</code>, <code>/v1/ask/stream</code>, <code>/v1/analyze</code>, <code>/v1/health</code>, <code>/v1/metrics</code>, <code>/v1/verdict/{id}</code>) with a committed OpenAPI schema.</li>
+  <li>Typed Python SDK returning the same <code>Response</code> object as the service; a <code>vidhi</code> CLI with <code>ask</code>, <code>verify</code>, <code>eval</code>.</li>
+  <li>MCP server keeps the four tools; add <code>verify_verdict</code> and <code>explain_verdict</code>.</li>
+</ul>
+</section>
+
+<!-- ============================================================= -->
+<section id="deliverables">
+<h2>10. Deliverables &amp; definition of done <a class="anchor" href="#deliverables">#</a></h2>
+<h3>10.1 Deliverables</h3>
+<ul>
+  <li>Standalone repo: installable package, <code>make verify</code>, CI workflow.</li>
+  <li><code>docs/DESIGN.md</code> — guarantees ↔ tests table (the DESIGN contract).</li>
+  <li><code>docs/EVALUATION.md</code> — measured report with honest limits and CIs.</li>
+  <li><code>docs/RULES.md</code> — the rule/reason-code catalog.</li>
+  <li>Store + rules + taxonomy + golden/danger/red-team/paraphrase datasets, all in-repo.</li>
+  <li>Service (FastAPI), SDK, CLI, MCP server, policy agent, single-file demo UI.</li>
+  <li>Parity report against <code>eval/baseline_v1.json</code>.</li>
+</ul>
+<h3>10.2 Definition of done (all must hold)</h3>
+<ol>
+  <li>Clean clone + <code>make verify</code> green offline, no API key, no GPU.</li>
+  <li>Parity: verdict/reason/numeric at the v1 baseline on the shared golden set; 0 danger collisions.</li>
+  <li>All six guarantees hold, each with a passing test.</li>
+  <li>Independence: zero <code>aip</code>/<code>aip-lab</code> references.</li>
+  <li>P0 capabilities shipped with their acceptance evidence (calibrated safety, measured translator, scaling engine).</li>
+  <li>Evaluation report states limitations honestly and reports uncertainty.</li>
+</ol>
+</section>
+
+<!-- ============================================================= -->
+<section id="nongoals">
+<h2>11. Non-goals, honest limits &amp; risks <a class="anchor" href="#nongoals">#</a></h2>
+<h3>11.1 Non-goals</h3>
+<ul>
+  <li>Not a general-purpose chatbot or a rival retrieval assistant. It is a governance/sourcing layer that other assistants can plug into. REFUSE is reserved for speculation, politics and injections — never for an answerable number.</li>
+  <li>Not a forecasting or causal-inference engine.</li>
+  <li>Not a microdata de-anonymiser (re-identification is refused by design).</li>
+  <li>Not a promise of full-catalog coverage on day one. Coverage is the honest limit; the architecture removes the ceiling.</li>
+</ul>
+<h3>11.2 Known limits to carry forward (be honest)</h3>
+<ul>
+  <li>Coverage is the limit, not logic: uncovered slices return <code>WARN_NO_DATA</code> — never a guess. Scaling the corpus is the main value-add.</li>
+  <li>Heuristic extraction misreads exotic phrasing (plural/casing, UTs); the LLM translator must be measured, not assumed.</li>
+  <li>Any live API source inherits its transport’s weaknesses; keep the query path offline and verify TLS at release time.</li>
+  <li>Semantic cache above any cosine threshold is unsafe; only the field-guard makes it safe (state this in the docs).</li>
+</ul>
+<h3>11.3 Risks &amp; mitigations</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+  <tbody>
+    <tr><td>Scope creep into “just another RAG”</td><td>Enforce the plane rule and the six guarantees; every PR must map to a guarantee test.</td></tr>
+    <tr><td>Extraction drift on PDF changes</td><td>Parsers raise on drift; audit gate fails the build; pinned source sha256.</td></tr>
+    <tr><td>Over-claiming quality</td><td>“No number, no claim”; report n + Wilson CIs; separate measured from anecdotal.</td></tr>
+    <tr><td>Verdict tampering via retrieval</td><td>Safety-B freeze + tests with a poisoned corpus; hash invariant is a hard gate.</td></tr>
+    <tr><td>Costly LLM path creeping into the core</td><td>LLM stays opt-in, off by default; core path is deterministic and $0.</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<!-- ============================================================= -->
+<section id="prompts">
+<h2>12. Ready-to-paste prompts <a class="anchor" href="#prompts">#</a></h2>
+<p>Paste these into a fresh coding session (ideally in the new repo folder). The master prompt bootstraps; phase prompts drive the work. Adjust paths/IDs to the new project name.</p>
+
+<h3>12.1 Master kickoff prompt</h3>
+<div class="promptbox">
+  <span class="tag">Paste first</span>
+<pre><code>You are the lead engineer for "Vidhi Next", a NEW standalone project. Read the attached
+build spec (VIDHI_NEXT_SPEC.html) end to end — it is the source of truth.
+
+Mission: a deterministic statistical-validity firewall for Indian official survey
+statistics (MoSPI: PLFS, HCES, TUS, MIS). It decides whether a statistical claim is
+defensible BEFORE any model writes anything, and proves it with a cited rule, a
+verified source cell, and a frozen SHA-256 verdict hash.
+
+Hard constraints:
+1. INDEPENDENCE: do NOT import from aip-lab or the `aip` toolkit. Reimplement the small
+   utilities the base system borrowed (llm, embed, bm25, chunking, guards, cost,
+   tracing, cache) as our own modules under src/vidhi/core/. Add a test that greps the
+   tree and fails on any `aip`/`aip-lab` reference.
+2. Preserve the SIX GUARANTEES: (1) rules judge, models translate; (2) freeze before
+   retrieval; (3) no cosine threshold is safe — field-guard the cache; (4) no PASS
+   without a verified store row with provenance; (5) ambiguity is never contradiction;
+   (6) honest coverage (WARN_NO_DATA + coverage note, never a guess).
+3. OFFLINE-FIRST, CPU-only, $0 on the core path. One command `make verify` runs
+   ingest -> audit -> build store -> eval -> tests and exits non-zero on any failure.
+
+Start by scaffolding the repo layout in spec §5.1 and the DESIGN guarantees->tests
+table, then implement Phase P0 (§4.1) in order:
+  A0.1 independence, A0.2 behavioural parity with the v1 golden set, A0.3 the
+  coverage-scaling ingestion engine, A0.4 calibrated Safety-A, A0.5 measured LLM
+  translator.
+For each item: write the code, write the test that proves it, run it offline, and
+report the measured result with n and a Wilson confidence interval. Do not claim any
+number you have not measured. Keep an honest log of limitations in docs/EVALUATION.md.
+
+Begin: propose the repo skeleton and the DESIGN guarantees->tests table, then stop for
+my review before writing feature code.</code></pre>
+</div>
+
+<h3>12.2 Phase P0.1 — Independence</h3>
+<div class="promptbox">
+  <span class="tag">Phase prompt</span>
+<pre><code>Implement Phase A0.1 (independence). Create src/vidhi/core/ with our own embed,
+bm25, chunking, llm, tracing, budget, cache, redact, and safety modules, replacing
+every borrowed aip.* utility. Ensure the package installs with `pip install -e ".[dev]"`
+and runs fully offline. Add tests/test_independence.py that walks the source/data trees
+and fails on any occurrence of `aip` / `aip-lab`. Then port the package code from the
+spec (§2 and §6) verbatim in behaviour — no logic changes yet. Report the grep test
+result and a clean `make verify` run.</code></pre>
+</div>
+
+<h3>12.3 Phase P0.2 — Parity harness</h3>
+<div class="promptbox">
+  <span class="tag">Phase prompt</span>
+<pre><code>Implement Phase A0.2 (behavioural parity). Copy the v1 datasets (golden, danger pairs,
+excerpts, rules YAML, taxonomy YAML, store) into eval/ and data/. Build eval/parity_v1.py
+that runs the new pipeline on the shared golden set and danger pairs and compares
+verdict, reason_code and value against eval/baseline_v1.json. Gate: 100/100 verdict,
+100/100 reason, 59/59 numeric, 0/19 danger collisions, Safety-B hash invariant,
+determinism. Print failures with the offending question. Fix code (not tests) until green.</code></pre>
+</div>
+
+<h3>12.4 Phase P0.3 — Coverage-scaling ingestion engine</h3>
+<div class="promptbox">
+  <span class="tag">Phase prompt</span>
+<pre><code>Implement Phase A0.3. Build data/sources/registry.py and the parser template families
+described in spec §7.2. Refactor the existing factsheet/plfs/tus parsers onto the
+registry. Add a coverage dashboard emitted at build time (verified rows by
+survey/indicator/slice + golden-set coverage %). Then add ONE new survey family end to
+end (parser + registry entry + a few golden cases) as a worked example, and show that
+the firewall, store and rules code did NOT change. Report the new coverage number.</code></pre>
+</div>
+
+<h3>12.5 Phase P0.4 — Calibrated Safety-A</h3>
+<div class="promptbox">
+  <span class="tag">Phase prompt</span>
+<pre><code>Implement Phase A0.4. Keep the transparent rule baseline; add a classifier mode enabled
+by VIDHI_SAFETY_MODE. Commit eval/redteam/injections.jsonl (>=100, many families:
+override, role-switch, exfiltration, encoded blobs, tool abuse) and
+eval/redteam/benign.jsonl (>=100, including stats questions that merely mention
+instructions). Build eval/calibrate_safety.py reporting precision, recall, F1 with
+Wilson CIs for baseline vs classifier vs ensemble. Gate: precision >= 0.90 at recall
+>= 0.80. Do not weaken the existing R_PROMPT_INJECTION REFUSE path.</code></pre>
+</div>
+
+<h3>12.6 Phase P0.5 — Measured LLM translator</h3>
+<div class="promptbox">
+  <span class="tag">Phase prompt</span>
+<pre><code>Implement Phase A0.5. Add src/vidhi/translator.py: an LLM that maps NL -> the exact
+Claim keys (translate-only, never judges), with the tolerant JSON repair loop, schema
+validation, and safe fallback to the heuristic. Commit eval/paraphrase/ (labelled
+questions with gold Claim fields: synonyms, word order, numerals, plurals). Build
+eval/extraction.py comparing heuristic vs LLM (field-level accuracy + end-to-end
+verdict parity). Ship the winner as default only if it measurably wins; keep the other
+as fallback. Report numbers with n and CIs. Default VIDHI_USE_LLM=0.</code></pre>
+</div>
+
+<h3>12.7 Reviewer / adversarial-QA prompt</h3>
+<div class="promptbox">
+  <span class="tag">Quality gate</span>
+<pre><code>Act as a hostile reviewer for Vidhi Next. Try to break each of the six guarantees:
+(1) find any path where model output could change a verdict; (2) craft a poisoned
+excerpt that moves the frozen hash; (3) find a cosine threshold that collides a danger
+pair (or prove none exists on the data); (4) get a PASS with a non-verified or
+provenance-less row; (5) make consistency flag a non-contradiction as a contradiction;
+(6) get a guessed figure instead of WARN_NO_DATA. For every attempt, give the exact
+input and the observed output. Report only real, reproducible breaks, with a fix
+recommendation for each. If a guarantee holds, say so and show the test that proves it.</code></pre>
+</div>
+</section>
+
+<!-- ============================================================= -->
+<section id="appendix">
+<h2>Appendix <a class="anchor" href="#appendix">#</a></h2>
+
+<h3>A. Current v1 file inventory (reference)</h3>
+<div class="wrap">
+<table>
+  <caption>Source of truth for behaviour to clone. Line counts approximate.</caption>
+  <thead><tr><th>File (in <code>aip-lab/vidhi/</code>)</th><th>Lines</th><th>Role</th></tr></thead>
+  <tbody>
+    <tr><td><code>claims.py</code></td><td>488</td><td>Claim schema, canonical/key, heuristic extract, LLM extract, confidence, field-guard</td></tr>
+    <tr><td><code>rules.py</code></td><td>453</td><td>5-stage firewall, Verdict, freeze, comparability, metadata, numeric, split/pairs</td></tr>
+    <tr><td><code>answer.py</code></td><td>415</td><td>Post-freeze retrieval + Response rendering + citation validation + optional PASS polish</td></tr>
+    <tr><td><code>mcp_server.py</code></td><td>346</td><td>JSON-RPC stdio MCP, 4 tools, arg schemas</td></tr>
+    <tr><td><code>agent.py</code></td><td>256</td><td>Policy briefing agent (L1–L5 defences)</td></tr>
+    <tr><td><code>consistency.py</code></td><td>214</td><td>Post-retrieval contradiction check (downgrade only)</td></tr>
+    <tr><td><code>eval.py</code></td><td>210</td><td>Golden + danger + Safety-B + store audit + latency + cost</td></tr>
+    <tr><td><code>pipeline.py</code></td><td>171</td><td>ask() orchestration, caches, trace, live-source tier</td></tr>
+    <tr><td><code>service.py</code></td><td>109</td><td>FastAPI endpoints</td></tr>
+    <tr><td><code>store.py</code></td><td>123</td><td>build/load, strict verified-only lookup, coverage</td></tr>
+    <tr><td><code>diagnose.py</code></td><td>115</td><td>Lab5-style failure classification (7 modes)</td></tr>
+    <tr><td><code>audit.py</code></td><td>71</td><td>Provenance audit gate</td></tr>
+    <tr><td><code>sources/factsheet.py</code></td><td>257</td><td>HCES Statement 7 + 15 + FinalReport chart cross-check</td></tr>
+    <tr><td><code>sources/plfs.py</code></td><td>227</td><td>PLFS Table 1 nine-block + WPR/UR highlights</td></tr>
+    <tr><td><code>sources/tus.py</code></td><td>175</td><td>TUS sentence-anchored highlights</td></tr>
+    <tr><td><code>sources/esankhyiki.py</code></td><td>126</td><td>Live MoSPI API adapter (release-time)</td></tr>
+    <tr><td><code>demo.html</code></td><td>384</td><td>Single-file offline demo UI</td></tr>
+    <tr><td><code>tests/test_vidhi.py</code></td><td>~59 tests</td><td>Guarantee + gate tests</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>B. Frozen v1 baseline (parity target)</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>Metric</th><th>Measured</th></tr></thead>
+  <tbody>
+    <tr><td>Golden verdict accuracy (100)</td><td>1.000 [0.963–1.000]</td></tr>
+    <tr><td>Reason-code accuracy (100)</td><td>1.000 [0.963–1.000]</td></tr>
+    <tr><td>Numeric exact match (59 valued)</td><td>1.000 [0.939–1.000]</td></tr>
+    <tr><td>Danger-pair collisions (canonical / pipeline)</td><td>0 / 0 of 19</td></tr>
+    <tr><td>Verified store rows / coverage</td><td>173 / 54 (31.2%)</td></tr>
+    <tr><td>Decisions exercised</td><td>PASS 63, WARN 29, REFUSE 8</td></tr>
+    <tr><td>Stages exercised</td><td>scope 6, safety 1, comparability 6, metadata 5, numeric 82</td></tr>
+    <tr><td>Surveys covered</td><td>HCES 48, PLFS 22, PLFS 2023-24 7, TUS 17, MIS 2</td></tr>
+    <tr><td>Latency p50 / p95 / p99 (in-process)</td><td>138 ms / 2,210 ms / 21.4 s (cold)</td></tr>
+    <tr><td>Cost per query</td><td>$0.0000 (0 model calls)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>C. Reason-code &amp; sub-code catalog</h3>
+<div class="wrap">
+<table>
+  <thead><tr><th>Reason code</th><th>Stage</th><th>Typical decision</th></tr></thead>
+  <tbody>
+    <tr><td><code>R_OK</code></td><td>numeric</td><td>PASS</td></tr>
+    <tr><td><code>R_FORECAST</code>, <code>R_CAUSAL</code>, <code>R_POLITICAL</code>, <code>R_MICRODATA</code>, <code>R_SCOPE_OUT</code></td><td>scope</td><td>REFUSE</td></tr>
+    <tr><td><code>R_PROMPT_INJECTION</code></td><td>safety</td><td>REFUSE</td></tr>
+    <tr><td><code>R_COMPARABILITY_HCES_METHOD</code></td><td>comparability</td><td>WARN (REFUSE if poverty/real-change)</td></tr>
+    <tr><td><code>R_COMPARABILITY_PLFS_REVAMP</code>, <code>R_COMPARABILITY_EUS_PLFS</code>, <code>R_COMPARABILITY_STATUS_MIX</code></td><td>comparability</td><td>WARN</td></tr>
+    <tr><td><code>R_METADATA_UNKNOWN_SURVEY</code>, <code>R_METADATA_UNKNOWN_INDICATOR</code>, <code>R_METADATA_UNSUPPORTED_MEASURE</code>, <code>R_METADATA_UNSUPPORTED_DISAGGREGATION</code></td><td>metadata</td><td>WARN</td></tr>
+    <tr><td><code>R_NO_CURATED_ROW</code></td><td>numeric</td><td>WARN (WARN_NO_DATA)</td></tr>
+    <tr><td><code>R_NUMERIC_MISMATCH</code></td><td>numeric / consistency</td><td>WARN</td></tr>
+    <tr><td><code>R_LOW_EXTRACTION_CONF</code></td><td>confidence</td><td>WARN</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>D. Glossary</h3>
+<ul>
+  <li><b>PASS / WARN / REFUSE</b> — the three verdicts.</li>
+  <li><b>Frozen hash</b> — SHA-256 over claim + verdict + rule_version, computed before retrieval (Safety-B).</li>
+  <li><b>Evidence tier</b> — VERIFIED (frozen store) / SOURCED (live, labelled) / NONE.</li>
+  <li><b>Danger pair</b> — two questions differing only in a critical field (e.g. urban vs rural) that must never share a cached answer.</li>
+  <li><b>Field-guard</b> — deterministic exact match on critical fields; the cache’s real safety mechanism.</li>
+  <li><b>Wilson CI</b> — confidence interval for a proportion, used for every reported rate.</li>
+  <li><b>MCP</b> — Model Context Protocol; lets other AI assistants call Vidhi as a governance tool.</li>
+</ul>
+
+<h3>E. Companion documents in v1 (for tone and rigor)</h3>
+<ul>
+  <li><code>vidhi/README.md</code> — how to run; lab-7 mapping.</li>
+  <li><code>vidhi/DESIGN.md</code> — the guarantees ↔ tests contract; the big-tech and security reviews.</li>
+  <li><code>vidhi/CONCEPT_NOTE.md</code> — the policy-track narrative and progression.</li>
+  <li><code>vidhi/EVALUATION_REPORT.md</code> / <code>vidhi/CONF_AI_PAPER.md</code> — measured results and honest limits.</li>
+  <li><code>vidhi/CONF_AI_SUBMISSION_READINESS.md</code> — the go/no-go checklist (use its structure as the model for <code>docs/EVALUATION.md</code>).</li>
+</ul>
+
+<hr>
+<footer>
+  <p><b>Vidhi Next — Standalone Advanced Build Spec.</b> Captures the intent, the v1 baseline, the independence constraint, the target architecture, the deterministic rules, the evaluation bar, and paste-ready prompts. Derived from Vidhi Guardian v1 (<code>aip-lab/vidhi</code>) by Ajay Choudhary.</p>
+  <p>Rule to keep: <em>“No number, no claim.”</em> A negative result, honestly measured, is full credit.</p>
+</footer>
+</section>
+
+</main>
+</div>
+</body>
+</html>

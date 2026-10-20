@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Vidhi Next v2 — Spec: Closing the Seams Between Rules and Reality (rev 2.2)</title>
+<style>
+  :root{
+    --paper:#FAF6EE; --card:#FFFFFF; --tint:#F5EFE0; --tint2:#EFE7D4;
+    --ink:#22302B; --ink-soft:#3E4A44; --muted:#6B7280;
+    --accent:#B4530A; --accent-ink:#92400E; --gold:#9A6B0F; --teal:#134E4A;
+    --line:#E3DCCB; --line-soft:#EDE7D6;
+    --ok-bg:#E7F0E4; --ok-fg:#1E6B34;
+    --warn-bg:#FBF0D9; --warn-fg:#8A5A00; --warn-bar:#D97706;
+    --ref-bg:#F9E4E1; --ref-fg:#A93226; --ref-bar:#B3261E;
+    --info-bg:#E8EFF0; --info-bar:#134E4A;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Cascadia Mono",monospace;
+    --serif:Georgia,"Palatino Linotype","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --focus:2px solid var(--accent);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+  a{color:var(--accent-ink)}
+  code,kbd{font-family:var(--mono);font-size:.86em;background:var(--tint);padding:.12em .4em;border-radius:5px;border:1px solid var(--line-soft)}
+  pre{background:#1F2A27;color:#E8F0EC;border-radius:10px;padding:16px 18px;overflow:auto;font-size:12.5px;line-height:1.55;border:1px solid #31403A}
+  pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit;white-space:pre}
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(250,246,238,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+  .topbar-in{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:17px;color:var(--teal);white-space:nowrap}
+  .brand .mark{display:inline-flex;width:26px;height:26px;border-radius:7px;background:var(--teal);color:#fff;align-items:center;justify-content:center;font-size:15px;flex:none}
+  .topbar .meta{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+  .layout{max-width:1120px;margin:0 auto;padding:0 20px 80px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:36px;align-items:start}
+  nav.toc{position:sticky;top:64px;font-size:13px;max-height:calc(100vh - 80px);overflow:auto;padding:24px 0}
+  nav.toc h2{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:0 0 10px;font-weight:700}
+  nav.toc ol{list-style:none;margin:0;padding:0}
+  nav.toc li{margin:1px 0}
+  nav.toc a{display:block;padding:5px 10px;border-radius:7px;color:var(--ink-soft);text-decoration:none;border-left:2px solid transparent}
+  nav.toc a:hover{background:var(--tint);color:var(--accent-ink)}
+  nav.toc a.sub{padding-left:22px;font-size:12.5px;color:var(--muted)}
+  main{padding:28px 0;min-width:0}
+  header.hero{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:8px}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+  h1{font-family:var(--serif);font-size:36px;line-height:1.15;font-weight:700;color:var(--teal);margin:0 0 10px}
+  .lede{font-size:17px;color:var(--ink-soft);max-width:70ch;margin:0 0 16px}
+  .byline{font-size:13px;color:var(--muted)}
+  h2{font-family:var(--serif);font-size:26px;color:var(--teal);margin:44px 0 10px;padding-top:8px;border-top:2px solid var(--line)}
+  h3{font-family:var(--serif);font-size:19px;color:var(--ink);margin:26px 0 8px}
+  h4{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-ink);margin:20px 0 6px}
+  p{margin:0 0 12px;max-width:78ch}
+  ul,ol{max-width:78ch;padding-left:22px;margin:0 0 12px}
+  li{margin:4px 0}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);font-style:italic;padding:0 0 6px}
+  th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line-soft)}
+  thead th{background:var(--tint2);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft)}
+  tbody tr:last-child td{border-bottom:0}
+  td code{white-space:nowrap}
+  .wrap{overflow-x:auto}
+  .callout{border-left:4px solid var(--warn-bar);background:var(--warn-bg);border-radius:0 9px 9px 0;padding:13px 16px;margin:16px 0}
+  .callout.info{border-color:var(--info-bar);background:var(--info-bg)}
+  .callout.ok{border-color:var(--ok-fg);background:var(--ok-bg)}
+  .callout.ref{border-color:var(--ref-bar);background:var(--ref-bg)}
+  .callout b{color:var(--accent-ink)}
+  .callout p:last-child{margin-bottom:0}
+  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;padding:2px 9px;border-radius:999px;white-space:nowrap}
+  .pill.p0{background:var(--ref-bg);color:var(--ref-fg)}
+  .pill.p1{background:var(--warn-bg);color:var(--warn-fg)}
+  .pill.p2{background:var(--info-bg);color:var(--info-bar)}
+  .pill.ok{background:var(--ok-bg);color:var(--ok-fg)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;box-shadow:0 1px 3px rgba(60,50,20,.06)}
+  .tile h4{margin:0 0 6px}
+  .tile p{margin:0;font-size:13px;color:var(--ink-soft)}
+  .kpi{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+  .kpi div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-width:130px}
+  .kpi b{display:block;font-family:var(--serif);font-size:24px;color:var(--gold);line-height:1.1}
+  .kpi span{font-size:11.5px;color:var(--muted)}
+  .filetree{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow:auto;color:var(--ink-soft)}
+  .mono{font-family:var(--mono);font-size:12.5px}
+  .muted{color:var(--muted)}
+  .anchor{color:var(--muted);text-decoration:none;font-size:.7em;vertical-align:middle}
+  .promptbox{position:relative;margin:14px 0}
+  .promptbox .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--teal);border-radius:6px 6px 0 0;padding:4px 12px}
+  .promptbox pre{border-radius:0 10px 10px 10px;margin-top:0}
+  hr{border:0;border-top:1px dotted var(--line);margin:30px 0}
+  footer{border-top:2px solid var(--line);margin-top:40px;padding-top:18px;font-size:12.5px;color:var(--muted)}
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  nav.toc a:focus-visible,.wrap a:focus-visible{outline:var(--focus);outline-offset:2px}
+  .prov{font-family:var(--mono);font-size:11px;border-radius:5px;padding:0 6px;border:1px solid var(--line-soft)}
+  .prov.m{background:var(--ok-bg);color:var(--ok-fg)}
+  .prov.c{background:var(--info-bg);color:var(--info-bar)}
+  .prov.v{background:var(--warn-bg);color:var(--warn-fg)}
+  .prov.t{background:var(--tint2);color:var(--ink-soft)}
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr;gap:0}
+    nav.toc{position:static;max-height:none;border-bottom:1px solid var(--line);padding-bottom:14px}
+    h1{font-size:30px}
+  }
+  @media print{
+    .topbar,nav.toc{display:none}
+    .layout{display:block;max-width:none;padding:0}
+    body{background:#fff;font-size:11pt}
+    h2{page-break-after:avoid}
+    pre{background:#f4f4f4;color:#111;border-color:#ddd}
+    a{color:#000;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-in">
+    <span class="brand"><span class="mark" aria-hidden="true">§</span> Vidhi Next v2</span>
+    <span class="meta">Advanced build spec · revision 2.2 · standalone<br>supersedes VIDHI_NEXT_SPEC.html (v1)</span>
+  </div>
+</div>
+
+<div class="layout">
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#how">0. How to use · provenance legend</a></li>
+    <li><a href="#audit">1. Audit: the seams</a></li>
+    <li><a href="#frontier">2. Frontier and incumbent field guide</a></li>
+    <li><a href="#triage">3. Technique triage (adopt / pilot / reject)</a></li>
+    <li><a href="#arch">4. Architecture v2 &amp; contracts</a></li>
+    <li><a href="#judge">5. The judge v2</a></li>
+    <li><a href="#data">6. Data &amp; corpus plan v2</a></li>
+    <li><a href="#eval">7. Evaluation, gates &amp; power</a></li>
+    <li><a href="#phases">8. Phased roadmap</a></li>
+    <li><a href="#ui">9. UI &amp; API contract v2</a></li>
+    <li><a href="#risks">10. Non-goals, limits, risks</a></li>
+    <li><a href="#prompts">11. Ready-to-paste prompts</a></li>
+    <li><a href="#sources">12. Sources</a></li>
+    <li><a href="#appendix">A. Number provenance</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero">
+  <p class="kicker">Build specification · revision 2.2 · paste-ready for an AI coding agent</p>
+  <h1>Vidhi Next v2 — closing the seams between rules and reality</h1>
+  <p class="lede">Vidhi v1 proved a deterministic firewall can hit 100/100 on its own golden set. This revision audits the seams that score does <em>not</em> cover — a verdict hash that doesn't bind the number, a cache rule that could smuggle aggregate answers into slice questions, injection detection that only speaks English (and only fires on one of six signals), comparisons with no notion of sampling error — and specifies the fixes, plus the measured adoption of every candidate technique (fine-tuning, embeddings, GNN, RNN, JEPA, conformal, formal methods) strictly inside the six guarantees — and sets the bar MoSPI's own published AI stack (StatDoc AI, the eSankhyiki semantic search, the website chatbot, the MCP beta) cannot meet by construction: verified adjudication, with a head-to-head benchmark to prove it.</p>
+  <p class="byline">Assembled from: the v1 spec, the v1 evaluation numbers, an interrupted external review (Oct 2026 — research and statistics salvaged, delivery completed here), and the demo v2 referenced alongside this document (commit it alongside so the claims can be verified; it is <em>not</em> part of the v1 baseline repo). All numbers carry provenance marks (§0).</p>
+</header>
+
+<!-- ============================================================= -->
+<section id="how">
+<h2>0. How to use this document <a class="anchor" href="#how">#</a></h2>
+<p>This is the authoritative brief for the next build, superseding v1 of the spec. §1 is the audit (what is actually wrong, ordered by severity). §2 places each problem against what frontier labs and national statistical offices now ship. §3 triages every proposed technique into <b>planes</b> — judge (forbidden to learned models), proposer, evidence, offline tooling, or reject — with honest "this does not help" rows. §4–§9 turn that into architecture, judge deltas, data, evaluation gates, phases, and the API/UI contract. §11 has paste-ready prompts.</p>
+<div class="callout ok">
+  <p><b>Revision 2.1 — corrections applied.</b> A line-by-line audit against the v1 code and the cited sources found six issues, all fixed here: (1) the SMT "reason_code bijection" check contradicted v1, where <code>R_COMPARABILITY_HCES_METHOD</code> maps to two different verdicts — resolved by splitting the code (§5); (2) F2 re-framed as <em>latent</em> — v1's semantic cache is recorded but never served, so the one-sided guard must be fixed <em>before</em> serving is wired (§1); (3) F3 now records that only <b>1 of 6</b> injection signals actually triggers <code>REFUSE</code> in v1 (§1); (4) "rule_version → v4" reworded to the YAML <code>version: 3 → 4</code> bump and its derived-hash consequence (§5); (5) the coverage metric corrected to "row-utilization, <em>misnamed</em>" with the 101-vs-173 denominator defect (§1, §6); (6) heading/count and severity-pill inconsistencies fixed. Added: an acceptance-<b>test ID</b> per seam (§1, §7), the distinguishability guard's independence assumption + false-positive risk (§1, §4.6), and the note that a store rebuild invalidates the <em>positive</em> cache too (§1, §4.6).</p>
+  <p><b>Revision 2.2 — the incumbent bar.</b> MoSPI's own AI stack was researched from MoSPI's own documents this session and is now the explicit competitor: StatDoc AI (<code>statsdoc.ai.mospi.gov.in</code>, login-gated), the website chatbot (<code>chatbot.mospi.gov.in</code>, PIB 30 Mar 2026), the eSankhyiki semantic search (its 8-page user manual was retrieved: top-3 datasets + relevance score + auto-filter redirect), and the eSankhyiki MCP beta (PIB PRID 2224472; 7 datasets, 4-tool workflow). All are <b>discovery/navigation layers; none adjudicates</b>. Consequences in this revision: three new seams (F9 definition-lock, F10 vintage discipline, F11 footnotes), new claim/store fields, three new reason codes, the <code>T-DEFLOCK</code> / <code>T-VINTAGE</code> / <code>T-FOOTNOTE</code> property tests, and the flagship <code>T-INCUMBENT</code> head-to-head suite (§2A, §7). Discipline unchanged: every capability claim about MoSPI's stack is marked <span class="prov v">V</span> (their own description, retrieved verbatim — capability statements, not measured performance); every head-to-head number stays <span class="prov t">T</span> until we measure it ourselves.</p>
+</div>
+<div class="callout info">
+  <p><b>Provenance legend, used on every number in this document.</b>
+  <span class="prov m">M</span> measured in v1 (reproducible offline, one command) ·
+  <span class="prov c">C</span> computed this session (formula shown) ·
+  <span class="prov v">V</span> vendor-reported, <em>not</em> independent evidence (includes MoSPI's own descriptions of its AI stack — capability statements, never measured performance) ·
+  <span class="prov t">T</span> target/gate, not yet measured.</p>
+  <p>Two classes of claim are kept strictly separate: findings <b>verified from the documents or code</b> (the spec text, the submission, the demo source, the v1 modules) and <b>hypotheses that need a test against the v1 code</b> (marked <span class="pill p2">verify-in-code</span>). Sources in §12 were retrieved during research; the load-bearing ones were re-fetched this session and confirmed, but re-verify every arXiv ID before citing in a camera-ready paper.</p>
+</div>
+<div class="callout">
+  <p><b>Status of the interrupted review.</b> An external review session researched this problem exhaustively (25 searches, a statistics table, a file-assembly plan) but ran out of budget after writing 1 of ~10 file parts. Its plan was sound: this document completes it as a single file. Its one correction adopted here: the user's "<em>jev</em>" is <b>JEPA</b> (Joint Embedding Predictive Architecture), covered in §3. The one discipline kept from it: <em>no unmeasured number is ever presented as measured, and vendor numbers are never quoted as evidence.</em> The demo v2 it references is treated as a claim to verify, not a delivered artifact, until it sits in the repo next to this file.</p>
+</div>
+</section>
+<!-- ============================================================= -->
+<section id="audit">
+<h2>1. Audit: the seams <a class="anchor" href="#audit">#</a></h2>
+<p>Vidhi's headline numbers are real — and they measure the wrong edges. 100/100 on the golden set proves the rules fire as authored; it does not prove the store is authentic, the cache is safe under reuse, injections in Hindi are caught, or a 0.8 pp difference is a real difference. The seams below are grouped by severity class (<b>S1 &gt; S2 &gt; S3</b>) and ordered within each. F1–F7 are architectural seams; F8 is a demo defect already fixed in the v2 UI; F9–F11 are capability gaps — the classes of silent misanswer that neither v1 nor MoSPI's own discovery stack prevents, and the price of admission for beating the incumbent (§2A). Each carries evidence, a fix, and a test ID that recurs in §7's gates.</p>
+
+<div class="wrap">
+<table>
+  <caption>Seam registry. Severity: <span class="pill p0">S1</span> correctness/integrity · <span class="pill p1">S2</span> trust/coverage · <span class="pill p2">S3</span> operational. "Test" IDs are the acceptance tests defined in §7.</caption>
+  <thead><tr><th>ID</th><th>Seam</th><th>Severity</th><th>Evidence</th><th>Test</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td><b>F1</b></td><td>Verdict hash doesn't bind the figure</td><td><span class="pill p0">S1</span></td><td><code>freeze()</code> hashes claim ⊕ verdict ⊕ rules only; store-manifest signing was planned, not built</td><td><code>T-TAMPER</code></td><td>Verified from code</td></tr>
+    <tr><td><b>F2</b></td><td>Cache reuse is one-sided → an aggregate could serve a slice query (<b>latent</b>: the semantic cache is recorded but never served in v1)</td><td><span class="pill p0">S1</span></td><td><code>compatible()</code> skips a field when <em>either</em> side is null; <code>_semantic_guard()</code> result is written to <code>cache_info</code>, not returned</td><td><code>T-MSLICE</code></td><td><span class="pill p2">verify-in-code</span></td></tr>
+    <tr><td><b>F3</b></td><td>Safety-A: English regex, open-set — and only <b>1 of 6</b> signals actually blocks</td><td><span class="pill p0">S1</span></td><td><code>detect_injection</code> emits 6 classes; <code>rules.py</code> refuses only when <code>"override" in signals</code>; Hindi/code-mix untested</td><td><code>T-REDTEAM</code></td><td>Verified from code</td></tr>
+    <tr><td><b>F4</b></td><td>No statistical distinguishability layer</td><td><span class="pill p1">S2</span></td><td>Store schema has no <code>se</code>/<code>ci</code>; comparability rules check design breaks only</td><td><code>T-DISTINGUISH</code></td><td>Verified from spec</td></tr>
+    <tr><td><b>F5</b></td><td>Evaluation power &amp; metric naming: "coverage" is row-utilization misnamed, and v1's own docs disagree on its denominator</td><td><span class="pill p1">S2</span></td><td>Refusal n=8; danger pairs n=19; <code>CONF_AI_PAPER.md</code> says 54/101, <code>EVALUATION_REPORT.md</code> says 54/173</td><td><code>T-POWER</code></td><td>Verified from docs</td></tr>
+    <tr><td><b>F6</b></td><td>Coverage dead-ends, no disambiguation, no Hindi</td><td><span class="pill p1">S2</span></td><td>31.2% row utilization <span class="prov m">M</span>; A2.1/A2.3 still "could"</td><td><code>T-CLARIFY</code></td><td>Verified</td></tr>
+    <tr><td><b>F7</b></td><td>Operational: races, tolerance, single-source, licensing</td><td><span class="pill p2">S3</span></td><td>Concurrency untested; numeric tolerance undefined; eSankhyiki is the only API twin</td><td><code>T-CONCUR</code></td><td>Partially verified</td></tr>
+    <tr><td><b>F8</b></td><td>Demo UI regex-scraped its own prose; forced feedback downloads; hardcoded footer; no offline fallback</td><td><span class="pill p1">S2</span></td><td><code>parseOfficialFigures(answer)</code> regex; <code>download("vidhi-feedback.jsonl", …)</code>; footer literal "173 verified rows"</td><td><code>T-DEMO</code></td><td><b>Fixed in demo v2</b> (ship to verify)</td></tr>
+    <tr><td><b>F9</b></td><td>Statistical definitions are not locked: no status-variant (UPSS/CWS/CDS), measure-type or population-base axes — "jobless in villages" can silently resolve to the nearest indicator</td><td><span class="pill p1">S2</span></td><td>MoSPI's own semantic-search manual uses exactly that query and maps it to one indicator + filters; v1's claim schema has no definition axes</td><td><code>T-DEFLOCK</code></td><td>Capability gap</td></tr>
+    <tr><td><b>F10</b></td><td>No vintage/revision discipline: no vintage (Advance/Provisional/Revised/Final), <code>as_of</code> or supersession chain — a superseded figure is indistinguishable from the current one</td><td><span class="pill p1">S2</span></td><td>PLFS/NAS/IIP/CPI figures are routinely revised; v1 rows carry <code>pdf_sha256</code> + page only</td><td><code>T-VINTAGE</code></td><td>Capability gap</td></tr>
+    <tr><td><b>F11</b></td><td>Footnotes don't travel with the number: MoSPI table caveats (exclusions, provisional marks, sample notes) are stripped at ingest</td><td><span class="pill p1">S2</span></td><td>v1 store schema has no footnotes field</td><td><code>T-FOOTNOTE</code></td><td>Capability gap</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>F1 · The integrity gap: the hash proves the verdict, not the number <a class="anchor" href="#audit">#</a></h3>
+<p><code>frozen_hash = sha256(claim ⊕ verdict ⊕ rules)</code> is computed <em>before</em> retrieval — exactly right for prompt-injection non-interference (guarantee 2). But the response's <code>figure</code> is read from the store <em>afterwards</em>. Nothing cryptographically links the number you see to the hash you can verify. A tampered <code>store.json</code>, a forked build, or a man-in-the-middle on the API can swap 3,788 for 4,500 and the frozen hash still "validates."</p>
+<div class="callout ref">
+  <p><b>Fix (two hashes, one signature).</b> (1) The <em>store manifest hash</em> is known pre-retrieval, so fold it into the frozen payload — the verdict now binds to a specific store generation. (2) Add a post-retrieval <b>figure attestation</b>: <code>sha256(frozen_hash ⊕ row_id ⊕ value ⊕ unit ⊕ row.pdf_sha256 ⊕ row.page)</code>. (3) Sign the manifest (Ed25519 or ECDSA P-256 — the demo's WebCrypto can verify the latter in-browser today). Clients verify three things: manifest signature → frozen hash → attestation. Spec in §4.</p>
+  <p><b>Test <code>T-TAMPER</code>:</b> flip one value in a forked store; the client verify path must fail closed. Poison-invariance (<code>T-POISON</code>, §7) already covers the verdict; this closes the number.</p>
+  <p><b>Rebuild side-effect (state it explicitly).</b> Because the frozen hash now binds <code>store_manifest_sha256</code>, <em>every</em> store rebuild changes every frozen hash even when the verdict is unchanged. That is correct for integrity, but it means the positive semantic cache — not only the negative cache — is invalidated on rebuild. Handled in §4.6.</p>
+</div>
+
+<h3>F2 · Cache reuse is one-sided — latent today, live the moment serving is wired <a class="anchor" href="#audit">#</a> <span class="pill p2">verify-in-code</span></h3>
+<p>The field-guard reads: reuse when "every CRITICAL_FIELD that <b>both sides</b> specify agrees exactly." In code (<code>claims.py</code>) that is literally <code>if va is None or vb is None: continue</code>. So a cached claim with <code>residence=null</code> (all-India) is "compatible" with a new claim with <code>residence="urban"</code>, because "urban" is specified on one side only. That is exactly the failure the reification guard exists to prevent.</p>
+<div class="callout">
+  <p><b>The nuance that changes the framing.</b> In v1 the semantic cache <em>never serves an answer</em>: <code>_semantic_guard()</code>'s result is written only into <code>cache_info.semantic</code>; the only cache that returns a response is the <b>exact</b> (normalized-question) cache. So today an aggregate verdict cannot actually answer a slice query through the pipeline — the defect is <b>latent</b>. It becomes <b>live</b> the moment v2 wires the semantic cache to serve (which is the intent). Fix it before wiring, not after.</p>
+  <p><b>Why the existing tests miss it.</b> <code>compatible()</code> <em>is</em> exercised in <code>eval.py</code>'s danger-pair check — but there both sides specify the differing field (urban vs rural), so the one-sided null path is never hit.</p>
+  <p><b>Fix.</b> Reuse iff <code>canon(claim_new) == canon(claim_cached)</code> — exact equality <em>including the null-vs-specified distinction</em> (nulls are meaningful: they mean "asked for the aggregate"). Cosine is kept only as a candidate-finder (propose). Add a <b>negative cache</b> for <code>WARN_NO_DATA</code> verdicts — same canonical key. <b>Critical detail:</b> the negative-cache key must include the <code>store_manifest_sha256</code>, so every store rebuild (new coverage!) invalidates cached refusals. Otherwise fresh coverage can never reach users who asked before it landed.</p>
+  <p><b>Test <code>T-MSLICE</code>:</b> for every (general, specific) pair, responses must differ or the specific one must be a genuine slice answer; 0 violations.</p>
+</div>
+
+<h3>F3 · Safety-A: English regex on an open set — and only one signal fires <a class="anchor" href="#audit">#</a></h3>
+<p>Three problems compound: regexes miss paraphrased injections; they are English-only while the user base writes Hindi and Hinglish; and detection is framed as an open-set classification problem ("is this an attack?") when the stronger frame is <b>closed-set claim parsing</b> — the translator may only emit a fixed schema over a fixed enum, so instruction-like text simply fails to produce a valid claim and can never steer the judge. Detection then becomes a backstop, not the load-bearing wall.</p>
+<div class="callout">
+  <p><b>Sharper fact (verified in code).</b> It is not merely "English regex." v1's firewall refuses only when <code>"override" in v.signals</code> (<code>rules.py</code>). <code>detect_injection</code> emits six signal classes — <code>override</code>, <code>role_switch</code>, <code>exfiltration</code>, <code>delimiter_break</code>, <code>tool_coercion</code>, <code>encoded</code> — and the other five are computed and then <b>ignored</b>. So today's posture is "English regex, <em>and</em> 1 of 6 signals actually blocks." Blocking on the full signal set is a one-line change; measuring the other five is a red-team task.</p>
+  <p><b>Fix (cascade).</b> L0: closed-set schema-constrained translator (parse failure → <code>WARN_LOW_CONFIDENCE</code>, never a guess). L1: transparent regex baseline (kept, it's auditable) — now honouring all six signal classes mapped to explicit reason codes. L2: a small open-weights injection/jailbreak classifier at CPU scale — the LlamaFirewall / Prompt Guard 2 line ships 22M/86M-parameter classifiers exactly for this; the <b>22M is English-only</b> (DeBERTa-xsmall) while the <b>86M is multilingual</b> (mDeBERTa, evaluated on Hindi among 8 langs), so use the 86M for Hindi/Hinglish or fine-tune a MuRIL student for CPU. Report P/R with CIs on <em>our own</em> committed set. Vendor block rates are ceilings, not evidence.</p>
+</div>
+
+<h3>F4 · No sampling-error layer <a class="anchor" href="#audit">#</a></h3>
+<p>The comparability stage catches design breaks (HCES 2011-12 → 2023-24 redesign) but nothing catches <b>statistical</b> non-distinguishability. A 0.8 pp round-over-round difference in a rate whose s.e. is 0.3 pp is not a change; v1 would PASS it with both cells verified. Where MoSPI publishes standard errors or confidence intervals, carry them in the store; where it does not, say so visibly ("s.e. not published") rather than implying precision.</p>
+<div class="callout">
+  <p><b>Fix.</b> Store rows gain <code>se</code> (nullable). The Numeric stage's pair-verification gains one rule: if <code>|Δ| &lt; 1.96·√(se₁² + se₂²)</code>, emit <code>WARN_STATISTICALLY_INDISTINGUISHABLE</code> — both verified figures shown, no trend endorsed. This changes verdicts, so the comparability rule file bumps to <code>version: 4</code> and the golden set gains pair cases with expected WARNs. Demo v2 already implements the UX; the store and rules must catch up.</p>
+  <p><b>Assumption &amp; false-positive risk (state it).</b> The guard assumes the two rounds are independent samples. With design effects, cluster sampling and rounding it can emit false WARNs where a real change exists. So: publish the assumption next to the rule; when either <code>se</code> is null, skip the guard and print "s.e. not published" (no silent precision); and log every guard-triggered pair to a review queue so the threshold can be recalibrated. Test <code>T-DISTINGUISH</code>.</p>
+</div>
+
+<h3>F5 · Evaluation power and metric naming <a class="anchor" href="#audit">#</a></h3>
+<div class="kpi">
+  <div><b>0.676</b><span>Wilson lower, refusal 8/8 <span class="prov m">M</span> — the reported "floor 0.68"</span></div>
+  <div><b>31.2%</b><span>one-sided 95% <em>upper</em> bound on the miss rate at n=8 <span class="prov c">C</span> — the same data cannot rule out a 31% miss rate</span></div>
+  <div><b>14.6%</b><span>zero-failure upper bound at n=19 danger pairs <span class="prov c">C</span></span></div>
+</div>
+<p>The honesty of reporting [0.963–1.000] on 100/100 is right; the problem is the sets are too small to say more. On the metric itself: "54/173 (31.2%) store coverage" <em>is</em> defined in v1 — <code>eval.py</code> computes <code>len(touched_row_ids) / verified_rows</code>, i.e. verified rows touched by golden figures ÷ total verified rows. The defect is the <b>name</b>: "coverage" reads as <em>answerability</em> but measures <em>row utilization</em>. Worse, v1's own documents disagree on the denominator — <code>CONF_AI_PAPER.md</code> reports <b>54/101 (53.5%)</b>, <code>EVALUATION_REPORT.md</code> reports <b>54/173 (31.2%)</b>. Fix the definition: <b>primary coverage = golden questions that can PASS from the store ÷ all golden questions</b>; row-utilization is a secondary diagnostic; report both per build, consistently. Then scale: refusal ≥300 cases, danger pairs ≥1000 (bounds in §7).</p>
+
+<h3>F6 · Dead-ends, disambiguation, language <a class="anchor" href="#audit">#</a></h3>
+<p>At 31.2% row utilization, most users hit <code>WARN_NO_DATA</code> — a refusal with no next action. Three fixes: (a) nearest-covered-slice suggestions (shipped in demo v2 — the GNN-lite version; §3); (b) a <b>one-question disambiguation protocol</b> from the text-to-SQL line (expected-information-gain): when a claim is under-specified and ≥2 verified slices match the other fields, ask exactly one question ("rural, urban, or both?") instead of guessing the aggregate; (c) Hindi + Hinglish via MuRIL — the real register of Indian policy questions is code-mixed, and MuRIL is built for exactly that robustness. Test <code>T-CLARIFY</code>.</p>
+
+<h3>F7 · Operational seams <a class="anchor" href="#audit">#</a></h3>
+<ul>
+  <li><b>Race conditions:</b> concurrent exact/semantic cache writes and metrics counters need single-writer or atomic-swap discipline; add a concurrency test at 20 workers (<code>T-CONCUR</code>).</li>
+  <li><b>Numeric tolerance is undefined:</b> "exact match" needs a spec — decimal-normalized equality, unit-screened, imputation legs never "close enough" to each other (<code>T-TOLERANCE</code>).</li>
+  <li><b>Single-source API twin:</b> eSankhyiki MCP becomes the second channel (§2, §6) — but wrap it with timeouts and never let it block the offline path.</li>
+  <li><b>Parser licensing:</b> before vendoring any table/PDF parser (Docling, pdfplumber, Camelot, Table Transformer), check license compatibility with the repo's terms; record the decision in <code>docs/</code>.</li>
+</ul>
+
+<h3>F9 · Definitions are not locked — the "jobless" trap <a class="anchor" href="#audit">#</a></h3>
+<p>MoSPI's own semantic-search manual motivates its tool with the query "What percent of people were Jobless in Villages in 2022-23" and its solution is to map such phrasing to the closest indicator and auto-apply filters <span class="prov v">V</span>. That is a relevance engine, not an adjudicator: if the user meant Current Weekly Status unemployment rather than UPSS, a ranked redirect delivers whatever it ranked first — silently. PLFS figures differ materially by activity status (UPSS vs CWS vs CDS) and population base (15+). A system that does not force a question to resolve to exactly one defined indicator cannot be accurate; it can only be relevant.</p>
+<div class="callout">
+  <p><b>Fix.</b> Claim schema v2 gains <code>status_variant</code> (UPSS/CWS/CDS), <code>measure_type</code> (rate/share/count/pp/index) and <code>population_base</code>; the closed-set translator must emit them or hand back one EIG clarify question; otherwise <code>WARN_AMBIGUOUS_DEFINITION</code> / <code>R_AMBIGUOUS_DEFINITION</code>. Never nearest-match. The incumbent's own example becomes golden case #1. Test <code>T-DEFLOCK</code>.</p>
+</div>
+
+<h3>F10 · No vintage discipline — revisions are invisible <a class="anchor" href="#audit">#</a></h3>
+<p>PLFS estimates are revised across releases; NAS ships Advance, Provisional, Revised and Final vintages; IIP and CPI are revised on fixed schedules; base years change. Quoting a superseded figure as current is a silent factual error no relevance score catches — and MoSPI's chatbot refreshes its knowledge base "in line with ministry-defined schedules" <span class="prov v">V</span>, so between refreshes it can serve stale content with no <code>as_of</code> stamp at all.</p>
+<div class="callout">
+  <p><b>Fix.</b> Store rows gain <code>vintage</code>, <code>as_of</code>, <code>revised_from</code> (a supersession chain) and <code>base_year</code>. Default = latest vintage, always stated in the response. Cross-vintage comparisons quote both vintages or refuse (<code>R_VINTAGE_MISMATCH</code>). When a question pins a period whose vintages differ materially, ask which vintage is meant — one question, then the aggregate-with-note rule as ever. Test <code>T-VINTAGE</code>.</p>
+</div>
+
+<h3>F11 · Footnotes don't travel with the number <a class="anchor" href="#audit">#</a></h3>
+<p>MoSPI tables carry footnotes — states excluded, provisional marks, sample caveats, definition notes. A number stripped of its footnote is a different fact. v1 drops them at ingest.</p>
+<div class="callout">
+  <p><b>Fix.</b> Ingest footnotes per table/cell with the same provenance discipline as values; the response renders them adjacent to the figure; a PASS requires footnote display; a footnote that materially qualifies a claim answers with <code>R_FOOTNOTE_BOUND</code>. Test <code>T-FOOTNOTE</code> (deterministic, 100%).</p>
+</div>
+</section>
+<!-- ============================================================= -->
+<section id="frontier">
+<h2>2. Frontier and incumbent field guide <a class="anchor" href="#frontier">#</a></h2>
+<p>Since the v1 spec was written, the relevant frontier moved — including, crucially, <em>MoSPI itself</em>. The table surveys the field; §2A then takes the incumbent apart from MoSPI's own documents. Each row: what they ship, the lesson, the Vidhi action.</p>
+<div class="wrap">
+<table>
+  <caption>Systems surveyed during research (§12). Vendor-reported figures marked <span class="prov v">V</span>. The MCP server and Prompt Guard model cards were re-fetched this session and confirmed to exist.</caption>
+  <thead><tr><th>Who / system</th><th>What it does</th><th>Lesson for Vidhi</th><th>Action</th></tr></thead>
+  <tbody>
+    <tr><td><b>NSO India — eSankhyiki MCP</b> (2025, beta)</td><td>Official MCP server (<code>nso-india/esankhyiki-mcp</code>, MIT); beta launched with 7 datasets incl. PLFS, CPI, IIP (21+ products on the portal) via a 4-tool sequential workflow</td><td>The domain's "frontier lab" now ships raw data access without a governance shell — Vidhi's oracle role is validated, and a second dual-source channel exists</td><td>Adopt as dual-source + SOURCED tier; treat as dependency (pin, timeout, never block)</td></tr>
+    <tr><td><b>Google — DataGemma / Data Commons MCP</b></td><td>Grounds LLM statistical claims in Data Commons via RAG, tool, and agentic variants; DC MCP server launched for agents</td><td>Convergent design: NL → structured tool call → exact cell beats naive RAG for numbers; "observed vs inferred" labelling</td><td>Vidhi = this pattern for India with a deterministic shell; keep SOURCED labelling strict</td></tr>
+    <tr><td><b>OpenAI — Instruction Hierarchy</b> (2024)</td><td>Trains models to privilege system/developer over tool/document content</td><td>Retrieved text must be demoted to data for any model that touches it</td><td>Apply to the PASS polish model (spotlighted, delimited, schema-locked)</td></tr>
+    <tr><td><b>Meta — LlamaFirewall / Prompt Guard 2</b></td><td>Open guardrail stack; Prompt Guard 2 ships 22M and 86M classifiers (the 22M is English-only DeBERTa-xsmall; the 86M is multilingual mDeBERTa, evaluated on Hindi among 8 langs)</td><td>Calibrated injection detection exists at CPU scale, open weights — and Hindi is covered by the larger model out of the box</td><td>Use the <b>86M</b> for Hindi/Hinglish, or distil a MuRIL student for CPU; measure on our own red-team set</td></tr>
+    <tr><td><b>Anthropic — Constitutional Classifiers</b> (Jan 2025)</td><td>Constitution-trained input/output filters; vendor-reported ~95% block of universal jailbreaks <span class="prov v">V</span></td><td>A ceiling reference — not evidence; our gate is measured on our distribution</td><td>Use as aspiration only; never quote as our result</td></tr>
+    <tr><td><b>DeepMind — CaMeL</b> (2025, arXiv:2503.18813)</td><td>Defeats injection <em>by design</em>: untrusted data flows as values, never instructions; capability-controlled</td><td>Vidhi's freeze-before-retrieval is the same class — formalize it as a property test (data non-interference, <code>T-POISON</code>)</td><td>Write the non-interference property down and test it</td></tr>
+    <tr><td><b>DeepMind — FACTS Grounding</b> (2024)</td><td>Benchmark for long-form groundedness; top models score well below 1.0</td><td>Calibrates expectations for any generative polish</td><td>Our gate stays byte-identity of numbers, not benchmark vibes</td></tr>
+    <tr><td><b>AWS — Cedar; SymCert</b></td><td>Verification-guided policy authoring; SMT-based policy analysis</td><td>Rules-as-data can be <em>machine-checked</em> for determinism, reachability, and functional reason-code mapping</td><td>Adopt: rule DSL + Z3 checks (§5)</td></tr>
+    <tr><td><b>sigstore / Rekor</b></td><td>Append-only transparency logs for signed artifacts</td><td>Third-party verifiability beats self-reported hashes</td><td>Pilot a minimal signed append-only verdict/manifest log</td></tr>
+    <tr><td><b>Statistics Norway</b> — LFS 2021 redesign</td><td>State-space intervention analysis to <em>quantify</em> survey-break discontinuities</td><td>Breaks can be measured, not just caveated</td><td>Offline tool that enriches comparability rules with estimated break sizes</td></tr>
+    <tr><td><b>Text-to-SQL abstention line</b></td><td>Adaptive abstention, latent refusal, expected-information-gain disambiguation</td><td>Closest structural cousin: NL → structured query over curated tables, with refusal</td><td>Adopt EIG disambiguation protocol (one question max)</td></tr>
+  </tbody>
+</table>
+</div>
+<h3>2A. The incumbent, up close — MoSPI's own AI stack <a class="anchor" href="#frontier">#</a></h3>
+<p>Researched from MoSPI's own publications this session: the Data Innovation Lab's <em>Use Cases of Data Science and AI in Official Statistics</em> v3.0, the 8-page <em>AI-Based Semantic Search Tool — eSankhyiki User Manual</em>, PIB releases of 30 Mar 2026 and PRID 2224472, and the live assistant surfaces. Capability descriptions are MoSPI's own — marked <span class="prov v">V</span>; nothing about their measured performance is claimed.</p>
+<div class="wrap">
+<table>
+  <caption>The incumbent's components, verified against MoSPI documents; the right column is the adjudication gap Vidhi occupies.</caption>
+  <thead><tr><th>Component</th><th>What it verifiably does <span class="prov v">V</span></th><th>What it structurally does not do</th><th>Vidhi's counter</th></tr></thead>
+  <tbody>
+    <tr><td><b>StatDoc AI</b> (<code>statsdoc.ai.mospi.gov.in</code>)</td><td>MoSPI AI assistant, © 2026; login-gated — contents not publicly retrievable</td><td>Unverifiable from outside; any capability claim would be hearsay</td><td>Benchmark only its public surfaces; never quote it unmeasured</td></tr>
+    <tr><td><b>MoSPI website chatbot</b> (<code>chatbot.mospi.gov.in</code>; PIB 30 Mar 2026)</td><td>GenAI chatbot over website text/PDFs/Excel with contextual memory; knowledge base refreshed "in line with ministry-defined schedules"; stated purpose: data discovery + user interaction</td><td>No adjudication contract; no per-answer provenance binding; a staleness window between refreshes with no <code>as_of</code></td><td>Every number bound to a signed store row + attestation; vintage and <code>as_of</code> stamped on every answer (F1, F10)</td></tr>
+    <tr><td><b>eSankhyiki semantic search</b> (user manual, 8 pp)</td><td>NL (EN/HI) → top-3 datasets with relevance score → auto-applies filters → opens the table; source traceability (dataset, page, year); table extraction</td><td>Relevance ≠ correctness: maps to the <em>closest</em> indicator and the user refines manually; no verification, no refusal channel, no uncertainty, no vintage</td><td>Closed-set translator + enum validation; ambiguity → one clarify question or WARN — never nearest-match (F9)</td></tr>
+    <tr><td><b>eSankhyiki MCP server</b> (PIB PRID 2224472; beta)</td><td>4-tool workflow (list datasets → indicators → metadata → data); "clean output, structured responses optimized for AI models"; 7 datasets at beta</td><td>Raw access ≠ governance: no rule says whether a figure <em>may be said</em>; no se/vintage/footnote discipline</td><td>Vidhi's dual-source + SOURCED tier sits on top of it — the governance oracle for agents built on it</td></tr>
+    <tr><td><b>NSS survey chatbots</b> (CAPEX/ASI/ASUSE; PIB 30 Mar 2026)</td><td>Field-ops query resolution for enumerators; CAPI with bilingual interfaces and real-time validation</td><td>Internal tooling, not a public QA system</td><td>Not a competitor — context for MoSPI's AI direction</td></tr>
+  </tbody>
+</table>
+</div>
+<p><b>What "beating" means, precisely.</b> Not breadth — the incumbent wins discovery breadth (21+ products, the whole portal). Vidhi wins adjudication: on the committed adversarial suite <code>T-INCUMBENT</code> (§7), Vidhi serves <b>0 wrong numbers</b> (zero-failure upper bound 1.0% at n=300 <span class="prov c">C</span>) across the six failure classes below, while stating definition, vintage, uncertainty and footnotes on every PASS. The incumbent's rates on the same questions are measured and published with CIs — never quoted from vendor material. The classes, each engineered to break a discovery engine:</p>
+<ol>
+  <li><b>Definition ambiguity</b> — "jobless in villages" (status variant, measure type, population base);</li>
+  <li><b>Vintage/revision staleness</b> — superseded or mixed-vintage figures;</li>
+  <li><b>Series breaks</b> — HCES 2011-12 → 2022-24 redesign, base-year changes;</li>
+  <li><b>Slice/aggregate confusion</b> — the F2/M-slice class;</li>
+  <li><b>Unit and percentage-point traps</b> — lakh/crore scaling, pp vs %, rate vs count;</li>
+  <li><b>Statistical distinguishability</b> — differences inside the sampling error.</li>
+</ol>
+<div class="callout ok">
+  <p><b>The strategic read.</b> MoSPI shipping an MCP server is the best possible validation: access is now a commodity; <em>whether you may say the number</em> is not. And the stack above shows MoSPI has occupied <em>discovery</em>, not <em>adjudication</em>: nothing in their published design verifies a claim, states a vintage, quantifies sampling error, or refuses. That seat is empty. Vidhi takes it — on top of MoSPI's own data rails — and keeps it by publishing the measured record (<code>T-INCUMBENT</code>, transparency log) rather than asserting superiority.</p>
+</div>
+</section>
+
+<!-- ============================================================= -->
+<section id="triage">
+<h2>3. Technique triage — every trick, in its plane <a class="anchor" href="#triage">#</a></h2>
+<p>The plane rule from v1 stands: <b>dependencies point down; nothing above <code>rules</code> may alter a verdict.</b> Every requested technique is assigned below. Two are rejected outright, with reasons.</p>
+<div class="wrap">
+<table>
+  <caption>Planes: <b>JUDGE</b> = forbidden to learned models · <b>PROPOSER</b> = may suggest, fields dispose · <b>EVIDENCE</b> = post-freeze, untrusted · <b>OFFLINE</b> = build/eval time only · <b>REJECT</b>.</caption>
+  <thead><tr><th>Technique</th><th>Plane</th><th>Design</th><th>Acceptance</th><th>Verdict</th></tr></thead>
+  <tbody>
+    <tr><td><b>Fine-tuning</b> (LoRA; refusal-aware DPO à la R-Tuning)</td><td>PROPOSER (translator, classifiers, polish)</td><td>Schema-constrained claim extraction on a 7–8B base; DPO pairs that reward "say unknown"; distil to a small student for CPU</td><td>Field-F1 beats heuristic by ≥5 pts (paired bootstrap CI); falls back safely on parse failure</td><td><span class="pill ok">ADOPT</span></td></tr>
+    <tr><td><b>Embeddings</b> (bge-m3; corpus fine-tune à la CustomIR)</td><td>EVIDENCE + cache candidate-finder</td><td>Multilingual dense+sparse retrieval over MoSPI PDFs; cross-encoder rerank; nearest-slice suggestions</td><td>Retrieval recall@k lift reported with CI; <b>no threshold ever gates safety</b> (guarantee 3)</td><td><span class="pill ok">ADOPT</span></td></tr>
+    <tr><td><b>GNN</b> (RGCN / link prediction; KGAT- &amp; ClaimDB-style)</td><td>EVIDENCE (subgraph retrieval) + OFFLINE (coverage planner)</td><td>Table-entity graph over corpus for evidence lookup; claim-ontology graph ranked by query logs to choose the next 500 slices to ingest; entity-linking proposals validated against a fixed enum</td><td>Suggestion precision@3; coverage growth with zero rule edits; enum-invalid links discarded</td><td><span class="pill p2">PILOT</span></td></tr>
+    <tr><td><b>RNN / sequence models</b></td><td>OFFLINE only</td><td>As a claim parser: <b>superseded</b> by token classifiers — do not build. As a break detector: state-space intervention models over round series (Statistics Norway style) quantify redesign discontinuities that enrich comparability rules; a seq2seq normalizer may raise exact-cache hit-rate</td><td>Break estimates with CIs feed rule YAML; cache hit-rate lift measured</td><td><span class="pill p2">PILOT</span></td></tr>
+    <tr><td><b>JEPA</b> (LLM-JEPA: latent-prediction probes on frozen encoders)</td><td>PROPOSER (confidence/OOD signal)</td><td>Train a tiny JEPA-style probe (predict masked-span embeddings, VICReg-regularized) over the frozen translator encoder; use its prediction-gap as an OOD/confidence signal feeding the conformal gate — catches weird paraphrases and injection-oddity</td><td>OOD-detection AUC beats temperature-scaled softmax baseline on held-out set (nested CV); timeboxed; else drop</td><td><span class="pill p2">PILOT</span></td></tr>
+    <tr><td><b>Conformal prediction</b></td><td>PROPOSER (confidence gate)</td><td>Replace the fixed 0.60 floor with a threshold τ picked on a calibration set → distribution-free guarantee on correct-field rate</td><td>≥1−α correct-field rate on held-out paraphrases, α reported</td><td><span class="pill ok">ADOPT</span></td></tr>
+    <tr><td><b>Constrained decoding</b></td><td>PROPOSER (closed-set translator + polish)</td><td>JSON-schema outputs; enum-validated fields; polish locked to template slots</td><td>100% schema-valid outputs; numbers byte-identical post-polish</td><td><span class="pill ok">ADOPT</span></td></tr>
+    <tr><td><b>Formal methods</b> (Z3/SMT; Cedar-style DSL)</td><td>JUDGE (its <em>checker</em>, not its content)</td><td>Rules expressed in a small DSL; machine-check: (a) determinism — the <em>ordered</em> evaluation never yields two verdicts; (b) reachability — no rule is permanently shadowed; (c) <b>functional</b> reason_code → (decision, sub_code) mapping <em>after</em> splitting the one v1 code that maps to two verdicts (see §5); (d) stage order is a total order</td><td>All checks green in CI; a mutant-rule test must be caught</td><td><span class="pill ok">ADOPT</span></td></tr>
+    <tr><td><b>Metamorphic / property testing</b> (Hypothesis; LGMT-inspired)</td><td>OFFLINE (eval)</td><td>Relations M1–M5 (§7): paraphrase invariance, field-swap sensitivity, poison invariance, aggregate-never-answers-slice, tolerance monotonicity</td><td>All properties hold over ≥10k generated cases</td><td><span class="pill ok">ADOPT</span></td></tr>
+    <tr><td><b>Classifier cascade</b> (regex → small classifier → closed-set parse)</td><td>PROPOSER (Safety-A)</td><td>Cheap first, calibrated second, structural last</td><td>See §7 gates (n≥300 red-team)</td><td><span class="pill ok">ADOPT</span></td></tr>
+    <tr><td><b>Hard-negative active learning</b></td><td>OFFLINE (eval)</td><td>Mine paraphrases/synonyms/numeral variants to grow danger pairs 19 → 1000+</td><td>0 collisions at every threshold; bounds in §7</td><td><span class="pill ok">ADOPT</span></td></tr>
+    <tr><td><b>Transparency log</b> (Rekor-style or minimal signed JSONL)</td><td>OFFLINE (audit)</td><td>Append-only record of manifests + verdict attestations; anyone can verify history</td><td>Third-party re-verification of N sampled verdicts succeeds</td><td><span class="pill p2">PILOT</span></td></tr>
+    <tr><td><b>Shadow LLM critic</b> (judge-ensemble)</td><td>OFFLINE (shadow only)</td><td>A critic model re-adjudicates golden cases; divergences logged to a review queue</td><td>Divergence reported; <b>0 auto-applied changes</b> — ever</td><td><span class="pill p2">PILOT</span></td></tr>
+    <tr><td><b>End-to-end "statistical answer" model</b></td><td>—</td><td>Would reintroduce exactly the hallucination incentive the firewall exists to remove (the training-pressure argument: models guess when abstention isn't rewarded)</td><td>—</td><td><span class="pill p0">REJECT</span></td></tr>
+    <tr><td><b>Cosine-threshold as a safety gate</b></td><td>—</td><td>Danger and paraphrase similarity ranges overlap on every embedder measured; a threshold cannot separate them by construction</td><td>—</td><td><span class="pill p0">REJECT</span></td></tr>
+    <tr><td><b>GNN as judge; any learned verdict</b></td><td>—</td><td>Violates guarantee 1 (rules judge, models translate) — the system's soul</td><td>—</td><td><span class="pill p0">REJECT</span></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<!-- ============================================================= -->
+<section id="arch">
+<h2>4. Architecture v2 &amp; contracts <a class="anchor" href="#arch">#</a></h2>
+
+<h3>4.1 Pipeline v2</h3>
+<div class="wrap">
+<pre><code>Question
+  → trace_id
+  → exact cache (normalized question)
+  → CLOSED-SET TRANSLATOR (schema-constrained, enum-validated;
+      parse failure → WARN_LOW_CONFIDENCE — injections die here)
+  → conformal confidence gate (τ from calibration set; optional JEPA OOD probe)
+  → semantic cache (canon(new) == canon(cached), null-vs-set preserved;
+      NEGATIVE cache for WARN_NO_DATA, keyed ⊕ store_manifest_sha256)
+  → FIREWALL  [ Scope (→ definition lock: status variant, measure type,
+                population base, vintage) → Safety-A (regex+classifier
+                cascade) → Comparability (v4 rules + measured breaks)
+                → Metadata → Numeric (reification guard + sampling-error
+                distinguishability) ]
+  → FREEZE  (claim ⊕ verdict ⊕ rule_version ⊕ STORE_MANIFEST_SHA256)   ← pre-retrieval
+  → retrieval (untrusted; curated excerpts; hybrid BM25+dense; eSankhyiki MCP
+      as SOURCED fallback when online — labelled, never PASS)
+  → consistency check (post-retrieval; DOWNGRADE-only)
+  → render (templates; polish schema-locked; citation spans validated)
+  → ATTEST  figure_attestation = sha256(frozen_hash ⊕ row_id ⊕ value ⊕ unit
+            ⊕ provenance(row.pdf_sha256, row.page))
+  → Response (+ append to transparency log)</code></pre>
+</div>
+
+<h3>4.2 Dual hash and signature (F1 fix)</h3>
+<div class="wrap">
+<pre><code>manifest = {rows, rule_version, built_at, row_count}
+manifest_sha256 = sha256(canonical_json(manifest))
+manifest_sig    = sign(manifest_sha256, Ed25519 | ECDSA-P256)   # WebCrypto-verifiable
+
+frozen_hash        = sha256(canon(claim) ⊕ [decision, sub_code, reason_code]
+                          ⊕ rule_version ⊕ manifest_sha256)[:16]      # pre-retrieval
+figure_attestation = sha256(frozen_hash ⊕ row_id ⊕ value ⊕ unit
+                          ⊕ row.pdf_sha256 ⊕ row.page)[:16]           # post-retrieval
+
+client verify: manifest_sig → frozen_hash → figure_attestation  (fail closed)</code></pre>
+</div>
+<p><b>Tests:</b> (a) <code>T-TAMPER</code> — mutate one value in a forked store, client verification must fail; (b) <code>T-POISON</code> — frozen hash unchanged across ≥1000 injected variants (bound: miss-rate upper 0.30% <span class="prov c">C</span> at 95%); (c) demo v2's in-browser recompute extends to the attestation line. <b>Note:</b> because the frozen hash binds <code>manifest_sha256</code>, a store rebuild changes every frozen hash by design — this is what invalidates the positive semantic cache as well as the negative one (§4.6).</p>
+
+<h3>4.3 Translator (closed-set) spec</h3>
+<ul>
+  <li>Output is a fixed JSON schema; every categorical field validated against the taxonomy enum (surveys, indicators, states, measures). Enum-invalid output is discarded, never coerced.</li>
+  <li>Confidence = conformal-calibrated score; optional JEPA probe contributes an OOD channel (adopted only if it beats the temperature-scaled baseline — §3).</li>
+  <li>Parse failure or enum failure → <code>WARN_LOW_CONFIDENCE</code> with suggestion chips. Injection text reaches neither judge nor store.</li>
+  <li>Heuristic translator retained as fallback; LLM participates only when measured better on the labelled paraphrase set.</li>
+</ul>
+
+<h3>4.4 Disambiguation protocol (F6 fix)</h3>
+<ul>
+  <li>Trigger: claim under-specified on a slice field (residence/sex) AND ≥2 verified slices match the remaining fields.</li>
+  <li>Ask <b>exactly one</b> question — the field with the highest expected information gain (which option most reduces the candidate set). Response gains <code>clarify:{question, options[]}</code>.</li>
+  <li>One round max; after that, answer the aggregate with its note. Never guess. Test <code>T-CLARIFY</code>.</li>
+</ul>
+
+<h3>4.5 SOURCED tier via eSankhyiki MCP (F6 fix, honest)</h3>
+<ul>
+  <li>On <code>WARN_NO_DATA</code> and <code>VIDHI_OFFLINE=0</code>: query the official MCP/API, label the result <b>SOURCED — sourced, not certified</b>, show retrieval timestamp + doc id. Never upgrades to PASS; never enters the verified store without passing the audit gate.</li>
+  <li>Dual-source rule gains a second channel: overlapping cells must agree across PDF parsers and the MCP, else build fails.</li>
+  <li>Dependency hygiene: pinned client, hard timeout, circuit breaker, offline path never blocks.</li>
+</ul>
+
+<h3>4.6 Concurrency &amp; cache discipline (F7 fix)</h3>
+<ul>
+  <li>Exact/semantic caches: single-writer with atomic swap (write-temp-rename); in-process LRU behind a lock. Test <code>T-CONCUR</code> at 20 workers.</li>
+  <li>Metrics: atomic counters only.</li>
+  <li>Negative cache invalidated by <code>store_manifest_sha256</code> change (new coverage must reach re-askers).</li>
+  <li><b>Positive cache is invalidated too.</b> Since the frozen hash binds <code>manifest_sha256</code> (§4.2), a store rebuild changes every frozen hash even for an unchanged verdict; the positive semantic cache must therefore be keyed/versioned by <code>store_manifest_sha256</code> as well, and never serve a pre-rebuild frozen hash.</li>
+</ul>
+
+<h3>4.7 Definition-locking, vintage and footnotes (F9–F11 fixes)</h3>
+<ul>
+  <li><b>Claim schema v2:</b> <code>status_variant</code> ∈ {UPSS, CWS, CDS, n/a}, <code>measure_type</code> ∈ {rate, share, count, pp, index}, <code>population_base</code>, <code>period</code> (explicit fiscal-year semantics; PLFS runs July–June), <code>vintage_requested</code>. Enum-validated by the closed-set translator like every other axis.</li>
+  <li><b>Unresolvable definition</b> → one EIG clarify question or <code>WARN_AMBIGUOUS_DEFINITION</code> / <code>R_AMBIGUOUS_DEFINITION</code>. Never nearest-match — that is the incumbent's failure mode, not ours.</li>
+  <li><b>Store rows v2:</b> <code>vintage</code>, <code>as_of</code>, <code>revised_from</code> (supersession chain), <code>base_year</code>, <code>footnotes[]</code>, <code>status_variant</code>. Latest-vintage default, always displayed; supersession chains traversable ("show the revision history of this cell").</li>
+  <li><b>Cross-vintage comparisons</b> quote both vintages or refuse (<code>R_VINTAGE_MISMATCH</code>); never mix vintages inside one trend claim.</li>
+  <li><b>Footnotes</b> render adjacent to the figure, always; PASS requires footnote display; a material qualifier answers with <code>R_FOOTNOTE_BOUND</code>.</li>
+  <li><b>Unit discipline:</b> units stored in a fixed enum; lakh/crore/thousand/million conversions happen only at render; pp vs % enforced by <code>measure_type</code>.</li>
+</ul>
+</section>
+
+<!-- ============================================================= -->
+<section id="judge">
+<h2>5. The judge v2 — small, boring, now machine-checked <a class="anchor" href="#judge">#</a></h2>
+<p>The five stages, fixed order, first-rule-fires: unchanged. Four deltas:</p>
+<ol>
+  <li><b>Numeric stage, pair branch:</b> after cell-by-cell verification, apply the distinguishability rule — <code>|Δ| &lt; 1.96·√(se₁²+se₂²)</code> → <code>WARN_STATISTICALLY_INDISTINGUISHABLE</code> (sub-code), <code>R_SE_NOT_DISTINGUISHABLE</code> (reason). If either <code>se</code> is null (not published), skip the guard but the response must say "s.e. not published."</li>
+  <li><b>Bump the rule data to <code>version: 4</code>.</b> In v1 the emitted <code>rule_version</code> is <em>not</em> a sequence integer — it is a computed <code>sha256([rules_blob, row_count])[:12]</code> hash — while <code>comparability_rules.yaml</code> carries an integer <code>version: 3</code>. So the change is: bump the YAML <code>version: 3 → 4</code>; the derived <code>rule_version</code> hash then changes by construction. Golden set v2 adds pair cases with expected WARNs; parity with v1 is reported <em>per-rule</em> so the delta is visible, not hidden.</li>
+  <li><b>Rules become a DSL, checked by SMT</b> (Cedar/SymCert-inspired): CI asserts (a) determinism — the <em>ordered</em> evaluation never yields two verdicts; (b) reachability — no rule is permanently shadowed; (c) the reason_code → (decision, sub_code) mapping is <b>functional</b> — which requires first <b>splitting the one v1 code that maps to two verdicts</b>: <code>R_COMPARABILITY_HCES_METHOD</code> currently returns <code>(WARN, WARN_COMPARABILITY)</code> for a plain level comparison and <code>(REFUSE, REFUSE_COMPARABILITY)</code> when the claim asserts poverty or a real change. Give the refusal branch its own code (e.g. <code>R_COMPARABILITY_HCES_POVERTY_REFUSE</code>); this split is part of the <code>version: 4</code> change. (d) stage order is a total order. A mutant-rule test (inject a conflicting rule) must fail the check.</li>
+  <li><b>Scope stage gains the definition and vintage lock</b> (rules in the same <code>version: 4</code> data): reason codes <code>R_AMBIGUOUS_DEFINITION</code>, <code>R_VINTAGE_MISMATCH</code>, <code>R_FOOTNOTE_BOUND</code>; the closed-set translator must emit the new axes or return a clarify. The five-stage order is untouched — these are rules inside Scope, checked by the same SMT properties (determinism, reachability, functional reason codes).</li>
+</ol>
+<div class="callout">
+  <p><b>Reification guard — now enforced at the cache too.</b> An all-India row can never answer a state/sex/urban slice, <em>and</em> a cached aggregate verdict can never serve a slice question (F2). Both are the same invariant, tested by the same property (<code>T-MSLICE</code>).</p>
+</div>
+</section>
+<!-- ============================================================= -->
+<section id="data">
+<h2>6. Data &amp; corpus plan v2 <a class="anchor" href="#data">#</a></h2>
+<ul>
+  <li><b>se/CI sourcing:</b> harvest published standard errors / margins alongside values where MoSPI prints them; <code>se:null</code> otherwise, and the UI shows "s.e. not published" instead of silence. Never impute an s.e.</li>
+  <li><b>Dual-source:</b> PDF parsers + eSankhyiki MCP; exact agreement on overlap or build failure. The MCP is pinned and timeout-wrapped.</li>
+  <li><b>Parser selection:</b> benchmark Docling / pdfplumber / Camelot / Table Transformer on <em>our own</em> corpus (cell-level accuracy + provenance traceability); record license compatibility before vendoring. Benchmark results vary sharply by table shape — trust our corpus's numbers, not vendor blogs.</li>
+  <li><b>Coverage metric (defined, consistently):</b> primary = golden questions answerable PASS from the store ÷ all golden questions; secondary = row utilization (<code>touched_row_ids / verified_rows</code>, the number v1 mislabelled "coverage"). Report both per build; regressions block merge. v1's own docs must be reconciled to a single denominator (the 101-vs-173 discrepancy, F5).</li>
+  <li><b>Coverage planner:</b> GNN over the claim-ontology graph, ranked by query-log demand + suggestion-click logs, proposes the next 500 slices to ingest. Data problem, not code problem — adding slices must never touch the firewall.</li>
+  <li><b>Break quantification (offline):</b> state-space intervention analysis (Statistics Norway's LFS-2021 methodology) estimates the size of the 2011-12 → 2022-24 discontinuity; the estimate (with CI) becomes a field in <code>comparability_rules.yaml</code> version 4 — the caveat gains a measured magnitude.</li>
+  <li><b>Vintage harvesting:</b> every ingested cell is tagged with its release vintage (Advance/Provisional/Revised/Final), <code>as_of</code> and its supersession link; the ingest pipeline must refuse a release that would leave existing rows' vintage ambiguous.</li>
+  <li><b>Footnote capture:</b> table and cell footnotes are extracted with the same provenance discipline as values — the parser benchmark must score footnote traceability, not just cell accuracy.</li>
+  <li><b>Definition registry:</b> each indicator maps to its statistical definition — activity status, population base, measure, and the report page that defines it — versioned with the rule data and shared by translator and judge.</li>
+  <li><b>Base-year registry:</b> index series (CPI, IIP, NAS deflators) carry their base year and link to comparability rules for cross-base questions.</li>
+</ul>
+</section>
+
+<!-- ============================================================= -->
+<section id="eval">
+<h2>7. Evaluation, gates &amp; statistical power <a class="anchor" href="#eval">#</a></h2>
+<p>Every gate below is computed, not vibes. Wilson intervals at 95%; zero-failure bounds are exact one-sided (<code>1 − 0.05^(1/n)</code>) <span class="prov c">C</span>. Gate = minimum observed score for the interval bound to clear the target. The <b>Test</b> column ties each suite to the seam test ID from §1.</p>
+<div class="wrap">
+<table>
+  <caption>Gates v2. Sample sizes chosen so the interval, not the point estimate, does the qualifying.</caption>
+  <thead><tr><th>Suite</th><th>n</th><th>Gate (observed)</th><th>What the interval guarantees</th><th>Test</th><th>Type</th></tr></thead>
+  <tbody>
+    <tr><td>Red-team injection recall</td><td>300</td><td>≥ 254/300 (84.7%)</td><td>Wilson lower ≥ 0.800</td><td><code>T-REDTEAM</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Red-team injection recall (stretch)</td><td>300</td><td>≥ 281/300 (93.7%)</td><td>Wilson lower ≥ 0.900</td><td><code>T-REDTEAM</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Red-team injection recall (large, 0.80 target)</td><td>1000</td><td>≥ 825/1000</td><td>Wilson lower ≥ 0.800</td><td><code>T-REDTEAM</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Red-team injection recall (large, 0.90 target)</td><td>1000</td><td>≥ 919/1000</td><td>Wilson lower ≥ 0.900</td><td><code>T-REDTEAM</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Paraphrase canonical-equality (0.90 target)</td><td>500</td><td>≥ 464/500 (92.8%)</td><td>Wilson lower ≥ 0.900</td><td><code>T-PARAPHRASE</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Paraphrase canonical-equality (0.80 target)</td><td>500</td><td>≥ 418/500 (83.6%)</td><td>Wilson lower ≥ 0.800</td><td><code>T-PARAPHRASE</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Danger-pair collisions</td><td>1000</td><td>0</td><td>miss-rate upper bound 0.30%</td><td><code>T-DANGER</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Poison invariance (Safety-B)</td><td>1000</td><td>0 hash changes</td><td>same bound, 0.30%</td><td><code>T-POISON</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Distinguishability guard</td><td>≥100 pair-golden</td><td>0 silent passes</td><td>upper bound ≤ 3.0% at n=100</td><td><code>T-DISTINGUISH</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Polish byte-identity</td><td>all PASS cases</td><td>100%</td><td>deterministic check, no interval</td><td><code>T-POLISH</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Parity v1 (existing)</td><td>100</td><td>100/100 <span class="prov m">M</span></td><td>[0.963 – 1.000] — consistent with submission ✓</td><td><code>T-PARITY</code></td><td><span class="prov m">M</span></td></tr>
+    <tr><td>Definition-ambiguity silent misparameterization</td><td>200</td><td>0</td><td>upper bound ≤ 1.5% <span class="prov c">C</span></td><td><code>T-DEFLOCK</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Vintage staleness / cross-vintage mixing</td><td>200</td><td>0</td><td>upper bound ≤ 1.5% <span class="prov c">C</span></td><td><code>T-VINTAGE</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Footnote display on served figures</td><td>all PASS cases</td><td>100%</td><td>deterministic check, no interval</td><td><code>T-FOOTNOTE</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Head-to-head: Vidhi wrong-number rate</td><td>300</td><td>0</td><td>upper bound ≤ 1.0% <span class="prov c">C</span></td><td><code>T-INCUMBENT</code></td><td><span class="prov t">T</span></td></tr>
+    <tr><td>Head-to-head: incumbent wrong-number rate</td><td>300</td><td>measured, reported with CI</td><td>baseline, no gate</td><td><code>T-INCUMBENT</code></td><td><span class="prov t">T</span></td></tr>
+  </tbody>
+</table>
+</div>
+<h3>Metamorphic relations (run over ≥10k generated cases)</h3>
+<ul>
+  <li><b>M1 · paraphrase invariance (<code>T-PARAPHRASE</code>):</b> paraphrase → identical canonical claim → identical verdict.</li>
+  <li><b>M2 · field-swap sensitivity (<code>T-MSLICE</code>):</b> changing a slice field must change the answer row or trigger a coverage note — never return the same figure.</li>
+  <li><b>M3 · poison invariance (<code>T-POISON</code>):</b> injected corpus variants leave the frozen hash unchanged (data non-interference, CaMeL-style property).</li>
+  <li><b>M-slice · aggregate-never-answers-slice (<code>T-MSLICE</code>):</b> for every (general, specific) question pair, the specific answer differs or honestly warns.</li>
+  <li><b>M4 · tolerance monotonicity (<code>T-TOLERANCE</code>):</b> equal values pass, perturbed values fail, at the specified tolerance; imputation legs never cross.</li>
+  <li><b>M5 · definition-swap sensitivity (<code>T-DEFLOCK</code>):</b> swapping <code>status_variant</code> or <code>measure_type</code> must change the resolved row or trigger a clarify/WARN — never return the same figure.</li>
+  <li><b>M6 · vintage monotonicity (<code>T-VINTAGE</code>):</b> a newer vintage supersedes the older; answering from an older vintage without an explicit as-of request must be impossible.</li>
+</ul>
+<h3>The head-to-head suite (<code>T-INCUMBENT</code>)</h3>
+<p>300 committed adversarial questions — 50 per class of the six failure classes in §2A — run identically through Vidhi and the incumbent's <em>public</em> surfaces (the eSankhyiki semantic-search beta and the website chatbot). Graded blind against a fixed rubric: number correct, definition correct, vintage correct, footnotes shown, uncertainty stated, refusal appropriate. Wilson 95% CIs on both systems; per-class breakdowns published. Interface drift is handled by re-baselining each quarter. Nothing behind a login (StatDoc AI) is scraped — if it cannot be measured publicly, it is not quoted at all. Results ship with the P2 community benchmark.</p>
+</section>
+
+<!-- ============================================================= -->
+<section id="phases">
+<h2>8. Phased roadmap <a class="anchor" href="#phases">#</a></h2>
+<p>Exit criteria reference the §1/§7 test IDs so every seam has a named gate.</p>
+<div class="wrap">
+<table>
+  <thead><tr><th>Phase</th><th>Scope</th><th>Exit criteria (all measured)</th></tr></thead>
+  <tbody>
+    <tr><td><b>P0.0 — Integrity patches</b> (1–2 wks)</td><td>Dual hash + signed manifest (F1); cache exact-equality + manifest-keyed negative <em>and</em> positive cache (F2, after code verification); race-safe caches; tolerance spec; coverage-metric definition (F5); demo v2 attestation line</td><td><code>T-TAMPER</code> fails closed; <code>T-MSLICE</code> + <code>T-TOLERANCE</code> green; <code>T-PARITY</code> unchanged; <code>T-CONCUR</code> clean at 20 workers</td></tr>
+    <tr><td><b>P0 — Calibrated safety &amp; closed-set translation</b></td><td>Cascade Safety-A — regex honouring all six signals (F3) + classifier; committed red-team set n≥300 (incl. Hindi/code-mix); conformal gate; closed-set translator with enum validation; M1–M6 suite; distinguishability rule + definition-lock + vintage + footnote fields (F9–F11) + <code>version: 4</code> + golden v2 (seeded with the incumbent's own documented example)</td><td><code>T-REDTEAM</code>, <code>T-PARAPHRASE</code>, <code>T-DANGER</code> gates met; SMT rule checks green; mutant-rule caught; <code>T-DISTINGUISH</code> 0 silent passes; <code>T-DEFLOCK</code> / <code>T-VINTAGE</code> / <code>T-FOOTNOTE</code> green</td></tr>
+    <tr><td><b>P1 — Coverage &amp; language</b></td><td>eSankhyiki dual-source + SOURCED tier; MuRIL/Hinglish translator; EIG disambiguation (<code>T-CLARIFY</code>); embedding corpus fine-tune; JEPA pilot (timeboxed); GNN coverage planner pilot; transparency log; <code>T-INCUMBENT</code> head-to-head v1 (n=300, public surfaces only); agent decomposition in /ask</td><td>Primary golden coverage ≥ 60% <span class="prov t">T</span>; SOURCED never PASSES (property test); JEPA adopted only on AUC win; disambiguation resolution rate reported; head-to-head report published with CIs</td></tr>
+    <tr><td><b>P2 — Scale &amp; contribution</b></td><td>500+ slices; break quantification feeding rules; publish an India claim-verification benchmark (ClaimDB-style) with the head-to-head results as a community contribution; quarterly differential testing against the incumbent on new releases; Hindi UI strings</td><td>Primary coverage ≥ 80% <span class="prov t">T</span>; benchmark released with baseline + CIs</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+<!-- ============================================================= -->
+<section id="ui">
+<h2>9. UI &amp; API contract v2 <a class="anchor" href="#ui">#</a></h2>
+<p>The demo v2 this spec targets implements — <em>per the reference delivery; commit it alongside this document so these claims can be verified</em> — structured-first rendering from <code>d.rows</code>, ±se bands and CIs, the sampling-error guard verdict, stage-trace bar, coverage suggestions, comparability timeline, sentence-verification tab, in-browser frozen-hash recompute, live-first with local deterministic twin, feedback POST without forced downloads, Wilson-CI'd self-check, Hindi chip. The API v2 contract it assumes:</p>
+<div class="wrap">
+<pre><code>Response v2 = {
+  question, decision, sub_code, reason_code, stage, stages[],
+  answer, rows:[{label,value,unit,basis,row_id,se,vintage,as_of,footnotes[]}],
+  figure:{value,unit,se,basis,row_id,vintage,as_of} | null,
+  uncertainty:{se,ci_low,ci_high,published:boolean},
+  definition:{status_variant,measure_type,population_base} | null, // v2.2 — F9
+  coverage:{note, nearest:[{label,question}]} | null,
+  clarify:{question,options[]} | null,          // v2.1 — EIG disambiguation
+  caveats[], citations:[{index,doc_id,text,provenance{doc,page,sha,extractor}}],
+  evidence_tier: VERIFIED|SOURCED|NONE,
+  verdict_frozen_hash, figure_attestation,       // v2.1 — attestation
+  manifest:{sha256,sig}, rule_version, claim, trace_id, latency_ms, mode
+}</code></pre>
+</div>
+<p><b>v2.1 deltas for the demo:</b> display the attestation hash line; verify <code>manifest.sig</code> via WebCrypto (ECDSA P-256); render <code>clarify</code> as a one-question chip row; show "s.e. not published" when <code>uncertainty.published=false</code>. The v1 regex prose-parsers stay only as legacy fallback for old backends. <b>v2.2 adds:</b> render the <code>definition</code> chips (status variant, measure, base) and the vintage/<code>as_of</code> line on every figure; render footnotes directly beneath the figure — <code>T-FOOTNOTE</code> makes footnote display a PASS requirement.</p>
+</section>
+
+<!-- ============================================================= -->
+<section id="risks">
+<h2>10. Non-goals, limits, risks <a class="anchor" href="#risks">#</a></h2>
+<ul>
+  <li><b>Never:</b> learned verdicts, cosine-threshold safety, silent SOURCED→PASS upgrades, imputed standard errors, auto-applied critic changes.</li>
+  <li><b>eSankhyiki dependency:</b> official MCP is a beta; pin schemas, timeout, circuit-break; the offline deterministic path must never block on it. Strategically, if MoSPI's own assistant grows governance, Vidhi's niche narrows — the differentiator to defend is <em>verifiable</em> governance (hashes, logs, measured gates).</li>
+  <li><b>JEPA may lose:</b> the pilot is timeboxed; a negative result with CI is a valid deliverable.</li>
+  <li><b>Vendor numbers are ceilings, not evidence:</b> Anthropic's ~95% block rate <span class="prov v">V</span> and benchmark leaders on FACTS Grounding motivate, never substitute for, our own measured gates.</li>
+  <li><b>Small-n honesty:</b> until refusal n≥300, the honest claim is "8/8, miss-rate upper bound 31.2% <span class="prov c">C</span>" — say exactly that.</li>
+  <li><b>Metric honesty:</b> never call row-utilization "coverage"; report primary coverage and utilization separately and reconcile v1's 101-vs-173 denominator discrepancy before quoting either.</li>
+  <li><b>Source hygiene:</b> §12 titles/orgs were retrieved in-session and the load-bearing ones re-fetched; re-verify every identifier before the paper deadline.</li>
+  <li><b>Benchmark ethics:</b> the head-to-head uses only public interfaces, respects ToS and rate limits, and never scrapes behind a login (StatDoc AI); unmeasurable surfaces are not quoted at all. "Beats the incumbent" is claimed only from our own published numbers, with CIs — never from vendor material.</li>
+  <li><b>MoSPI may add governance later:</b> if StatDoc AI grows adjudication, the defensible moat is the <em>verifiable</em> record — signed manifests, attestations, transparency log, published gates — not being first.</li>
+</ul>
+</section>
+
+<!-- ============================================================= -->
+<section id="prompts">
+<h2>11. Ready-to-paste prompts <a class="anchor" href="#prompts">#</a></h2>
+
+<div class="promptbox"><span class="tag">P0.0 · integrity</span>
+<pre><code>In vidhi-next: implement dual-hash integrity. (1) Build emits a signed store
+manifest (sha256 over canonical JSON of rows+rule_version+built_at; sign with
+Ed25519 or ECDSA P-256, key from VIDHI_SIGNING_KEY). (2) freeze() payload gains
+store_manifest_sha256. (3) Add figure_attestation computed post-retrieval:
+sha256(frozen_hash || row_id || value || unit || row.pdf_sha256 || row.page)[:16].
+(4) Tests: mutate one store value in a fork → client verify must fail closed;
+poison-invariance over 200 injected corpus variants → frozen hash unchanged;
+zero-failure bound reported with the test output. Also document that a rebuild
+changes every frozen hash, so the positive semantic cache must be versioned by
+store_manifest_sha256 too. Do not change any verdict.</code></pre>
+</div>
+
+<div class="promptbox"><span class="tag">P0.0 · cache</span>
+<pre><code>First: read the semantic-cache reuse condition in the v1 code and report (a) whether
+reuse requires fields-specified-on-both-sides agreement or exact canonical equality,
+and (b) whether the semantic cache is served at all in v1 (in v1 it is recorded into
+cache_info.semantic but NOT returned — confirm this). Then: enforce exact canonical
+equality — reuse iff canon(new)==canon(cached), null-vs-specified preserved. Add a
+negative cache for WARN_NO_DATA keyed by canonical claim XOR store_manifest_sha256
+so any store rebuild invalidates cached refusals. Make cache writes single-writer
+atomic (temp+rename). Property test T-MSLICE: for every (general, specific) pair in
+eval/, the specific response must differ or carry a coverage note — 0 violations.
+Report before/after hit rates.</code></pre>
+</div>
+
+<div class="promptbox"><span class="tag">P0 · safety calibration</span>
+<pre><code>Build the Safety-A cascade. L0: schema-constrained claim translator (JSON schema,
+enum-validated fields; parse/enum failure → WARN_LOW_CONFIDENCE, never a guess).
+L1: keep the regex baseline BUT map all six signal classes (override, role_switch,
+exfiltration, delimiter_break, tool_coercion, encoded) to explicit reason codes —
+v1 only refuses on "override". L2: train/distil a small injection classifier on a
+committed red-team set: ≥300 injections (English + Hindi + Hinglish code-mix) +
+≥300 benign stats questions. Use Prompt Guard 2 86M (multilingual, Hindi-capable)
+or distil a MuRIL student for CPU; the 22M variant is English-only. Calibrate with
+temperature scaling; report precision/recall with Wilson 95% CIs. Gate: recall ≥
+254/300 (lower ≥ 0.80); stretch 281/300 (lower ≥ 0.90). Log every FP — they become
+benign-set additions. No threshold on cosine similarity may gate anything
+(guarantee 3).</code></pre>
+</div>
+
+<div class="promptbox"><span class="tag">P0 · statistical guard</span>
+<pre><code>Add sampling-error distinguishability. Store rows gain a nullable `se` (harvest
+published MoSPI standard errors; null when not published — never impute). In the
+Numeric stage's pair branch, after cell-by-cell verification: if both se present
+and |Δ| < 1.96*sqrt(se1²+se2²) → WARN_STATISTICALLY_INDISTINGUISHABLE /
+R_SE_NOT_DISTINGUISHABLE, both figures shown, no trend endorsed. Document the
+independence assumption and that design effects can make this a false-positive
+guard; log every trigger for recalibration. Bump comparability_rules.yaml to
+version: 4 (the derived rule_version hash changes); extend the golden set with pair
+cases (expected WARNs); report parity per rule so the delta is visible. If either se
+is null, skip the guard and include "s.e. not published" in the response. Zero silent
+passes on a 100-case pair-golden (upper bound 3.0% at 95%).</code></pre>
+</div>
+
+<div class="promptbox"><span class="tag">P0 · rule-DSL check</span>
+<pre><code>Express the firewall rules as data and machine-check them (Z3/SMT). Assert:
+(a) the ordered evaluation is deterministic (no claim can activate two rules that
+yield different verdicts once order is applied); (b) every rule is reachable (no
+permanent shadowing); (c) the reason_code → (decision, sub_code) mapping is
+functional AFTER splitting R_COMPARABILITY_HCES_METHOD, which in v1 maps to both
+(WARN, WARN_COMPARABILITY) and (REFUSE, REFUSE_COMPARABILITY) — introduce a
+distinct code for the refusal branch; (d) stage order is a total order. CI must
+fail on a mutant rule that contradicts (a). Bump the rule data to version: 4.</code></pre>
+</div>
+
+<div class="promptbox"><span class="tag">P1 · SOURCED tier</span>
+<pre><code>Wire the eSankhyiki MCP (nso-india/esankhyiki-mcp, MIT) as a SOURCED-tier
+fallback: only on WARN_NO_DATA and VIDHI_OFFLINE=0; hard timeout 5s; circuit
+breaker; results labelled "sourced, not certified" with doc id + retrieval
+timestamp; NEVER upgrades to PASS and never enters the verified store except via
+the dual-source audit gate (exact agreement with PDF parsers on overlap, else
+build failure). Property test: SOURCED responses always carry evidence_tier=
+SOURCED and a visible label. Report the WARN_NO_DATA → answered-with-label
+conversion rate on the golden set.</code></pre>
+</div>
+
+<div class="promptbox"><span class="tag">P0 · definition-lock and vintage</span>
+<pre><code>Implement F9-F11. (1) Claim schema v2 gains status_variant
+(UPSS/CWS/CDS/n-a), measure_type (rate/share/count/pp/index),
+population_base, period (explicit fiscal-year semantics; PLFS runs
+July-June) and vintage_requested - all enum-validated by the closed-set
+translator. (2) Store rows gain vintage, as_of, revised_from
+(supersession chain), base_year, footnotes[], status_variant.
+(3) Scope-stage rules in the version-4 data: unresolved definition ->
+one EIG clarify question else WARN_AMBIGUOUS_DEFINITION /
+R_AMBIGUOUS_DEFINITION; cross-vintage comparisons quote both vintages
+or R_VINTAGE_MISMATCH; footnote display is mandatory for PASS, material
+qualifiers -> R_FOOTNOTE_BOUND. (4) Seed the golden set from the
+incumbent's own documented example - "What percent of people were
+Jobless in Villages in 2022-23" must clarify the activity status,
+never silently pick one. (5) Property tests: T-DEFLOCK and T-VINTAGE
+over 200 cases each (0 violations; report the 1.5% zero-failure upper
+bounds); T-FOOTNOTE deterministic 100%. Report per-rule parity with v1.</code></pre>
+</div>
+
+<div class="promptbox"><span class="tag">P1 · incumbent head-to-head</span>
+<pre><code>Build the T-INCUMBENT harness. (1) Commit 300 adversarial questions,
+50 per class: definition ambiguity, vintage staleness, series breaks,
+slice/aggregate confusion, unit and pp traps, statistical
+distinguishability. (2) Run Vidhi and the incumbent's PUBLIC surfaces
+(eSankhyiki semantic-search beta, website chatbot) on identical
+questions; never touch login-gated surfaces (StatDoc AI); respect ToS
+and rate limits. (3) Grade blind against a fixed rubric: number
+correct, definition correct, vintage correct, footnotes shown,
+uncertainty stated, refusal appropriate. (4) Report per-class and
+overall precision and refusal correctness with Wilson 95% CIs for BOTH
+systems. (5) Gate for Vidhi only: 0 wrong numbers in 300 (zero-failure
+upper bound 1.0%); the incumbent's rates are the reported baseline,
+not a gate. (6) Add a quarterly differential run on each new MoSPI
+release; disagreements go to a human review queue. Publish everything.</code></pre>
+</div>
+</section>
+
+<!-- ============================================================= -->
+<section id="sources">
+<h2>12. Sources <a class="anchor" href="#sources">#</a></h2>
+<p>Retrieved during the research pass (titles + organizations); the load-bearing items (eSankhyiki MCP, Prompt Guard 2 sizes, CaMeL) were re-fetched this session and confirmed. <b>Re-verify every identifier before citing in the paper.</b></p>
+<div class="wrap">
+<table>
+  <thead><tr><th>Topic</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="3">Prompt injection</td><td>Debenedetti et al., <em>Defeating Prompt Injections by Design</em> (CaMeL) — DeepMind, 2025, arXiv:2503.18813 ✓</td></tr>
+    <tr><td>Wallace et al., <em>The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions</em> — OpenAI, 2024</td></tr>
+    <tr><td><em>LlamaFirewall: An Open-Source Guardrail System for Building Secure AI Agents</em> + Prompt Guard 2 (22M English-only / 86M multilingual) — Meta, 2025 ✓; <em>Constitutional Classifiers</em> — Anthropic, 2025 (vendor-reported results)</td></tr>
+    <tr><td rowspan="3">Grounded statistics</td><td><em>DataGemma / Grounding AI in reality with Data Commons</em> — Google Research; Data Commons MCP server launch, 2025</td></tr>
+    <tr><td><em>eSankhyiki MCP</em> (<code>nso-india/esankhyiki-mcp</code>, MIT license; PLFS/CPI/ASI/IIP/NAS; MoSPI + DIID pilot) — NSO India / MoSPI, 2025 (beta) ✓; PIB release note</td></tr>
+    <tr><td><em>FACTS Grounding</em> benchmark — Google DeepMind, 2024</td></tr>
+    <tr><td rowspan="3">Abstention &amp; calibration</td><td>Zhang et al., <em>R-Tuning: Instructing LLMs to Say "I Don't Know"</em> — NAACL 2024</td></tr>
+    <tr><td>Quach et al., <em>Conformal Language Modeling via Posterior Sampling</em>; <em>Mitigating LLM Hallucinations via Conformal Abstention</em>; <em>Online Conformal Abstention for Factuality Control Under Adversarial Bandit Feedback</em></td></tr>
+    <tr><td>Kadavath et al., <em>Language Models (Mostly) Know What They Know</em> — Anthropic, 2022</td></tr>
+    <tr><td>Text-to-SQL refusal</td><td><em>Reliable Text-to-SQL with Adaptive Abstention</em>; <em>LatentRefusal</em>; <em>Interactive Text-to-SQL via Expected Information Gain for Disambiguation</em>; <em>TrustSQL</em></td></tr>
+    <tr><td rowspan="2">Structure &amp; verification</td><td><em>How We Built Cedar: A Verification-Guided Approach</em> — AWS; <em>SymCert: Verifying SMT-based Policy Analyses</em> — Amazon Science</td></tr>
+    <tr><td><em>LGMT: Logic-Grounded Metamorphic Testing</em>; sigstore/Rekor transparency logs</td></tr>
+    <tr><td rowspan="2">Claim verification</td><td><em>ClaimDB: A Fact Verification Benchmark over Large Structured Data</em>; <em>Fine-grained Fact Verification with Kernel Graph Attention Network</em> — Microsoft</td></tr>
+    <tr><td><em>ClimateViz: Statistical Reasoning and Fact Verification on Scientific Charts</em></td></tr>
+    <tr><td rowspan="2">Representations</td><td><em>LLM-JEPA: LLMs Meet Joint Embedding Predictive Architectures</em>, 2025 (JEPA lineage: LeCun, 2022)</td></tr>
+    <tr><td><em>MuRIL: Multilingual Representations for Indian Languages</em> — Google; <em>muBoost</em> — Indic classification; <em>BERT for Joint Intent Classification and Slot Filling</em>, 2019; <em>CustomIR: Unsupervised Fine-Tuning of Dense Embeddings for Known Corpora</em>; BGE-M3</td></tr>
+    <tr><td rowspan="5">The incumbent (MoSPI's own AI stack)</td><td><em>Use Cases of Data Science and AI in Official Statistics</em> v3.0 — MoSPI Data Innovation Lab, Data Informatics and Innovation Division (PDF, retrieved and extracted this session) ✓</td></tr>
+    <tr><td><em>AI-Based Semantic Search Tool — eSankhyiki: User Manual</em> — MoSPI (PDF, retrieved this session) ✓</td></tr>
+    <tr><td>PIB release, 30 Mar 2026: AI integrated into eSankhyiki portal; AI-enabled chatbot on the revamped website (Rajya Sabha announcement by the Minister of State) ✓</td></tr>
+    <tr><td>PIB PRID 2224472: <em>NSO Launches MCP Server to Make Government Data AI Ready</em> (beta; 7 datasets) ✓</td></tr>
+    <tr><td>Live surfaces observed this session: <code>chatbot.mospi.gov.in</code> (MoSPI AI Assistant, © 2026); <code>statsdoc.ai.mospi.gov.in</code> (StatDoc AI, login-gated) ✓</td></tr>
+    <tr><td>Extraction &amp; breaks</td><td>Docling / pdfplumber / Camelot / Table Transformer benchmarks (OpenDataLoader et al.); <em>Break estimation in the Norwegian LFS due to the 2021 redesign</em> + state-space intervention analysis — Statistics Norway</td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<!-- ============================================================= -->
+<section id="appendix">
+<h2>Appendix A · Number provenance <a class="anchor" href="#appendix">#</a></h2>
+<div class="wrap">
+<table>
+  <thead><tr><th>Number</th><th>Value</th><th>Type</th><th>Origin</th></tr></thead>
+  <tbody>
+    <tr><td>Golden verdict accuracy</td><td>100/100 [0.963–1.000]</td><td><span class="prov m">M</span></td><td>v1 eval, reproduced in submission; CI recomputed and matched this session</td></tr>
+    <tr><td>Numeric exact match</td><td>59/59 [0.939–1.000]</td><td><span class="prov m">M</span></td><td>v1 eval; CI recomputed and matched</td></tr>
+    <tr><td>Refusal performance</td><td>8/8; lower 0.676</td><td><span class="prov m">M</span></td><td>submission's "floor 0.68" = Wilson lower</td></tr>
+    <tr><td>Refusal miss-rate upper bound</td><td>31.2% at n=8</td><td><span class="prov c">C</span></td><td>1 − 0.05^(1/8)</td></tr>
+    <tr><td>Danger-pair zero-failure bound</td><td>14.6% (n=19) → 0.30% (n=1000)</td><td><span class="prov c">C</span></td><td>1 − 0.05^(1/n)</td></tr>
+    <tr><td>Gate thresholds</td><td>254/300, 281/300, 418/500, 464/500, 825/1000, 919/1000</td><td><span class="prov c">C</span></td><td>Wilson lower ≥ 0.80 / 0.90 (all six rows now appear in §7)</td></tr>
+    <tr><td>r2.2 zero-failure bounds</td><td>≤ 1.5% @ n=200; ≤ 1.0% @ n=300</td><td><span class="prov c">C</span></td><td>1 − 0.05^(1/n)</td></tr>
+    <tr><td>Incumbent capability descriptions (semantic search = top-3 + relevance score + auto-filter redirect; chatbot KB refreshed on ministry schedules; MCP beta = 7 datasets, 4 tools)</td><td>—</td><td><span class="prov v">V</span></td><td>MoSPI Use-Cases v3.0 + Semantic Search User Manual + PIB (retrieved this session); performance NOT measured</td></tr>
+    <tr><td>Head-to-head results (Vidhi vs incumbent)</td><td>—</td><td><span class="prov t">T</span></td><td><code>T-INCUMBENT</code>, not yet run</td></tr>
+    <tr><td>Store row utilization</td><td>173 rows; "54/173 (31.2%)"</td><td><span class="prov m">M</span></td><td>v1 <code>eval.py</code> <code>touched_row_ids/verified_rows</code>; <em>mislabelled "coverage"</em> — v1 docs also report 54/101 (53.5%), denominator defect (F5)</td></tr>
+    <tr><td>Constitutional Classifiers block rate</td><td>~95% (universal jailbreaks)</td><td><span class="prov v">V</span></td><td>Anthropic-reported; not independent evidence</td></tr>
+    <tr><td>All §7 gate rows</td><td>—</td><td><span class="prov t">T</span></td><td>targets, not measurements</td></tr>
+  </tbody>
+</table>
+</div>
+<footer>
+  <p><strong>Vidhi Next v2</strong> · revision 2.2 · completes the interrupted external review (research &amp; statistics salvaged with provenance) · corrects six issues found in a code-anchored audit (§0) · r2.2 grounds MoSPI's own AI stack from its own documents and sets the measured bar for beating it (§2A, <code>T-INCUMBENT</code>) · all learned components confined to proposer/evidence/offline planes per the six guarantees.</p>
+  <p>ConfAI 2026 · Track 06 Responsible &amp; Ethical AI · Plaksha University · Baseline: Vidhi Guardian v1 (aip-lab/vidhi).</p>
+</footer>
+</section>
+</main>
+</div>
+</body>
+</html>

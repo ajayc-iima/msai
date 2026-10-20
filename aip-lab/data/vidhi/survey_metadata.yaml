@@ -1,0 +1,97 @@
+# Vidhi Guardian — survey registry (metadata only, no statistical values here)
+# Values live in data/truth/ground_truth_tables.json with page-level provenance.
+version: 3
+in_corpus:
+  - id: PLFS_2025
+    name: Periodic Labour Force Survey
+    round: "2025"
+    reference_period: "January 2025 - December 2025"
+    geographic_coverage: India, states/UTs, rural/urban
+    design_note: Revamped sample design + cycle shifted July-June to Jan-Dec; see PLFS_Changes-in-2025_rev.pdf
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        definition_ref: PLFS_2025 report + Jan-Dec 2025 schedules
+        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        definition_ref: PLFS_2025 report + Jan-Dec 2025 schedules
+        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        definition_ref: PLFS_2025 report + Jan-Dec 2025 schedules
+        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+    methodology_notes: microdata DDI-IND-NSO-PLFS-Jan2025-Dec2025 schedules + field-staff instructions
+  - id: HCES_2023_24
+    name: Household Consumption Expenditure Survey
+    round: "2023-24"
+    reference_period: "August 2023 - July 2024"
+    geographic_coverage: India, states/UTs, rural/urban
+    indicators:
+      - indicator: MPCE
+        measures: [with_imputation, without_imputation]
+        definition_ref: TODO_HCES_2023_24_docs
+        allowed_disaggregations: [residence, state]
+    methodology_notes: microdata DDI-IND-MOSPI-NSS-HCES23-24 methodology + imputation-rate xlsx
+  - id: TUS_2024
+    name: Time Use Survey
+    round: "2024"
+    reference_period: "January - December 2024"
+    geographic_coverage: India, rural/urban, sex
+    indicators:
+      - indicator: participation_rate
+        measures: [by_activity]
+        definition_ref: TODO_TUS_2024_docs
+        allowed_disaggregations: [sex, residence, activity]
+      - indicator: average_time
+        measures: [by_activity]
+        definition_ref: TODO_TUS_2024_docs
+        allowed_disaggregations: [sex, residence, activity]
+    methodology_notes: microdata DDI-IND-NSO-TUS-2024-24 instructions + estimation
+  - id: NSS78_MIS_2020_21
+    name: NSS 78th Round Multiple Indicator Survey
+    round: "2020-21"
+    reference_period: "2020-2021"
+    geographic_coverage: India, rural/urban
+    indicators:
+      - indicator: drinking_water
+        measures: [improved_source_share]
+        definition_ref: TODO_MIS_report_section
+        allowed_disaggregations: [residence]
+    methodology_notes: TODO_from_PDF
+reference_only:
+  # Known but out-of-corpus: hit Comparability stage, not blunt out-of-scope.
+  - id: PLFS_2023_24
+    name: Periodic Labour Force Survey
+    round: "2023-24"
+    note: Superseded in-corpus round (v2); pre-revamp July-June design, comparability break vs 2025.
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+  - id: PLFS_2022_23
+    name: Periodic Labour Force Survey
+    round: "2022-23"
+    note: Superseded in-corpus round (v1); kept for round-mismatch guard.
+  - id: HCES_2022_23
+    name: Household Consumption Expenditure Survey
+    round: "2022-23"
+    note: Superseded in-corpus round (v1); comparability baseline vs 2011-12 break.
+  - id: TUS_2019
+    name: Time Use Survey
+    round: "2019"
+    note: Superseded in-corpus round (v1); kept for round-mismatch guard.
+  - id: HCES_2011_12
+    name: Household Consumption Expenditure Survey
+    round: "2011-12"
+    note: Reference only for comparability trap; no numeric rows committed.
+  - id: NSS_EUS_2011_12
+    name: Employment-Unemployment Survey
+    round: "2011-12"
+    note: Reference only; pre-PLFS comparison requires caveat.

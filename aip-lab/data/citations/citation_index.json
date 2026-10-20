@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "note": "Every cited row/excerpt must appear here. Generator may not cite a page absent from this index.",
+  "entries": [
+    {
+      "citation_id": "CIT_HCES_2324_FS_001",
+      "type": "excerpt",
+      "survey_id": "HCES_2023_24",
+      "source_doc": "mospi_HCES_2023-24_Factsheet.pdf",
+      "source_page": "PDF p5 (printed Page 4 of 21)",
+      "text_ref": "HCES_2023_24_MPCE_HEADLINE_001"
+    },
+    {
+      "citation_id": "CIT_HCES_2324_FS_002",
+      "type": "excerpt",
+      "survey_id": "HCES_2023_24",
+      "source_doc": "mospi_HCES_2023-24_Factsheet.pdf",
+      "source_page": "PDF p7 (Statement 2)",
+      "text_ref": "HCES_2023_24_TREND_001"
+    },
+    {
+      "citation_id": "CIT_HCES_2324_PN_001",
+      "type": "excerpt",
+      "survey_id": "HCES_2023_24",
+      "source_doc": "mospi_HCES_2023-24_PressNote_30012025.pdf",
+      "source_page": "PDF pp2-3",
+      "text_ref": "HCES_2023_24_IMPUTATION_001"
+    },
+    {
+      "citation_id": "CIT_PLFS_2324_AR_001",
+      "type": "excerpt",
+      "survey_id": "PLFS_2023_24",
+      "source_doc": "mospi_PLFS_2023-24_AnnualReport.pdf",
+      "source_page": "PDF pp18-22 (Highlights pp ii-vi)",
+      "text_ref": "PLFS_2023_24_HIGHLIGHTS_001"
+    },
+    {
+      "citation_id": "CIT_PLFS_2025_AR_001",
+      "type": "excerpt",
+      "survey_id": "PLFS_2025",
+      "source_doc": "mospi_PLFS_2025_F_REV_29052026.pdf",
+      "source_page": "PDF p22 (Highlights p xvii, Table 1)",
+      "text_ref": "PLFS_2025_TABLE1_001"
+    },
+    {
+      "citation_id": "CIT_MIS78_V1_001",
+      "type": "excerpt",
+      "survey_id": "NSS78_MIS_2020_21",
+      "source_doc": "microdata_DDI-IND-CSO-MIS-78-2020__78th_Vol_I_Final.pdf",
+      "source_page": "PDF pp119-120",
+      "text_ref": "MIS78_SDG_DEFINITIONS_001"
+    },
+    {
+      "citation_id": "CIT_HCES_2324_FS_003",
+      "type": "excerpt",
+      "survey_id": "HCES_2023_24",
+      "source_doc": "mospi_HCES_2023-24_Factsheet.pdf",
+      "source_page": "PDF p12 (Statement 7)",
+      "text_ref": "HCES_2023_24_STATE_001"
+    },
+    {
+      "citation_id": "CIT_PLFS_2324_AR_002",
+      "type": "excerpt",
+      "survey_id": "PLFS_2023_24",
+      "source_doc": "mospi_PLFS_2023-24_AnnualReport.pdf",
+      "source_page": "PDF p5 (Explanatory Note)",
+      "text_ref": "PLFS_2023_24_EUS_NOTE_001"
+    }
+  ]
+}

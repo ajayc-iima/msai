@@ -1,0 +1,454 @@
+====================================================================================================
+Q04  [single_hop]  correctness=1 faithfulness=1 refused=False
+  Q     : What is the waiting period for pre-existing diseases?
+  GOLD  : 36 months of continuous coverage. A rider can reduce it to 24 or 12 months if bought at inception or first renewal.
+  GOT   : The waiting period for pre‑existing diseases is 36 months. [2][3]
+  span in delivered window: False  (60% of 10 content words; missing numbers ['12']; missing words ['bought', 'inception', 'reduce', 'rider'])
+  missing numbers: ['12']
+  missing words  : ['bought', 'inception', 'reduce', 'rider']
+  gold docs: ['pre-existing-conditions']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  pre-existing-conditions              [Waiting Periods and Pre-Existing Diseases > Schedule of waiting periods] | Category | Waiting period | Applies to | |--
+   [2]* dense-rank  2  pre-existing-conditions              [Waiting Periods and Pre-Existing Diseases > Schedule of waiting periods] | Pre-existing diseases (PED) | 36 months | An
+   [3]* dense-rank  3  pre-existing-conditions              [Waiting Periods and Pre-Existing Diseases > What counts as pre-existing] Hypertension, diabetes mellitus, and cardiac c
+   [4]* dense-rank  4  pre-existing-conditions              [Waiting Periods and Pre-Existing Diseases] A waiting period is a stretch of continuous coverage that must elapse before
+   [5]* dense-rank  5  pre-existing-conditions              [Waiting Periods and Pre-Existing Diseases > Specified illnesses with a 24-month waiting period] Cataract; benign prosta
+
+  -- gold-doc chunks carrying the missing material --
+   pre-existing-conditions  [DELIVERED]  9 chunks, best rank 1
+     dense-rank   18  outside window  covers words ['bought', 'inception', 'rider'] numbers ['12']
+        [Waiting Periods and Pre-Existing Diseases > Reduction of the PED waiting period] Aurora offers a **PED Waiting Period Reduction** rider that reduces 36 months to either 24 months or 12 months, at add
+
+====================================================================================================
+Q05  [single_hop]  correctness=1 faithfulness=1 refused=False
+  Q     : How long is the grace period for an annual policy?
+  GOLD  : 30 days for annual policies (15 days for instalment policies). Cover does not operate during the grace period; it only preserves continuity of waiting periods and no-claim bonus.
+  GOT   : The grace period for an annual policy is 30 days. [1][2]
+  span in delivered window: True  (94% of 17 content words; missing words ['preserves'])
+  missing numbers: []
+  missing words  : ['instalment', 'preserves']
+  gold docs: ['policy-renewal-and-portability']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  policy-renewal-and-portability       [Renewal, Grace Period, and Portability > Grace period] The grace period is **30 days** from the renewal due date for an
+   [2]  dense-rank  2  life-insurance-grace-and-revival     [Aurora Life — Grace Period, Lapse and Revival > Grace period] | Premium mode | Grace period | |---|---| | Annual, half-
+   [3]  dense-rank  3  glossary                             [Glossary] **Free-look period** — The window in which a new policy can be returned for a refund. **Grace period** — The 
+   [4]* dense-rank  4  policy-renewal-and-portability       [Renewal, Grace Period, and Portability > Grace period] Renew after the grace period expires and the policy is treated a
+   [5]  dense-rank  5  life-insurance-grace-and-revival     [Aurora Life — Grace Period, Lapse and Revival > Free-look] 15 days from receipt, or 30 days for policies sold through d
+
+  -- gold-doc chunks carrying the missing material --
+   policy-renewal-and-portability  [DELIVERED]  10 chunks, best rank 1
+     dense-rank    6  outside window  covers words ['preserves'] numbers []
+        [Renewal, Grace Period, and Portability > Grace period] Cover is **not** in force during the grace period. A claim for an admission that occurs inside the grace period, before the renewal premium is r
+
+====================================================================================================
+Q06  [single_hop]  correctness=1 faithfulness=1 refused=False
+  Q     : How many hospitals are in the Aurora network?
+  GOLD  : 11,400 hospitals across 780 towns as of 1 April 2026, though the app locator is the authoritative live list.
+  GOT   : Aurora's network covers 11,400 hospitals as of 1 April 2026. [1]
+  span in delivered window: True  (85% of 13 content words; missing words ['live', 'though'])
+  missing numbers: []
+  missing words  : ['live', 'though']
+  gold docs: ['network-hospitals']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  network-hospitals                    [Network Hospitals and Cashless Access] Aurora's network covers 11,400 hospitals across 780 towns as of 1 April 2026. Th
+   [2]  dense-rank  2  claims-process                       [Filing a Claim] There are two routes. Which one is available depends on whether the hospital is in the Aurora network, 
+   [3]* dense-rank  3  network-hospitals                    [Network Hospitals and Cashless Access > Minimum hospital definition] patient records accessible to Aurora's authorised 
+   [4]  dense-rank  4  claims-process                       [Filing a Claim > Route 1 — Cashless (network hospitals only)] 4. For an **emergency** admission, the hospital must noti
+   [5]  dense-rank  5  claims-process                       [Filing a Claim > Route 1 — Cashless (network hospitals only)] 1. Present your Aurora health card and a government photo
+
+  -- gold-doc chunks carrying the missing material --
+   network-hospitals  [DELIVERED]  11 chunks, best rank 1
+
+====================================================================================================
+Q07  [single_hop]  correctness=1 faithfulness=0 refused=False
+  Q     : What is the no-claim bonus on Gold?
+  GOLD  : 25% of base sum insured per claim-free year, accumulating to a maximum of 100%. A claim stops accumulation for that year but does not reduce the bonus.
+  GOT   : The Gold plan offers a no‑claim bonus of 25 % of the base sum insured for each claim‑free year, accumulating up to a maximum of 10 of 100 % of the base sum insured. [1][5]
+  span in delivered window: True  (100% of 16 content words)
+  missing numbers: []
+  missing words  : ['reduce']
+  gold docs: ['plan-gold', 'plans-overview']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  plan-gold                            [Aurora Gold — Plan Terms > No-claim bonus] 25% of base sum insured per claim-free year, accumulating to a maximum of 10
+   [2]  dense-rank  2  plan-silver                          [Aurora Silver — Plan Terms > No-claim bonus] 10% of the base sum insured is added for each claim-free year, up to a max
+   [3]  dense-rank  3  plan-bronze                          [Aurora Bronze — Plan Terms > No-claim bonus] 5% per claim-free year, maximum accumulation 25%.
+   [4]* dense-rank  4  plan-gold                            [Aurora Gold — Plan Terms > Additional Gold benefits] - Annual preventive health check-up for every adult insured, every
+   [5]* dense-rank  5  plans-overview                       [Aurora Health Insurance — Plan Comparison > At a glance] | Day-care procedures | 150 listed | 400 listed | All | All | 
+
+  -- gold-doc chunks carrying the missing material --
+   plan-gold  [DELIVERED]  9 chunks, best rank 1
+   plans-overview  [DELIVERED]  9 chunks, best rank 5
+
+====================================================================================================
+Q10  [single_hop]  correctness=1 faithfulness=1 refused=False
+  Q     : Who can I escalate to if Aurora rejects my claim and their internal response is unsatisfactory?
+  GOLD  : Escalate to Aurora's Grievance Redressal Officer (14-day response), then to the Insurance Ombudsman for your region within 1 year of the final rejection.
+  GOT   : You can escalate to the Insurance Ombudsman for your region if Aurora’s final response is unsatisfactory or they do not respond within 30 days of your complaint. [1] (see also [4] for the Ombudsman’s jurisdiction and timelines).
+  span in delivered window: True  (100% of 15 content words)
+  missing numbers: []
+  missing words  : ['day']
+  gold docs: ['grievance-redressal']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  grievance-redressal                  [Grievance Redressal and Claim Disputes > Stage 3 — Insurance Ombudsman] If Aurora's final response is unsatisfactory, o
+   [2]* dense-rank  2  grievance-redressal                  [Grievance Redressal and Claim Disputes > Stage 2 — Grievance Redressal Officer] If you are not satisfied with the Stage
+   [3]* dense-rank  3  grievance-redressal                  [Grievance Redressal and Claim Disputes > Stage 1 — Aurora customer service] Raise a grievance in the app, on the portal
+   [4]* dense-rank  4  grievance-redressal                  [Grievance Redressal and Claim Disputes > Stage 3 — Insurance Ombudsman] - The Ombudsman handles disputes where the clai
+   [5]  dense-rank  5  claims-process                       [Filing a Claim > Settlement timelines] Aurora settles or rejects a complete reimbursement claim within **15 working day
+
+  -- gold-doc chunks carrying the missing material --
+   grievance-redressal  [DELIVERED]  10 chunks, best rank 1
+     dense-rank  >30  outside window  covers words ['day'] numbers []
+        [Grievance Redressal and Claim Disputes > Common grounds of claim rejection and what to do] | Documents incomplete | Supply the specific document; the 45-day query clock applies |
+
+====================================================================================================
+Q11  [single_hop]  correctness=1 faithfulness=1 refused=False
+  Q     : How much ambulance cover is there?
+  GOLD  : Rs 5,000 per hospitalisation for road ambulance on all plans. Gold and Platinum additionally cover air ambulance up to Rs 2,50,000 per year within India on prior authorisation.
+  GOT   : Road ambulance cover is ₹5,000 per hospitalisation [1][4][5]. Air ambulance cover is up to ₹2,50,000 per policy year within India, subject to prior authorisation [2].
+  span in delivered window: True  (89% of 19 content words; missing words ['additionally', 'platinum'])
+  missing numbers: []
+  missing words  : ['additionally', 'platinum']
+  gold docs: ['plans-overview', 'plan-silver', 'claims-process']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  plans-overview                       [Aurora Health Insurance — Plan Comparison > What is common to all plans] - Ambulance cover of ₹5,000 per hospitalisatio
+   [2]  dense-rank  2  plan-gold                            [Aurora Gold — Plan Terms > Sub-limits] | Air ambulance | ₹2,50,000 per policy year, within India, on prior authorisatio
+   [3]  dense-rank  3  exclusions                           [Permanent Exclusions > Expense-related exclusions (non-payable items)] Registration and admission charges; telephone, t
+   [4]  dense-rank  4  plan-gold                            [Aurora Gold — Plan Terms > Sub-limits] | Item | Gold limit | |---|---| | Room rent | Single private room, no monetary c
+   [5]  dense-rank  5  plan-bronze                          [Aurora Bronze — Plan Terms > Sub-limits] | Item | Bronze limit | |---|---| | Room rent | 1% of sum insured per day | | 
+
+  -- gold-doc chunks carrying the missing material --
+   plans-overview  [DELIVERED]  9 chunks, best rank 1
+     dense-rank   22  outside window  covers words ['platinum'] numbers []
+        [Aurora Health Insurance — Plan Comparison > At a glance] | Feature | Bronze | Silver | Gold | Platinum | |---|---|---|---|---| | Sum insured options | ₹3L, ₹5L | ₹5L, ₹10L | ₹10L, ₹25L | ₹25L, ₹50L, 
+     dense-rank   27  outside window  covers words ['platinum'] numbers []
+        [Aurora Health Insurance — Plan Comparison > Choosing between plans] largest source of unexpected out-of-pocket cost. Platinum adds international emergency cover, described in `plan-platinum-addendum`
+   plan-silver  [NOT DELIVERED]  8 chunks, best rank 9
+   claims-process  [NOT DELIVERED]  13 chunks, best rank 18
+
+====================================================================================================
+Q19  [multi_hop]  correctness=0 faithfulness=1 refused=True
+  Q     : I am on Silver with a 5 lakh sum insured and took a room at Rs 15,000 per day. Will everything be paid?
+  GOLD  : No. The Silver room-rent limit is 2% of 5,00,000 = Rs 10,000/day, so an eligibility ratio of 0.667 is applied by proportionate deduction to all room-linked charges (room, surgeon, anaesthetist, nursing, OT, investigations). Pharmacy and consumables are not reduced.
+  GOT   : I don't have enough information in the provided sources to answer that.
+  span in delivered window: False  (62% of 24 content words; missing words ['anaesthetist', 'applied', 'consumables', 'investigations', 'linked', 'nursing', 'pharmacy', 'reduced'])
+  missing numbers: []
+  missing words  : ['anaesthetist', 'applied', 'consumables', 'investigations', 'linked', 'nursing', 'pharmacy', 'reduced', 'surgeon']
+  gold docs: ['plan-silver', 'claims-process']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  claims-process                       [Filing a Claim > Worked example — proportionate deduction] An insured on Silver with a ₹5,00,000 sum insured has a room
+   [2]* dense-rank  2  plan-silver                          [Aurora Silver — Plan Terms > Sum insured and premium band] Silver is available at sum insured of ₹5,00,000 or ₹10,00,00
+   [3]* dense-rank  3  plan-silver                          [Aurora Silver — Plan Terms > Sub-limits] | Item | Silver limit | |---|---| | Room rent | 2% of sum insured per day | | 
+   [4]  dense-rank  4  plan-bronze                          [Aurora Bronze — Plan Terms > Sub-limits] On a ₹3,00,000 sum insured the room-rent limit is ₹3,000 per day, which is bel
+   [5]  dense-rank  5  plans-overview                       [Aurora Health Insurance — Plan Comparison > At a glance] | Feature | Bronze | Silver | Gold | Platinum | |---|---|---|-
+
+  -- gold-doc chunks carrying the missing material --
+   plan-silver  [DELIVERED]  8 chunks, best rank 2
+     dense-rank    8  outside window  covers words ['anaesthetist', 'nursing', 'surgeon'] numbers []
+        [Aurora Silver — Plan Terms > Sub-limits] **Proportionate deduction.** If you occupy a room whose rent exceeds the 2% limit, Aurora reduces *all* associated charges — surgeon fees, anaesthetist, nursi
+   claims-process  [DELIVERED]  13 chunks, best rank 1
+     dense-rank   23  outside window  covers words ['anaesthetist', 'consumables', 'investigations', 'nursing', 'pharmacy', 'surgeon'] numbers []
+        [Filing a Claim > Worked example — proportionate deduction] | Head | Billed | Payable | |---|---|---| | Room rent (4 days) | ₹60,000 | ₹40,000 | | Surgeon and anaesthetist | ₹1,20,000 | ₹80,000 | | Nu
+     dense-rank    6  outside window  covers words ['consumables', 'pharmacy', 'reduced'] numbers []
+        [Filing a Claim > Worked example — proportionate deduction] Pharmacy and consumables are not proportionately reduced. Everything tied to the room category is. The insured pays ₹85,000 out of pocket on
+     dense-rank  >30  outside window  covers words ['pharmacy'] numbers []
+        [Filing a Claim > Documents required for reimbursement] - Completed and signed claim form (Part A by you, Part B by the hospital) - Original discharge summary - Original itemised hospital bill and pay
+
+====================================================================================================
+Q20  [multi_hop]  correctness=1 faithfulness=None refused=False
+  Q     : My mother is 63 and I want to add her to my policy. Which plans allow it and what changes?
+  GOLD  : Dependent parents can be added on Silver (at extra premium), Gold and Platinum, but not on Bronze. Premium is set by the eldest member's age, and on Silver a 10% co-payment applies to every claim once the eldest insured is above 60. Aurora must present a separate senior-citizen policy as an alternative in writing.
+  GOT   : You can add your 63‑year‑old mother either as a dependent to your existing family floater plan (see the “dependents‑and‑family‑floater” section) or by purchasing a separate Aurora Senior Care plan for ages 60 and above. [1][2][4] If added to the floater, the premium will be based on the eldest member’s age (so her age 
+  span in delivered window: False  (56% of 32 content words; missing numbers ['10%']; missing words ['alternative', 'applies', 'bronze', 'claim', 'every', 'extra', 'gold', 'insured'])
+  missing numbers: ['10%']
+  missing words  : ['alternative', 'applies', 'bronze', 'claim', 'every', 'extra', 'gold', 'insured', 'must', 'once', 'platinum', 'set', 'silver']
+  gold docs: ['dependents-and-family-floater', 'plan-silver', 'plan-bronze', 'plans-overview']
+
+  -- delivered window (what the generator saw) --
+   [1]  dense-rank  1  health-faq-general                   [Frequently Asked Questions] **Can I add my parents?** On some plans. See `dependents-and-family-floater`. **What if I m
+   [2]* dense-rank  2  dependents-and-family-floater        [Dependents and the Family Floater > Adding and removing members] - **Marriage**: a spouse may be added mid-term, within
+   [3]* dense-rank  3  dependents-and-family-floater        [Dependents and the Family Floater > Age bands and loading] Premium is determined by the age of the **eldest** member co
+   [4]  dense-rank  4  senior-citizen-plan                  [Aurora Senior Care — Plan for Ages 60 and Above > Renewability] Lifelong, with no exit age. Premium is revised in 5-yea
+   [5]  dense-rank  5  premium-and-payments                 [Premium, Payment, and Tax > Tax treatment] same amounts is available for a separate policy covering parents.
+
+  -- gold-doc chunks carrying the missing material --
+   dependents-and-family-floater  [DELIVERED]  8 chunks, best rank 2
+     dense-rank   14  outside window  covers words ['bronze', 'extra', 'gold', 'platinum', 'silver'] numbers []
+        [Dependents and the Family Floater > Who can be covered] | Relationship | Bronze | Silver | Gold | Platinum | |---|---|---|---|---| | Self and spouse | Yes | Yes | Yes | Yes | | Dependent children und
+     dense-rank  >30  outside window  covers words ['insured', 'silver'] numbers []
+        [Dependents and the Family Floater > How the floater sum insured works] A family floater is a single shared pool. If a ₹10,00,000 Silver floater covers four people and one member claims ₹8,00,000, onl
+     dense-rank  >30  outside window  covers words ['insured'] numbers []
+        [Dependents and the Family Floater > How the floater sum insured works] This is the trade-off people misunderstand most often. A floater is cheaper than four individual policies of the same sum insure
+   plan-silver  [NOT DELIVERED]  8 chunks, best rank 15
+     dense-rank   15  outside window  covers words ['applies', 'claim', 'every', 'insured', 'silver'] numbers ['10%']
+        [Aurora Silver — Plan Terms > Co-payment] A 10% co-payment applies to every claim where the eldest insured member is above 60 years at the time of the policy commencement or renewal. There is no co-pa
+     dense-rank  >30  outside window  covers words ['claim', 'insured', 'silver'] numbers ['10%']
+        [Aurora Silver — Plan Terms > No-claim bonus] 10% of the base sum insured is added for each claim-free year, up to a maximum accumulation of 50%. A claim in any year reduces the accumulated bonus by 1
+     dense-rank  >30  outside window  covers words ['insured', 'once', 'silver'] numbers []
+        [Aurora Silver — Plan Terms > Restoration] The sum insured is restored once per policy year after it is fully exhausted. The restored amount may not be used for the same illness for the same insured p
+   plan-bronze  [NOT DELIVERED]  8 chunks, best rank 11
+     dense-rank   20  outside window  covers words ['bronze', 'claim', 'every', 'insured'] numbers []
+        [Aurora Bronze — Plan Terms > Co-payment] 20% co-payment on every claim where the eldest insured member is above 60 at commencement or renewal.
+     dense-rank   11  outside window  covers words ['bronze', 'insured'] numbers []
+        [Aurora Bronze — Plan Terms > Sum insured] ₹3,00,000 or ₹5,00,000. Individual or family floater covering self, spouse and up to two dependent children under 25. Dependent parents cannot be added to a 
+     dense-rank  >30  outside window  covers words ['bronze', 'insured'] numbers []
+        [Aurora Bronze — Plan Terms > Sub-limits] | Item | Bronze limit | |---|---| | Room rent | 1% of sum insured per day | | ICU charges | 2% of sum insured per day | | Cataract surgery | ₹25,000 per eye |
+   plans-overview  [NOT DELIVERED]  9 chunks, best rank 12
+     dense-rank  >30  outside window  covers words ['bronze', 'gold', 'insured', 'platinum', 'silver'] numbers []
+        [Aurora Health Insurance — Plan Comparison > At a glance] | Feature | Bronze | Silver | Gold | Platinum | |---|---|---|---|---| | Sum insured options | ₹3L, ₹5L | ₹5L, ₹10L | ₹10L, ₹25L | ₹25L, ₹50L, 
+     dense-rank   19  outside window  covers words ['insured', 'once'] numbers ['10%']
+        [Aurora Health Insurance — Plan Comparison > At a glance] | Co-payment | 20% above age 60 | 10% above age 60 | Nil | Nil | | Pre-hospitalisation cover | 30 days | 45 days | 60 days | 90 days | | Post-
+     dense-rank  >30  outside window  covers words ['claim', 'every'] numbers ['10%']
+        [Aurora Health Insurance — Plan Comparison > At a glance] | Day-care procedures | 150 listed | 400 listed | All | All | | Annual health check-up | After 3 claim-free years | After 2 claim-free years |
+
+====================================================================================================
+Q21  [multi_hop]  correctness=1 faithfulness=1 refused=False
+  Q     : I am switching from another insurer. Will my 3 years of waiting period carry over if I increase my sum insured?
+  GOLD  : Waiting-period credit carries over only up to the sum insured of the previous policy including its accrued no-claim bonus. The incremental sum insured is subject to fresh waiting periods. Apply 45-60 days before the existing renewal date.
+  GOT   : Your waiting period will carry over only up to the sum insured of your previous policy; any increase in sum insured is subject to fresh waiting periods on the incremental amount. [1][2]
+  span in delivered window: False  (92% of 25 content words; missing numbers ['45', '60']; missing words ['apply', 'carries'])
+  missing numbers: ['45', '60']
+  missing words  : ['apply', 'carries']
+  gold docs: ['policy-renewal-and-portability', 'pre-existing-conditions']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  pre-existing-conditions              [Waiting Periods and Pre-Existing Diseases > Portability] Waiting periods already served with a previous Indian insurer 
+   [2]* dense-rank  2  policy-renewal-and-portability       [Renewal, Grace Period, and Portability > Portability] - Credit for waiting periods served is granted **only up to the s
+   [3]* dense-rank  3  policy-renewal-and-portability       [Renewal, Grace Period, and Portability > Portability] You may port an existing health policy from another Indian insure
+   [4]* dense-rank  4  pre-existing-conditions              [Waiting Periods and Pre-Existing Diseases] A waiting period is a stretch of continuous coverage that must elapse before
+   [5]  dense-rank  5  topup-and-super-topup                [Aurora Top-Up and Super Top-Up Plans > Waiting periods] Waiting periods on the top-up run independently of the base pol
+
+  -- gold-doc chunks carrying the missing material --
+   policy-renewal-and-portability  [DELIVERED]  10 chunks, best rank 2
+     dense-rank   27  outside window  covers words ['apply'] numbers ['45', '60']
+        [Renewal, Grace Period, and Portability > Portability] - Apply at least **45 days** and no more than **60 days** before your existing policy's renewal date. - Aurora must accept or decline within **15
+     dense-rank  >30  outside window  covers words [] numbers ['45']
+        [Renewal, Grace Period, and Portability > Migration] Migration is moving between Aurora's own products — for example Silver to Gold. The rules are the same as portability with respect to waiting-perio
+   pre-existing-conditions  [DELIVERED]  9 chunks, best rank 1
+
+====================================================================================================
+Q22  [multi_hop]  correctness=1 faithfulness=1 refused=False
+  Q     : My baby was born last week. What do I need to do and by when?
+  GOLD  : The newborn is covered from day one within the maternity limit for the first 90 days. To continue cover beyond that, inform Aurora and add the child as a dependent within 90 days of birth, which is guaranteed-issue with no medical underwriting. After 90 days the child is treated as a fresh applicant.
+  GOT   : You must inform Aurora and add your newborn as a dependent within 90 days of birth to keep coverage; doing so is guaranteed‑issue with no medical underwriting. If you miss that window, the child will be treated as a fresh applicant. [1]
+  span in delivered window: True  (100% of 30 content words)
+  missing numbers: []
+  missing words  : ['add', 'inform']
+  gold docs: ['maternity-benefits', 'dependents-and-family-floater']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  maternity-benefits                   [Maternity and Newborn Benefits > Newborn cover] To continue cover beyond 90 days, the newborn must be added to the poli
+   [2]* dense-rank  2  maternity-benefits                   [Maternity and Newborn Benefits > Newborn cover] A newborn is covered from day one of birth, within the maternity limit,
+   [3]* dense-rank  3  maternity-benefits                   [Maternity and Newborn Benefits > What is included in the maternity limit] Pre-natal consultations and investigations in
+   [4]* dense-rank  4  maternity-benefits                   [Maternity and Newborn Benefits > Termination of pregnancy] Voluntary termination within the first 12 weeks is excluded.
+   [5]* dense-rank  5  maternity-benefits                   [Maternity and Newborn Benefits > Waiting period] 24 months of continuous coverage from the first policy commencement da
+
+  -- gold-doc chunks carrying the missing material --
+   maternity-benefits  [DELIVERED]  7 chunks, best rank 1
+   dependents-and-family-floater  [NOT DELIVERED]  8 chunks, best rank 6
+
+====================================================================================================
+Q24  [multi_hop]  correctness=1 faithfulness=1 refused=False
+  Q     : I had a claim last year on Silver. What happens to my accumulated no-claim bonus?
+  GOLD  : On Silver a claim reduces the accumulated bonus by 10 percentage points; it does not reset to zero. Silver accrues 10% per claim-free year up to 50%.
+  GOT   : A claim on the Silver plan reduces your accumulated no‑claim bonus by 10 percentage points; it does not reset it to zero. [1]
+  span in delivered window: True  (93% of 15 content words; missing words ['accrues'])
+  missing numbers: []
+  missing words  : ['accrues']
+  gold docs: ['plan-silver', 'glossary']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  plan-silver                          [Aurora Silver — Plan Terms > No-claim bonus] 10% of the base sum insured is added for each claim-free year, up to a max
+   [2]  dense-rank  2  plan-gold                            [Aurora Gold — Plan Terms > No-claim bonus] 25% of base sum insured per claim-free year, accumulating to a maximum of 10
+   [3]  dense-rank  3  plan-bronze                          [Aurora Bronze — Plan Terms > No-claim bonus] 5% per claim-free year, maximum accumulation 25%.
+   [4]* dense-rank  4  glossary                             [Glossary] **Cumulative bonus / No-claim bonus** — An increase in sum insured granted for a claim-free year, at no addit
+   [5]  dense-rank  5  policy-renewal-and-portability       [Renewal, Grace Period, and Portability > Grace period] Renew after the grace period expires and the policy is treated a
+
+  -- gold-doc chunks carrying the missing material --
+   plan-silver  [DELIVERED]  8 chunks, best rank 1
+   glossary  [DELIVERED]  8 chunks, best rank 4
+
+====================================================================================================
+Q26  [multi_hop]  correctness=1 faithfulness=1 refused=False
+  Q     : Is knee replacement covered immediately after I buy the policy?
+  GOLD  : No. Knee and hip joint replacement other than following an accident carries a 24-month waiting period. Sub-limits also apply: Rs 1,50,000 per joint on Bronze, Rs 2,50,000 on Silver, none on Gold.
+  GOT   : Knee replacement (unless it follows an accident) is listed as a specified illness that carries a 24‑month waiting period, so it is not covered immediately after buying the policy [2]. A waiting period requires continuous coverage for that duration before the claim becomes payable [3].
+  span in delivered window: False  (52% of 21 content words; missing numbers ['50', '50']; missing words ['000', 'apply', 'bronze', 'carries', 'gold', 'limits', 'none', 'silver'])
+  missing numbers: ['50', '50']
+  missing words  : ['000', 'apply', 'bronze', 'carries', 'gold', 'limits', 'none', 'per', 'silver', 'sub']
+  gold docs: ['pre-existing-conditions', 'plan-silver', 'plan-bronze']
+
+  -- delivered window (what the generator saw) --
+   [1]  dense-rank  1  health-faq-general                   [Frequently Asked Questions] A customer-facing summary. Where this FAQ and a plan document disagree, the plan document g
+   [2]* dense-rank  2  pre-existing-conditions              [Waiting Periods and Pre-Existing Diseases > Specified illnesses with a 24-month waiting period] tonsillectomy and adeno
+   [3]* dense-rank  3  pre-existing-conditions              [Waiting Periods and Pre-Existing Diseases] A waiting period is a stretch of continuous coverage that must elapse before
+   [4]  dense-rank  4  health-faq-general                   [Frequently Asked Questions] **What is a waiting period?** A period of continuous cover that must pass before certain cl
+   [5]  dense-rank  5  glossary                             [Glossary] **Free-look period** — The window in which a new policy can be returned for a refund. **Grace period** — The 
+
+  -- gold-doc chunks carrying the missing material --
+   pre-existing-conditions  [DELIVERED]  9 chunks, best rank 2
+   plan-silver  [NOT DELIVERED]  8 chunks, best rank 20
+     dense-rank   20  outside window  covers words ['000', 'limits', 'per', 'silver', 'sub'] numbers ['50', '50']
+        [Aurora Silver — Plan Terms > Sub-limits] | Item | Silver limit | |---|---| | Room rent | 2% of sum insured per day | | ICU charges | 4% of sum insured per day | | Cataract surgery | ₹40,000 per eye |
+     dense-rank  >30  outside window  covers words ['limits', 'silver', 'sub'] numbers []
+        [Aurora Silver — Plan Terms > Sub-limits] **Proportionate deduction.** If you occupy a room whose rent exceeds the 2% limit, Aurora reduces *all* associated charges — surgeon fees, anaesthetist, nursi
+     dense-rank  >30  outside window  covers words ['silver'] numbers ['50', '50']
+        [Aurora Silver — Plan Terms > No-claim bonus] 10% of the base sum insured is added for each claim-free year, up to a maximum accumulation of 50%. A claim in any year reduces the accumulated bonus by 1
+   plan-bronze  [NOT DELIVERED]  8 chunks, best rank 26
+     dense-rank   26  outside window  covers words ['000', 'bronze', 'limits', 'per', 'sub'] numbers ['50', '50']
+        [Aurora Bronze — Plan Terms > Sub-limits] | Item | Bronze limit | |---|---| | Room rent | 1% of sum insured per day | | ICU charges | 2% of sum insured per day | | Cataract surgery | ₹25,000 per eye |
+     dense-rank  >30  outside window  covers words ['000', 'apply', 'bronze', 'limits', 'per', 'sub'] numbers []
+        [Aurora Bronze — Plan Terms > Sub-limits] On a ₹3,00,000 sum insured the room-rent limit is ₹3,000 per day, which is below the single-private-room tariff at most metropolitan tertiary hospitals. Propo
+     dense-rank  >30  outside window  covers words ['bronze', 'limits', 'sub'] numbers []
+        [Aurora Bronze — Plan Terms] Product UIN: AUR-HI-BRZ-2026. Effective 1 April 2026. Bronze is Aurora's entry-level indemnity plan. It is designed for buyers whose priority is the lowest possible premiu
+
+====================================================================================================
+Q29  [trap_archived]  correctness=1 faithfulness=0 refused=False
+  Q     : How many days do I have to respond to a query Aurora raises on my claim?
+  GOLD  : 45 days from the date of the query, under the rules effective 1 April 2026. (The archived 2024 document says 30 days and must not be quoted for current policies.)
+  GOT   : You have 45 days to respond to a query Aurora raises on a claim [2], but for motor‑insurance claims the response deadline is 30 days from the date of the query [3].
+  span in delivered window: False  (31% of 16 content words; missing numbers ['2026', '2024']; missing words ['2024', '2026', 'april', 'archived', 'current', 'effective', 'must', 'policies'])
+  missing numbers: ['2026', '2024']
+  missing words  : ['2024', '2026', 'april', 'archived', 'current', 'effective', 'must', 'policies', 'quoted', 'rules', 'says']
+  gold docs: ['claims-timelines']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  claims-timelines                     [Claim Notification and Submission Timelines > Aurora's response timelines] | Raising a query on a submitted claim | 7 w
+   [2]* dense-rank  2  claims-timelines                     [Claim Notification and Submission Timelines > Submission] If the response to a query is not received within 45 days, Au
+   [3]  dense-rank  3  motor-claims-timelines               [Aurora Motor Insurance — Claim Timelines > Submission] | Document set | Deadline | |---|---| | Main claim with surveyor
+   [4]  dense-rank  4  claims-process                       [Filing a Claim > Settlement timelines] Aurora settles or rejects a complete reimbursement claim within **15 working day
+   [5]  dense-rank  5  motor-claims-timelines               [Aurora Motor Insurance — Claim Timelines > Aurora's response timelines] | Action | Deadline | |---|---| | Surveyor appo
+
+  -- gold-doc chunks carrying the missing material --
+   claims-timelines  [DELIVERED]  9 chunks, best rank 1
+     dense-rank  >30  outside window  covers words ['2024', '2026', 'april', 'archived', 'current', 'must', 'quoted'] numbers ['2026', '2024']
+        [Claim Notification and Submission Timelines] Current as of 1 April 2026. This document replaces the 2024 timelines sheet, which is retained for reference only as `claims-timelines-2024-ARCHIVED` and 
+     dense-rank  >30  outside window  covers words ['must'] numbers []
+        [Claim Notification and Submission Timelines > Delay condonation] must be made in writing and are decided by the claims committee within 21 working days.
+
+====================================================================================================
+Q32  [aggregation]  correctness=1 faithfulness=1 refused=False
+  Q     : Which plans have no co-payment?
+  GOLD  : Gold and Platinum have nil co-payment at all ages. Bronze applies 20% and Silver 10% where the eldest insured is above 60.
+  GOT   : Aurora Gold plan has no co‑payment at any age. [1] The second and third variants of the Aurora Group Health Corporate Plan show Nil co‑payment. [2] In the Plans‑overview comparison, the third and fourth plan variants list Nil co‑payment. [4]
+  span in delivered window: True  (83% of 12 content words; missing words ['bronze', 'platinum'])
+  missing numbers: []
+  missing words  : ['bronze', 'platinum']
+  gold docs: ['plans-overview', 'plan-gold']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  plan-gold                            [Aurora Gold — Plan Terms > Co-payment] Nil at all ages.
+   [2]  dense-rank  2  group-corporate-plans                [Aurora Group Health — Corporate Plan Comparison > Plan variants] | Waiting periods | All waived | All waived | All waiv
+   [3]  dense-rank  3  senior-citizen-plan                  [Aurora Senior Care — Plan for Ages 60 and Above > Co-payment] **Mandatory 20% co-payment on every claim**, at every age
+   [4]* dense-rank  4  plans-overview                       [Aurora Health Insurance — Plan Comparison > At a glance] | Co-payment | 20% above age 60 | 10% above age 60 | Nil | Nil
+   [5]  dense-rank  5  plan-silver                          [Aurora Silver — Plan Terms > Co-payment] A 10% co-payment applies to every claim where the eldest insured member is abo
+
+  -- gold-doc chunks carrying the missing material --
+   plans-overview  [DELIVERED]  9 chunks, best rank 4
+     dense-rank   18  outside window  covers words ['bronze', 'platinum'] numbers []
+        [Aurora Health Insurance — Plan Comparison > At a glance] | Feature | Bronze | Silver | Gold | Platinum | |---|---|---|---|---| | Sum insured options | ₹3L, ₹5L | ₹5L, ₹10L | ₹10L, ₹25L | ₹25L, ₹50L, 
+     dense-rank    9  outside window  covers words ['bronze'] numbers []
+        [Aurora Health Insurance — Plan Comparison > Choosing between plans] Bronze exists to satisfy a minimum-cover requirement at the lowest premium; its room-rent sub-limit means a private room in a metro
+     dense-rank   13  outside window  covers words ['platinum'] numbers []
+        [Aurora Health Insurance — Plan Comparison > Choosing between plans] largest source of unexpected out-of-pocket cost. Platinum adds international emergency cover, described in `plan-platinum-addendum`
+   plan-gold  [DELIVERED]  9 chunks, best rank 1
+
+====================================================================================================
+Q34  [aggregation]  correctness=1 faithfulness=1 refused=False
+  Q     : Which plan should I buy if I want no room-rent sub-limit and cover for my parents-in-law?
+  GOLD  : Gold (or Platinum). Gold removes room-rent and ICU sub-limits and is the lowest tier that permits dependent parents-in-law.
+  GOT   : Gold plan removes the room-rent sub-limit entirely [1][3]; however, the sources do not specify whether parents‑in‑law can be added to any plan, so I don't have enough information in the provided sources to answer that.
+  span in delivered window: True  (80% of 15 content words; missing words ['law', 'permits', 'tier'])
+  missing numbers: []
+  missing words  : ['dependent', 'law', 'permits', 'tier']
+  gold docs: ['plans-overview', 'plan-gold', 'dependents-and-family-floater']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  plans-overview                       [Aurora Health Insurance — Plan Comparison > Choosing between plans] Bronze exists to satisfy a minimum-cover requiremen
+   [2]  dense-rank  2  topup-and-super-topup                [Aurora Top-Up and Super Top-Up Plans > Room rent] No room-rent sub-limit on any top-up variant. Proportionate deduction
+   [3]* dense-rank  3  plan-gold                            [Aurora Gold — Plan Terms > Sub-limits] Gold removes the room-rent and ICU sub-limits entirely. You may occupy any singl
+   [4]  dense-rank  4  health-faq-general                   [Frequently Asked Questions] **Can I add my parents?** On some plans. See `dependents-and-family-floater`. **What if I m
+   [5]* dense-rank  5  plans-overview                       [Aurora Health Insurance — Plan Comparison > At a glance] | Feature | Bronze | Silver | Gold | Platinum | |---|---|---|-
+
+  -- gold-doc chunks carrying the missing material --
+   plans-overview  [DELIVERED]  9 chunks, best rank 1
+   plan-gold  [DELIVERED]  9 chunks, best rank 3
+     dense-rank   11  outside window  covers words ['dependent'] numbers []
+        [Aurora Gold — Plan Terms > Sum insured] ₹10,00,000 or ₹25,00,000, individual or family floater. Family floater covers self, spouse, up to four dependent children under 25, and up to two dependent par
+   dependents-and-family-floater  [NOT DELIVERED]  8 chunks, best rank 7
+     dense-rank    7  outside window  covers words ['dependent', 'law'] numbers []
+        [Dependents and the Family Floater > Who can be covered] | Relationship | Bronze | Silver | Gold | Platinum | |---|---|---|---|---| | Self and spouse | Yes | Yes | Yes | Yes | | Dependent children und
+     dense-rank  >30  outside window  covers words ['dependent'] numbers []
+        [Dependents and the Family Floater > Who can be covered] A child ceases to be a dependent at 25, or earlier on marriage or on becoming financially independent. Aurora offers guaranteed continuation in
+     dense-rank   18  outside window  covers words ['dependent'] numbers []
+        [Dependents and the Family Floater > Age bands and loading] Premium is determined by the age of the **eldest** member covered. Adding a dependent parent to a floater therefore often costs more than an
+
+====================================================================================================
+Q35  [aggregation]  correctness=1 faithfulness=1 refused=False
+  Q     : List everything that is excluded relating to dental treatment.
+  GOLD  : Dental treatment and oral surgery are excluded unless necessitated by accidental injury requiring hospitalisation. One dental check-up and cleaning per year is covered under the optional OPD rider.
+  GOT   : Dental treatment and oral surgery are excluded unless necessitated by an accidental injury requiring hospitalisation [1]. Out‑patient dental work is also excluded [2].
+  span in delivered window: False  (67% of 21 content words; missing words ['check', 'cleaning', 'excluded', 'opd', 'optional', 'rider', 'year'])
+  missing numbers: []
+  missing words  : ['check', 'cleaning', 'excluded', 'one', 'opd', 'optional', 'per', 'rider', 'year']
+  gold docs: ['exclusions', 'outpatient-and-wellness']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  exclusions                           [Permanent Exclusions > Treatment-related exclusions] - Infertility, assisted reproduction, IVF, surrogacy, and sterilis
+   [2]  dense-rank  2  plans-overview                       [Aurora Health Insurance — Plan Comparison > What is not covered by any plan] See `exclusions` for the complete list. Th
+   [3]* dense-rank  3  exclusions                           [Permanent Exclusions > Treatment-related exclusions] - Hearing aids, spectacles, contact lenses, and their fitting. - E
+   [4]* dense-rank  4  exclusions                           [Permanent Exclusions > Treatment-related exclusions] - Cosmetic or plastic surgery, unless required to treat an acciden
+   [5]* dense-rank  5  exclusions                           [Permanent Exclusions > Expense-related exclusions (non-payable items)] Registration and admission charges; telephone, t
+
+  -- gold-doc chunks carrying the missing material --
+   exclusions  [DELIVERED]  10 chunks, best rank 1
+     dense-rank    8  outside window  covers words ['excluded'] numbers []
+        [Permanent Exclusions > Two things people expect to be excluded but are not] - **Mental illness.** In-patient treatment for mental illness is covered on the same terms as physical illness, as required
+     dense-rank   16  outside window  covers words ['excluded'] numbers []
+        [Permanent Exclusions > Two things people expect to be excluded but are not] pre-existing disease rules if diagnosed before the policy start.
+   outpatient-and-wellness  [NOT DELIVERED]  9 chunks, best rank 14
+     dense-rank   14  outside window  covers words ['check', 'cleaning', 'one', 'opd', 'per', 'rider', 'year'] numbers []
+        [Out-Patient Cover, Teleconsultation, and Wellness > Out-patient benefit (OPD rider)] The OPD rider covers doctor consultations at network clinics, prescribed diagnostics, prescribed pharmacy, and one
+     dense-rank   23  outside window  covers words ['opd', 'optional', 'rider'] numbers []
+        [Out-Patient Cover, Teleconsultation, and Wellness > Out-patient benefit (OPD rider)] Aurora's core plans are in-patient indemnity products. Out-patient consultations, diagnostics and pharmacy are **n
+     dense-rank  >30  outside window  covers words ['check', 'per', 'year'] numbers []
+        [Out-Patient Cover, Teleconsultation, and Wellness > Wellness programme] | Activity | Points per year (max) | |---|---| | Verified 10,000 steps/day, per qualifying day | 1 (max 250) | | Annual health 
+
+====================================================================================================
+Q37  [unanswerable]  correctness=1 faithfulness=0 refused=True
+  Q     : Does Aurora cover treatment in Singapore, and up to what limit?
+  GOLD  : PARTIAL REFUSE. The corpus states treatment outside India is excluded except under Platinum's international emergency benefit, but the limits and conditions of that benefit are in `plan-platinum-addendum`, which is not in the corpus. The system should say the benefit exists on Platinum and that the details are not avai
+  GOT   : I don't have enough information in the provided sources to answer that.
+  span in delivered window: False  (31% of 26 content words; missing words ['addendum', 'available', 'benefit', 'corpus', 'details', 'emergency', 'excluded', 'exists'])
+  missing numbers: []
+  missing words  : ['addendum', 'available', 'benefit', 'corpus', 'details', 'emergency', 'excluded', 'exists', 'india', 'international', 'outside', 'partial', 'refuse', 'say', 'should', 'states', 'system']
+  gold docs: ['exclusions', 'plans-overview']
+
+  -- delivered window (what the generator saw) --
+   [1]* dense-rank  1  plans-overview                       [Aurora Health Insurance — Plan Comparison > What is common to all plans] - Ambulance cover of ₹5,000 per hospitalisatio
+   [2]  dense-rank  2  travel-insurance-exclusions          [Aurora Travel Insurance — Exclusions > Permanent exclusions] - Pre-existing medical conditions, except life-threatening
+   [3]  dense-rank  3  plan-silver                          [Aurora Silver — Plan Terms > Sub-limits] | Item | Silver limit | |---|---| | Room rent | 2% of sum insured per day | | 
+   [4]  dense-rank  4  critical-illness-rider               [Aurora Critical Illness Rider > Sum insured] ₹5,00,000 to ₹50,00,000, not exceeding the base policy sum insured.
+   [5]  dense-rank  5  plan-gold                            [Aurora Gold — Plan Terms > Sub-limits] | Item | Gold limit | |---|---| | Room rent | Single private room, no monetary c
+
+  -- gold-doc chunks carrying the missing material --
+   exclusions  [NOT DELIVERED]  10 chunks, best none in top-30
+     dense-rank  >30  outside window  covers words ['benefit', 'emergency', 'india', 'international', 'outside'] numbers []
+        [Permanent Exclusions > Treatment-related exclusions] - Treatment taken outside India, except under Platinum's international emergency benefit.
+     dense-rank  >30  outside window  covers words ['excluded'] numbers []
+        [Permanent Exclusions > Two things people expect to be excluded but are not] - **Mental illness.** In-patient treatment for mental illness is covered on the same terms as physical illness, as required
+     dense-rank  >30  outside window  covers words ['excluded'] numbers []
+        [Permanent Exclusions > Two things people expect to be excluded but are not] pre-existing disease rules if diagnosed before the policy start.
+   plans-overview  [DELIVERED]  9 chunks, best rank 1
+     dense-rank  >30  outside window  covers words ['addendum', 'emergency', 'international'] numbers []
+        [Aurora Health Insurance — Plan Comparison > Choosing between plans] largest source of unexpected out-of-pocket cost. Platinum adds international emergency cover, described in `plan-platinum-addendum`
+     dense-rank   27  outside window  covers words ['benefit'] numbers []
+        [Aurora Health Insurance — Plan Comparison] Effective 1 April 2026. Supersedes all comparison sheets dated before this. Aurora offers four individual and family-floater health indemnity plans. All fou
+     dense-rank   22  outside window  covers words ['excluded'] numbers []
+        [Aurora Health Insurance — Plan Comparison > At a glance] | Feature | Bronze | Silver | Gold | Platinum | |---|---|---|---|---| | Sum insured options | ₹3L, ₹5L | ₹5L, ₹10L | ₹10L, ₹25L | ₹25L, ₹50L, 

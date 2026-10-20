@@ -1,0 +1,116 @@
+{
+  "bge": {
+    "embedder": "bge-small-en-v1.5 (local, 384-dim)",
+    "pairs": {
+      "danger": [
+        {
+          "pair_id": "D001",
+          "cosine": 0.9713
+        },
+        {
+          "pair_id": "D002",
+          "cosine": 0.8754
+        },
+        {
+          "pair_id": "D003",
+          "cosine": 0.8108
+        },
+        {
+          "pair_id": "D004",
+          "cosine": 0.8032
+        },
+        {
+          "pair_id": "D005",
+          "cosine": 0.961
+        }
+      ],
+      "paraphrases": [
+        {
+          "paraphrase_of": "What was rural MPCE in HCES 2023-24?",
+          "cosine": 0.7848
+        },
+        {
+          "paraphrase_of": "What was rural MPCE in HCES 2023-24?",
+          "cosine": 0.9357
+        },
+        {
+          "paraphrase_of": "What was rural MPCE in HCES 2023-24?",
+          "cosine": 0.8138
+        },
+        {
+          "paraphrase_of": "What was all-India LFPR for age 15+ in usual statu",
+          "cosine": 0.9467
+        },
+        {
+          "paraphrase_of": "What was all-India LFPR for age 15+ in usual statu",
+          "cosine": 0.8209
+        },
+        {
+          "paraphrase_of": "Will unemployment fall in 2027?",
+          "cosine": 0.8815
+        }
+      ],
+      "danger_max": 0.9713,
+      "paraphrase_min": 0.7848,
+      "separable": false,
+      "verdict": "NO threshold separates dangers from paraphrases; the field-guard must carry safety"
+    }
+  },
+  "nvidia": {
+    "embedder": "nemotron-3-embed-1b (NIM, 2048-dim, input_type=query)",
+    "pairs": {
+      "danger": [
+        {
+          "pair_id": "D001",
+          "cosine": 0.863
+        },
+        {
+          "pair_id": "D002",
+          "cosine": 0.7363
+        },
+        {
+          "pair_id": "D003",
+          "cosine": 0.6768
+        },
+        {
+          "pair_id": "D004",
+          "cosine": 0.5584
+        },
+        {
+          "pair_id": "D005",
+          "cosine": 0.9313
+        }
+      ],
+      "paraphrases": [
+        {
+          "paraphrase_of": "What was rural MPCE in HCES 2023-24?",
+          "cosine": 0.7152
+        },
+        {
+          "paraphrase_of": "What was rural MPCE in HCES 2023-24?",
+          "cosine": 0.9491
+        },
+        {
+          "paraphrase_of": "What was rural MPCE in HCES 2023-24?",
+          "cosine": 0.6875
+        },
+        {
+          "paraphrase_of": "What was all-India LFPR for age 15+ in usual statu",
+          "cosine": 0.9299
+        },
+        {
+          "paraphrase_of": "What was all-India LFPR for age 15+ in usual statu",
+          "cosine": 0.7336
+        },
+        {
+          "paraphrase_of": "Will unemployment fall in 2027?",
+          "cosine": 0.8378
+        }
+      ],
+      "danger_max": 0.9313,
+      "paraphrase_min": 0.6875,
+      "separable": false,
+      "verdict": "NO threshold separates dangers from paraphrases; the field-guard must carry safety"
+    }
+  }
+}

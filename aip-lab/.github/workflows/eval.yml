@@ -1,0 +1,18 @@
+name: eval-gate
+on: [push, pull_request]
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    env:
+      AIP_OFFLINE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -m pytest tests/ -q
+      # Lab 7 regression gate (Part D). Runs offline against the committed
+      # cache, so CI needs no API key and costs nothing. Exits non-zero on
+      # any threshold breach and fails the build.
+      - run: python labs/lab7/gate.py --config labs/lab7/thresholds.yml

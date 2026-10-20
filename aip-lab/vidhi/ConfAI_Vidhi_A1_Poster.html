@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ConfAI 2026 — A1 Poster — Refuse to Hallucinate</title>
+<style>
+  /* ============================================================
+     A1 portrait (594mm x 841mm). Editorial theme matching demo.html.
+     Print via: chromium --headless --print-to-pdf, or Playwright
+     page.pdf(prefer_css_page_size=True, print_background=True).
+     ============================================================ */
+  :root{
+    --paper:#FAF6EE; --card:#FFFFFF; --tint:#F5EFE0; --tint2:#EFE7D4;
+    --ink:#22302B; --ink-soft:#3E4A44; --muted:#6B7280;
+    --accent:#B4530A; --accent-ink:#92400E; --gold:#9A6B0F; --teal:#134E4A;
+    --line:#E3DCCB; --line-soft:#EDE7D6;
+    --ok-bg:#E7F0E4; --ok-fg:#1E6B34;
+    --warn-bg:#FBF0D9; --warn-fg:#8A5A00; --warn-bar:#D97706;
+    --ref-bg:#F9E4E1; --ref-fg:#A93226; --ref-bar:#B3261E;
+    --info-bg:#E8EFF0; --info-bar:#134E4A;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --serif:Georgia,"Palatino Linotype","Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @page{ size:594mm 841mm; margin:0; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:#E9E2D2;
+    font-family:var(--sans); color:var(--ink);
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .poster{
+    width:594mm; height:841mm; margin:0 auto;
+    background:var(--paper);
+    display:grid; grid-template-rows:auto 1fr auto auto;
+    overflow:hidden;
+  }
+
+  /* ================= header ================= */
+  header{ padding:16mm 18mm 12mm; border-bottom:3mm solid var(--teal); position:relative; }
+  header::after{ content:""; position:absolute; left:18mm; bottom:-3mm; width:56mm; height:3mm; background:var(--accent); }
+  .kicker{ font-size:14pt; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin:0 0 4mm; }
+  h1{ font-family:var(--serif); font-size:78pt; line-height:1.0; font-weight:700; color:var(--teal); margin:0 0 3mm; letter-spacing:-.5pt; }
+  .subtitle{ font-family:var(--serif); font-size:32pt; color:var(--ink-soft); font-style:italic; margin:0 0 7mm; }
+  .hero{ display:flex; gap:10mm; align-items:stretch; }
+  .thesis{ flex:1.45; background:var(--teal); color:#F4EFE4; border-radius:4mm; padding:8mm 10mm;
+    font-family:var(--serif); font-size:27pt; line-height:1.32; display:flex; flex-direction:column; justify-content:center; }
+  .thesis b{ color:#F5C77A; }
+  .meta{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:4mm; font-size:16pt; color:var(--ink-soft); }
+  .meta .who{ font-weight:700; color:var(--ink); font-size:20pt; }
+  .meta .who span{ color:var(--muted); font-weight:400; }
+  .badges{ display:flex; flex-wrap:wrap; gap:3mm; }
+  .badge{ font-size:13pt; font-weight:700; padding:2mm 4.5mm; border-radius:10mm; white-space:nowrap;
+    border:1px solid var(--line); background:var(--card); color:var(--ink-soft); }
+  .badge.ok{ background:var(--ok-bg); color:var(--ok-fg); border-color:transparent; }
+  .badge.acc{ background:var(--accent); color:#fff; border-color:transparent; }
+
+  /* ================= columns ================= */
+  .cols{ display:grid; grid-template-columns:1fr 1.22fr 1fr; gap:8mm; padding:10mm 18mm; align-items:start; }
+  .col{ display:flex; flex-direction:column; gap:6mm; min-width:0; }
+  .sec-title{ display:flex; align-items:baseline; gap:3.5mm; border-bottom:1.4px solid var(--line); padding-bottom:2.6mm; }
+  .sec-num{ font-family:var(--serif); font-weight:700; color:var(--accent); font-size:30pt; line-height:1; }
+  .sec-title h2{ font-family:var(--serif); font-size:33pt; color:var(--teal); margin:0; font-weight:700; line-height:1.02; }
+
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:4mm; padding:7mm 7.5mm; box-shadow:0 1px 3px rgba(60,50,20,.06); }
+  .card h3{ font-size:17pt; margin:0 0 3mm; color:var(--accent-ink); text-transform:uppercase; letter-spacing:.05em; font-weight:700; }
+  .card p{ font-size:16pt; line-height:1.5; margin:0; color:var(--ink-soft); }
+  .card p + p{ margin-top:3mm; }
+  .card code{ font-family:var(--mono); font-size:.92em; }
+
+  .intro{ font-size:16.5pt; line-height:1.5; color:var(--ink-soft); margin:0; }
+  .intro b{ color:var(--ink); }
+
+  .fail{ display:flex; gap:4mm; background:var(--card); border:1px solid var(--line); border-left:3.5px solid var(--ref-bar);
+    border-radius:3.5mm; padding:6mm 7mm; }
+  .fail .x{ font-family:var(--serif); font-weight:700; color:var(--ref-fg); font-size:24pt; line-height:1; flex:none; }
+  .fail .t{ font-size:16pt; line-height:1.45; color:var(--ink-soft); }
+  .fail .t b{ color:var(--ink); }
+
+  .thesis2{ background:var(--info-bg); border-left:3.5px solid var(--info-bar); border-radius:0 4mm 4mm 0;
+    padding:7mm 8mm; font-size:18pt; line-height:1.5; color:var(--ink); }
+  .thesis2 b{ color:var(--info-bar); }
+
+  /* ================= flow diagram ================= */
+  .flow{ display:flex; flex-direction:column; align-items:stretch; }
+  .fnode{ background:var(--card); border:1px solid var(--line); border-radius:3.5mm; padding:5mm 6mm;
+    font-size:17pt; font-weight:600; color:var(--ink); }
+  .fnode .n{ display:inline-flex; align-items:center; justify-content:center; width:9mm; height:9mm; border-radius:50%;
+    background:var(--tint2); color:var(--accent-ink); font-weight:800; font-size:14pt; margin-right:3mm; }
+  .fnode small{ display:block; font-weight:400; color:var(--muted); font-size:14pt; margin-top:1.5mm; }
+  .farrow{ text-align:center; color:var(--accent); font-size:26pt; line-height:1; padding:1mm 0; font-family:var(--serif); }
+  .fnode.firewall{ border:1.6px solid var(--teal); background:linear-gradient(180deg,#fff,#FBF9F2); }
+  .stages{ display:flex; gap:2.4mm; margin-top:3.5mm; flex-wrap:wrap; }
+  .stage{ flex:1 1 auto; text-align:center; font-size:14.5pt; font-weight:800; padding:2.6mm 1.5mm; border-radius:2.6mm; letter-spacing:.01em; }
+  .stage.s-ref{ background:var(--ref-bg); color:var(--ref-fg); }
+  .stage.s-warn{ background:var(--warn-bg); color:var(--warn-fg); }
+  .stage.s-ok{ background:var(--ok-bg); color:var(--ok-fg); }
+  .stage .sub{ display:block; font-weight:500; font-size:12pt; opacity:.85; margin-top:.5mm; }
+  .fnode.freeze{ background:#1F2A27; color:#E8F0EC; border-color:#31403A; border-left:5px solid var(--accent); }
+  .fnode.freeze b{ color:#F5C77A; }
+  .fnode.freeze code{ color:#F5C77A; font-family:var(--mono); }
+  .fnode.untrusted{ border-style:dashed; color:var(--muted); font-weight:500; }
+
+  /* ================= innovations ================= */
+  .inno{ border:1px solid var(--line); border-left:4px solid var(--gold); background:var(--card);
+    border-radius:4mm; padding:7mm 8mm; }
+  .inno h3{ font-size:18pt; margin:0 0 2.5mm; color:var(--gold); text-transform:none; letter-spacing:0; }
+  .inno p{ font-size:15.5pt; line-height:1.5; color:var(--ink-soft); }
+  .inno .formula{ font-family:var(--mono); font-size:13.5pt; color:var(--ink); background:var(--tint);
+    border:1px solid var(--line-soft); border-radius:2.5mm; padding:2.6mm 4mm; margin:2.5mm 0; word-break:break-all; }
+
+  /* ================= results ================= */
+  .kpis{ display:grid; grid-template-columns:1fr 1fr; gap:3.4mm; }
+  .kpi{ background:var(--card); border:1px solid var(--line); border-radius:3.5mm; padding:5mm 5.5mm; }
+  .kpi .v{ font-family:var(--serif); font-weight:700; color:var(--gold); font-size:34pt; line-height:1.0; }
+  .kpi .v small{ font-size:16pt; color:var(--muted); font-weight:400; }
+  .kpi .l{ font-size:12.5pt; color:var(--muted); line-height:1.3; margin-top:1.6mm; }
+
+  table.cmp{ border-collapse:collapse; width:100%; font-size:13.5pt; }
+  table.cmp th, table.cmp td{ padding:2.6mm 3mm; text-align:left; vertical-align:top; border-bottom:1px solid var(--line-soft); }
+  table.cmp thead th{ background:var(--tint2); font-size:11.5pt; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); }
+  table.cmp td.c1{ font-weight:700; color:var(--ink); white-space:nowrap; }
+  table.cmp td.bad{ color:var(--ref-fg); }
+  table.cmp td.good{ color:var(--ok-fg); }
+  table.cmp tr:last-child td{ border-bottom:0; }
+  .legend{ font-size:12pt; color:var(--muted); font-style:italic; margin-top:2.5mm; line-height:1.35; }
+
+  .lim{ font-size:15pt; line-height:1.5; color:var(--ink-soft); margin:0; padding-left:6mm; }
+  .lim li{ margin:2.2mm 0; }
+
+  /* ================= guarantees strip ================= */
+  .guarantees{ border-top:3mm solid var(--teal); background:var(--tint); padding:8mm 18mm; position:relative; }
+  .guarantees::before{ content:"Six guarantees — the soul of the system"; display:block;
+    font-family:var(--serif); font-size:20pt; font-weight:700; color:var(--accent-ink); margin-bottom:4mm; }
+  .grow{ display:grid; grid-template-columns:repeat(6,1fr); gap:3.5mm; }
+  .g{ background:var(--card); border:1px solid var(--line); border-radius:3mm; padding:4.5mm 4.5mm; }
+  .g .gn{ font-family:var(--serif); font-weight:700; color:var(--accent); font-size:20pt; margin-bottom:1.5mm; }
+  .g .gt{ font-size:13pt; line-height:1.35; color:var(--ink-soft); }
+
+  /* ================= footer ================= */
+  footer{ border-top:3mm solid var(--teal); background:var(--tint2); padding:8mm 18mm 9mm; position:relative; }
+  footer::after{ content:""; position:absolute; left:18mm; top:-3mm; width:56mm; height:3mm; background:var(--accent); }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:10mm; align-items:start; }
+  footer h3{ font-size:15pt; text-transform:uppercase; letter-spacing:.06em; color:var(--accent-ink); margin:0 0 3mm; }
+  pre.cmds{ font-family:var(--mono); font-size:13pt; line-height:1.55; margin:0; background:#1F2A27; color:#E8F0EC;
+    border-radius:3mm; padding:4mm 5mm; border:1px solid #31403A; white-space:pre; }
+  pre.cmds .cm{ color:#8FB8AC; }
+  .foot-note{ font-size:14.5pt; line-height:1.45; color:var(--ink-soft); margin:0 0 2.5mm; }
+  .foot-note b{ color:var(--ink); }
+  .foot-note code{ font-family:var(--mono); font-size:.92em; }
+
+  @media print{ body{ background:#fff; } .poster{ margin:0; box-shadow:none; } }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ======================= HEADER ======================= -->
+  <header>
+    <p class="kicker">ConfAI 2026 · Plaksha University · Track 06 — Responsible &amp; Ethical AI</p>
+    <h1>Refuse to Hallucinate</h1>
+    <p class="subtitle">A deterministic validity firewall for Indian official survey statistics</p>
+    <div class="hero">
+      <div class="thesis">
+        MoSPI's tools help you <b>find</b> the number. This firewall checks whether you are
+        <b>allowed to say</b> it — and stops you, with a cited rule, when you are not.
+      </div>
+      <div class="meta">
+        <div class="who">Ajay Choudhary <span>· MSAI @ Plaksha University</span></div>
+        <div style="font-size:15pt">ajay.pg26@plaksha.edu.in</div>
+        <div class="badges">
+          <span class="badge acc">Poster + live demo</span>
+          <span class="badge">localhost:8001/demo</span>
+          <span class="badge ok">offline · no API key · no GPU</span>
+          <span class="badge">$0.00 / query</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================= COLUMNS ======================= -->
+  <div class="cols">
+
+    <!-- LEFT -->
+    <div class="col">
+      <div class="sec-title"><span class="sec-num">1</span><h2>The problem</h2></div>
+      <p class="intro">Retrieval over official PDFs is solved. <b>Governance is not.</b>
+        Unconstrained RAG over sovereign statistics fails in three ways — observed live in MoSPI's
+        StatsDoc pilot (<i>anecdotal</i>, per <code>evaluation/statsdoc_audit/PROTOCOL.md</code>):</p>
+      <div class="fail"><span class="x">✕</span><span class="t"><b>Definitional hallucination.</b> MPCE expanded as
+        "Mean Per Capita Expenditure" instead of the statutory "Monthly Per Capita Consumption Expenditure."</span></div>
+      <div class="fail"><span class="x">✕</span><span class="t"><b>Unguided cross-round arithmetic.</b> ~40% MPCE growth
+        quoted across the HCES 2011-12 → 2023-24 break (paper → 3-visit CAPI) with no caveat.</span></div>
+      <div class="fail"><span class="x">✕</span><span class="t"><b>Retrieval poisoning.</b> A poisoned document chunk can
+        override guardrails and flip a verdict.</span></div>
+      <div class="thesis2"><b>The thesis.</b> You cannot fix a probabilistic system with more probabilistic prompts.
+        The decision — <i>is this claim allowed?</i> — must come from <b>versioned, deterministic rules</b>, before
+        generation. Models translate; rules judge.</div>
+      <div class="card">
+        <h3>Where it sits</h3>
+        <p>A drop-in governance layer for journalists, fact-checkers, legislative researchers and statistical agencies —
+          a standalone service/CLI <b>and</b> an MCP tool that other agents call as a governance oracle.</p>
+      </div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="col">
+      <div class="sec-title"><span class="sec-num">2</span><h2>The firewall</h2></div>
+      <div class="flow">
+        <div class="fnode"><span class="n">1</span> Question <small>natural language, any register</small></div>
+        <div class="farrow">↓</div>
+        <div class="fnode"><span class="n">2</span> Typed claim <small>translator: models translate, never judge</small></div>
+        <div class="farrow">↓</div>
+        <div class="fnode firewall">
+          <b>3 · Firewall — five stages, fixed order, first rule fires</b>
+          <div class="stages">
+            <span class="stage s-ref">Safety-A<span class="sub">injection · EN / Hindi / Hinglish</span></span>
+            <span class="stage s-ref">Scope<span class="sub">forecast · causal · politics</span></span>
+            <span class="stage s-warn">Comparability<span class="sub">survey breaks</span></span>
+            <span class="stage s-warn">Metadata<span class="sub">taxonomy check</span></span>
+            <span class="stage s-ok">Numeric<span class="sub">verified rows only</span></span>
+          </div>
+        </div>
+        <div class="farrow">↓</div>
+        <div class="fnode freeze">
+          <b>4 · SHA-256 freeze</b> — computed <b>BEFORE</b> retrieval
+          <small style="color:#8FB8AC"><code>hash = SHA-256(claim + decision + reason + rules)</code></small>
+        </div>
+        <div class="farrow">↓</div>
+        <div class="fnode untrusted"><span class="n">5</span> Retrieve (untrusted document text)</div>
+        <div class="farrow">↓</div>
+        <div class="fnode"><span class="n">6</span> Templated render + citations <small>WARN/REFUSE wording is fixed</small></div>
+      </div>
+      <div class="inno">
+        <h3>Safety-B · freeze before retrieval + figure attestation</h3>
+        <p>The verdict hash is locked before any document is read. A planted "ignore the caveat" chunk changes nothing —
+          the hash is byte-identical with or without poisoning. A second hash then binds the <b>number you see</b> to the
+          verdict and its source cell.</p>
+        <div class="formula">frozen_hash = SHA-256(claim ⊕ decision ⊕ sub_code ⊕ reason ⊕ rule_version)</div>
+        <div class="formula">attestation = SHA-256(frozen_hash ⊕ row_id ⊕ value ⊕ unit ⊕ pdf_sha256)</div>
+      </div>
+      <div class="inno">
+        <h3>Field-guarded cache · no safe threshold</h3>
+        <p>Danger-pair and paraphrase cosine ranges overlap on both measured embedders, so <b>no similarity threshold is
+          safe</b>. Reuse only on exact critical-field match — a national row never answers a state/sex slice.</p>
+        <div class="formula">0 collisions across 19 danger pairs · 54/173 rows (31.2% utilization)</div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col">
+      <div class="sec-title"><span class="sec-num">3</span><h2>Results</h2></div>
+      <div class="kpis">
+        <div class="kpi"><div class="v">0.000</div><div class="l">hallucination rate — 0 of 37 must-abstain questions answered wrongly</div></div>
+        <div class="kpi"><div class="v">1.000</div><div class="l">abstention recall — every must-abstain question refused/warned</div></div>
+        <div class="kpi"><div class="v">100<small>/100</small></div><div class="l">verdict accuracy [Wilson 0.963–1.000]</div></div>
+        <div class="kpi"><div class="v">59<small>/59</small></div><div class="l">numeric exact match [0.939–1.000]</div></div>
+        <div class="kpi"><div class="v">0<small>/19</small></div><div class="l">danger-pair cache collisions</div></div>
+        <div class="kpi"><div class="v">173<small>/173</small></div><div class="l">verified rows with provenance</div></div>
+        <div class="kpi"><div class="v">1.000</div><div class="l">Safety-A P/R/F1 · n=28 (EN · hi · hi-en)</div></div>
+        <div class="kpi"><div class="v">$0.00</div><div class="l">marginal cost · p50 &lt; 200 ms, CPU-only</div></div>
+      </div>
+      <div class="card">
+        <h3>Vidhi vs StatsDoc — honest comparison</h3>
+        <table class="cmp">
+          <thead><tr><th>Check</th><th>StatsDoc (anecdotal)</th><th>Vidhi (measured)</th></tr></thead>
+          <tbody>
+            <tr><td class="c1">Definition</td><td class="bad">"Mean Per Capita…"</td><td class="good">statutory "Monthly…"</td></tr>
+            <tr><td class="c1">Cross-round math</td><td class="bad">~40% growth, no caveat</td><td class="good">halts with R_COMPARABILITY_HCES_METHOD</td></tr>
+            <tr><td class="c1">Poisoned context</td><td class="bad">overrides verdict</td><td class="good">SHA-256 frozen pre-retrieval</td></tr>
+            <tr><td class="c1">Cost / latency</td><td class="bad">~$0.02–0.05 · 3.5–8 s</td><td class="good">$0.00 · p50 &lt; 200 ms</td></tr>
+          </tbody>
+        </table>
+        <p class="legend">StatsDoc observations are anecdotal (live probing, no archived transcripts); Vidhi numbers are
+          measured offline via <code>python vidhi/eval.py</code>. We do not claim a measured head-to-head victory.</p>
+      </div>
+      <div class="card">
+        <h3>Honest limits</h3>
+        <ul class="lim">
+          <li><b>Coverage is the limit, not logic</b> — 173 verified rows (HCES state MPCE, PLFS LFPR/WPR/UR, TUS minutes).
+            Uncovered slices return <code>WARN_NO_DATA</code> + a coverage note, never a guess.</li>
+          <li>Heuristic extraction breaks on exotic phrasing; an LLM translator port exists (<code>VIDHI_USE_LLM=1</code>), unmeasured.</li>
+          <li>No load test yet; eSankhyiki live-API path inherits third-party cert-verification weakness (query path is offline).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= GUARANTEES ======================= -->
+  <div class="guarantees">
+    <div class="grow">
+      <div class="g"><div class="gn">1</div><div class="gt">Rules judge, models translate</div></div>
+      <div class="g"><div class="gn">2</div><div class="gt">Freeze before retrieval</div></div>
+      <div class="g"><div class="gn">3</div><div class="gt">No cosine threshold is safe</div></div>
+      <div class="g"><div class="gn">4</div><div class="gt">No PASS without provenance</div></div>
+      <div class="g"><div class="gn">5</div><div class="gt">Ambiguity is never contradiction</div></div>
+      <div class="g"><div class="gn">6</div><div class="gt">Honest coverage — never a guess</div></div>
+    </div>
+  </div>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <h3>Reproduce everything (offline)</h3>
+        <pre class="cmds"><span class="cm"># no API key · no GPU · no network</span>
+pip install -r requirements.txt
+python -m pytest tests/ -q        <span class="cm"># 108 passed · every store row reachable</span>
+python vidhi/eval.py               <span class="cm"># 100 golden + 19 danger + 28 red-team + Safety-B</span>
+python -m uvicorn vidhi.service:app --port 8001  <span class="cm"># → /demo</span></pre>
+      </div>
+      <div>
+        <h3>Try the live demo</h3>
+        <p class="foot-note"><b>localhost:8001/demo</b> — ask a PLFS / HCES / TUS / MIS question. Watch the verdict freeze,
+          the citations resolve, and every figure name its source row.</p>
+        <p class="foot-note"><b>MCP:</b> <code>python -m vidhi.mcp_server</code> (4 governance tools) ·
+          <b>Agent:</b> <code>POST /analyze</code> for a policy briefing.</p>
+      </div>
+      <div>
+        <h3>The question this work won't hallucinate</h3>
+        <p class="foot-note">Ask the hard question — expect <code>WARN_NO_DATA</code> + a coverage note, never a guess.
+          Inject in English, Hindi or Hinglish and watch Safety-A refuse with a cited rule.</p>
+        <p class="foot-note" style="margin-top:2.5mm"><b style="color:var(--accent-ink)">Questions and red-team attempts welcome.</b></p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

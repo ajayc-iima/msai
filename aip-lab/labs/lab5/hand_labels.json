@@ -1,0 +1,96 @@
+{
+  "_readme": [
+    "Lab 5 Part A2 -- hand adjudication of every Lab 4 failure.",
+    "",
+    "This file is the SECOND version of these labels, and the difference between the two versions is the most useful thing in the lab, so it is recorded rather than quietly overwritten.",
+    "",
+    "VERSION 1 (span evidence only). I read the chunks and labelled 8 failures mode 4 (ranking), on the reasoning that the gold answer's material was missing from the 5-chunk window and sat at dense rank 7-27. That was wrong for six of them. Q04, Q20, Q21, Q26, Q35 and Q19 were labelled mode 4 because material was absent -- but the all-gold-material probe then showed the generator produces the wrong answer even when handed every chunk of every gold document. Retrieval was not the binding constraint for those cases; no retrieval fix could have recovered them.",
+    "",
+    "The lesson, and the reason the file has this shape: the span check tells you WHERE material is missing. Only a probe can tell you whether its absence was the CAUSE. A classifier that stops at the span check sends you to fix the wrong stage -- which is exactly what the Lab 5 handout warns an earlier draft of the reference solution did.",
+    "",
+    "DECISION RULE, applied in this order (see classify() in diagnose.py):",
+    "  7  answer right, citation wrong",
+    "  1  answer not in the relevant documents at all",
+    "  6  the generator cannot produce the gold answer even handed EVERY gold chunk -> capability ceiling; nothing upstream can fix it",
+    "  6  the window was good enough (span present AND 5 gold-only chunks would have sufficed) -> the generator under-used material it had",
+    "  4  span present but 5 gold-only chunks still fail while more gold material succeeds -> the WINDOW IS TOO SMALL (context budget)",
+    "  4  a needed gold document was in the top 30 and never reached the window",
+    "  3  a needed document never reached the top 30 but self-retrieves",
+    "  2  a needed chunk inside a delivered document lost the cut",
+    "",
+    "Three labels below override the script. The other fourteen agree with it; I record them because 'I looked and agreed' is a result too, and because the Q29 and Q37 notes record things no script can see: a span check that fails on grader annotation, and a gold answer that is mostly instructions to the grader.",
+    "D3 labels live under labels_v2b and apply to reports/lab5_v2b.json only. Q19 and Q41 are the two needs_human_check cases there, both resolved to mode 5 with window evidence: the needed chunk sat in the dense top-30 pool and the new cross-encoder dropped it."
+  ],
+  "labels": {
+    "Q04": {
+      "mode": 6,
+      "overrode_version_1": true,
+      "looked_at": "5 delivered chunks are ALL pre-existing-conditions; the PED-reduction-rider chunk ('reduces 36 months to either 24 months or 12 months') is dense-rank 18",
+      "reason": "CORRECTED FROM MODE 4. I first called this a window problem because the rider clause was at rank 18 and outside the window. The all-gold-material probe says otherwise: handed the entire pre-existing-conditions document, the generator still answers only '36 months'. Retrieval withheld a clause, but withholding it was not why the answer is wrong. This is the clearest case of the span check pointing at the wrong stage, and it is why the probe exists."
+    },
+    "Q29": {
+      "mode": 6,
+      "looked_at": "window[2] claims-timelines, 'If the response to a query is not received within 45 days...', carries the answer. Every word that failed the span check comes from the gold answer's parenthetical.",
+      "reason": "AGREES WITH THE SCRIPT, and the agreement is worth recording because the span evidence is misleading here. The automated check reports 31% coverage and an absent span, but the words it reports missing -- 2024, 2026, archived, must, quoted, current, policies -- all come from the grader's annotation, '(The archived 2024 document says 30 days and must not be quoted for current policies.)'. The system was never supposed to assert them. Reading the chunks: it DID answer 45 days correctly from rank-2 material, then contaminated the answer with the motor-insurance 30-day deadline from window[3]/[5], which is why faithfulness is 0. I also checked the archived-document trap the handout names: claims-timelines-2024-ARCHIVED was never retrieved for this question at all, so the archived metadata filter is NOT the fix here. Lab 3 already measured that filter and it does not move hit_rate@1 on Q29-Q31 (1.000 before and after). The distractor is a different CURRENT document, so this is generation-side contamination."
+    },
+    "Q19": {
+      "mode": 4,
+      "overrode_version_1": true,
+      "overrode_script": true,
+      "looked_at": "the window holds the claims-process worked example (rank 1), Silver sum insured Rs 5,00,000 (rank 2), and Silver sub-limit 'Room rent 2% of sum insured per day' (rank 3). The 'proportionate deduction' rule that turns the cap into the gold answer's eligibility ratio of 0.667 is dense-rank 8.",
+      "reason": "MOVED FROM MODE 2 TO MODE 4, and from mode 6 in version 1. The signals: the generator can do it with all gold material, five gold-only chunks are not enough, and the span is absent. The script's mode 2 is literally true -- the answer-carrying chunk of a delivered document lost the cut -- but it is the less actionable reading. Mode 2's fix menu is chunking surgery, and chunking surgery cannot help here: the missing chunk is perfectly well formed and retrievable at rank 8. It is the SIZE of the window that binds, which is mode 4. This is also the only correctness=0 failure in the set, and it is an over-refusal of a question whose two deciding numbers were delivered at ranks 1-3."
+    },
+    "Q37": {
+      "mode": 3,
+      "looked_at": "exclusions never reached the top 30 at all. The one deciding sentence, 'Treatment taken outside India, except under Platinum's international emergency benefit', lives there. plans-overview was delivered at rank 1, but its 'Platinum adds international emergency cover' sentence is at rank 13.",
+      "reason": "AGREES WITH THE SCRIPT (mode 3), and the self-retrieval probe is what confirms 3 rather than 2: exclusions is absent from the top 30 yet its own text retrieves it, so the query is the problem, not the chunk. Recorded because the 31% span coverage here is a MEASUREFACT ARTEFACT and must not be read as evidence: the gold answer is a PARTIAL REFUSE whose text is mostly instruction to the grader ('The system should say the benefit exists on Platinum and that the details are not available'). A span check cannot parse that. Judged by hand instead: two chunks of plan-silver and two of plan-gold took 4 of the 5 window slots on a question about treatment in Singapore, while the one document stating the exclusion-plus-exception was never surfaced. Retrieval failed; this is not a refusal-policy failure."
+    },
+    "Q20": {
+      "mode": 6,
+      "overrode_version_1": true,
+      "looked_at": "3 of 4 gold documents never reached the window (plan-bronze rank 11, plans-overview 12, plan-silver 15); the 'Who can be covered' table is at rank 14.",
+      "reason": "CORRECTED FROM MODE 4. Version 1 said the 10% Silver co-payment clause at rank 15 was the cause. The all-gold-material probe says the generator cannot assemble the answer even handed all four gold documents in full, so the missing documents were not the binding constraint."
+    },
+    "Q21": {
+      "mode": 6,
+      "overrode_version_1": true,
+      "looked_at": "92% of gold content words delivered; the missing bullet, 'Apply at least 45 days and no more than 60 days before your existing policy's renewal date', is at dense-rank 27.",
+      "reason": "CORRECTED FROM MODE 4. Even handed every chunk of policy-renewal-and-portability and pre-existing-conditions, the generator omits the application-window bullet. It will not volunteer that detail at any context size."
+    },
+    "Q26": {
+      "mode": 6,
+      "overrode_version_1": true,
+      "looked_at": "plan-silver best rank 20, plan-bronze 26, both never delivered; the per-plan joint-replacement sub-limits live in their Sub-limits tables.",
+      "reason": "CORRECTED FROM MODE 4. The generator omits the per-plan sub-limits even when handed both plan documents whole, so retrieval withholding them was not the cause."
+    },
+    "Q35": {
+      "mode": 6,
+      "overrode_version_1": true,
+      "looked_at": "outpatient-and-wellness never delivered, best rank 14; its OPD-rider chunk carries 'one dental check-up and cleaning per year', the second half of the gold answer.",
+      "reason": "CORRECTED FROM MODE 4. Handed both gold documents in full the generator still answers only the exclusions half and drops the 'one dental check-up and cleaning per year is covered under the optional OPD rider' half. That is a generation failure with the material available."
+    }
+  },
+  "agreed_with_script": [
+    "Q05",
+    "Q06",
+    "Q07",
+    "Q10",
+    "Q11",
+    "Q22",
+    "Q24",
+    "Q32",
+    "Q34"
+  ],
+  "labels_v2b": {
+    "Q19": {
+      "mode": 5,
+      "looked_at": "dense top-10 holds the proportionate-deduction RULE chunk at rank 8 (plan-silver Sub-limits: reduces ALL associated charges); the v2b reranked window keeps dense ranks 1,2,3,4,6 and drops rank 8",
+      "reason": "Mode 5: the needed chunk was in the top-30 pool and the cross-encoder dropped it. Under v1 this was mode 4 (window too small); the reranker reordered the same budget and dropped the one chunk that mattered. First mode-5 instance in the lab, created by fix 2."
+    },
+    "Q41": {
+      "mode": 5,
+      "looked_at": "dense rank 6 holds the consequence clause (Renew after the grace period expires and the policy is treated as fresh); the v2b reranked window is pre-existing-conditions, critical-illness-rider, portability-45-days, grace-30-days, topup -- the clause is gone, replaced by waiting-period lexical matches",
+      "reason": "Mode 5: in the pool, dropped by the reranker. The cross-encoder preferred four waiting-period lookalikes over the consequence clause the gold answer needs. Same mechanism as Q19: the fix for mode 4 created mode-5 failures."
+    }
+  }
+}

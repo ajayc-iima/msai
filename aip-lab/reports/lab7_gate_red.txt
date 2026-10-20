@@ -1,0 +1,13 @@
+metric                   value            gate  status
+----------------------------------------------------------
+citation_validity       1.0000         >= 0.98  ok
+correctness             0.8571         >= 0.99  FAIL
+cost_per_query_usd      0.0000         <= 0.01  ok
+faithfulness            1.0000          >= 0.9  ok
+hit_rate_at_5           1.0000         >= 0.85  ok
+p95_latency_ms         23.7000         <= 6000  ok
+refusal_precision       1.0000         >= 0.75  ok
+refusal_recall          1.0000          >= 0.8  ok
+
+GATE FAILED:
+  correctness: 0.8571 violates >= 0.99

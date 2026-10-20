@@ -1,0 +1,478 @@
+[
+  {
+    "dataset": "DDI-IND-CSO-MIS-78-2020",
+    "file": "78th_Vol_II_Final.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-MIS-78-2020__78th_Vol_II_Final.pdf",
+    "bytes": 1123988,
+    "sha256": "f4203f35633b91021ee66d18ef44cff7feb9e65774c8bf91374da26eb84082c2",
+    "downloaded_at": "2026-10-04T19:03:09.486345+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-MIS-78-2020",
+    "file": "78th_Vol_I_Final.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-MIS-78-2020__78th_Vol_I_Final.pdf",
+    "bytes": 7562438,
+    "sha256": "9ce92a20ce95a9e8bde1f6e12554bcc9e88d5b1de7d2a8373419a9872cd8c00e",
+    "downloaded_at": "2026-10-04T19:03:11.507422+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-MIS-78-2020",
+    "file": "Final_Estimation_Procedure_NSS_78th.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-MIS-78-2020__Final_Estimation_Procedure_NSS_78th.pdf",
+    "bytes": 816495,
+    "sha256": "e6d79b35d88b8a04cb5fcb9271c3d6ec8239ccd1ca134cd8ba1669128a3773ee",
+    "downloaded_at": "2026-10-04T19:03:12.481428+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-MIS-78-2020",
+    "file": "Final_Tabulation_Plan_78th.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-MIS-78-2020__Final_Tabulation_Plan_78th.pdf",
+    "bytes": 24790550,
+    "sha256": "219e4cfcbf949e1e97eca2917616a1fb101f19169ab3daa78601cbd4a2ab03ae",
+    "downloaded_at": "2026-10-04T19:03:19.884095+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-MIS-78-2020",
+    "file": "Readme78_MIS.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-MIS-78-2020__Readme78_MIS.pdf",
+    "bytes": 108904,
+    "sha256": "1b39ebd5f501030803de55963b6a4bb034a22721137504793d698662b4007344",
+    "downloaded_at": "2026-10-04T19:03:20.486152+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-MIS-78-2020",
+    "file": "MIS_NMDS_2.0_V2.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-MIS-78-2020__MIS_NMDS_2.0_V2.xlsx",
+    "bytes": 14738,
+    "sha256": "26e9755aff307f340c30e9781dce0ef210e6b25a9f2d19c99873be4142666c70",
+    "downloaded_at": "2026-10-04T19:03:20.835008+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-MIS-78-2020",
+    "file": "NSS_78th_Layout_Sch_5.1_mult_post.xls",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-MIS-78-2020__NSS_78th_Layout_Sch_5.1_mult_post.xls",
+    "bytes": 89088,
+    "sha256": "ce64cf64185574f7aa9519c80ea9a98efd576baa86da057f966a69e5e721a2e6",
+    "downloaded_at": "2026-10-04T19:03:21.193590+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-MIS-78-2020",
+    "file": "Tabulation_state.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-MIS-78-2020__Tabulation_state.xlsx",
+    "bytes": 12050,
+    "sha256": "409c418317f07b3eaa7d0428a47a6b4cb61b8f68f17d835aacf529ff49d5259c",
+    "downloaded_at": "2026-10-04T19:03:22.452434+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-PLFS-2023-24",
+    "file": "1_README.docx",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-PLFS-2023-24__1_README.docx",
+    "bytes": 27917,
+    "sha256": "3f7448da3112fde2a29d4eaf75f32593a15a3bcaa51e39db929c908a2f4f8c5f",
+    "downloaded_at": "2026-10-04T19:03:22.934173+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-PLFS-2023-24",
+    "file": "2_1_Instruction_manual_PLFS_Vol_I.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-PLFS-2023-24__2_1_Instruction_manual_PLFS_Vol_I.pdf",
+    "bytes": 1848924,
+    "sha256": "038994ccb43a1d11aa5248dc463cab074984562aa131f749e49a58e06c3841ed",
+    "downloaded_at": "2026-10-04T19:03:22.934904+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-PLFS-2023-24",
+    "file": "2_2_Instruction_Manual_PLFS_Vol-II.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-PLFS-2023-24__2_2_Instruction_Manual_PLFS_Vol-II.pdf",
+    "bytes": 997906,
+    "sha256": "edb71767701c999d1f91b510dc6951585aec1f0eb2bc9865a36a5bea765a2e15",
+    "downloaded_at": "2026-10-04T19:03:22.945310+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-PLFS-2023-24",
+    "file": "3_1_Estimation_Procedure_PLFS.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-PLFS-2023-24__3_1_Estimation_Procedure_PLFS.pdf",
+    "bytes": 542687,
+    "sha256": "b6534db483bea876ff175feb138877445fc91f33ca183790165d6f4c5c84733d",
+    "downloaded_at": "2026-10-04T19:03:22.949516+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-PLFS-2023-24",
+    "file": "Data_LayoutPLFS_2023-24.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-PLFS-2023-24__Data_LayoutPLFS_2023-24.xlsx",
+    "bytes": 56677,
+    "sha256": "3de65c3dcaaadfd90b78579b8eaa65557e32dc7074f178dcc1e11195e8cf3836",
+    "downloaded_at": "2026-10-04T19:03:22.950239+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-PLFS-2023-24",
+    "file": "District_codes_PLFS_Panel_4_202324_2024.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-PLFS-2023-24__District_codes_PLFS_Panel_4_202324_2024.xlsx",
+    "bytes": 29510,
+    "sha256": "5b332ef6e300c274ded0a4ae5692aefed73160cbb1e7e0dfe1a43480651511d6",
+    "downloaded_at": "2026-10-04T19:03:22.950775+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-PLFS-2023-24",
+    "file": "NMDS_2dot0_PLFS_final_upd.docx",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-PLFS-2023-24__NMDS_2dot0_PLFS_final_upd.docx",
+    "bytes": 33277,
+    "sha256": "0704fcd5f43dc432aac49ad8ab9055745da5763d58076fac4b6984a6419f3960",
+    "downloaded_at": "2026-10-04T19:03:22.951777+00:00"
+  },
+  {
+    "dataset": "DDI-IND-CSO-PLFS-2023-24",
+    "file": "Note_on_Updated_Instruction_for_PLFS_2023-24.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-CSO-PLFS-2023-24__Note_on_Updated_Instruction_for_PLFS_2023-24.pdf",
+    "bytes": 545720,
+    "sha256": "3eb898e80c862a3d8e901655799c7d5b9972edfa9fe3caa32087ca20160a778a",
+    "downloaded_at": "2026-10-04T19:03:22.953957+00:00"
+  },
+  {
+    "dataset": "DDI-IND-MOSPI-NSS-HCES23-24",
+    "file": "HCES2023-24_Vol_II-2.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-MOSPI-NSS-HCES23-24__HCES2023-24_Vol_II-2.pdf",
+    "bytes": 4934025,
+    "sha256": "1d8ceb5f2500b697daf88131db56f4d5fb41a1c85935250d54c8c99ddb9ab4e8",
+    "downloaded_at": "2026-10-04T19:03:23.467798+00:00"
+  },
+  {
+    "dataset": "DDI-IND-MOSPI-NSS-HCES23-24",
+    "file": "HCES_2023_24_Imputation_Rate.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-MOSPI-NSS-HCES23-24__HCES_2023_24_Imputation_Rate.xlsx",
+    "bytes": 69110,
+    "sha256": "39361e2f98123f3fe3a1a8682bb51c58ca2eacd0507f44c155817464bab48374",
+    "downloaded_at": "2026-10-04T19:03:23.467798+00:00"
+  },
+  {
+    "dataset": "DDI-IND-MOSPI-NSS-HCES23-24",
+    "file": "Layout_HCES 2023-24.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-MOSPI-NSS-HCES23-24__Layout_HCES_2023-24.xlsx",
+    "bytes": 39461,
+    "sha256": "db0ded41eefdb05c7ed12b3859ce1e0b6aa4dfce4e534eb029079849005c7f24",
+    "downloaded_at": "2026-10-04T19:03:23.467798+00:00"
+  },
+  {
+    "dataset": "DDI-IND-MOSPI-NSS-HCES23-24",
+    "file": "Objective_of_HCES.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-MOSPI-NSS-HCES23-24__Objective_of_HCES.pdf",
+    "bytes": 187416,
+    "sha256": "b75f763c5d012b36dc75cee9577e3970ffa0ef0a43ba72b8f84c11dfe6c59fa1",
+    "downloaded_at": "2026-10-04T19:03:23.467798+00:00"
+  },
+  {
+    "dataset": "DDI-IND-MOSPI-NSS-HCES23-24",
+    "file": "Readme_HCES2023.docx",
+    "local": "data\\raw\\microdata_DDI-IND-MOSPI-NSS-HCES23-24__Readme_HCES2023.docx",
+    "bytes": 21954,
+    "sha256": "9b7a30b393dc8005a20d4ef1cb0eaab9ce4423a1f8c4c06ca6271bebdbba7959",
+    "downloaded_at": "2026-10-04T19:03:23.474552+00:00"
+  },
+  {
+    "dataset": "DDI-IND-MOSPI-NSS-HCES23-24",
+    "file": "Rider_for_users_of_unit_level_data_of_HCES.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-MOSPI-NSS-HCES23-24__Rider_for_users_of_unit_level_data_of_HCES.pdf",
+    "bytes": 113494,
+    "sha256": "92ca92cb632f43dd037b2b201f262ef59265e98681428f5d65d6c9a0e3694331",
+    "downloaded_at": "2026-10-04T19:03:23.475054+00:00"
+  },
+  {
+    "dataset": "DDI-IND-MOSPI-NSS-HCES23-24",
+    "file": "Survey_methodology_and_Estimation_Procedure.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-MOSPI-NSS-HCES23-24__Survey_methodology_and_Estimation_Procedure.pdf",
+    "bytes": 714097,
+    "sha256": "b4f478b7ec06875e44b41fc40dea9d584fa785b7ae85a9eea57b4a08bd6f9b82",
+    "downloaded_at": "2026-10-04T19:03:23.476816+00:00"
+  },
+  {
+    "dataset": "DDI-IND-MOSPI-NSS-HCES23-24",
+    "file": "tabulation_state_code.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-MOSPI-NSS-HCES23-24__tabulation_state_code.xlsx",
+    "bytes": 11210,
+    "sha256": "33860212fb6bc90163064816e8417449fec34991ef108f8d31ea60ac5e09b48a",
+    "downloaded_at": "2026-10-04T19:03:23.476816+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "Bstrm_file.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__Bstrm_file.xlsx",
+    "bytes": 76580,
+    "sha256": "1ed6df66820ece1cb23ae4a400be30a92b64cf2f963e2f59df45e2f3da3febc0",
+    "downloaded_at": "2026-10-04T19:03:24.496820+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "FV_Data_LayoutPLFS_2025.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__FV_Data_LayoutPLFS_2025.xlsx",
+    "bytes": 70514,
+    "sha256": "11bc1a96141d05690543296127ec117faef4354574ab04a15e612637c9574fce",
+    "downloaded_at": "2026-10-04T19:03:24.983577+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "Indian_Districts_CodeName.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__Indian_Districts_CodeName.xlsx",
+    "bytes": 32510,
+    "sha256": "bcee9c392bd8660e94b3915fc366703f16cfbf14e7f0abe007ec905737bebf34",
+    "downloaded_at": "2026-10-04T19:03:25.446989+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "Indian_States_and_UTs_CodeName.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__Indian_States_and_UTs_CodeName.xlsx",
+    "bytes": 9395,
+    "sha256": "5c246ed07a4582b3965854d5a887eb87669610245fd316b3cf62e063f38fc05f",
+    "downloaded_at": "2026-10-04T19:03:25.857117+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "mplus_identifier.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__mplus_identifier.xlsx",
+    "bytes": 39054,
+    "sha256": "264f7783f704fea481a4d23d423ad164e322548d1af2d63ae0b7c3cfd004d20b",
+    "downloaded_at": "2026-10-04T19:03:26.368440+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "PLFS_Vol_I_Instruction_to_FieldStaff_Jul_Dece2025.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__PLFS_Vol_I_Instruction_to_FieldStaff_Jul_Dece2025.pdf",
+    "bytes": 2451326,
+    "sha256": "164f5d8c312203986d82dd41597f3798caf143b4db3c16ed54fbd92489fe45c8",
+    "downloaded_at": "2026-10-04T19:03:26.966310+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "PLFS_Vol_I_Instruction_to_Field_Staff_January_June 2025.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__PLFS_Vol_I_Instruction_to_Field_Staff_January_June_2025.pdf",
+    "bytes": 1803247,
+    "sha256": "c3e43991aa0dd9e3020f553d747b7832f63fb19fa0baa41cadd3bcfc4b2e3693",
+    "downloaded_at": "2026-10-04T19:03:27.610872+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "Readme million-plus identification.docx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__Readme_million-plus_identification.docx",
+    "bytes": 15571,
+    "sha256": "ce791d579223a106a7d8124b8240b2635fd4e3e4241dcc376ab14bf98a3aba92",
+    "downloaded_at": "2026-10-04T19:03:28.136890+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "README2025.docx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__README2025.docx",
+    "bytes": 31547,
+    "sha256": "523269a809ac01f9fc2c94a701a10541f0dd57af3abab72b5c37aa6a95195e9e",
+    "downloaded_at": "2026-10-04T19:03:28.588241+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "Schedule10_4_FIRSTVISIT_Janaury-June_2025.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__Schedule10_4_FIRSTVISIT_Janaury-June_2025.pdf",
+    "bytes": 559388,
+    "sha256": "ec8be2b82d5274f9e0828407199a15aaa19c3c604686b19507968e6f8b4a7da4",
+    "downloaded_at": "2026-10-04T19:03:29.531146+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "Schedule10_4_FIRSTVISIT_July-Dec_2025.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__Schedule10_4_FIRSTVISIT_July-Dec_2025.pdf",
+    "bytes": 566317,
+    "sha256": "5a62664f4035ba4f87fb99fbd23239c9ae940d8ac81f03622163c45df75d4e1f",
+    "downloaded_at": "2026-10-04T19:03:30.096488+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "Schedule10_4_REVISIT_Janaury-June_2025.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__Schedule10_4_REVISIT_Janaury-June_2025.pdf",
+    "bytes": 457430,
+    "sha256": "d60fc1ca6109689594e2f26c695f88675f5a25a3e0f380361bae0fdac8d7ced5",
+    "downloaded_at": "2026-10-04T19:03:30.841378+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "Schedule10_4_REVISIT_July-Dec_2025.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__Schedule10_4_REVISIT_July-Dec_2025.pdf",
+    "bytes": 329242,
+    "sha256": "1f995a4840843d5245dcb9e3f9f9571ff5717843689e0f62d8fcf7e04bf0a7d1",
+    "downloaded_at": "2026-10-04T19:03:31.449914+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-PLFS-Jan2025-Dec2025",
+    "file": "Schedule_0_0_PLFS_January-December_2025.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-PLFS-Jan2025-Dec2025__Schedule_0_0_PLFS_January-December_2025.pdf",
+    "bytes": 116031,
+    "sha256": "e65eb647934882ce53fffe5bf1115b74fe9fa4b34d491d2bb121227d16357214",
+    "downloaded_at": "2026-10-04T19:03:32.029778+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-TUS-2024-24",
+    "file": "CODEs for Blocks of Sch 10.6 (2).xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-TUS-2024-24__CODEs_for_Blocks_of_Sch_10.6_(2).xlsx",
+    "bytes": 20076,
+    "sha256": "9399c2adb482f0e71190af0141eb7485065a1e26606a42875fd7ffaf80939de9",
+    "downloaded_at": "2026-10-04T19:03:32.510160+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-TUS-2024-24",
+    "file": "Data_Layout_TUS_2024 (1).xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-TUS-2024-24__Data_Layout_TUS_2024_(1).xlsx",
+    "bytes": 21616,
+    "sha256": "5f18e4f62e9ca19b859f8ed8126b99404b2e6a49644c2435856766f915c79af5",
+    "downloaded_at": "2026-10-04T19:03:32.511686+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-TUS-2024-24",
+    "file": "Instructions_TUS_2024 (2).pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-TUS-2024-24__Instructions_TUS_2024_(2).pdf",
+    "bytes": 4840660,
+    "sha256": "81bccd607329bdd42c6f0c9efbb98bc9950928886dcd5fbf23a92241b97ef4c0",
+    "downloaded_at": "2026-10-04T19:03:32.530395+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-TUS-2024-24",
+    "file": "NMDS_2.0_TUS.xlsx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-TUS-2024-24__NMDS_2.0_TUS.xlsx",
+    "bytes": 17596,
+    "sha256": "4cda2eae9d4f269b42704e826de12f9eac82f8e5d431f5be7ca97feac5b095c7",
+    "downloaded_at": "2026-10-04T19:03:32.533511+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-TUS-2024-24",
+    "file": "Note_for_data_user (1).docx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-TUS-2024-24__Note_for_data_user_(1).docx",
+    "bytes": 15321,
+    "sha256": "ff2c1ea35c49d40c4dedfef427cf4ef6827ef8ae8da2e8e78586e8822bacf4cf",
+    "downloaded_at": "2026-10-04T19:03:32.534013+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-TUS-2024-24",
+    "file": "README_TUS_2024 (1).docx",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-TUS-2024-24__README_TUS_2024_(1).docx",
+    "bytes": 22972,
+    "sha256": "9632e4306dab7449f1559b99d43bfeb9cc7d523a0929fabee63488d0ee4f12dd",
+    "downloaded_at": "2026-10-04T19:03:32.535021+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-TUS-2024-24",
+    "file": "SampleDesign_EstimationProcedure_TUS 2024.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-TUS-2024-24__SampleDesign_EstimationProcedure_TUS_2024.pdf",
+    "bytes": 320455,
+    "sha256": "1564f3b306df65e4552d14793b2bf28629d6a91eb131acbcd734a8af18d4efdc",
+    "downloaded_at": "2026-10-04T19:03:32.536028+00:00"
+  },
+  {
+    "dataset": "DDI-IND-NSO-TUS-2024-24",
+    "file": "Vol_II TUS_2024.pdf",
+    "local": "data\\raw\\microdata_DDI-IND-NSO-TUS-2024-24__Vol_II_TUS_2024.pdf",
+    "bytes": 1602153,
+    "sha256": "9b373b13c6087a0faf086ddcdc447cb0d91676aacc7f90188b02e47f157a107e",
+    "downloaded_at": "2026-10-04T19:03:32.542714+00:00"
+  },
+  {
+    "dataset": "DIRECT_MOSPI_DGE",
+    "file": "mospi_PLFS_2025_F_REV_29052026.pdf",
+    "local": "data/raw/mospi_PLFS_2025_F_REV_29052026.pdf",
+    "bytes": 5914743,
+    "sha256": "134bf2de5e4b1142d3bae4899c90ec5be3bf5ec03a2ff4b3f7b0bba34eee0da7",
+    "source_url": "https://mospi.gov.in/uploads/publications_reports/publications_reports1780040415321_0624fb13-fb47-40bc-b470-7c7e9635c3ef_PLFS_2025_F_REV_29052026.pdf",
+    "downloaded_at": "2026-10-04T19:03:41.823842+00:00"
+  },
+  {
+    "dataset": "DIRECT_MOSPI_DGE",
+    "file": "dge_PLFS_2025_Annual_Report.pdf",
+    "local": "data/raw/dge_PLFS_2025_Annual_Report.pdf",
+    "bytes": 34618621,
+    "sha256": "0acbefe157723ccf2400c022cb9271632c5386aa0d5bf2f1e14acf130437f2c4",
+    "source_url": "https://dge.gov.in/sites/default/files/2026-07/Annual_Report_PLFS_2025.pdf",
+    "downloaded_at": "2026-10-04T19:03:41.970136+00:00"
+  },
+  {
+    "dataset": "DIRECT_MOSPI_DGE",
+    "file": "mospi_PLFS_2023-24_AnnualReport.pdf",
+    "local": "data/raw/mospi_PLFS_2023-24_AnnualReport.pdf",
+    "bytes": 26917638,
+    "sha256": "ab4ead2cee181a13c7ab40f164d2dceb46419cfb58f30f8baa58e35f79d33d39",
+    "source_url": "https://mospi.gov.in/sites/default/files/publication_reports/AnnualReport_PLFS2023-24L2.pdf",
+    "downloaded_at": "2026-10-04T19:03:42.069372+00:00"
+  },
+  {
+    "dataset": "DIRECT_MOSPI_DGE",
+    "file": "mospi_HCES_2023-24_Factsheet.pdf",
+    "local": "data/raw/mospi_HCES_2023-24_Factsheet.pdf",
+    "bytes": 2615083,
+    "sha256": "31d4ce93ce9396b4042d226408b6d12e4be2006e0b716a0d63995d913b13f76e",
+    "source_url": "https://www.mospi.gov.in/sites/default/files/publication_reports/HCES%20FactSheet%202023-24.pdf",
+    "downloaded_at": "2026-10-04T19:03:42.087675+00:00"
+  },
+  {
+    "dataset": "DIRECT_MOSPI_DGE",
+    "file": "mospi_HCES_2023-24_PressNote_30012025.pdf",
+    "local": "data/raw/mospi_HCES_2023-24_PressNote_30012025.pdf",
+    "bytes": 274658,
+    "sha256": "34e7e8bf64c8e78094dc338064f3c68e848021209f4bee8bc9849b329d3d74ca",
+    "source_url": "https://mospi.gov.in/sites/default/files/press_release/HCES_Report202324_Press_Note_30012025.pdf",
+    "downloaded_at": "2026-10-04T19:03:42.088317+00:00"
+  },
+  {
+    "dataset": "DIRECT_MOSPI_DGE",
+    "file": "mospi_HCES_2023-24_FinalReport.pdf",
+    "local": "data/raw/mospi_HCES_2023-24_FinalReport.pdf",
+    "bytes": 11737505,
+    "sha256": "368deb9c858dcc71c3bf0e6cad096a31b5b337a724cf92a113637f3302ea268e",
+    "source_url": "https://www.mospi.gov.in/sites/default/files/publication_reports/Final_Report_HCES_2023-24L.pdf",
+    "downloaded_at": "2026-10-04T19:03:42.129200+00:00"
+  },
+  {
+    "dataset": "DIRECT_MOSPI_DGE",
+    "file": "mospi_PLFS_Changes-in-2025_rev.pdf",
+    "local": "data/raw/mospi_PLFS_Changes-in-2025_rev.pdf",
+    "bytes": 4295792,
+    "sha256": "e97b715e6e0e2746879d22c0d192a7c25d9a65b52a284a095d5ce5311d29e97d",
+    "source_url": "https://www.mospi.gov.in/sites/default/files/publication_reports/PLFS_Changes-in-2025_rev.pdf",
+    "downloaded_at": "2026-10-04T19:03:42.145018+00:00"
+  },
+  {
+    "dataset": "NADA-download",
+    "file": "microdata_DDI-IND-MOSPI-NSSO-HCES22-23__HCES2022_Vol_I_1.pdf",
+    "local": "data\\\\raw\\\\microdata_DDI-IND-MOSPI-NSSO-HCES22-23__HCES2022_Vol_I_1.pdf",
+    "bytes": 3346982,
+    "sha256": "093d75f797e6193bac16f39169e293b5b16169263deea761a3260c2fd432ea74",
+    "downloaded_at": "2026-10-15T19:47:21.235430+00:00",
+    "source_url": "https://microdata.gov.in/NADA/index.php/catalog"
+  },
+  {
+    "dataset": "NADA-download",
+    "file": "microdata_DDI-IND-MOSPI-NSSO-HCES22-23__Survey_methodology_and_estimation_procedure_1.pdf",
+    "local": "data\\\\raw\\\\microdata_DDI-IND-MOSPI-NSSO-HCES22-23__Survey_methodology_and_estimation_procedure_1.pdf",
+    "bytes": 749028,
+    "sha256": "2a11f5f30be33912336625b826fffc3fe354f3c0a7622944c3067c0fd42cd082",
+    "downloaded_at": "2026-10-15T19:47:21.235430+00:00",
+    "source_url": "https://microdata.gov.in/NADA/index.php/catalog"
+  },
+  {
+    "dataset": "NADA-download",
+    "file": "microdata_DDI-IND-CSO-PLFS-2022-23__Note_on_changes_PLFS_2022_23.pdf",
+    "local": "data\\\\raw\\\\microdata_DDI-IND-CSO-PLFS-2022-23__Note_on_changes_PLFS_2022_23.pdf",
+    "bytes": 521728,
+    "sha256": "0016669968c707af4576b7b2457374e04b73f22a06a04c57e070ba84280bbc82",
+    "downloaded_at": "2026-10-15T19:47:21.241439+00:00",
+    "source_url": "https://microdata.gov.in/NADA/index.php/catalog"
+  },
+  {
+    "dataset": "NADA-download",
+    "file": "microdata_DDI-IND-CSO-PLFS-2022-23__2_1_Instructions_to_Field_Staff_PLFS_Vol_I.pdf",
+    "local": "data\\\\raw\\\\microdata_DDI-IND-CSO-PLFS-2022-23__2_1_Instructions_to_Field_Staff_PLFS_Vol_I.pdf",
+    "bytes": 1692291,
+    "sha256": "f04ba22431ce7c0714108ef3f5bb5dba1cfd444ff6be6fee3685599edf44608e",
+    "downloaded_at": "2026-10-15T19:47:21.247940+00:00",
+    "source_url": "https://microdata.gov.in/NADA/index.php/catalog"
+  },
+  {
+    "dataset": "NADA-download",
+    "file": "microdata_DDI-IND-CSO-PLFS-2022-23__3_1_Estimation_Procedure_PLFS.pdf",
+    "local": "data\\\\raw\\\\microdata_DDI-IND-CSO-PLFS-2022-23__3_1_Estimation_Procedure_PLFS.pdf",
+    "bytes": 319189,
+    "sha256": "af80fd2049c330aa1b8e774b816a6baeffc93b5f6f28785e4d2e70862bcb6902",
+    "downloaded_at": "2026-10-15T19:48:40.664032+00:00",
+    "source_url": "https://microdata.gov.in/NADA/index.php/catalog/210/download/5396"
+  }
+]

@@ -1,0 +1,141 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]Loading weights: 100%|██████████| 105/105 [00:00<00:00, 6175.45it/s]
+[lab5] cross-encoder loaded in 44.0s
+  Q01 1/45  corr=1 faith=1 44502.6ms
+  Q02 2/45  corr=2 faith=1 462.0ms
+  Q03 3/45  corr=2 faith=1 465.5ms
+  Q04 4/45  corr=1 faith=1 322.4ms
+[92m20:26:05 - LiteLLM:WARNING[0m: get_model_cost_map.py:454 - LiteLLM: Failed to fetch remote model cost map from https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json: The read operation timed out. Falling back to local backup.
+  Q05 5/45  corr=1 faith=1 400.5ms
+  Q06 6/45  corr=2 faith=1 4172.4ms
+  Q07 7/45  corr=2 faith=1 8259.0ms
+  Q08 8/45  corr=2 faith=1 7061.3ms
+  Q09 9/45  corr=2 faith=1 6815.7ms
+  Q10 10/45  corr=1 faith=1 11748.7ms
+  Q11 11/45  corr=1 faith=1 4477.6ms
+  Q12 12/45  corr=1 faith=1 6911.8ms
+  Q13 13/45  corr=2 faith=1 324.7ms
+  Q14 14/45  corr=2 faith=1 4397.8ms
+  Q15 15/45  corr=2 faith=1 10611.9ms
+  Q16 16/45  corr=2 faith=1 4934.1ms
+  Q17 17/45  corr=2 faith=1 5641.6ms
+  Q18 18/45  corr=2 faith=1 14541.2ms
+  Q19 19/45  corr=1 faith=1 47481.9ms
+  Q20 20/45  corr=1 faith=0 22807.2ms
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+  Q21 21/45  corr=2 faith=0 12295.7ms
+  Q22 22/45  corr=1 faith=1 11815.9ms
+  Q23 23/45  corr=2 faith=1 20464.7ms
+  Q24 24/45  corr=2 faith=1 8476.7ms
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+  Q25 25/45  corr=2 faith=0 8380.9ms
+  Q26 26/45  corr=0 faith=0 7169.6ms
+  Q27 27/45  corr=2 faith=1 21701.2ms
+  Q28 28/45  corr=2 faith=1 24871.6ms
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+  Q29 29/45  corr=0 faith=1 4384.3ms
+  Q30 30/45  corr=1 faith=1 18376.5ms
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+  Q31 31/45  corr=2 faith=1 25040.4ms
+  Q32 32/45  corr=1 faith=0 18445.7ms
+  Q33 33/45  corr=2 faith=1 26489.4ms
+  Q34 34/45  corr=1 faith=0 85849.3ms
+  Q35 35/45  corr=1 faith=1 13097.4ms
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+  Q36 36/45  corr=2 faith=1 9305.8ms
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+  Q37 37/45  corr=1 faith=1 7881.1ms
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+  Q38 38/45  corr=2 faith=0 2916.2ms
+  Q39 39/45  corr=0 faith=0 6996.6ms
+  Q40 40/45  corr=2 faith=1 3897.0ms
+  Q41 41/45  corr=1 faith=0 5804.6ms
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+  Q42 42/45  corr=2 faith=0 31961.8ms
+  Q43 43/45  corr=2 faith=0 36020.0ms
+  Q44 44/45  corr=2 faith=1 7302.6ms
+
+[1;31mGive Feedback / Get Help: https://github.com/BerriAI/litellm/issues/new[0m
+LiteLLM.Info: If you need to debug this error, use `litellm._turn_on_debug()'.
+
+
+[1;31mProvider List: https://docs.litellm.ai/docs/providers[0m
+
+  Q45 45/45  corr=2 faith=1 15913.9ms
+
+=== v2b ===
+n = 45  (40 answerable, 5 unanswerable)
+correctness (0-2)   1.550  normalised 0.775
+faithfulness        0.756   (excluded judge parse failures: 0)
+citation validity   1.000   (target 1.000)
+repair rate         0.000
+refusal recall      0.800   (4/5)
+refusal precision   1.000   (4 refusals total)
+gold-doc coverage   0.881   mean distinct docs in window 3.73
+stage-1 ndcg@10     0.883   recall@5 0.919   mrr 0.925
+cost                134 calls (2.98/q), 3513 tokens/q (1827 in / 1685 out), $0.0000 + 111 UNPRICED calls
+gen latency         p50 8380.9 ms / p95 36020.0 ms
+
+by question kind (mean correctness / 2):
+  aggregation      0.625  n=4
+  multi_hop        0.750  n=10
+  paraphrase       0.900  n=5
+  single_hop       0.833  n=18
+  trap_archived    0.500  n=3
+
+saved -> C:\Users\chou_\OneDrive - Plaksha University\Documents\msai_projects\msai\practice_lab\AI in Practice – 1\AI-in-Practice-Lab\aip-lab\reports\lab5_v2b.json

@@ -1,0 +1,1015 @@
+[
+  {
+    "id": "Q01",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "You have 30 days to submit a reimbursement claim after discharge. [1][2]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "claims-process",
+      "claims-timelines",
+      "claims-timelines-2024-ARCHIVED",
+      "claims-process",
+      "health-faq-general"
+    ],
+    "relevant": [
+      "claims-timelines",
+      "claims-process"
+    ]
+  },
+  {
+    "id": "Q02",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "The room‑rent limit on the Silver plan is 2 % of the sum insured per day. [1][3]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "plan-silver",
+      "plans-overview",
+      "plans-overview",
+      "claims-process",
+      "plan-silver"
+    ],
+    "relevant": [
+      "plan-silver",
+      "plans-overview"
+    ]
+  },
+  {
+    "id": "Q03",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "No, maternity is not covered on the Bronze plan. The Bronze plan explicitly lists maternity as “Not covered” and the maternity‑benefits section states that maternity cover is not available on Bronze at any sum insured. [1][3]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "maternity-benefits",
+      "plans-overview",
+      "plan-bronze",
+      "plan-bronze",
+      "maternity-benefits"
+    ],
+    "relevant": [
+      "maternity-benefits",
+      "plan-bronze"
+    ]
+  },
+  {
+    "id": "Q04",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "The waiting period for pre‑existing diseases is 36 months. [2][3]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "pre-existing-conditions",
+      "pre-existing-conditions",
+      "pre-existing-conditions",
+      "pre-existing-conditions",
+      "pre-existing-conditions"
+    ],
+    "relevant": [
+      "pre-existing-conditions"
+    ]
+  },
+  {
+    "id": "Q05",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "The grace period for an annual policy is 30 days. [1][2]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "policy-renewal-and-portability",
+      "life-insurance-grace-and-revival",
+      "glossary",
+      "policy-renewal-and-portability",
+      "life-insurance-grace-and-revival"
+    ],
+    "relevant": [
+      "policy-renewal-and-portability"
+    ]
+  },
+  {
+    "id": "Q06",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "Aurora's network covers 11,400 hospitals as of 1 April 2026. [1]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "network-hospitals",
+      "claims-process",
+      "network-hospitals",
+      "claims-process",
+      "claims-process"
+    ],
+    "relevant": [
+      "network-hospitals"
+    ]
+  },
+  {
+    "id": "Q07",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "The Gold plan offers a no‑claim bonus of 25 % of the base sum insured for each claim‑free year, accumulating up to a maximum of 10 of 100 % of the base sum insured. [1][5]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 0,
+    "correctness": 1,
+    "retrieved": [
+      "plan-gold",
+      "plan-silver",
+      "plan-bronze",
+      "plan-gold",
+      "plans-overview"
+    ],
+    "relevant": [
+      "plan-gold",
+      "plans-overview"
+    ]
+  },
+  {
+    "id": "Q08",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "No, IVF treatment is excluded from coverage under Aurora Health Insurance plans. [1] [2]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "exclusions",
+      "plans-overview",
+      "claims-process",
+      "claims-process",
+      "claims-process"
+    ],
+    "relevant": [
+      "exclusions"
+    ]
+  },
+  {
+    "id": "Q09",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "The cataract sub‑limit on the Gold plan is ₹75,000 per eye. [1]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "plan-gold",
+      "plan-gold",
+      "plan-silver",
+      "plan-bronze",
+      "plan-gold"
+    ],
+    "relevant": [
+      "plan-gold"
+    ]
+  },
+  {
+    "id": "Q10",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "You can escalate to the Insurance Ombudsman for your region if Aurora’s final response is unsatisfactory or they do not respond within 30 days of your complaint. [1] (see also [4] for the Ombudsman’s jurisdiction and timelines).",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "grievance-redressal",
+      "grievance-redressal",
+      "grievance-redressal",
+      "grievance-redressal",
+      "claims-process"
+    ],
+    "relevant": [
+      "grievance-redressal"
+    ]
+  },
+  {
+    "id": "Q11",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "Road ambulance cover is ₹5,000 per hospitalisation [1][4][5].  \nAir ambulance cover is up to ₹2,50,000 per policy year within India, subject to prior authorisation [2].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "plans-overview",
+      "plan-gold",
+      "exclusions",
+      "plan-gold",
+      "plan-bronze"
+    ],
+    "relevant": [
+      "plans-overview",
+      "plan-silver",
+      "claims-process"
+    ]
+  },
+  {
+    "id": "Q12",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "Yes, mental illness is covered—in‑patient treatment for mental illness is covered on the same terms as physical illness, subject to the standard 30‑day initial waiting period. [1]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "exclusions",
+      "critical-illness-rider",
+      "critical-illness-rider",
+      "plans-overview",
+      "personal-accident-cover"
+    ],
+    "relevant": [
+      "exclusions"
+    ]
+  },
+  {
+    "id": "Q13",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "The free-look period is the window in which a new policy can be returned for a refund [1]. It allows cancellation within 15 days of receiving the policy document, or 30 days if the policy was sold through distance marketing [2][3].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "glossary",
+      "policy-renewal-and-portability",
+      "life-insurance-grace-and-revival",
+      "premium-and-payments",
+      "regulatory-disclosures"
+    ],
+    "relevant": [
+      "policy-renewal-and-portability"
+    ]
+  },
+  {
+    "id": "Q14",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "You earn 150 wellness points for completing an annual health check‑up. [1]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "outpatient-and-wellness",
+      "outpatient-and-wellness",
+      "outpatient-and-wellness",
+      "premium-and-payments",
+      "plans-overview"
+    ],
+    "relevant": [
+      "outpatient-and-wellness"
+    ]
+  },
+  {
+    "id": "Q15",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "A day‑care procedure is a treatment that requires less than 24 hours of hospitalisation because of technological advance and is therefore payable despite the general 24‑hour admission requirement; out‑patient treatment is not considered a day‑care procedure. [1]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "glossary",
+      "plan-bronze",
+      "hospital-cash-benefit",
+      "plans-overview",
+      "exclusions"
+    ],
+    "relevant": [
+      "glossary"
+    ]
+  },
+  {
+    "id": "Q16",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "The hospital must notify Aurora within **24 hours** of an emergency admission for cashless. [1][4]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "claims-process",
+      "claims-process",
+      "claims-process",
+      "claims-timelines",
+      "claims-timelines"
+    ],
+    "relevant": [
+      "claims-process",
+      "claims-timelines"
+    ]
+  },
+  {
+    "id": "Q17",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "No, Aurora does not use a TPA; it administers its own claims. [1]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "glossary",
+      "personal-accident-cover",
+      "premium-and-payments",
+      "travel-insurance-exclusions",
+      "outpatient-and-wellness"
+    ],
+    "relevant": [
+      "glossary"
+    ]
+  },
+  {
+    "id": "Q18",
+    "kind": "single_hop",
+    "unanswerable": false,
+    "answer": "A facility must have at least 10 in‑patient beds if it is in a town with a population below 10 lakh, or at least 15 in‑patient beds elsewhere, to qualify as a hospital under the policy. [1][4]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "network-hospitals",
+      "grievance-redressal",
+      "hospital-cash-benefit",
+      "network-hospitals",
+      "network-hospitals"
+    ],
+    "relevant": [
+      "network-hospitals"
+    ]
+  },
+  {
+    "id": "Q19",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "I don't have enough information in the provided sources to answer that.",
+    "refused": true,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": 1,
+    "correctness": 0,
+    "retrieved": [
+      "claims-process",
+      "plan-silver",
+      "plan-silver",
+      "plan-bronze",
+      "plans-overview"
+    ],
+    "relevant": [
+      "plan-silver",
+      "claims-process"
+    ]
+  },
+  {
+    "id": "Q20",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "You can add your 63‑year‑old mother either as a dependent to your existing family floater plan (see the “dependents‑and‑family‑floater” section) or by purchasing a separate Aurora Senior Care plan for ages 60 and above. [1][2][4]  \nIf added to the floater, the premium will be based on the eldest member’s age (so her age may raise the cost) and advisers must show both options in writing; the same tax benefit applies to a separate parent policy. [3][5]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": null,
+    "correctness": 1,
+    "retrieved": [
+      "health-faq-general",
+      "dependents-and-family-floater",
+      "dependents-and-family-floater",
+      "senior-citizen-plan",
+      "premium-and-payments"
+    ],
+    "relevant": [
+      "dependents-and-family-floater",
+      "plan-silver",
+      "plan-bronze",
+      "plans-overview"
+    ]
+  },
+  {
+    "id": "Q21",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "Your waiting period will carry over only up to the sum insured of your previous policy; any increase in sum insured is subject to fresh waiting periods on the incremental amount. [1][2]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "pre-existing-conditions",
+      "policy-renewal-and-portability",
+      "policy-renewal-and-portability",
+      "pre-existing-conditions",
+      "topup-and-super-topup"
+    ],
+    "relevant": [
+      "policy-renewal-and-portability",
+      "pre-existing-conditions"
+    ]
+  },
+  {
+    "id": "Q22",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "You must inform Aurora and add your newborn as a dependent within 90 days of birth to keep coverage; doing so is guaranteed‑issue with no medical underwriting. If you miss that window, the child will be treated as a fresh applicant. [1]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "maternity-benefits",
+      "maternity-benefits",
+      "maternity-benefits",
+      "maternity-benefits",
+      "maternity-benefits"
+    ],
+    "relevant": [
+      "maternity-benefits",
+      "dependents-and-family-floater"
+    ]
+  },
+  {
+    "id": "Q23",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "No. Bronze does not include an OPD rider [2] and the base plan does not cover out‑patient consultations, diagnostics or pharmacy [5], so an out‑patient physiotherapy session would not be reimbursed.",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "outpatient-and-wellness",
+      "outpatient-and-wellness",
+      "plan-bronze",
+      "plans-overview",
+      "outpatient-and-wellness"
+    ],
+    "relevant": [
+      "outpatient-and-wellness",
+      "plan-bronze"
+    ]
+  },
+  {
+    "id": "Q24",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "A claim on the Silver plan reduces your accumulated no‑claim bonus by 10 percentage points; it does not reset it to zero. [1]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "plan-silver",
+      "plan-gold",
+      "plan-bronze",
+      "glossary",
+      "policy-renewal-and-portability"
+    ],
+    "relevant": [
+      "plan-silver",
+      "glossary"
+    ]
+  },
+  {
+    "id": "Q25",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "The Gold plan covers up to ₹1,00,000 for a caesarean section per delivery [1]. If the hospital bill is ₹1,60,000, you would pay the excess of ₹60,000 out of pocket.",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 0,
+    "correctness": 2,
+    "retrieved": [
+      "maternity-benefits",
+      "plan-gold",
+      "plan-gold",
+      "plan-gold",
+      "plan-gold"
+    ],
+    "relevant": [
+      "maternity-benefits",
+      "plan-gold"
+    ]
+  },
+  {
+    "id": "Q26",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "Knee replacement (unless it follows an accident) is listed as a specified illness that carries a 24‑month waiting period, so it is not covered immediately after buying the policy [2]. A waiting period requires continuous coverage for that duration before the claim becomes payable [3].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "health-faq-general",
+      "pre-existing-conditions",
+      "pre-existing-conditions",
+      "health-faq-general",
+      "glossary"
+    ],
+    "relevant": [
+      "pre-existing-conditions",
+      "plan-silver",
+      "plan-bronze"
+    ]
+  },
+  {
+    "id": "Q27",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "The total discount is capped at 30 % of the base premium, but the wellness discount (which can be as high as 15 %) is applied after that cap and may exceed it, giving a maximum possible discount of 30 % + 15 % = 45 % of the base premium. [1][4]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 0,
+    "correctness": 2,
+    "retrieved": [
+      "premium-and-payments",
+      "premium-and-payments",
+      "premium-and-payments",
+      "outpatient-and-wellness",
+      "premium-and-payments"
+    ],
+    "relevant": [
+      "premium-and-payments",
+      "outpatient-and-wellness"
+    ]
+  },
+  {
+    "id": "Q28",
+    "kind": "multi_hop",
+    "unanswerable": false,
+    "answer": "Cashless will be denied because the hospital is an excluded provider [2]. You must use the reimbursement route (Route 2) [4] and, for an excluded provider, reimbursement is only available with pre‑approval [3] and only if the admission was a genuine emergency with no reachable alternative facility [1]. You can pay the bill and then file for reimbursement, which is often settled after denial [5].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": 0,
+    "correctness": 2,
+    "retrieved": [
+      "network-hospitals",
+      "network-hospitals",
+      "network-hospitals",
+      "claims-process",
+      "network-hospitals"
+    ],
+    "relevant": [
+      "network-hospitals",
+      "claims-process"
+    ]
+  },
+  {
+    "id": "Q29",
+    "kind": "trap_archived",
+    "unanswerable": false,
+    "answer": "You have 45 days to respond to a query Aurora raises on a claim [2], but for motor‑insurance claims the response deadline is 30 days from the date of the query [3].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 0,
+    "correctness": 1,
+    "retrieved": [
+      "claims-timelines",
+      "claims-timelines",
+      "motor-claims-timelines",
+      "claims-process",
+      "motor-claims-timelines"
+    ],
+    "relevant": [
+      "claims-timelines"
+    ]
+  },
+  {
+    "id": "Q30",
+    "kind": "trap_archived",
+    "unanswerable": false,
+    "answer": "According to the current claims‑timelines and the claims‑process guide, a planned cashless admission must be notified at least 72 hours before admission [1][4]; however, the archived 2024 timelines list a 48‑hour deadline [2].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "claims-timelines",
+      "claims-timelines-2024-ARCHIVED",
+      "health-faq-general",
+      "claims-process",
+      "network-hospitals"
+    ],
+    "relevant": [
+      "claims-process",
+      "claims-timelines"
+    ]
+  },
+  {
+    "id": "Q31",
+    "kind": "trap_archived",
+    "unanswerable": false,
+    "answer": "Aurora settles or rejects a complete reimbursement claim within **15 working days** of receiving the last required document. [1][2]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "claims-process",
+      "claims-timelines",
+      "motor-claims-timelines",
+      "motor-claims-timelines",
+      "grievance-redressal"
+    ],
+    "relevant": [
+      "claims-timelines",
+      "claims-process"
+    ]
+  },
+  {
+    "id": "Q32",
+    "kind": "aggregation",
+    "unanswerable": false,
+    "answer": "Aurora Gold plan has no co‑payment at any age. [1]  \nThe second and third variants of the Aurora Group Health Corporate Plan show Nil co‑payment. [2]  \nIn the Plans‑overview comparison, the third and fourth plan variants list Nil co‑payment. [4]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "plan-gold",
+      "group-corporate-plans",
+      "senior-citizen-plan",
+      "plans-overview",
+      "plan-silver"
+    ],
+    "relevant": [
+      "plans-overview",
+      "plan-gold"
+    ]
+  },
+  {
+    "id": "Q33",
+    "kind": "aggregation",
+    "unanswerable": false,
+    "answer": "Plan 1 offers a pre‑hospitalisation window of 30 days and a post‑hospitalisation window of 60 days; Plan 2 offers 45 days pre‑ and 90 days post‑hospitalisation; Plan 3 offers 60 days pre‑ and 120 days post‑hospitalisation; Plan 4 offers 90 days pre‑ and 180 days post‑hospitalisation [1].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "plans-overview",
+      "glossary",
+      "claims-process",
+      "health-faq-general",
+      "claims-timelines"
+    ],
+    "relevant": [
+      "plans-overview"
+    ]
+  },
+  {
+    "id": "Q34",
+    "kind": "aggregation",
+    "unanswerable": false,
+    "answer": "Gold plan removes the room-rent sub-limit entirely [1][3]; however, the sources do not specify whether parents‑in‑law can be added to any plan, so I don't have enough information in the provided sources to answer that.",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "plans-overview",
+      "topup-and-super-topup",
+      "plan-gold",
+      "health-faq-general",
+      "plans-overview"
+    ],
+    "relevant": [
+      "plans-overview",
+      "plan-gold",
+      "dependents-and-family-floater"
+    ]
+  },
+  {
+    "id": "Q35",
+    "kind": "aggregation",
+    "unanswerable": false,
+    "answer": "Dental treatment and oral surgery are excluded unless necessitated by an accidental injury requiring hospitalisation [1]. Out‑patient dental work is also excluded [2].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 1,
+    "retrieved": [
+      "exclusions",
+      "plans-overview",
+      "exclusions",
+      "exclusions",
+      "exclusions"
+    ],
+    "relevant": [
+      "exclusions",
+      "outpatient-and-wellness"
+    ]
+  },
+  {
+    "id": "Q36",
+    "kind": "unanswerable",
+    "unanswerable": true,
+    "answer": "I don't have enough information in the provided sources to answer that.",
+    "refused": true,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "plan-gold",
+      "plan-silver",
+      "plan-gold",
+      "plan-bronze",
+      "plan-gold"
+    ],
+    "relevant": []
+  },
+  {
+    "id": "Q37",
+    "kind": "unanswerable",
+    "unanswerable": true,
+    "answer": "I don't have enough information in the provided sources to answer that.",
+    "refused": true,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 0,
+    "correctness": 1,
+    "retrieved": [
+      "plans-overview",
+      "travel-insurance-exclusions",
+      "plan-silver",
+      "critical-illness-rider",
+      "plan-gold"
+    ],
+    "relevant": [
+      "exclusions",
+      "plans-overview"
+    ]
+  },
+  {
+    "id": "Q38",
+    "kind": "unanswerable",
+    "unanswerable": true,
+    "answer": "I don't have enough information in the provided sources to answer that.",
+    "refused": true,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 0,
+    "correctness": 2,
+    "retrieved": [
+      "claims-process",
+      "regulatory-disclosures",
+      "claims-timelines",
+      "motor-claims-timelines",
+      "grievance-redressal"
+    ],
+    "relevant": []
+  },
+  {
+    "id": "Q39",
+    "kind": "unanswerable",
+    "unanswerable": true,
+    "answer": "I don't have enough information in the provided sources to answer that.",
+    "refused": true,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 0,
+    "correctness": 2,
+    "retrieved": [
+      "critical-illness-rider",
+      "motor-claims-timelines",
+      "outpatient-and-wellness",
+      "personal-accident-cover",
+      "wellness-app-guide"
+    ],
+    "relevant": []
+  },
+  {
+    "id": "Q40",
+    "kind": "unanswerable",
+    "unanswerable": true,
+    "answer": "I don't have enough information in the provided sources to answer that.",
+    "refused": true,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 0,
+    "correctness": 2,
+    "retrieved": [
+      "wellness-app-guide",
+      "grievance-redressal",
+      "wellness-app-guide",
+      "motor-claims-timelines",
+      "personal-accident-cover"
+    ],
+    "relevant": [
+      "grievance-redressal"
+    ]
+  },
+  {
+    "id": "Q41",
+    "kind": "paraphrase",
+    "unanswerable": false,
+    "answer": "If you miss a payment, you lose any accumulated no‑claim bonus and waiting‑period credit once the grace period expires, at which point the policy is treated as fresh [4]. For annual policies the grace period is 30 days, so you lose everything after 30 days of non‑payment [5]. For policies paid half‑yearly, quarterly or monthly the grace period is 15 days, giving you only 15 days before the same loss occurs [2][5].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "life-insurance-grace-and-revival",
+      "premium-and-payments",
+      "life-insurance-grace-and-revival",
+      "policy-renewal-and-portability",
+      "policy-renewal-and-portability"
+    ],
+    "relevant": [
+      "policy-renewal-and-portability"
+    ]
+  },
+  {
+    "id": "Q42",
+    "kind": "paraphrase",
+    "unanswerable": false,
+    "answer": "No, a denial of cashless does not mean your claim is rejected; you can still pursue reimbursement.[2][3] You may pay the hospital and file a reimbursement claim, which will be evaluated against the full set of policy documents.[4][3]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "network-hospitals",
+      "network-hospitals",
+      "claims-process",
+      "network-hospitals",
+      "health-faq-general"
+    ],
+    "relevant": [
+      "network-hospitals",
+      "claims-process"
+    ]
+  },
+  {
+    "id": "Q43",
+    "kind": "paraphrase",
+    "unanswerable": false,
+    "answer": "Completing the quit‑tobacco programme earns 200 wellness points per year (max). [1]  \nThese points can be converted to a renewal‑premium discount at a rate of 1,000 points = 5% (capped at 15%), and they do not carry forward between policy years or survive a lapse beyond the grace period. [4]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": true,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "outpatient-and-wellness",
+      "premium-and-payments",
+      "outpatient-and-wellness",
+      "outpatient-and-wellness",
+      "health-faq-general"
+    ],
+    "relevant": [
+      "outpatient-and-wellness",
+      "premium-and-payments"
+    ]
+  },
+  {
+    "id": "Q44",
+    "kind": "paraphrase",
+    "unanswerable": false,
+    "answer": "AUR-HI-SIL-2026 (Aurora Silver) offers sum insured options of ₹5,00,000 or ₹10,00,000 [2][3].",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "topup-and-super-topup",
+      "plan-silver",
+      "plan-silver",
+      "critical-illness-rider",
+      "plan-bronze"
+    ],
+    "relevant": [
+      "plan-silver"
+    ]
+  },
+  {
+    "id": "Q45",
+    "kind": "paraphrase",
+    "unanswerable": false,
+    "answer": "No, a 6‑dioptre LASIK is not covered because refractive error correction for errors less than 7.5 dioptres is excluded from all plans. [1]",
+    "refused": false,
+    "citations_valid": true,
+    "invalid_citations": [],
+    "repaired": false,
+    "faithfulness": 1,
+    "correctness": 2,
+    "retrieved": [
+      "exclusions",
+      "dependents-and-family-floater",
+      "outpatient-and-wellness",
+      "outpatient-and-wellness",
+      "plans-overview"
+    ],
+    "relevant": [
+      "exclusions"
+    ]
+  }
+]

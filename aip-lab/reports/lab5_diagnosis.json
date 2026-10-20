@@ -1,0 +1,444 @@
+[
+  {
+    "id": "Q04",
+    "kind": "single_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "pre-existing-conditions"
+    ],
+    "retrieved_docs": [
+      "pre-existing-conditions",
+      "pre-existing-conditions",
+      "pre-existing-conditions",
+      "pre-existing-conditions",
+      "pre-existing-conditions"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (60% of 10 content words; missing numbers ['12']; missing words ['bought', 'inception', 'reduce', 'rider'])",
+    "human_note": "LOOKED AT: 5 delivered chunks are ALL pre-existing-conditions; the PED-reduction-rider chunk ('reduces 36 months to either 24 months or 12 months') is dense-rank 18\n    JUDGEMENT: CORRECTED FROM MODE 4. I first called this a window problem because the rider clause was at rank 18 and outside the window. The all-gold-material probe says otherwise: handed the entire pre-existing-conditions document, the generator still answers only '36 months'. Retrieval withheld a clause, but withholding it was not why the answer is wrong. This is the clearest case of the span check pointing at the wrong stage, and it is why the probe exists.",
+    "question": "What is the waiting period for pre-existing diseases?",
+    "gold_answer": "36 months of continuous coverage. A rider can reduce it to 24 or 12 months if bought at inception or first renewal.",
+    "lab4_correctness": 1,
+    "answer": "The waiting period for pre‑existing diseases is 36 months. [2][3]"
+  },
+  {
+    "id": "Q05",
+    "kind": "single_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "policy-renewal-and-portability"
+    ],
+    "retrieved_docs": [
+      "policy-renewal-and-portability",
+      "life-insurance-grace-and-revival",
+      "glossary",
+      "policy-renewal-and-portability",
+      "life-insurance-grace-and-revival"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (94% of 17 content words; missing words ['preserves'])",
+    "human_note": null,
+    "question": "How long is the grace period for an annual policy?",
+    "gold_answer": "30 days for annual policies (15 days for instalment policies). Cover does not operate during the grace period; it only preserves continuity of waiting periods and no-claim bonus.",
+    "lab4_correctness": 1,
+    "answer": "The grace period for an annual policy is 30 days. [1][2]"
+  },
+  {
+    "id": "Q06",
+    "kind": "single_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "network-hospitals"
+    ],
+    "retrieved_docs": [
+      "network-hospitals",
+      "claims-process",
+      "network-hospitals",
+      "claims-process",
+      "claims-process"
+    ],
+    "evidence": "all-gold-material fixes it: True; 5 gold-only chunks fix it: True; answer span PRESENT in the delivered 5-chunk window (85% of 13 content words; missing words ['live', 'though']) -> the delivered window was sufficient and the generator under-used it",
+    "human_note": null,
+    "question": "How many hospitals are in the Aurora network?",
+    "gold_answer": "11,400 hospitals across 780 towns as of 1 April 2026, though the app locator is the authoritative live list.",
+    "lab4_correctness": 1,
+    "answer": "Aurora's network covers 11,400 hospitals as of 1 April 2026. [1]"
+  },
+  {
+    "id": "Q07",
+    "kind": "single_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "plan-gold",
+      "plans-overview"
+    ],
+    "retrieved_docs": [
+      "plan-gold",
+      "plan-silver",
+      "plan-bronze",
+      "plan-gold",
+      "plans-overview"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (100% of 16 content words)",
+    "human_note": null,
+    "question": "What is the no-claim bonus on Gold?",
+    "gold_answer": "25% of base sum insured per claim-free year, accumulating to a maximum of 100%. A claim stops accumulation for that year but does not reduce the bonus.",
+    "lab4_correctness": 1,
+    "answer": "The Gold plan offers a no‑claim bonus of 25 % of the base sum insured for each claim‑free year, accumulating up to a maximum of 10 of 100 % of the base sum insured. [1][5]"
+  },
+  {
+    "id": "Q10",
+    "kind": "single_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "grievance-redressal"
+    ],
+    "retrieved_docs": [
+      "grievance-redressal",
+      "grievance-redressal",
+      "grievance-redressal",
+      "grievance-redressal",
+      "claims-process"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (100% of 15 content words)",
+    "human_note": null,
+    "question": "Who can I escalate to if Aurora rejects my claim and their internal response is unsatisfactory?",
+    "gold_answer": "Escalate to Aurora's Grievance Redressal Officer (14-day response), then to the Insurance Ombudsman for your region within 1 year of the final rejection.",
+    "lab4_correctness": 1,
+    "answer": "You can escalate to the Insurance Ombudsman for your region if Aurora’s final response is unsatisfactory or they do not respond within 30 days of your complaint. [1] (see also [4] for the Ombudsman’s jurisdiction and timelines)."
+  },
+  {
+    "id": "Q11",
+    "kind": "single_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "plans-overview",
+      "plan-silver",
+      "claims-process"
+    ],
+    "retrieved_docs": [
+      "plans-overview",
+      "plan-gold",
+      "exclusions",
+      "plan-gold",
+      "plan-bronze"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (89% of 19 content words; missing words ['additionally', 'platinum'])",
+    "human_note": null,
+    "question": "How much ambulance cover is there?",
+    "gold_answer": "Rs 5,000 per hospitalisation for road ambulance on all plans. Gold and Platinum additionally cover air ambulance up to Rs 2,50,000 per year within India on prior authorisation.",
+    "lab4_correctness": 1,
+    "answer": "Road ambulance cover is ₹5,000 per hospitalisation [1][4][5].  \nAir ambulance cover is up to ₹2,50,000 per policy year within India, subject to prior authorisation [2]."
+  },
+  {
+    "id": "Q19",
+    "kind": "multi_hop",
+    "mode": 4,
+    "mode_name": "ranking",
+    "script_mode": 2,
+    "overrode_script": true,
+    "needs_human_check": false,
+    "gold_docs": [
+      "plan-silver",
+      "claims-process"
+    ],
+    "retrieved_docs": [
+      "claims-process",
+      "plan-silver",
+      "plan-silver",
+      "plan-bronze",
+      "plans-overview"
+    ],
+    "evidence": "generator could do it (all-gold-material fixes it: True; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (62% of 24 content words; missing words ['anaesthetist', 'applied', 'consumables', 'investigations', 'linked', 'nursing', 'pharmacy', 'reduced'])) and every gold doc reached the window, but the answer span did not (62% of 24 content words; missing words ['anaesthetist', 'applied', 'consumables', 'investigations', 'linked', 'nursing', 'pharmacy', 'reduced']) -- the answer-carrying chunk inside the right document lost the cut",
+    "human_note": "LOOKED AT: the window holds the claims-process worked example (rank 1), Silver sum insured Rs 5,00,000 (rank 2), and Silver sub-limit 'Room rent 2% of sum insured per day' (rank 3). The 'proportionate deduction' rule that turns the cap into the gold answer's eligibility ratio of 0.667 is dense-rank 8.\n    JUDGEMENT: MOVED FROM MODE 2 TO MODE 4, and from mode 6 in version 1. The signals: the generator can do it with all gold material, five gold-only chunks are not enough, and the span is absent. The script's mode 2 is literally true -- the answer-carrying chunk of a delivered document lost the cut -- but it is the less actionable reading. Mode 2's fix menu is chunking surgery, and chunking surgery cannot help here: the missing chunk is perfectly well formed and retrievable at rank 8. It is the SIZE of the window that binds, which is mode 4. This is also the only correctness=0 failure in the set, and it is an over-refusal of a question whose two deciding numbers were delivered at ranks 1-3.",
+    "question": "I am on Silver with a 5 lakh sum insured and took a room at Rs 15,000 per day. Will everything be paid?",
+    "gold_answer": "No. The Silver room-rent limit is 2% of 5,00,000 = Rs 10,000/day, so an eligibility ratio of 0.667 is applied by proportionate deduction to all room-linked charges (room, surgeon, anaesthetist, nursing, OT, investigations). Pharmacy and consumables are not reduced.",
+    "lab4_correctness": 0,
+    "answer": "I don't have enough information in the provided sources to answer that."
+  },
+  {
+    "id": "Q20",
+    "kind": "multi_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "dependents-and-family-floater",
+      "plan-silver",
+      "plan-bronze",
+      "plans-overview"
+    ],
+    "retrieved_docs": [
+      "health-faq-general",
+      "dependents-and-family-floater",
+      "dependents-and-family-floater",
+      "senior-citizen-plan",
+      "premium-and-payments"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (56% of 32 content words; missing numbers ['10%']; missing words ['alternative', 'applies', 'bronze', 'claim', 'every', 'extra', 'gold', 'insured'])",
+    "human_note": "LOOKED AT: 3 of 4 gold documents never reached the window (plan-bronze rank 11, plans-overview 12, plan-silver 15); the 'Who can be covered' table is at rank 14.\n    JUDGEMENT: CORRECTED FROM MODE 4. Version 1 said the 10% Silver co-payment clause at rank 15 was the cause. The all-gold-material probe says the generator cannot assemble the answer even handed all four gold documents in full, so the missing documents were not the binding constraint.",
+    "question": "My mother is 63 and I want to add her to my policy. Which plans allow it and what changes?",
+    "gold_answer": "Dependent parents can be added on Silver (at extra premium), Gold and Platinum, but not on Bronze. Premium is set by the eldest member's age, and on Silver a 10% co-payment applies to every claim once the eldest insured is above 60. Aurora must present a separate senior-citizen policy as an alternative in writing.",
+    "lab4_correctness": 1,
+    "answer": "You can add your 63‑year‑old mother either as a dependent to your existing family floater plan (see the “dependents‑and‑family‑floater” section) or by purchasing a separate Aurora Senior Care plan for ages 60 and above. [1][2][4]  \nIf added to the floater, the premium will be based on the eldest mem"
+  },
+  {
+    "id": "Q21",
+    "kind": "multi_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "policy-renewal-and-portability",
+      "pre-existing-conditions"
+    ],
+    "retrieved_docs": [
+      "pre-existing-conditions",
+      "policy-renewal-and-portability",
+      "policy-renewal-and-portability",
+      "pre-existing-conditions",
+      "topup-and-super-topup"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (92% of 25 content words; missing numbers ['45', '60']; missing words ['apply', 'carries'])",
+    "human_note": "LOOKED AT: 92% of gold content words delivered; the missing bullet, 'Apply at least 45 days and no more than 60 days before your existing policy's renewal date', is at dense-rank 27.\n    JUDGEMENT: CORRECTED FROM MODE 4. Even handed every chunk of policy-renewal-and-portability and pre-existing-conditions, the generator omits the application-window bullet. It will not volunteer that detail at any context size.",
+    "question": "I am switching from another insurer. Will my 3 years of waiting period carry over if I increase my sum insured?",
+    "gold_answer": "Waiting-period credit carries over only up to the sum insured of the previous policy including its accrued no-claim bonus. The incremental sum insured is subject to fresh waiting periods. Apply 45-60 days before the existing renewal date.",
+    "lab4_correctness": 1,
+    "answer": "Your waiting period will carry over only up to the sum insured of your previous policy; any increase in sum insured is subject to fresh waiting periods on the incremental amount. [1][2]"
+  },
+  {
+    "id": "Q22",
+    "kind": "multi_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "maternity-benefits",
+      "dependents-and-family-floater"
+    ],
+    "retrieved_docs": [
+      "maternity-benefits",
+      "maternity-benefits",
+      "maternity-benefits",
+      "maternity-benefits",
+      "maternity-benefits"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (100% of 30 content words)",
+    "human_note": null,
+    "question": "My baby was born last week. What do I need to do and by when?",
+    "gold_answer": "The newborn is covered from day one within the maternity limit for the first 90 days. To continue cover beyond that, inform Aurora and add the child as a dependent within 90 days of birth, which is guaranteed-issue with no medical underwriting. After 90 days the child is treated as a fresh applicant.",
+    "lab4_correctness": 1,
+    "answer": "You must inform Aurora and add your newborn as a dependent within 90 days of birth to keep coverage; doing so is guaranteed‑issue with no medical underwriting. If you miss that window, the child will be treated as a fresh applicant. [1]"
+  },
+  {
+    "id": "Q24",
+    "kind": "multi_hop",
+    "mode": 4,
+    "mode_name": "ranking",
+    "script_mode": 4,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "plan-silver",
+      "glossary"
+    ],
+    "retrieved_docs": [
+      "plan-silver",
+      "plan-gold",
+      "plan-bronze",
+      "glossary",
+      "policy-renewal-and-portability"
+    ],
+    "evidence": "all-gold-material fixes it: True; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (93% of 15 content words; missing words ['accrues']) -> a 5-chunk window cannot hold this answer even when every slot is filled with a gold-document chunk, while more gold material fixes it. Context budget: not a ranking quality problem and not a generation problem",
+    "human_note": null,
+    "question": "I had a claim last year on Silver. What happens to my accumulated no-claim bonus?",
+    "gold_answer": "On Silver a claim reduces the accumulated bonus by 10 percentage points; it does not reset to zero. Silver accrues 10% per claim-free year up to 50%.",
+    "lab4_correctness": 1,
+    "answer": "A claim on the Silver plan reduces your accumulated no‑claim bonus by 10 percentage points; it does not reset it to zero. [1]"
+  },
+  {
+    "id": "Q26",
+    "kind": "multi_hop",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "pre-existing-conditions",
+      "plan-silver",
+      "plan-bronze"
+    ],
+    "retrieved_docs": [
+      "health-faq-general",
+      "pre-existing-conditions",
+      "pre-existing-conditions",
+      "health-faq-general",
+      "glossary"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (52% of 21 content words; missing numbers ['50', '50']; missing words ['000', 'apply', 'bronze', 'carries', 'gold', 'limits', 'none', 'silver'])",
+    "human_note": "LOOKED AT: plan-silver best rank 20, plan-bronze 26, both never delivered; the per-plan joint-replacement sub-limits live in their Sub-limits tables.\n    JUDGEMENT: CORRECTED FROM MODE 4. The generator omits the per-plan sub-limits even when handed both plan documents whole, so retrieval withholding them was not the cause.",
+    "question": "Is knee replacement covered immediately after I buy the policy?",
+    "gold_answer": "No. Knee and hip joint replacement other than following an accident carries a 24-month waiting period. Sub-limits also apply: Rs 1,50,000 per joint on Bronze, Rs 2,50,000 on Silver, none on Gold.",
+    "lab4_correctness": 1,
+    "answer": "Knee replacement (unless it follows an accident) is listed as a specified illness that carries a 24‑month waiting period, so it is not covered immediately after buying the policy [2]. A waiting period requires continuous coverage for that duration before the claim becomes payable [3]."
+  },
+  {
+    "id": "Q29",
+    "kind": "trap_archived",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "claims-timelines"
+    ],
+    "retrieved_docs": [
+      "claims-timelines",
+      "claims-timelines",
+      "motor-claims-timelines",
+      "claims-process",
+      "motor-claims-timelines"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (31% of 16 content words; missing numbers ['2026', '2024']; missing words ['2024', '2026', 'april', 'archived', 'current', 'effective', 'must', 'policies'])",
+    "human_note": "LOOKED AT: window[2] claims-timelines, 'If the response to a query is not received within 45 days...', carries the answer. Every word that failed the span check comes from the gold answer's parenthetical.\n    JUDGEMENT: AGREES WITH THE SCRIPT, and the agreement is worth recording because the span evidence is misleading here. The automated check reports 31% coverage and an absent span, but the words it reports missing -- 2024, 2026, archived, must, quoted, current, policies -- all come from the grader's annotation, '(The archived 2024 document says 30 days and must not be quoted for current policies.)'. The system was never supposed to assert them. Reading the chunks: it DID answer 45 days correctly from rank-2 material, then contaminated the answer with the motor-insurance 30-day deadline from window[3]/[5], which is why faithfulness is 0. I also checked the archived-document trap the handout names: claims-timelines-2024-ARCHIVED was never retrieved for this question at all, so the archived metadata filter is NOT the fix here. Lab 3 already measured that filter and it does not move hit_rate@1 on Q29-Q31 (1.000 before and after). The distractor is a different CURRENT document, so this is generation-side contamination.",
+    "question": "How many days do I have to respond to a query Aurora raises on my claim?",
+    "gold_answer": "45 days from the date of the query, under the rules effective 1 April 2026. (The archived 2024 document says 30 days and must not be quoted for current policies.)",
+    "lab4_correctness": 1,
+    "answer": "You have 45 days to respond to a query Aurora raises on a claim [2], but for motor‑insurance claims the response deadline is 30 days from the date of the query [3]."
+  },
+  {
+    "id": "Q32",
+    "kind": "aggregation",
+    "mode": 4,
+    "mode_name": "ranking",
+    "script_mode": 4,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "plans-overview",
+      "plan-gold"
+    ],
+    "retrieved_docs": [
+      "plan-gold",
+      "group-corporate-plans",
+      "senior-citizen-plan",
+      "plans-overview",
+      "plan-silver"
+    ],
+    "evidence": "all-gold-material fixes it: True; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (83% of 12 content words; missing words ['bronze', 'platinum']) -> a 5-chunk window cannot hold this answer even when every slot is filled with a gold-document chunk, while more gold material fixes it. Context budget: not a ranking quality problem and not a generation problem",
+    "human_note": null,
+    "question": "Which plans have no co-payment?",
+    "gold_answer": "Gold and Platinum have nil co-payment at all ages. Bronze applies 20% and Silver 10% where the eldest insured is above 60.",
+    "lab4_correctness": 1,
+    "answer": "Aurora Gold plan has no co‑payment at any age. [1]  \nThe second and third variants of the Aurora Group Health Corporate Plan show Nil co‑payment. [2]  \nIn the Plans‑overview comparison, the third and fourth plan variants list Nil co‑payment. [4]"
+  },
+  {
+    "id": "Q34",
+    "kind": "aggregation",
+    "mode": 4,
+    "mode_name": "ranking",
+    "script_mode": 4,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "plans-overview",
+      "plan-gold",
+      "dependents-and-family-floater"
+    ],
+    "retrieved_docs": [
+      "plans-overview",
+      "topup-and-super-topup",
+      "plan-gold",
+      "health-faq-general",
+      "plans-overview"
+    ],
+    "evidence": "all-gold-material fixes it: True; 5 gold-only chunks fix it: False; answer span PRESENT in the delivered 5-chunk window (80% of 15 content words; missing words ['law', 'permits', 'tier']) -> a 5-chunk window cannot hold this answer even when every slot is filled with a gold-document chunk, while more gold material fixes it. Context budget: not a ranking quality problem and not a generation problem",
+    "human_note": null,
+    "question": "Which plan should I buy if I want no room-rent sub-limit and cover for my parents-in-law?",
+    "gold_answer": "Gold (or Platinum). Gold removes room-rent and ICU sub-limits and is the lowest tier that permits dependent parents-in-law.",
+    "lab4_correctness": 1,
+    "answer": "Gold plan removes the room-rent sub-limit entirely [1][3]; however, the sources do not specify whether parents‑in‑law can be added to any plan, so I don't have enough information in the provided sources to answer that."
+  },
+  {
+    "id": "Q35",
+    "kind": "aggregation",
+    "mode": 6,
+    "mode_name": "generation",
+    "script_mode": 6,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "exclusions",
+      "outpatient-and-wellness"
+    ],
+    "retrieved_docs": [
+      "exclusions",
+      "plans-overview",
+      "exclusions",
+      "exclusions",
+      "exclusions"
+    ],
+    "evidence": "the generator cannot produce this answer even handed every gold chunk -- all-gold-material fixes it: False; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (67% of 21 content words; missing words ['check', 'cleaning', 'excluded', 'opd', 'optional', 'rider', 'year'])",
+    "human_note": "LOOKED AT: outpatient-and-wellness never delivered, best rank 14; its OPD-rider chunk carries 'one dental check-up and cleaning per year', the second half of the gold answer.\n    JUDGEMENT: CORRECTED FROM MODE 4. Handed both gold documents in full the generator still answers only the exclusions half and drops the 'one dental check-up and cleaning per year is covered under the optional OPD rider' half. That is a generation failure with the material available.",
+    "question": "List everything that is excluded relating to dental treatment.",
+    "gold_answer": "Dental treatment and oral surgery are excluded unless necessitated by accidental injury requiring hospitalisation. One dental check-up and cleaning per year is covered under the optional OPD rider.",
+    "lab4_correctness": 1,
+    "answer": "Dental treatment and oral surgery are excluded unless necessitated by an accidental injury requiring hospitalisation [1]. Out‑patient dental work is also excluded [2]."
+  },
+  {
+    "id": "Q37",
+    "kind": "unanswerable",
+    "mode": 3,
+    "mode_name": "embedding_mismatch",
+    "script_mode": 3,
+    "overrode_script": false,
+    "needs_human_check": false,
+    "gold_docs": [
+      "exclusions",
+      "plans-overview"
+    ],
+    "retrieved_docs": [
+      "plans-overview",
+      "travel-insurance-exclusions",
+      "plan-silver",
+      "critical-illness-rider",
+      "plan-gold"
+    ],
+    "evidence": "generator could do it (all-gold-material fixes it: True; 5 gold-only chunks fix it: False; answer span ABSENT in the delivered 5-chunk window (31% of 26 content words; missing words ['addendum', 'available', 'benefit', 'corpus', 'details', 'emergency', 'excluded', 'exists'])) but gold doc exclusions never reached the top 30, while its own text retrieves it by its own text -> query/embedding mismatch",
+    "human_note": "LOOKED AT: exclusions never reached the top 30 at all. The one deciding sentence, 'Treatment taken outside India, except under Platinum's international emergency benefit', lives there. plans-overview was delivered at rank 1, but its 'Platinum adds international emergency cover' sentence is at rank 13.\n    JUDGEMENT: AGREES WITH THE SCRIPT (mode 3), and the self-retrieval probe is what confirms 3 rather than 2: exclusions is absent from the top 30 yet its own text retrieves it, so the query is the problem, not the chunk. Recorded because the 31% span coverage here is a MEASUREFACT ARTEFACT and must not be read as evidence: the gold answer is a PARTIAL REFUSE whose text is mostly instruction to the grader ('The system should say the benefit exists on Platinum and that the details are not available'). A span check cannot parse that. Judged by hand instead: two chunks of plan-silver and two of plan-gold took 4 of the 5 window slots on a question about treatment in Singapore, while the one document stating the exclusion-plus-exception was never surfaced. Retrieval failed; this is not a refusal-policy failure.",
+    "question": "Does Aurora cover treatment in Singapore, and up to what limit?",
+    "gold_answer": "PARTIAL REFUSE. The corpus states treatment outside India is excluded except under Platinum's international emergency benefit, but the limits and conditions of that benefit are in `plan-platinum-addendum`, which is not in the corpus. The system should say the benefit exists on Platinum and that the details are not available here.",
+    "lab4_correctness": 1,
+    "answer": "I don't have enough information in the provided sources to answer that."
+  }
+]

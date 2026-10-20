@@ -1,0 +1,35 @@
+# Environment & API keys
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+.venv/
+.venv_win/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.class
+.pytest_cache/
+
+# AIP cache & traces
+.aip_cache/
+.aip_traces/
+# path-shaped cache dirs created by a literal-path bug (C:\Users\... -> CUserschou_...)
+CUserschou_*/
+
+# Tool/editor caches that are never source
+.chroma/
+.ruff_cache/
+.mimocode/
+ruff.out
+
+# Do not commit the 130 MB re-zipped bundle of this repo itself
+Vidhi_Guardian_Submission.zip
+
+# IDE
+.vscode/
+.idea/

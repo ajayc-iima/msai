@@ -1,0 +1,8 @@
+{
+  "built_at": "2026-10-15T15:52:50.931762+00:00",
+  "stale_days": 0.15148440777777777,
+  "ttft_uncached_ms": 111.8,
+  "cached_ms": 0.5,
+  "load_errs": 0,
+  "load_p95": 956.8
+}
