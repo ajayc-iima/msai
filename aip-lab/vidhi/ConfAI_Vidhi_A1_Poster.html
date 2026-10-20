@@ -239,12 +239,15 @@
   .lim li{ margin:1.8mm 0; }
 
   /* ================= first-rule-fires band ================= */
-  .band{ border-top:1.4px solid var(--teal); padding:3.2mm 16mm 3.2mm; background:var(--tint); }
-  .band-title{ font-family:var(--serif); font-size:19pt; font-weight:700; color:var(--teal); margin-bottom:3.5mm;
-    padding-bottom:2mm; border-bottom:1px solid var(--line); }
-  .band-grid{ display:grid; grid-template-columns:1fr 1fr 1.05fr 1.05fr; gap:7mm; align-items:start; }
+  .band{ border-top:1.4px solid var(--teal); padding:3mm 16mm 3mm; background:var(--tint); }
+  .band-title{ font-family:var(--serif); font-size:19pt; font-weight:700; color:var(--teal); margin-bottom:3mm;
+    padding-bottom:1.6mm; border-bottom:1px solid var(--line); }
+  .band-grid{ display:grid; grid-template-columns:1fr 1fr; gap:4.5mm 10mm; align-items:start; }
+  .trace-t .rc{ font-family:var(--mono); font-size:11.5pt; opacity:.9; }
   .tq{ font-family:var(--serif); font-size:15.5pt; color:var(--ink); margin-bottom:2mm; }
   .trace table.cmp{ font-size:13pt; }
+  .trace-t th, .trace-t td{ padding:1.5mm 2.4mm; }
+  .trace-t td.c1{ width:40mm; }
   .trace table.cmp td{ padding:1.8mm 2.4mm; }
   .band-note{ font-size:12.5pt; line-height:1.36; color:var(--ink-soft); }
   .band-note b{ color:var(--ink); }
@@ -264,7 +267,7 @@
   /* ================= footer ================= */
   footer{ border-top:3mm solid var(--teal); background:var(--tint2); padding:3.5mm 16mm 2.5mm; position:relative; }
   footer::after{ content:""; position:absolute; left:16mm; top:-3mm; width:56mm; height:3mm; background:var(--accent); }
-  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:8mm; align-items:start; }
+  .foot-grid{ display:grid; grid-template-columns:1.35fr 1.1fr .95fr; gap:8mm; align-items:start; }
   footer h3{ font-size:15pt; text-transform:uppercase; letter-spacing:.06em; color:var(--accent-ink); margin:0 0 3mm; }
   pre.cmds{ font-family:var(--mono); font-size:12pt; line-height:1.38; margin:0; background:#1F2A27; color:#E8F0EC;
     border-radius:3mm; padding:3mm 4mm; border:1px solid #31403A; white-space:pre; }
@@ -514,20 +517,20 @@
     <div class="band-grid">
       <div class="trace">
         <div class="tq">“Compare average MPCE in 2011-12 vs 2023-24.”</div>
-        <table class="cmp">
+        <table class="cmp trace-t">
           <tbody>
             <tr><td class="c1">S1 Safety-A</td><td class="good">pass — no injection signal</td></tr>
             <tr><td class="c1">S2 Scope</td><td class="good">pass — descriptive</td></tr>
-            <tr><td class="c1">S3 Comparability</td><td class="bad"><b>WARN</b> R_COMPARABILITY_HCES_METHOD — 68th-round paper vs 3-visit CAPI</td></tr>
+            <tr><td class="c1">S3 Comparability</td><td class="bad"><b>WARN</b> — comparability break <span class="rc">R_COMPARABILITY_HCES_METHOD</span></td></tr>
           </tbody>
         </table>
       </div>
       <div class="trace">
         <div class="tq">“Will unemployment fall in 2027?”</div>
-        <table class="cmp">
+        <table class="cmp trace-t">
           <tbody>
             <tr><td class="c1">S1 Safety-A</td><td class="good">pass — no injection signal</td></tr>
-            <tr><td class="c1">S2 Scope</td><td class="bad"><b>REFUSE</b> R_FORECAST — no such round exists</td></tr>
+            <tr><td class="c1">S2 Scope</td><td class="bad"><b>REFUSE</b> — no such round exists <span class="rc">R_FORECAST</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -569,10 +572,9 @@ python -m uvicorn vidhi.service:app --port 8001  <span class="cm"># → /demo</s
       <div>
         <h3>Try the live demo</h3>
         <p class="foot-note"><b>Live demo — <code>localhost:8001/demo</code></b>: ask a PLFS / HCES / TUS / MIS question.
-          Watch the verdict freeze and every figure name its source row and page.</p>
-        <p class="foot-note"><b>MCP:</b> <code>vidhi.mcp_server</code> (4 governance tools) · <b>Agent:</b> <code>POST /analyze</code>.</p>
-        <p class="foot-note"><b>Repo:</b> <code>github.com/ajayc-iima/msai</code> · MIT · <code>v0.4</code> — 123 tests, the
-          source PDFs and the StatsDoc transcripts are committed too.</p>
+          Watch the verdict freeze, and every figure name its source row and page.</p>
+        <p class="foot-note"><b>MCP</b> <code>vidhi.mcp_server</code> · <b>Agent</b> <code>POST /analyze</code> ·
+          <b>Repo</b> <code>github.com/ajayc-iima/msai</code> (MIT) — 123 tests, PDFs and transcripts committed.</p>
       </div>
       <div>
         <h3>The question this work won't hallucinate</h3>
