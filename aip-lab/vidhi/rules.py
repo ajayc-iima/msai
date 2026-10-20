@@ -612,12 +612,23 @@ class Firewall:
             # with another geography's figures (all-India, or a different
             # state) is exactly the reification failure this firewall exists
             # to prevent -- abstain and say what IS covered.
+            msg = (
+                f"No curated rows for '{unknown}'. This store covers all-India "
+                f"and the states/UTs of the HCES 2023-24 factsheet; no figure "
+                f"given for another place."
+            )
+            try:
+                from . import states as _st
+
+                sug = _st.suggest_state(unknown)
+                if sug:
+                    msg += f" Did you mean '{sug}'?"
+            except Exception:  # noqa: BLE001
+                pass
             return _warn(
                 "WARN_NO_DATA",
                 "R_NO_CURATED_ROW",
-                f"No curated rows for '{unknown}'. This store covers all-India "
-                f"and the states/UTs of the HCES 2023-24 factsheet; no figure "
-                f"given for another place.",
+                msg,
                 "numeric",
             )
         if c.asserted_pairs:

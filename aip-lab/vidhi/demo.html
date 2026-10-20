@@ -364,6 +364,17 @@ function render(d,question){
       ${table?'<button class="btn" id="csvBtn" type="button">Export CSV</button>':""}
       <button class="btn" id="goodBtn" type="button" aria-label="Mark answer helpful">Helpful</button>
       <button class="btn" id="badBtn" type="button" aria-label="Report a bad answer">Report issue</button>
+      <select id="reasonSel" class="btn" aria-label="Feedback reason" title="Why was this answer wrong?">
+        <option value="">reason (optional)</option>
+        <option value="incorrect_incomplete">incorrect / incomplete</option>
+        <option value="not_what_asked">not what I asked for</option>
+        <option value="wrong_document">wrong document / source</option>
+        <option value="language_issue">language / translation issue</option>
+        <option value="slow_buggy">slow or buggy</option>
+        <option value="style_tone">style or tone</option>
+        <option value="safety_legal">safety or legal concern</option>
+        <option value="other">other</option>
+      </select>
     </div>
     <details class="adv"><summary>Why this verdict</summary><div class="body">
       <p>${escapeHtml((d.caveats||[]).join(" ")||d.sub_code||"")}</p>
@@ -387,10 +398,11 @@ function render(d,question){
 }
 function isSlices(t){return t&&t.rows&&t.rows.length&&t.rows[0].cells.length===4;}
 function flag(ok,question,d){
-  const entry={question,decision:d.decision,reason:d.reason_code,trace:d.trace_id,ok,at:new Date().toISOString()};
+  const rs=document.getElementById("reasonSel");const userReason=rs?rs.value:"";
+  const entry={question,decision:d.decision,reason:d.reason_code,trace:d.trace_id,ok,user_reason:userReason,at:new Date().toISOString()};
   const k="vidhi-feedback";const arr=JSON.parse(localStorage.getItem(k)||"[]");arr.push(entry);
   localStorage.setItem(k,JSON.stringify(arr));
-  statusEl.textContent=ok?"Thanks — logged as helpful.":"Thanks — logged for golden-set review.";
+  statusEl.textContent=ok?"Thanks — logged as helpful.":"Thanks — logged for golden-set review."+(userReason? " ("+userReason+")":"");
 }
 function openCite(d,i){
   const c=(d.citations||[]).find(x=>String(x.index)===String(i));if(!c)return;

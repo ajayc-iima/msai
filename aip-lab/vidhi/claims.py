@@ -483,6 +483,7 @@ def extract(question: str) -> Claim:
             "what is" in q
             and not re.search(r"\b(?:19|20)\d{2}\b", q)
             and not c.states
+            and not getattr(c, "unknown_geography", None)
         )
     ):
         c.claim_type = "definitional"

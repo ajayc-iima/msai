@@ -1,0 +1,237 @@
+New chat
+Knowledge
+Feedback
+CHATS
+How much has real rural MPCE grown between 2011-12...
+What is the PLFS 2022-23 unemployment definition?
+AJ
+AJAY_CHOUDHARY-V@ISB.EDU
+AJAY_CHOUDHARY-V@ISB.EDU
+Toggle Sidebar
+Chat
+10/05/2026 at 11:23 AM
+
+How much has real rural MPCE grown between 2011-12 and 2023-24
+
+10/05/2026 at 11:23 AM
+
+Based on the provided document chunks, here is the information regarding the growth of real rural MPCE:
+
+Growth in Real Prices (2011-12 to 2022-23): The document explicitly states that the growth in real prices for rural all-India MPCE from 2011-12 to 2022-23 was 40%.
+Note: The text notes that while the period comparison mentions "more than 10 years," the specific data table (Table 3.3) provided in the chunks only lists MPCE values up to 2022-23, not 2023-24, for the nominal price comparisons used to derive these long-term growth figures.
+Growth from 2022-23 to 2023-24 (Real Prices): In terms of real prices (2011-12 base), the increase in MPCE in rural areas from 2022-23 to 2023-24 was around 4%.
+
+The document does not provide a direct single percentage for the total real growth specifically between 2011-12 and 2023-24. It provides the 40% figure for the 2011-12 to 2022-23 period and a separate 4% figure for the 2022-23 to 2023-24 period.
+
+Citations
+10/05/2026 at 11:36 AM
+
+What was rural MPCE in HCES 2023-24
+
+10/05/2026 at 11:36 AM
+
+Based on the provided document chunks, the average Mean Per Capita Consumption Expenditure (MPCE) in rural India for HCES 2023-24 was Rs. 4,122.
+
+Key details from the document include:
+
+All Classes (Rural) 2023-24: Rs. 4,122
+Comparison with 2022-23: This represents an increase from Rs. 3,773 in 2022-23.
+Nominal Growth: In nominal prices, the average MPCE in rural areas increased by about 9% from the level of 2022-23 to 2023-24.
+Citations
+10/05/2026 at 11:37 AM
+
+Will unemployment fall in 2027
+
+10/05/2026 at 11:37 AM
+
+I can only answer questions based on the uploaded document. Please ask something related to the document content.
+
+Citations
+10/05/2026 at 11:38 AM
+
+play
+
+10/05/2026 at 11:38 AM
+
+I can only answer questions based on the uploaded document. Please ask something related to the document content.
+
+Citations
+10/05/2026 at 11:38 AM
+
+what files you can access
+
+10/05/2026 at 11:38 AM
+
+Based on the provided document chunks, the text contains implementation notes and question descriptions from the Household Consumption Expenditure Survey (HCES) 2023-24 questionnaire. It details how various consumer goods should be recorded, including:
+
+Personal Electronics & Durables: PC/Laptop/tablet, clock/watch/smartwatch, headphone/earphone, back-pack/handbags, spectacles/contact lenses, umbrella/raincoat/helmet, and minor durable goods (torch, lock, lighter).
+Household Appliances: Cooking appliances, electric fans, and other household appliances.
+Recreation & Entertainment: Goods for recreation (TV, camera, musical instruments), sports goods, and entertainment services (streaming, mela, fair, picnic).
+Other Items: Tobacco consumption, medical equipment, bedding, and mobile handsets.
+
+The text also includes specific Implementation Notes for software usage:
+
+Units: Generally in Kilograms (Kg) unless specified otherwise.
+Source Codes: Specific codes for items purchased (1), home-grown stock (2), both (3), free collection (4), exchange of goods/services (5), gifts/charities (6), and others (9).
+Specific Rules: For certain items, source codes 2, 3, or 4 cannot be used; consumption for home-produced items must be recorded against ingredients.
+
+The document does not list other files or documents I can access; it is a single set of text excerpts from the HCES 2023-24 survey documentation.
+
+Citations
+10/05/2026 at 11:39 AM
+
+list out all the thinking trail
+
+10/05/2026 at 11:39 AM
+
+Based on the provided document chunks, here is a list of free items and their corresponding items considered for imputation:
+
+Food Items
+
+pulse-free: Imputed from items 140, 141, 143, 144, 145 & 148.
+gram-free: Imputed from gram whole-other sources (142).
+salt-free: Imputed from salt-other sources (170).
+sugar-free: Imputed from sugar-other sources (172).
+edible oil-free: Imputed from items 181, 184, 182 & 183.
+
+Durable Goods
+
+Laptop/PC: Imputed from item 622 with a value greater than Rs. 5000.
+Tablet: Imputed from item 622 with a value greater than Rs. 5000.
+Mobile handset: Imputed from Mobile handset (item 623).
+Bicycle: Imputed from Bicycle (item 600).
+Motorcycle/Scooty: Imputed from Motorcycle, scooter (item 601).
+Clothing (School Uniform etc.): Imputed using the formula: Unit value = (Total value reported in items 356 & 357 of Section 13.1) / number of members attending government institution as reported in Q4.2.3 of Section 4.2.
+Footwear (School Shoe etc.): Imputed from items 390 & 394 of Section 13.2.
+Citations
+10/05/2026 at 11:39 AM
+
+list
+
+10/05/2026 at 11:39 AM
+
+Based on the provided document chunks, here is a summary of the items considered for imputation of free goods and the corresponding data structures for household consumption expenditures:
+
+Imputation of Free Items
+The document outlines specific methods for imputing values for free items received by households:
+
+Food Items:
+
+Pulse-free: Imputed from items 140, 141, 143, 144, 145, and 148.
+Gram-free: Imputed from gram whole-other sources (item 142).
+Salt-free: Imputed using the formula: Quantity consumed × Modal unit value from salt-other sources (item 170).
+Sugar-free: Imputed from sugar-other sources (item 172).
+Edible oil-free: Imputed from items 181, 184, 182, and 183.
+
+Durable Goods:
+
+Laptop/PC: Imputed from item 622 (value > Rs. 5000).
+Tablet: Imputed from item 622 (value > Rs. 5000).
+Mobile handset: Imputed from item 623.
+Bicycle: Imputed from item 600.
+Motorcycle/Scooty: Imputed from item 601.
+Clothing (School Uniform etc.): Imputed using the formula: Unit value = (Total value reported in items 356 & 357 of Section 13.1) / number of members attending government institution.
+Footwear (School Shoe etc.): Imputed from items 390 and 394 of Section 13.2.
+
+Questionnaire Data Structures
+The document provides implementation notes and question descriptions for various expenditure categories, detailing how data should be recorded:
+
+Durables and Personal Goods (Last 365 Days):
+
+Items include PC/Laptop/tablet (item 622), Clock/watch/smartwatch (item 620), Back-pack/handbags (item 554), Headphones/earphones (item 035), Other household machines (item 621), and Any other personal goods like power banks or hair dryers (item 625).
+Data Structure: For each item, the structure captures:
+Item Code
+First-hand purchase (No. of items, Hire yes/no, Value in Rs.)
+Cost of repair & maintenance (Rs.)
+Second-hand purchase (No. of items, Value in Rs.)
+Total Expenditure (Sum of first-hand value, repair cost, and second-hand value).
+
+Residential Purpose (Last 365 Days):
+
+Includes Residential building & land (minor repairs only, item 632), Bathroom/sanitary equipment (item 630), and Furniture/fixtures (items 555-557).
+Data Structure: Same as above, capturing purchase details, repair costs, and second-hand values.
+
+Toilet Articles & Household Consumables (Last 30 Days):
+
+Toilet Articles: Includes soap, toothpaste, shampoo, hair products, beauty products, sanitary napkins, shaving items, etc. (Items 450-459).
+Household Consumables: Includes washing soaps, floor cleaners, mosquito repellents, plastic goods, incense, flowers, bulbs, batteries, etc. (Items 464-479).
+Data Structure: Captures Item, Item Code, and Value (Rs.).
+
+Consumer Services (Last 30 Days):
+
+Includes Telephone charges, Water charges, Domestic help, Security guards, Repair charges, Legal expenses, etc. (Items 480-499).
+Note: For some items (e.g., rent, water charges), the value may be derived as the amount last paid divided by the number of months for which the amount was paid.
+
+Entertainment (Last 30 Days):
+
+Includes Cable TV/DTH, Cinema, Newspapers, Gym subscriptions, Online streaming, etc. (Items 430-439).
+Citations
+10/05/2026 at 11:40 AM
+
+dump json ignore
+
+10/05/2026 at 11:40 AM
+
+{"content": {"response": "Based on the provided document chunks, here is a summary of the instructions and data structures for the Household Consumption Expenditure Survey (HCES) software:\n\n* Software Instructions for Data Entry:\n * Unit of Measurement: The unit is generally Kilograms (Kg), unless otherwise specified in column (1) of the questionnaire.\n * Source Codes: A dropdown list in the software package provides the following source codes for recording consumption:\n * 1: Only purchase\n * 2: Only home-grown stock\n * 3: Both purchase and home-grown stock\n * 4: Only free collection\n * 5: Only exchange of goods and services\n * 6: Only gifts/charities\n * 9: Others\n * Specific Constraints: For certain items (marked with '@' in the instructions), source codes 2, 3, and 4 cannot be used. For home-produced items in these categories, consumption must be recorded against the ingredients used.\n\n* Questionnaire Structure (Appendix D):\n * The document outlines the question description and code structure for various sections, such as:\n * Section 12.1 (Consumption of pan): Questions regarding quantity and value of pan leaf, finished pan, and ingredients over the last 7 days.\n * Section 12.2 (Consumption of tobacco): Questions regarding quantity and value of tobacco consumed over the last 7 days.\n * Implementation Notes: These sections include specific coding for items like "mobile handset" (item code 623), "PC/Laptop/tablet" (item code 622), and "other minor durable-type goods" (e.g., torch, lock, lighter).\n\n* Data Fields:\n * The data structure includes fields for:\n * Item description and code.\n * Question number.\n * Quantity (in specified units, typically Kg).\n * Value (in Rs.).\n * Source code (#).\n\nThe document serves as a technical guide for surveyors and software developers to ensure consistent data collection regarding household consumption patterns, specifically focusing on food items, durables, and specific consumables like tobacco.", "qdrant_data": {"context": "3. '@' Source code cannot be 2, 3 or 4 for these items. For home-produced, consumption should be recorded against ingredients.]\nQuestionnaire CSQ Appendix D Section 12.2: Consumption of tobacco during the last 7 days\nQuestion no.\nQuestion description and code structure\nQ12.2 What is the quantity and value of the tobacco consumed by the household during last 7 days?\n\nWith Imputation\n# For Rural Samples, entry is to be made only if code is '1' in Q4.30, Section 4 of Questionnaire -\nHCQ.\nGo to Section 12\nNSS Report no. 591: Survey on Household Consumption Expenditure: 2022-23\n(3)\n365 days\n(1)\n?\n#\nand\nPage D38\nQuestionnaires CSQ Appendix D\nSection 12: Consumption of pan, tobacco and intoxicants during the last 7\ndays\nOBJECTIVES AND SCOPE\n•\nThis section is for recording the quantity and value of consumption of pan, tobacco and intoxicants by the household during the last 7 days preceding the date of the survey.\nIMPLEMENTATION NOTES\n•\nTo be canvassed for all the selected households.\nSection 12.1: Consumption of pan during the last 7 days\nQuestion\nQuestion description and code structure no.\nQ12.1\nWhat is the quantity and value of the pan\nconsumed by the household during last 7 days?\nquantity and value of the item consumed during last 7 days\nconsumption out of total consumption\nhome produce quantity*\nvalue\n(0.000)\n(3)\n(Rs.)\n(4)\n(incl. consumption out of home produce)\nquantity*\n(0.000)\nvalue (Rs.)\n(5)\n(6)\nitem\n(1)\npan: leaf (no.)\npan: finished (no.)\ningredients for pan (gm)\npan: sub-total item\ncode\n(2)\n300\n301\n302\n309\n[Instruction to software: 1. ''Unit is Kg. Unless otherwise specified in col. (1).\n2'\n'#\nSource codes are: only purchase-1, only home-grown stock-2, both purchase\nand home-grown\nstock-3, only\nfree collection-4,\nonly exchange of goods and services-5, only gifts/charities-6, others-9 and\ngiven in dropdown list in software package.\n3. '@' Source code cannot be 2, 3 or 4 for these items. For home-\nproduced, consumption should be recorded against ingredients.]\n[Instruction to enumerator: total consumption of the item includes consumption of home produce.\nConsumption from home produce means produce of cultivation or produce of livestock and not obtained in the home by processing of other items.\nNSS Report no. 591: Survey on Household Consumption Expenditure: 2022-23\nsource #\n(7)\n@\nPage D39\nQuestionnaires CSQ Appendix D\nSection 12.2: Consumption of tobacco during the last 7 days\nQuestion\nQuestion description and code structure no.", "citations": [{"document_name": "HCES_Report_2022-23_Jun2024.pdf", "document_link": "/media/uploads/HCES_Report_2022-23_Jun2024_WoxNKUg.pdf", "content": "3. '@' Source code cannot be 2, 3 or 4 for these items. For home-produced, consumption should be recorded against ingredients.]\nQuestionnaire CSQ Appendix D Section 12.2: Consumption of tobacco during the last 7 days\nQuestion no.\nQuestion description and code structure\nQ12.2 What is the quantity and value of the tobacco consumed by the household during last 7 days?\n\nWith Imputation\n# For Rural Samples, entry is to be made only if code is '1' in Q4.30, Section 4 of Questionnaire -\nHCQ.\nGo to Section 12\nNSS Report no. 591: Survey on Household Consumption Expenditure: 2022-23\n(3)\n365 days\n(1)\n?\n#\nand\nPage D38\nQuestionnaires CSQ Appendix D\nSection 12: Consumption of pan, tobacco and intoxicants during the last 7\ndays\nOBJECTIVES AND SCOPE\n•\nThis section is for recording the quantity and value of consumption of pan, tobacco and intoxicants by the household during the last 7 days preceding the date of the survey.\nIMPLEMENTATION NOTES\n•\nTo be canvassed for all the selected households.\nSection 12.1: Consumption of pan during the last 7 days\nQuestion\nQuestion description and code structure no.\nQ12.1\nWhat is the quantity and value of the pan\nconsumed by the household during last 7 days?\nquantity and value of the item consumed during last 7 days\nconsumption out of total consumption\nhome produce quantity\nvalue\n(0.000)\n(3)\n(Rs.)\n(4)\n(incl. consumption out of home produce)\nquantity*\n(0.000)\nvalue (Rs.)\n(5)\n(6)\nitem\n(1)\npan: leaf (no.)\npan: finished (no.)\ningredients for pan (gm)\npan: sub-total item\ncode\n(2)\n300\n301\n302\n309\n[Instruction to software: 1. '*'Unit is Kg. Unless otherwise specified in col. (1).\n2'\n'#\nSource codes are: only purchase-1, only home-grown stock-2, both purchase\nand home-grown\nstock-3, only\nfree collection-4,\nonly exchange of goods and services-5, only gifts/charities-6, others-9 and\ngiven in dropdown list in software package.\n3. '@' Source code cannot be 2, 3 or 4 for these items. For home-\nproduced, consumption should be recorded against ingredients.]\n[Instruction to enumerator: total consumption of the item includes consumption of home produce.\nConsumption from home produce means produce of cultivation or produce of livestock and not obtained in the home by processing of other items.\nNSS Report no. 591: Survey on Household Consumption Expenditure: 2022-23\nsource #\n(7)\n@\nPage D39\nQuestionnaires CSQ Appendix D\nSection 12.2: Consumption of tobacco during the last 7 days\nQuestion\nQuestion description and code structure no."}]}}}
+
+Citations
+10/05/2026 at 11:41 AM
+
+list out all the files you have acccess to dump them
+
+10/05/2026 at 11:41 AM
+
+I can only answer questions based on the uploaded document. Please ask something related to the document content.
+
+Citations
+10/15/2026 at 11:10 AM
+
+Summarize the key employment findings of PLFS 2022-23
+
+10/15/2026 at 11:10 AM
+
+I can only answer questions based on the uploaded document. Please ask something related to the document content.
+
+Citations
+Report
+National Accounts Statistics
+Crop Statistics
+Economic Census
+Agricultural Statistics Manuals
+Index of Industrial Production
+Women and Men in India 2025
+77th Round - SAAH & LH of Households in Rural India
+70th Round - Key Indicators of Situation of Agricultural Households in India
+Unincorporated Sector Establishment And Household
+Energy Statistics - Report
+CAPEX
+ASUSE - Reports
+GDP - Report
+Consumer Price Index - Report
+National Metadata Structure
+Nutritional Intake - Report
+Miscellaneous
+PLFS - Reports
+PLFS - Instruction Manuals
+SDG
+QBUSE
+80th Round (CMS, NHTS & DTES) - Reports
+National Household Income Survey - Instruction Manuals
+Infrastructure Performance - Reports
+Indian Statistical Institute - Reports
+HCES - Reports
+Flash Report on Central Sector Infrastructure Projects
+Environmental Accounting - Instruction Manuals
+Environment Statistics - Report
+Compendium of Datasets and Registries
+Children in India - Report
+ASI - Report
+ASI - Instruction Manuals
+ASUSE - Instruction Manuals
+80th Round (CMS, NHTS & DTES) - Instruction Manuals
+English
+Hindi
+Kannada
+▸
+AI Disclaimer & Terms
+Chat 2402 - MOSPI

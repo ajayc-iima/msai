@@ -25,6 +25,7 @@ Design rules
 
 from __future__ import annotations
 
+import difflib
 import re
 
 # Canonical store name -> accepted spellings (lowercase, punctuation-free).
@@ -338,4 +339,52 @@ def unknown_places(question: str) -> list[str]:
                 continue
             if w not in out:
                 out.append(w)
+    return out
+def suggest_state(name: str) -> str | None:
+    """Closest curated state/UT name for a possibly-misspelled place, or None.
+
+    Used to make an honest abstention *helpful*: "MPCE in Atlantis" still
+    returns WARN_NO_DATA (never a figure), but the note can add
+    "Did you mean '...'?" when the token is plausibly a typo of a curated
+    state. Returns None for known places, short tokens and anything too far
+    from every curated name, so we never invent a suggestion.
+    """
+    if not name:
+        return None
+    if known_place(name):
+        return None
+    low = normalize(name)
+    if not low or len(low) < 4:
+        return None
+    cands: list[tuple[str, str]] = []
+    seen_keys: set[str] = set()
+    for canon, aliases in CANON.items():
+        for src in (canon,) + tuple(aliases):
+            if len(src) < 5:
+                continue
+            key = normalize(src).replace(" ", "")
+            if key in seen_keys:
+                continue
+            seen_keys.add(key)
+            cands.append((canon, key))
+    q = low.replace(" ", "")
+    best_canon: str | None = None
+    best_ratio = 0.0
+    for canon, key in cands:
+        r = difflib.SequenceMatcher(None, q, key).ratio()
+        if r > best_ratio:
+            best_ratio = r
+            best_canon = canon
+    if best_canon is None or best_ratio < 0.72:
+        return None
+    return best_canon
+
+
+def suggest_states(question: str) -> list[str]:
+    """Suggestions (one per unknown place) for a question, in order."""
+    out: list[str] = []
+    for place in unknown_places(question or ""):
+        s = suggest_state(place)
+        if s and s not in out:
+            out.append(s)
     return out

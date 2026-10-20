@@ -1,0 +1,72 @@
+New chat
+Knowledge
+Feedback
+CHATS
+How much has real rural MPCE grown between 2011-12...
+What is the PLFS 2022-23 unemployment definition?
+AJ
+AJAY_CHOUDHARY-V@ISB.EDU
+AJAY_CHOUDHARY-V@ISB.EDU
+Toggle Sidebar
+Chat
+10/04/2026 at 10:24 PM
+
+What is the PLFS 2022-23 unemployment definition?
+
+10/04/2026 at 10:24 PM
+
+Based on the provided document chunks, there is no specific text that explicitly defines the "unemployment definition" for PLFS 2022-23. The document contains the Table of Contents pointing to "Appendix C: Concepts and Definitions" and mentions the frameworks used (Usual Status and Current Weekly Status), but it does not contain the actual text of those definitions.
+
+However, the document does provide the following relevant context regarding how unemployment is estimated in PLFS:
+
+Status Frameworks: The document specifies that activity status is determined based on two frameworks:
+Usual Status (ps+ss): Based on a reference period of the last 365 days.
+Current Weekly Status (CWS): Based on a reference period of the last 7 days preceding the date of survey.
+Key Indicators: The survey estimates key indicators including the Unemployment Rate (UR), Labour Force Participation Rate (LFPR), and Worker Population Ratio (WPR).
+Data Coverage for 2022: The document notes that unit-level data for the calendar year 2022 (January–December) was separately released and is referenced in various statements (e.g., Statement 16, 18) regarding unemployment rates for different demographics.
+
+Since the explicit definition is located in Appendix C (pages C-1 to C-34) which is not included in the provided text, I cannot provide the specific definition of unemployment as outlined in the PLFS 2022-23 report.
+
+Citations
+Report
+National Accounts Statistics
+Crop Statistics
+Economic Census
+Agricultural Statistics Manuals
+Index of Industrial Production
+Women and Men in India 2025
+77th Round - SAAH & LH of Households in Rural India
+70th Round - Key Indicators of Situation of Agricultural Households in India
+Unincorporated Sector Establishment And Household
+Energy Statistics - Report
+CAPEX
+ASUSE - Reports
+GDP - Report
+Consumer Price Index - Report
+National Metadata Structure
+Nutritional Intake - Report
+Miscellaneous
+PLFS - Reports
+PLFS - Instruction Manuals
+SDG
+QBUSE
+80th Round (CMS, NHTS & DTES) - Reports
+National Household Income Survey - Instruction Manuals
+Infrastructure Performance - Reports
+Indian Statistical Institute - Reports
+HCES - Reports
+Flash Report on Central Sector Infrastructure Projects
+Environmental Accounting - Instruction Manuals
+Environment Statistics - Report
+Compendium of Datasets and Registries
+Children in India - Report
+ASI - Report
+ASI - Instruction Manuals
+ASUSE - Instruction Manuals
+80th Round (CMS, NHTS & DTES) - Instruction Manuals
+English
+Hindi
+Kannada
+▸
+AI Disclaimer & Terms
+Chat 2399 - MOSPI
