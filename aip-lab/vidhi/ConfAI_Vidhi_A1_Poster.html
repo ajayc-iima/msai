@@ -130,11 +130,14 @@
   .flow{ display:flex; flex-direction:column; }
   .fstep{ position:relative; display:flex; gap:4.5mm; align-items:flex-start;
     background:var(--card); border:1px solid var(--line); border-radius:3.5mm;
-    padding:4mm 5mm 4mm 4mm; margin-bottom:3.1mm; }
-  .fstep:last-child{ margin-bottom:0; }
-  .fstep::after{ content:""; position:absolute; left:12.1mm; top:100%; width:1.4px; height:3.1mm;
-    background:var(--line); }
-  .fstep:last-child::after{ display:none; }
+    padding:4mm 5mm 4mm 4mm; }
+  /* the rail: a line down the number axis, with a solid arrowhead in every gap */
+  .fconn{ position:relative; height:4.2mm; }
+  .fconn::before{ content:""; position:absolute; left:8.4mm; top:0; bottom:1.2mm; width:1.8px;
+    background:var(--accent); opacity:.5; }
+  .fconn::after{ content:""; position:absolute; left:6.2mm; bottom:0; width:0; height:0;
+    border-left:2.4mm solid transparent; border-right:2.4mm solid transparent;
+    border-top:3.2mm solid var(--accent); }
   .fn{ flex:none; width:9mm; height:9mm; border-radius:50%; background:var(--tint2); color:var(--accent-ink);
     font-weight:800; font-size:14pt; display:flex; align-items:center; justify-content:center; }
   .fbody{ font-size:18pt; font-weight:600; color:var(--ink); min-width:0; }
@@ -145,12 +148,14 @@
   .ffreeze b{ color:#F5C77A; }
   .ffreeze .fn{ background:#31403A; color:#F5C77A; }
   .ffreeze small{ color:#8FB8AC; font-family:var(--mono); font-size:11.5pt; }
-  .stages{ display:flex; gap:1.8mm; margin-top:2.6mm; }
-  .stage{ flex:1; text-align:center; font-size:14pt; font-weight:800; padding:2.2mm .8mm; border-radius:2.2mm; }
+  .stages{ display:flex; gap:1.6mm; margin-top:2.8mm; }
+  .stage{ flex:1; text-align:center; font-size:11pt; font-weight:800; padding:2.2mm .6mm; border-radius:2.2mm;
+    line-height:1.15; }
+  .stage b{ display:block; font-size:12.5pt; letter-spacing:.02em; }
   .stage.s-ref{ background:var(--ref-bg); color:var(--ref-fg); }
   .stage.s-warn{ background:var(--warn-bg); color:var(--warn-fg); }
   .stage.s-ok{ background:var(--ok-bg); color:var(--ok-fg); }
-  .sdetail{ font-size:12pt !important; line-height:1.4; margin-top:2.4mm !important; }
+  .sdetail{ font-size:11.5pt !important; line-height:1.35; margin-top:2.4mm !important; color:var(--accent-ink) !important; }
 
   /* ================= innovations ================= */
   .inno{ border:1px solid var(--line); border-left:4px solid var(--gold); background:var(--card);
@@ -312,23 +317,30 @@
       <div class="flow">
         <div class="fstep"><span class="fn">1</span>
           <div class="fbody">Question<small>natural language, any register</small></div></div>
+        <div class="fconn"></div>
         <div class="fstep"><span class="fn">2</span>
           <div class="fbody">Typed claim<small>the translator: models translate, never judge</small></div></div>
+        <div class="fconn"></div>
         <div class="fstep ffee"><span class="fn">3</span>
           <div class="fbody">Firewall — five stages, fixed order, first rule fires
             <div class="stages">
-              <span class="stage s-ref">S1</span><span class="stage s-ref">S2</span>
-              <span class="stage s-warn">S3</span><span class="stage s-warn">S4</span>
-              <span class="stage s-ok">S5</span>
+              <span class="stage s-ref"><b>S1</b>Safety-A</span>
+              <span class="stage s-ref"><b>S2</b>Scope</span>
+              <span class="stage s-warn"><b>S3</b>Comparability</span>
+              <span class="stage s-warn"><b>S4</b>Metadata</span>
+              <span class="stage s-ok"><b>S5</b>Numeric</span>
             </div>
-            <small class="sdetail">S1 Safety-A (injection · EN/hi/hi-en) · S2 Scope (forecast · causal · politics) ·
-              S3 Comparability (survey breaks) · S4 Metadata (taxonomy) · S5 Numeric (verified rows only)</small>
+            <small class="sdetail">injection (EN/hi/hi-en) · forecast·causal·politics · survey breaks · taxonomy ·
+              verified rows only — <b>the first rule to fire ends it</b></small>
           </div></div>
+        <div class="fconn"></div>
         <div class="fstep ffreeze"><span class="fn">4</span>
           <div class="fbody">SHA-256 freeze — computed <b>BEFORE</b> retrieval
             <small>hash = SHA-256(claim + decision + reason + rules)</small></div></div>
+        <div class="fconn"></div>
         <div class="fstep"><span class="fn">5</span>
           <div class="fbody">Retrieve<small>untrusted document text — it cannot move the verdict</small></div></div>
+        <div class="fconn"></div>
         <div class="fstep"><span class="fn">6</span>
           <div class="fbody">Templated render + citations<small>WARN/REFUSE wording is fixed</small></div></div>
       </div>
