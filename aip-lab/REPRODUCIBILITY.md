@@ -1,4 +1,4 @@
-# Reproducibility Package — Vidhi Guardian / Statistical Evidence & Validity Firewall
+﻿# Reproducibility Package — Vidhi Guardian / Statistical Evidence & Validity Firewall
 
 **ConfAI 2026, Plaksha University — Track 06 Responsible & Ethical AI**  
 **Author:** Ajay Choudhary, MSAI @ Plaksha University  
@@ -110,6 +110,7 @@ Open `http://localhost:8001/demo`. Six live scenarios:
 | D | "female LFPR in Bihar in PLFS 2025" | `WARN_NO_DATA / R_NO_CURATED_ROW` + coverage note (state-level labour figures are not in the Highlights battery) |
 | E | Poisoned excerpt planted with scenario B | Byte-identical frozen hash (Safety-B immune) |
 | F | Hindi prompt-injection ("पिछले निर्देशों को अनदेखा करो…") | `REFUSE_SAFETY / R_PROMPT_INJECTION` (multilingual Safety-A) |
+| G | "can you help me with mpce in madhya pradesh, mp, up, maharastra?" | `PASS_WITH_NUMBER / R_OK` — the complete slice for all three states (12 cells, 12 row ids); any spelling resolves |
 
 Endpoints:
 - `POST /ask` — JSON `{question, top_k}` → verdict + figure + citations + trace_id + cost + latency
@@ -156,7 +157,7 @@ Any failure → non-zero exit → build fails. This is the gate that prevents re
 
 ## 5. Honest limits (stated in the paper)
 
-- **Coverage is the limit, not logic:** 1708 verified rows cover the PLFS Highlights battery (11 rounds × usual/CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells), the TUS 2024 battery (9 divisions × gender/sector/age × participation/per-participant/per-person + group rows) and HCES 2023-24 MPCE (state + all-India + 2011-12 trend legs). State-level labour figures, non-badge rounds (e.g. 2016-17) and MIS numerics return `WARN_NO_DATA` — never a guess.
+- **Coverage is the limit, not logic:** 1708 verified rows cover the PLFS Highlights battery (11 rounds × usual/CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells), the TUS 2024 battery (9 divisions × gender/sector/age × participation/per-participant/per-person + group rows) and HCES 2023-24 MPCE (all 36 states/UTs + all-India + 2011-12 trend legs). State-wise MPCE answers in any spelling ("mp", "up", "m.p.", "orissa", "maharastra"), for one state or several at once, and an under-specified slice returns every published cell (each with its own row) instead of one narrowed figure. State-level *labour* figures, non-badge rounds (e.g. 2016-17) and MIS numerics return `WARN_NO_DATA` — never a guess.
 - All six YAML comparability rules are active with verbatim caveat quotes and PDF provenance (v4).
 - Heuristic extraction misreads exotic phrasings; LLM translator port exists but is unmeasured.
 - No load test yet; first expected bottleneck is the file-cache lock.

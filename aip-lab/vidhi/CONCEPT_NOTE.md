@@ -1,4 +1,4 @@
-# Statistical Evidence & Validity Firewall: Concept Note (Policy Track)
+﻿# Statistical Evidence & Validity Firewall: Concept Note (Policy Track)
 **Project Title:** Statistical Evidence & Validity Firewall — Deterministic Statistical Evidence & Validity Firewall for Indian Official Survey Statistics  
 **Author:** Ajay Choudhary (MSAI @ Plaksha University, `ajay.pg26@plaksha.edu.in`)  
 **Course:** AI in Practice – 1 (Term Final Track Assignment — Policy Track)  
@@ -173,7 +173,7 @@ Statistical Evidence & Validity Firewall is evaluated using an automated offline
 
 ## 6. Scope Boundaries & Scaling Roadmap
 
-- **Proof of Mechanism vs Full Catalog:** The current build locks 1708 verified numeric rows (the full PLFS Highlights battery of both annual reports, the TUS 2024 tables battery and the HCES 2023-24 trend columns) to demonstrate architectural correctness. Questions requesting non-curated rows (state-level labour figures, off-badge rounds, MIS numerics) honestly return `WARN_NO_DATA` rather than fabricating numbers.
+- **Proof of Mechanism vs Full Catalog:** The current build locks 1708 verified numeric rows (the full PLFS Highlights battery of both annual reports, the TUS 2024 tables battery and the HCES 2023-24 trend columns, including state-wise MPCE for all 36 states/UTs) to demonstrate architectural correctness. State questions resolve in any spelling ("mp", "up", "m.p.", "orissa", "maharastra") and an under-specified slice returns every published cell rather than one narrowed figure. Questions requesting non-curated rows (state-level labour figures, off-badge rounds, MIS numerics) honestly return `WARN_NO_DATA` rather than fabricating numbers.
 - **Catalog Scaling:** Scaling to all 10,000+ MoSPI indicators requires running an automated tabular PDF ingestion pipeline to extract and verify factsheet tables into `ground_truth_tables.json`. No architectural modifications are required.
 - **Newsroom & Policy Integration:** Statistical Evidence & Validity Firewall is designed as a sovereign drop-in API for journalists, fact-checkers, and legislative researchers to verify statistical claims before public dissemination.
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -247,6 +247,14 @@
           safe</b>. Reuse only on exact critical-field match — a national row never answers a state/sex slice.</p>
         <div class="formula">0 collisions across 19 danger pairs · 1708 verified rows (55 touched by the golden set)</div>
       </div>
+      <div class="inno">
+        <h3>Generalised, not hard-coded</h3>
+        <p>The claim translator resolves <b>every</b> state/UT the store carries, in any spelling — “mp”, “up”, “m.p.”,
+          “orissa”, “maharastra” — and answers one state or several at once. A slice the question leaves open
+          (rural/urban, imputation basis) is answered with <b>every published cell</b>, each carrying its own row id:
+          complete, never silently narrowed.</p>
+        <div class="formula">“MPCE in Madhya Pradesh, UP, Maharashtra” → 12 cells · 12 row ids</div>
+      </div>
     </div>
 
     <!-- RIGHT -->
@@ -256,7 +264,7 @@
         <div class="kpi"><div class="v">0.000</div><div class="l">hallucination rate — 0 of 36 must-abstain questions answered wrongly</div></div>
         <div class="kpi"><div class="v">1.000</div><div class="l">abstention recall — every must-abstain question refused/warned</div></div>
         <div class="kpi"><div class="v">100<small>/100</small></div><div class="l">verdict accuracy [Wilson 0.963–1.000]</div></div>
-        <div class="kpi"><div class="v">59<small>/59</small></div><div class="l">numeric exact match [0.939–1.000]</div></div>
+        <div class="kpi"><div class="v">60<small>/60</small></div><div class="l">numeric exact match [0.940–1.000]</div></div>
         <div class="kpi"><div class="v">0<small>/19</small></div><div class="l">danger-pair cache collisions</div></div>
         <div class="kpi"><div class="v">1708<small>/1708</small></div><div class="l">verified rows with provenance</div></div>
         <div class="kpi"><div class="v">1.000</div><div class="l">Safety-A P/R/F1 · n=28 (EN · hi · hi-en)</div></div>
@@ -283,6 +291,9 @@
             rounds × usual + CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells of both committed annual reports),
             the TUS 2024 battery (9 ICATUS divisions × gender/sector/age × participation/per-participant/per-person,
             plus Tables 10–11 group rows), and HCES 2023-24 trend columns (2022-23 and 2011-12 legs).
+            State-wise MPCE is curated for <b>all 36 states/UTs</b> and answers in any spelling the user types
+            (“mp”, “up”, “m.p.”, “orissa”, “maharastra”) — for one state or several at once; an under-specified
+            slice returns <b>every published cell</b>, each with its own row, never one narrowed figure.
             Uncovered slices (e.g. state-level labour figures, non-badge rounds) return <code>WARN_NO_DATA</code> + a
             coverage note, never a guess.</li>
           <li>Heuristic extraction breaks on exotic phrasing; an LLM translator port exists (<code>VIDHI_USE_LLM=1</code>), unmeasured.</li>
@@ -311,7 +322,7 @@
         <h3>Reproduce everything (offline)</h3>
         <pre class="cmds"><span class="cm"># no API key · no GPU · no network</span>
 pip install -r requirements.txt
-python -m pytest tests/ -q        <span class="cm"># 110 passed · every store row reachable</span>
+python -m pytest tests/ -q        <span class="cm"># 116 passed · every store row reachable</span>
 python vidhi/eval.py               <span class="cm"># 100 golden + 19 danger + 28 red-team + Safety-B</span>
 python -m uvicorn vidhi.service:app --port 8001  <span class="cm"># → /demo</span></pre>
       </div>

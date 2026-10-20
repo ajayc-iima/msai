@@ -458,6 +458,91 @@ class Firewall:
                 )
         return None
 
+    def _complete(self, c) -> Verdict | None:
+        """Answer an under-specified slice with ALL of its sides.
+
+        "MPCE in Madhya Pradesh" names a state but neither rural/urban nor
+        the imputation basis. The store publishes that state on all four
+        cells; returning only one of them would be a silent narrowing, so
+        the firewall returns the whole slice - every cell, labelled, each
+        with its source row id. The verdict carries no single value (the
+        same contract as the rural/urban split) and stays deterministic.
+        """
+        from vidhi import store as S
+
+        rows = S.complete_slice(self.doc, c)
+        if not rows:
+            return None
+        where = c.state or "India"
+        parts = []
+        for r in rows:
+            labels = []
+            if c.residence is None:
+                labels.append(str(r.get("residence") or "all"))
+            if c.measure is None:
+                basis = str(r.get("measure") or "")
+                labels.append(
+                    "with imputation" if basis == "with_imputation" else
+                    "without imputation" if basis == "without_imputation" else basis
+                )
+            label = ", ".join(labels) or "figure"
+            parts.append(
+                f"{where} {label}: {r['value']} {(r.get('unit') or '').strip()}".strip()
+                + f" (row {r['row_id']})"
+            )
+        figs = "; ".join(parts)
+        return Verdict(
+            "PASS",
+            "PASS_WITH_NUMBER",
+            "R_OK",
+            f"Official figures ({c.round or ''}): {figs}.",
+            "numeric",
+            rows[0]["row_id"],
+            None,
+            rows[0].get("unit"),
+        )
+
+    def _complete_states(self, c, states: list[str]) -> Verdict | None:
+        """Answer a question that names several states: every named state's
+        complete slice, each cell with its own source row id. A state with
+        no curated rows aborts the whole answer (no partial state set)."""
+        from vidhi import store as S
+
+        blocks: list[str] = []
+        rows_all: list[dict] = []
+        for st in states:
+            rows = S.complete_slice(self.doc, c.model_copy(update={"state": st}))
+            if not rows:
+                return None
+            rows_all.extend(rows)
+            for r in rows:
+                labels = []
+                if c.residence is None:
+                    labels.append(str(r.get("residence") or "all"))
+                if c.measure is None:
+                    basis = str(r.get("measure") or "")
+                    labels.append(
+                        "with imputation" if basis == "with_imputation"
+                        else "without imputation" if basis == "without_imputation"
+                        else basis
+                    )
+                label = ", ".join(labels) or "figure"
+                blocks.append(
+                    f"{st} {label}: {r['value']} {(r.get('unit') or '').strip()}".strip()
+                    + f" (row {r['row_id']})"
+                )
+        figs = "; ".join(blocks)
+        return Verdict(
+            "PASS",
+            "PASS_WITH_NUMBER",
+            "R_OK",
+            f"Official figures ({c.round or ''}): {figs}.",
+            "numeric",
+            rows_all[0]["row_id"],
+            None,
+            rows_all[0].get("unit"),
+        )
+
     def _pairs(self, c) -> Verdict:
         from vidhi import store as S
 
@@ -527,8 +612,32 @@ class Firewall:
             split = self._split(c)
             if split is not None:
                 return split
+        # A question naming several states ("MPCE in Madhya Pradesh, UP,
+        # Maharashtra") is answered with every named state's complete slice;
+        # it must never fall back to the first state or to all-India.
+        states = list(getattr(c, "states", None) or [])
+        if len(states) > 1:
+            multi = self._complete_states(c, states)
+            if multi is not None:
+                return multi
+            return _warn(
+                "WARN_NO_DATA",
+                "R_NO_CURATED_ROW",
+                "No curated rows for the states named; no figure given.",
+                "numeric",
+            )
         row = S.lookup(self.doc, c)
         if row is None:
+            # Generalised slice completion: the claim left a dimension open
+            # (e.g. "MPCE in Madhya Pradesh" — no rural/urban, no basis).
+            # Rather than narrowing to one side, answer the COMPLETE slice:
+            # every side the store publishes for it, each with its row id.
+            # Comparative claims are excluded: a question that names two
+            # geographies must not be answered with the first one's slice.
+            if c.claim_type != "comparative":
+                complete = self._complete(c)
+                if complete is not None:
+                    return complete
             return _warn(
                 "WARN_NO_DATA",
                 "R_NO_CURATED_ROW",

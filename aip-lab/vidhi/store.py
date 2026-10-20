@@ -5,9 +5,11 @@ verified/unverified -> build() freezes the JSON + manifest.
 Serve: lookup() answers ONLY from verified rows under strict matching
 (a specific claim filter is satisfied only by the SAME row value; an
 all-India row never answers a female/urban/Bihar question). The converse
-also holds: an unspecified filter is satisfied only by an aggregate row,
-so a bare "MPCE" question can never be silently answered with the rural
-slice.
+also holds: an unspecified filter is never satisfied by ONE narrowed row.
+If the store publishes that slice completely (rural AND urban; both
+imputation legs), complete_slice() returns the WHOLE slice -- every cell
+with its own row id -- and the firewall answers that instead of narrowing.
+A slice the store does not publish completely is not answered at all.
 """
 
 from __future__ import annotations
@@ -110,6 +112,112 @@ def lookup(doc: dict, claim, round_override: str | None = None) -> dict | None:
         if ok and (spec, agg) > best_spec:
             best, best_spec = r, (spec, agg)
     return best
+
+
+# Dimensions the store publishes as a complete set for a slice. A slice is
+# answered only when EVERY side exists (rural AND urban; both imputation
+# legs), so the firewall never substitutes one side for the whole.
+SLICE_DOMAINS: dict[str, tuple[str, ...]] = {
+    "residence": ("rural", "urban"),
+    "measure": ("with_imputation", "without_imputation"),
+}
+
+# Dimensions that must be aggregate ("all"/empty) when the claim leaves
+# them open and the slice is NOT split on them.
+_AGGREGATE = ("all", "", "none", None)
+
+
+def complete_slice(doc: dict, claim) -> list[dict]:
+    """Every verified side of an under-specified slice, or [].
+
+    The firewall invariant is "an unspecified dimension is never answered by
+    a single narrowed row" (a bare "MPCE" must not return the rural figure
+    as if it were the whole). This function generalises the answer instead
+    of narrowing it: when the claim leaves a dimension open and the store
+    carries the COMPLETE set of sides for it, all sides are returned, each
+    with its own row id, so the user sees the whole slice.
+
+    Returns [] when the slice is not complete in the store (the caller then
+    abstains honestly) or when the claim's geography has no rows at all
+    (a state question never falls back to another state or to all-India).
+    """
+    survey = _norm(getattr(claim, "survey", None))
+    indicator = _norm(getattr(claim, "indicator", None))
+    if not survey or not indicator:
+        return []
+    cs = _norm(getattr(claim, "state", None))
+    cr = _norm(getattr(claim, "round", None))
+
+    rows = []
+    for r in doc.get("rows", []):
+        if r.get("verification_status") != "verified":
+            continue
+        if _norm(r.get("survey")) != survey:
+            continue
+        if _norm(r.get("indicator")) != indicator:
+            continue
+        if cr and _norm(r.get("round")) not in ("", None) and _norm(r.get("round")) != cr:
+            continue
+        # Geography: a state question only ever sees that state; a national
+        # question only ever sees national rows.
+        rs = _norm(r.get("state"))
+        if cs:
+            if rs != cs:
+                continue
+        elif rs not in ("", None, "all", "all-india"):
+            continue
+        # Dimensions the claim fixed, and dimensions it left open that are
+        # not split dimensions, must be the aggregate.
+        ok = True
+        for dim in ("sex", "age_group", "activity"):
+            cv = _norm(getattr(claim, dim, None))
+            rv = _norm(r.get(dim))
+            if cv:
+                if rv != cv:
+                    ok = False
+                    break
+            elif rv not in _AGGREGATE:
+                ok = False
+                break
+        if not ok:
+            continue
+        rows.append(r)
+    if not rows:
+        return []
+
+    # Which open dimensions can be completed? A dimension qualifies only if
+    # the store carries EVERY side of its domain for this slice.
+    split_dims: list[str] = []
+    for dim, domain in SLICE_DOMAINS.items():
+        cv = _norm(getattr(claim, dim, None))
+        if cv:
+            continue  # the claim fixed this dimension; no split needed
+        vals = {_norm(r.get(dim)) for r in rows}
+        if vals == set(domain):
+            split_dims.append(dim)
+        else:
+            # Incomplete slice: showing one side would narrow silently.
+            return []
+    if not split_dims:
+        return []
+
+    final = [
+        r
+        for r in rows
+        if all(_norm(r.get(d)) in SLICE_DOMAINS[d] for d in split_dims)
+    ]
+    if len(final) < 2:
+        return []
+    return sorted(
+        final,
+        key=lambda r: (
+            tuple(
+                _norm(r.get(d)) for d in sorted(SLICE_DOMAINS)
+                if d in split_dims
+            ),
+            str(r.get("row_id")),
+        ),
+    )
 
 
 def coverage(doc: dict, claim) -> dict:

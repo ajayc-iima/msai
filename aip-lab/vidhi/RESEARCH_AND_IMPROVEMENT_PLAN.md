@@ -1,4 +1,4 @@
-# Refuse to Hallucinate — Research Review & Improvement Plan
+﻿# Refuse to Hallucinate — Research Review & Improvement Plan
 
 > **Implementation status (Oct 2026):** Priority 1 is **implemented and verified**
 > (abstention confusion matrix, figure attestation + store-binding, measured
@@ -6,7 +6,8 @@
 > **108 passed**. See "Part 2" for what remains (P2/P3).
 > (*Updated 2026-10-20: the raw-PDF expansion grew the store from 173 to
 > 1708 verified rows — PLFS Highlights battery, TUS 2024 tables battery,
-> HCES Statement 10 legs — suite is now **110 passed**, and
+> HCES Statement 10 legs — suite is now **116 passed** (state-vocabulary
+> and slice-completion guarantees added), and
 > `scripts/coverage_probe.py` proves all 1708 rows answerable with exact
 > figures.*)
 >

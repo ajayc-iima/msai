@@ -237,6 +237,9 @@ def main():
     shot_box(s, 6.8, 1.85, 5.85, 4.3, shots / "shot_bihar.png",
              "PASS — 4 verified slices, Export CSV", GREEN,
              "mpce for bihar: rural/urban × with/without imputation, each with its row_id")
+    textbox(s, 0.7, 6.3, 11.9, 0.5, [
+        ("Generalised, not hard-coded: any state, any spelling — “mp”, “up”, “m.p.”, “orissa”, "
+         "“maharastra”; several states at once; an open slice returns every published cell, never one narrowed figure.", 10.5, True, INK)])
 
     # 5 — Demo screens B (honest WARN + refuse screenshots)
     s = prs.slides.add_slide(prs.slide_layouts[6]); bg(s)

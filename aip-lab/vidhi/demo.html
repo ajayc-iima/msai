@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -172,6 +172,7 @@ footer .in{max-width:720px;margin:0 auto}
   <div class="chips" role="group" aria-label="Try an example">
     <button class="chip" data-q="What was all-India LFPR for age 15+ in usual status in PLFS 2025?">LFPR 2025 59.3%</button>
     <button class="chip" data-q="mpce for bihar">MPCE Bihar table</button>
+    <button class="chip" data-q="can you help me with mpce in madhya pradesh, mp, up, maharastra?">Any state, any spelling</button>
     <button class="chip" data-q="Compare average MPCE in 2011-12 vs 2023-24.">2011 vs 2023 caution</button>
     <button class="chip" data-q="Will unemployment fall in 2027?">Forecast blocked</button>
     <button class="chip" data-q="What was female LFPR in Bihar in PLFS 2025?">Uncovered slice</button>
@@ -253,8 +254,8 @@ renderHist();
 
 /* table parse 1: "All verified slices: rural 3788 (with_imputation, row X); ..." */
 function parseSlices(answer){const m=/All verified slices:\s*(.+)\./.exec(answer||"");if(!m)return null;
-const rows=m[1].split(";").map(s=>{const r=/(rural|urban)\s+([\d.,]+)\s*\(([^,]+),\s*row\s*([^)]+)\)/.exec(s.trim());
-return r?{cells:[r[1],r[2],r[3].replace(/_/g," "),r[4]],heads:["Sector","Figure","Basis","Source row"]}:null;}).filter(Boolean);
+const rows=m[1].split(";").map(s=>{const r=/(?:([A-Za-z.&' -]+?)\s+)?(rural|urban)\s+([\d.,]+)\s*\(([^,]+),\s*row\s*([^)]+)\)/.exec(s.trim());
+return r?{cells:[(r[1]||"").trim(),r[2],r[3],r[4].replace(/_/g," "),r[5]],heads:["State","Sector","Figure","Basis","Source row"]}:null;}).filter(Boolean);
 return rows.length?{rows,unit:null}:null;}
 /* table parse 2: split verdicts "Official figures (2023-24): male 78.8 percent; female 41.7 percent" */
 function parseOfficialFigures(answer){const m=/Official figures\s*(\([^)]*\))?\s*:\s*(.+)/.exec(answer||"");if(!m)return null;
@@ -319,12 +320,15 @@ function render(d,question){
   let tableHtml="";
   if(table&&table.rows.length){
     const slicesTable=!!slices;
+    // Slices table carries a State column (a question may name several
+    // states); the compared-figures table keeps the three-column shape.
+    const numIdx=slicesTable?2:1, codeIdx=slicesTable?4:-1;
     const figHead="Figure"+(d.unit?" ("+escapeHtml(d.unit)+")":(table.unit?" ("+escapeHtml(table.unit)+")":""));
-    const headLabels=slicesTable?["Sector",figHead,"Basis","Source row"]:["Slice",figHead,"Unit"];
+    const headLabels=slicesTable?["State","Sector",figHead,"Basis","Source row"]:["Slice",figHead,"Unit"];
     const headCells=table.rows[0].cells.map((_,i)=>{
       const label=headLabels[i]||("Column "+(i+1));
-      return `<th scope="col"${i===1?' class="num"':""}><button class="sort" data-k="${i}" type="button">${label} <span aria-hidden="true">↕</span></button></th>`;}).join("");
-    const body=table.rows.map(r=>`<tr>${r.cells.map((c,i)=>i===1?`<td class="num">${escapeHtml(c)}</td>`:(i===3&&slicesTable?`<td><code>${escapeHtml(c)}</code></td>`:`<td>${escapeHtml(c)}</td>`)).join("")}</tr>`).join("");
+      return `<th scope="col"${i===numIdx?' class="num"':""}><button class="sort" data-k="${i}" type="button">${label} <span aria-hidden="true">↕</span></button></th>`;}).join("");
+    const body=table.rows.map(r=>`<tr>${r.cells.map((c,i)=>i===numIdx?`<td class="num">${escapeHtml(c)}</td>`:(i===codeIdx?`<td><code>${escapeHtml(c)}</code></td>`:`<td>${escapeHtml(c)}</td>`)).join("")}</tr>`).join("");
     tableHtml=`<div class="tablewrap"><table class="data" id="sliceTable"><caption>${slicesTable?"Verified slices for this question — each cell has its own source row":"Compared figures — each from its verified row"}</caption>
 <thead><tr>${headCells}</tr></thead><tbody>${body}</tbody></table></div>`;
   }
@@ -369,7 +373,7 @@ function render(d,question){
   document.querySelectorAll(".citebtn").forEach(b=>b.addEventListener("click",()=>openCite(d,b.dataset.i)));
   const cp=$("#copyBtn");if(cp)cp.addEventListener("click",()=>{navigator.clipboard.writeText(d.answer||"");statusEl.textContent="Copied.";});
   const cs=$("#csvBtn");if(cs)cs.addEventListener("click",()=>{
-    const head=(table.rows[0].cells.map((_,i)=>isSlices(table)?["sector","figure","basis","row_id"][i]:["slice","figure","unit"][i]).join(","));
+    const head=(table.rows[0].cells.map((_,i)=>isSlices(table)?["state","sector","figure","basis","row_id"][i]:["slice","figure","unit"][i]).join(","));
     const lines=table.rows.map(r=>r.cells.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(","));
     download("vidhi-figures.csv",head+"\n"+lines.join("\n"),"text/csv");});
   const gb=$("#goodBtn");if(gb)gb.addEventListener("click",()=>{flag(true,question,d);});

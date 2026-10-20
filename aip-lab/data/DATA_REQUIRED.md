@@ -1,4 +1,4 @@
-# Data requirements — Vidhi Guardian (MoSPI official sources), v2 re-freeze Oct 2026
+﻿# Data requirements — Vidhi Guardian (MoSPI official sources), v2 re-freeze Oct 2026
 
 In-corpus (latest): PLFS 2023-24, HCES 2023-24, TUS 2024, NSS78 MIS 2020-21.
 Superseded v1 rounds (2022-23/2019) are reference-only for round-mismatch guards.
@@ -42,7 +42,7 @@ Record for each file: portal URL, download date, on-screen filter selection, sha
 
 ## 3. Shipped state (what runs out of the box)
 
-- `vidhi/store.json` ships with **1708 verified rows**: the PLFS Highlights battery (both committed annual reports — 11 survey rounds × usual + CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells), the TUS 2024 battery (9 ICATUS divisions × gender/sector/age × participation/per-participant/per-person plus Tables 10-11 group rows), and HCES 2023-24 MPCE rows (Statement 7 state × rural/urban, all-India pairs, and the Statement 10 2011-12 trend legs), each with provenance + per-row audit note. The firewall `PASS`es only from these verified rows.
+- `vidhi/store.json` ships with **1708 verified rows**: the PLFS Highlights battery (both committed annual reports — 11 survey rounds × usual + CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells), the TUS 2024 battery (9 ICATUS divisions × gender/sector/age × participation/per-participant/per-person plus Tables 10-11 group rows), and HCES 2023-24 MPCE rows (Statement 7 state × rural/urban for all 36 states/UTs, all-India pairs, and the Statement 10 2011-12 trend legs), each with provenance + per-row audit note. The firewall `PASS`es only from these verified rows, and an under-specified slice is answered with every published cell (each with its own row), never one narrowed figure.
 - `data/truth/ground_truth_tables.json` is the legacy Lab-1 scratch table; the served pipeline reads `vidhi/store.json`. Until fresh official PDFs land in `data/raw/`, any question outside the 1708 curated rows honestly returns `WARN_NO_DATA` — never invents.
 - `data/excerpts/` contains only `SAFETY_B_ADVERSARIAL` synthetic test chunk (clearly marked, never cited as fact).
 - Official excerpts + `citation_index.json` stay empty.

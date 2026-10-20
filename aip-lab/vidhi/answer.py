@@ -268,6 +268,79 @@ def _fmt(v) -> str:
         return str(v)
 
 
+def _sibling_note(claim) -> str | None:
+    """List every verified slice of a state question whose dimensions are open.
+
+    "rural MPCE in Bihar" (no basis) and "MPCE in Bihar" (no sector, no
+    basis) are answered with the primary figure *plus* the full set of
+    published cells, each with its source row id, so a single number never
+    stands in for the whole slice. A question naming several states gets
+    one table covering all of them.
+    """
+    from vidhi import store as _S
+
+    try:
+        _doc = _S.load(ROOT / "vidhi" / "store.json")
+    except Exception:
+        return None
+
+    def _rows_for(state: str | None) -> list[dict]:
+        return [
+            r
+            for r in _doc.get("rows", [])
+            if r.get("verification_status") == "verified"
+            and r.get("survey") == claim.survey
+            and r.get("indicator") == claim.indicator
+            and r.get("round") == claim.round
+            and (r.get("state") or "").lower() == (state or "").lower()
+        ]
+
+    states = list(getattr(claim, "states", None) or [])
+    if not states and getattr(claim, "state", None):
+        states = [claim.state]
+
+    if not states:
+        # No state named: say what the store covers, so the user knows the
+        # state question is answerable.
+        any_state = [
+            r
+            for r in _doc.get("rows", [])
+            if r.get("verification_status") == "verified"
+            and r.get("survey") == claim.survey
+            and r.get("indicator") == claim.indicator
+            and r.get("round") == claim.round
+            and r.get("state")
+        ]
+        covered = sorted({r.get("state") for r in any_state})
+        if covered:
+            return (
+                f"State-wise figures are curated for all {len(covered)} "
+                f"states/UTs in this table — ask e.g. "
+                f"“{claim.indicator} in {covered[0]}” for a state's numbers."
+            )
+        return None
+
+    if getattr(claim, "residence", None) and getattr(claim, "measure", None):
+        return None  # the question fixed both dimensions: nothing to add
+
+    parts: list[str] = []
+    for st in states:
+        sibs = _rows_for(st)
+        if len(sibs) < 2:
+            return None
+        for r in sorted(
+            sibs,
+            key=lambda x: (x.get("residence") or "", x.get("measure") or ""),
+        ):
+            parts.append(
+                f"{st} {r.get('residence')} {r.get('value')} "
+                f"({r.get('measure')}, row {r.get('row_id')})"
+            )
+    if len(parts) < 2:
+        return None
+    return "All verified slices: " + "; ".join(parts) + "."
+
+
 def validate(headline: str, hits: list[dict]) -> tuple[bool, list[int]]:
     cited = sorted({int(m) for m in re.findall(r"\[(\d+)\]", headline)})
     bad = [c for c in cited if c < 1 or c > len(hits)]
@@ -419,11 +492,18 @@ def render(claim, verdict, hits: list[dict], sourced: dict | None = None) -> Res
             citations=hits,
             **base,
         )
+    # Every verified slice of a state question, listed with its own row id,
+    # whenever the question left a dimension open (rural/urban, imputation
+    # basis). The primary figure never stands in for the whole slice.
+    table_note = _sibling_note(claim)
     # Lab6-beats-eSankhyiki: split claims carry figs in message but value=None.
     # Render the frozen message (verdict unchanged, presentation only).
     if verdict.value is None and "Official figures" in (verdict.message or ""):
+        head = f"{claim.indicator} ({claim.round}): {verdict.message} {cites}".strip()
+        if table_note:
+            head = f"{head} {table_note}"
         return Response(
-            headline=f"{claim.indicator} ({claim.round}): {verdict.message} {cites}".strip(),
+            headline=head,
             figure={"value": None, "unit": verdict.unit, "row_id": verdict.row_id,
                     "note": verdict.message},
             evidence_tier="VERIFIED",
@@ -434,26 +514,6 @@ def render(claim, verdict, hits: list[dict], sourced: dict | None = None) -> Res
     # eSankhyiki shows 4 rows (rural/urban x with/without). Match it with a
     # frozen-verdict table: primary figure stays the looked-up row (contract),
     # siblings listed with row_ids. No verdict change, no architecture change.
-    table_note = None
-    try:
-        if (verdict.value is not None and getattr(claim, "state", None)
-                and not getattr(claim, "residence", None)):
-            from vidhi import store as _S
-
-            _doc = _S.load(ROOT / "vidhi" / "store.json")
-            sibs = [r for r in _doc.get("rows", [])
-                    if r.get("verification_status") == "verified"
-                    and r.get("survey") == claim.survey
-                    and r.get("indicator") == claim.indicator
-                    and r.get("round") == claim.round
-                    and (r.get("state") or "").lower() == str(claim.state).lower()]
-            if len(sibs) > 1:
-                parts = "; ".join(
-                    f"{r.get('residence')} {r.get('value')} ({r.get('measure')}, row {r.get('row_id')})"
-                    for r in sorted(sibs, key=lambda x: (x.get("residence") or "", x.get("measure") or "")))
-                table_note = f"All verified slices: {parts}."
-    except Exception:
-        table_note = None
     head = (f"{claim.indicator}: {_fmt(verdict.value)} "
             f"{verdict.unit or ''} [{claim.survey}, {claim.round}]. "
             f"Row {verdict.row_id}. {cites}".strip())

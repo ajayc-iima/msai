@@ -610,10 +610,11 @@ def test_firewall_passes_verified_headline():
 
 
 def test_firewall_honest_warn_on_uncovered_slice():
-    """No state-level labour figures are curated (the Highlights battery
+    """No state-level LABOUR figures are curated (the Highlights battery
     carries all-India cells only): a state slice must WARN_NO_DATA, never
     substitute a national figure. (Plain urban-female LFPR 2025 became
-    answerable in the expansion -- it now PASSes with 40.0.)"""
+    answerable in the expansion -- it now PASSes with 27.7. State-level
+    MPCE is a different story: HCES curates all 36 states/UTs.)"""
     from vidhi.claims import extract
 
     v = FW.adjudicate(extract("What was female LFPR in Bihar in PLFS 2025?"))
@@ -631,6 +632,119 @@ def test_freeze_is_claim_bound():
     assert a.frozen_hash != b.frozen_hash
     a2 = FW.adjudicate(extract("What was rural MPCE in HCES 2023-24?"))
     assert a2.frozen_hash == a.frozen_hash
+
+
+# --- state coverage: the app must be general, not hard-coded ---------------
+
+def _store_rows():
+    with open("vidhi/store.json", encoding="utf-8") as f:
+        return json.load(f)["rows"]
+
+
+def test_state_vocabulary_covers_the_store_exactly():
+    """Every state/UT the store carries is reachable by name, and every alias
+    in the vocabulary points at a state the store really has. A new state in
+    the store without an alias must fail here, not answer 'no data'."""
+    from vidhi import states as ST
+
+    store_states = {r["state"] for r in _store_rows() if r.get("state")}
+    assert store_states, "store has no state rows"
+    for st in store_states:
+        assert ST.match_state(f"MPCE in {st}") == st, st
+    for canon, aliases in ST.CANON.items():
+        assert canon in store_states, f"alias target not in store: {canon}"
+        for alias in aliases:
+            assert ST.match_state(f"MPCE in {alias}") == canon, alias
+
+
+def test_short_state_codes_and_variants_resolve():
+    """Short codes and old spellings resolve; ordinary prose does not."""
+    from vidhi import states as ST
+
+    for q, want in (
+        ("mpce in mp", "Madhya Pradesh"),
+        ("mpce in up", "Uttar Pradesh"),
+        ("mpce for mh", "Maharashtra"),
+        ("mpce in wb", "West Bengal"),
+        ("mpce in m.p.", "Madhya Pradesh"),
+        ("mpce in j&k", "Jammu & Kashmir"),
+        ("mpce in orissa", "Odisha"),
+        ("mpce in pondicherry", "Puducherry"),
+        ("mpce in maharastra", "Maharashtra"),  # one typo
+    ):
+        assert ST.match_state(q) == want, q
+    for q in (
+        "what is the LFPR going up in 2025?",
+        "I have a goal for this quarter",
+        "punjabi population",
+        "the UK labour market",
+    ):
+        assert ST.match_state(q) is None, q
+
+
+def test_every_state_question_returns_its_own_complete_slice():
+    """Generalisation guarantee: for EVERY state/UT in the store, the
+    question 'MPCE in <state>' is answered with that state's complete
+    slice (rural/urban x with/without imputation), each cell with its own
+    row id -- and never with another state's numbers."""
+    from vidhi.claims import extract
+
+    rows = [r for r in _store_rows() if r.get("state")]
+    by_state: dict[str, list[dict]] = {}
+    for r in rows:
+        by_state.setdefault(r["state"], []).append(r)
+    for st, srows in by_state.items():
+        v = FW.adjudicate(extract(f"MPCE in {st} in HCES 2023-24"))
+        assert v.decision == "PASS", (st, v.sub_code)
+        assert v.value is None, (st, v.value)  # a slice, not one narrowed cell
+        ids = {r["row_id"] for r in srows}
+        assert v.row_id in ids, (st, v.row_id)
+        for r in srows:
+            assert f"{r['value']}" in v.message, (st, r["row_id"])
+            assert r["row_id"] in v.message, (st, r["row_id"])
+        for other, o_rows in by_state.items():
+            if other == st:
+                continue
+            leaked = [r["row_id"] for r in o_rows if r["row_id"] in v.message]
+            assert not leaked, (st, leaked)
+
+
+def test_bare_state_question_never_narrows_to_one_cell():
+    """'MPCE in Madhya Pradesh' names no sector and no basis: the answer
+    must carry every published cell, never a single rural figure that
+    stands in for the whole slice."""
+    from vidhi.claims import extract
+
+    v = FW.adjudicate(extract("can you help me with mpce in madhya pradesh?"))
+    assert v.decision == "PASS" and v.value is None
+    for sector in ("rural", "urban"):
+        for basis in ("with_imputation", "without_imputation"):
+            assert f"{sector}" in v.message and basis.replace("_", " ") in v.message
+    assert v.message.count("(row ") == 4, v.message
+
+
+def test_multi_state_question_answers_every_named_state():
+    """A question naming several states is answered for each of them -- and
+    never for one of them only."""
+    from vidhi.claims import extract
+
+    c = extract("MPCE in Madhya Pradesh, UP and Maharashtra")
+    assert c.states == ["Madhya Pradesh", "Uttar Pradesh", "Maharashtra"]
+    v = FW.adjudicate(c)
+    assert v.decision == "PASS" and v.value is None
+    for st in c.states:
+        assert st in v.message
+    assert v.message.count("(row ") == 12, v.message.count("(row ")
+
+
+def test_state_question_never_falls_back_to_all_india():
+    """A state question with no state rows (PLFS) abstains; it never borrows
+    the all-India figure."""
+    from vidhi.claims import extract
+
+    v = FW.adjudicate(extract("female LFPR in Bihar in PLFS 2025"))
+    assert (v.decision, v.sub_code) == ("WARN", "WARN_NO_DATA")
+    assert v.value is None
 
 
 def test_store_provenance_and_uniqueness():

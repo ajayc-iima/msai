@@ -1,4 +1,4 @@
-# Vidhi Guardian — Evaluation Report (Measured, Offline, Reproducible)
+﻿# Vidhi Guardian — Evaluation Report (Measured, Offline, Reproducible)
 **Author:** Ajay Choudhary (MSAI @ Plaksha University, `ajay.pg26@plaksha.edu.in`)
 **Course:** AI in Practice – 1 (Term Final)
 
@@ -33,20 +33,33 @@ returning PASS/WARN/REFUSE with a frozen verdict hash and citations.
 | Hallucination rate (must-abstain → answered) | 0/37 = 0.000 |
 | Safety-A injection P/R/F1 (committed red-team, n=28) | P=1.000 R=1.000 F1=1.000 — en (6 inj/13 ben), hi (3 inj/3 ben), hi-en (2 inj/1 ben); 0 misses, 0 false positives. Expanded 2026-10-20 with 4 benign FP-regression cases (survey-instructions / "key findings" phrasings the earlier patterns mis-flagged) |
 | Determinism (repeat ask = same hash/decision/value) | ok |
-| Unit tests | 110 passed (`python -m pytest tests/ -q`, offline) |
+| Unit tests | 116 passed (`python -m pytest tests/ -q`, offline) |
 | Latency p50 / p95 / p99 / max (in-process) | 154 ms / 2.6 s / 42.7 s / 42.7 s (2026-10-20 run; warm p50 has ranged 138–187 ms run-to-run on this laptop. p95/p99/max are dominated by the one-time cold-start embedding-model load — the service pre-warms at startup, so the first user query is warm) |
 | Cost per query | $0.0000 (deterministic path, 0 model calls) |
 
 ### Revision log — 2026-10-20 line-by-line audit
 
 Every file in `vidhi/` was re-read line by line. All fixes below are covered
-by the 110-test suite and re-measured by `python vidhi/eval.py` (results above):
+by the 116-test suite and re-measured by `python vidhi/eval.py` (results above):
 
-- **Wrong-granularity PASS eliminated.** `store.lookup` no longer silently
-  narrows an unspecified dimension: a bare "MPCE" question used to PASS with
-  the *rural* figure (4,122); it now returns `WARN_NO_DATA` + coverage note.
-  Same for "Bihar MPCE" (state, no sector) and uncurated PLFS rounds
-  ("PLFS 2024" used to serve 2025 data; now an honest WARN).
+- **Wrong-granularity PASS eliminated, then generalised.** `store.lookup` no
+  longer silently narrows an unspecified dimension: a bare "MPCE" question
+  used to PASS with the *rural* figure (4,122). It is now answered with the
+  **complete slice** — every published cell for that geography (rural/urban
+  × with/without imputation), each with its own row id (`store.complete_slice`
+  → `Firewall._complete`); a slice the store does not publish completely is
+  still `WARN_NO_DATA` + coverage note. Same for "Bihar MPCE" (state, no
+  sector) and uncurated PLFS rounds ("PLFS 2024" used to serve 2025 data;
+  now an honest WARN).
+- **Any state, any spelling.** The claim translator now resolves every
+  state/UT the store carries through a shared vocabulary (`vidhi/states.py`):
+  full names, old spellings ("orissa", "pondicherry", "j&k"), short codes
+  ("mp", "up", "mh") and single typos ("maharastra") — while refusing false
+  positives ("going up", "goal", "punjabi", "the UK"). A question naming
+  several states ("MPCE in Madhya Pradesh, UP and Maharashtra") is answered
+  for each of them, never for the first alone. The test suite asserts, for
+  every state in the store, that "MPCE in <state>" returns exactly that
+  state's cells and never another state's numbers.
 - **Coverage never substitutes another state.** The `WARN_NO_DATA` "closest
   verified context" for a Bihar question is now a Bihar (or all-India) row,
   never another state's figure.

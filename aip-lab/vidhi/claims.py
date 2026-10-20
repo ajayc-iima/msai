@@ -1,4 +1,4 @@
-# ruff: noqa: BLE001, S110 - intentional guarded fallbacks (offline/API-degraded paths)
+﻿# ruff: noqa: BLE001, S110 - intentional guarded fallbacks (offline/API-degraded paths)
 """vidhi2 claims: the translator. Maps natural language to a typed claim.
 
 The claim is the ONLY thing rules adjudicate. Extraction assigns structure
@@ -13,6 +13,8 @@ import re
 from typing import Literal
 
 from pydantic import BaseModel, Field
+
+from vidhi import states as S
 
 ClaimType = Literal[
     "descriptive",
@@ -62,6 +64,11 @@ class Claim(BaseModel):
     measure: str | None = None
     geography: str | None = None
     state: str | None = None
+    # Every state the question names (a question may name several: "MPCE in
+    # Madhya Pradesh, UP, Maharashtra"). `state` stays set only for a
+    # single-state question, so a multi-state question can never be answered
+    # with the first state alone.
+    states: list[str] = Field(default_factory=list)
     residence: str | None = None
     sex: str | None = None
     age_group: str | None = None
@@ -233,58 +240,11 @@ _ACTIVITIES = (
     ("residual other", "residual_other"),
 )
 
-_STATES = (
-    "andhra pradesh",
-    "arunachal pradesh",
-    "assam",
-    "bihar",
-    "chhattisgarh",
-    "delhi",
-    "goa",
-    "gujarat",
-    "haryana",
-    "himachal pradesh",
-    "jharkhand",
-    "karnataka",
-    "kerala",
-    "madhya pradesh",
-    "maharashtra",
-    "manipur",
-    "meghalaya",
-    "mizoram",
-    "nagaland",
-    "odisha",
-    "punjab",
-    "rajasthan",
-    "sikkim",
-    "tamil nadu",
-    "telangana",
-    "tripura",
-    "uttar pradesh",
-    "uttarakhand",
-    "west bengal",
-    "chandigarh",
-    "puducherry",
-    "lakshadweep",
-    "ladakh",
-    "jammu & kashmir",
-    "jammu and kashmir",
-    "andaman & nicobar islands",
-    "andaman and nicobar islands",
-    "dadra & nagar haveli and daman & diu",
-    "dadra and nagar haveli and daman and diu",
-    "india",
-)
 
-# Input-variant -> canonical store state name (only needed where the
-# title-joined form would differ from the store's spelling).
-_STATE_CANON = {
-    "jammu and kashmir": "Jammu & Kashmir",
-    "andaman and nicobar islands": "Andaman & Nicobar Islands",
-    "dadra and nagar haveli and daman and diu": (
-        "Dadra & Nagar Haveli and Daman & Diu"
-    ),
-}
+# State/UT spellings live in vidhi/states.py (one source of truth shared
+# with the consistency checker and the tests): canonical store name ->
+# accepted spellings, including short codes ("mp", "up", "mh") that only
+# match in a geographic slot.
 
 
 def _w(q: str, alias: str) -> bool:
@@ -357,16 +317,18 @@ def extract(question: str) -> Claim:
     elif re.search(r"\bmales?\b|\bmen\b", q):
         c.sex = "male"
 
-    for geo in _STATES:
-        if geo in q:
-            if geo == "india":
-                c.geography, c.state = "India", None
-            else:
-                name = _STATE_CANON.get(
-                    geo, " ".join(w.title() for w in geo.split())
-                )
-                c.geography, c.state = "state", name
-            break
+    # State/UT: match the canonical store name from any accepted spelling
+    # ("madhya pradesh", "mp", "m.p.", "orissa", "j&k", ...). "india" is the
+    # national geography, not a state.
+    c.states = S.match_states(question)
+    if len(c.states) == 1:
+        c.geography, c.state = "state", c.states[0]
+    elif len(c.states) > 1:
+        # Several states named: keep the list, leave `state` empty so no
+        # single state can stand in for the whole question.
+        c.geography = "state"
+    elif re.search(r"\bindia\b|\ball-?india\b", q):
+        c.geography, c.state = "India", None
     if c.geography is None:
         c.geography = "India"
     if re.search(r"15\s*(?:years?|\+|yrs)", q) or "15+" in q:

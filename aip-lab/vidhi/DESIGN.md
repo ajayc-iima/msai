@@ -70,6 +70,11 @@ Any step failing stops the chain with a non-zero exit.
 - [x] 6. Cross-check: identical verdicts to vidhi/ on all 100 golden,
   100/100 reason parity, stable at top_k 3/5/10
 - [x] 7. ConfAI materials re-pointed (README / demo / evaluation report unified on 100 golden + 1708 verified rows)
+- [x] 8. State generalisation: shared state vocabulary (`vidhi/states.py`) resolves
+  every state/UT in the store in any spelling (short codes, old names, one typo);
+  under-specified slices answer with the COMPLETE published slice, each cell with
+  its own row id (`store.complete_slice` + `Firewall._complete`); multi-state
+  questions answer for every state named. Suite: 116 tests.
 
 ## Flexibility record (no hardcoded values; APIs where they help)
 - eSankhyiki live API answers what the frozen store cannot
