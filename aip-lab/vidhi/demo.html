@@ -107,6 +107,16 @@ th button.sort:focus-visible{outline:var(--focus)}
 .btn:focus-visible{outline:var(--focus)}
 .btn.filled{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.filled:hover{filter:brightness(.95)}
+#reasonSel{min-height:48px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-size:13px;cursor:pointer}
+#reasonSel:focus-visible{outline:var(--focus)}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:24px 18px;margin:16px 0;text-align:center;color:var(--ink-soft);background:var(--tint)}
+.empty h3{font-family:var(--serif);font-size:18px;color:var(--teal);margin:0 0 6px}
+.empty p{margin:4px 0;font-size:13px;line-height:20px}
+.empty .eg{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
+.empty .eg button{min-height:36px;padding:0 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:12px;cursor:pointer}
+.empty .eg button:hover{border-color:var(--accent);color:var(--accent)}
+.retry{min-height:40px;padding:0 16px;border-radius:8px;border:1px solid var(--ref-fg);background:var(--ref-bg);color:var(--ref-fg);font-size:13px;font-weight:600;cursor:pointer;margin-top:8px}
+.retry:hover{filter:brightness(.96)}
 .cardfoot{border-top:1px dotted var(--line);margin-top:16px;padding-top:12px;font-size:13px;color:var(--accent-ink);display:flex;gap:8px;align-items:center}
 .cardfoot.muted{color:var(--muted);font-style:italic;justify-content:center}
 details.adv{border:1px solid var(--line);border-radius:8px;margin:12px 0;background:var(--card)}
@@ -240,9 +250,12 @@ async function health(){try{const r=await fetch("health");const h=await r.json()
 const stale=h.index&&h.index.store_stale;$("#healthDot").className="dot"+(stale?" stale":"");
 $("#healthText").textContent=(h.index?h.index.verified_rows+" verified · "+h.index.excerpts+" excerpts · ":"")+("rules "+(h.rules||"").slice(0,8))+(stale?" · stale "+h.index.store_staleness_days+"d":" · fresh");
 if(h.index&&h.index.verified_rows){const fs=$("#footStats");if(fs)fs.textContent=h.index.verified_rows+" verified rows · 100 golden checks · 19 danger pairs";}
-if(!navigator.onLine){$("#healthDot").className="dot off";$("#healthText").textContent+=" · offline";}}catch{$("#healthText").textContent="Service unreachable — start: uvicorn vidhi.service:app --port 8001";}}
+if(!navigator.onLine){$("#healthDot").className="dot off";$("#healthText").textContent+=" · offline";}}catch{$("#healthDot").className="dot off";$("#healthText").textContent="Service unreachable";results.innerHTML='<div class="alert" role="alert"><strong>Service unreachable.</strong> Start it with <code>python -m uvicorn vidhi.service:app --port 8001</code>, then <button class="retry" type="button" onclick="health();renderEmpty();">retry</button></div>';}}
+renderEmpty();
 health();
 
+function renderEmpty(){results.innerHTML='<div class="empty"><h3>Ask a checked question</h3><p>Every answer is bound to a verified source row. Try one of the chips above, or type your own.</p><div class="eg"><button type="button" data-q="What was rural MPCE in HCES 2023-24?">rural MPCE</button><button type="button" data-q="Compare average MPCE in 2011-12 vs 2023-24.">compare years</button><button type="button" data-q="Will unemployment fall in 2027?">forecast blocked</button></div></div>';
+  document.querySelectorAll(".empty .eg button").forEach(b=>b.addEventListener("click",()=>{q.value=b.dataset.q;ask();}));}
 /* history */
 function getHist(){try{return JSON.parse(localStorage.getItem("vidhi-hist")||"[]")}catch{return[]}}
 function saveHist(item){const h=[item,...getHist().filter(x=>x.q!==item.q)].slice(0,20);localStorage.setItem("vidhi-hist",JSON.stringify(h));renderHist();}
@@ -273,7 +286,7 @@ function skeleton(){results.innerHTML='<div class="card" aria-busy="true"><div c
 
 async function ask(){
   const question=q.value.trim();if(!question){q.focus();return;}
-  skeleton();prog.classList.add("on");statusEl.textContent="Checking…";
+  skeleton();prog.classList.add("on");statusEl.textContent="Checking against the verified store…";
   try{
     // Buffered render: verdict + citations are validated server-side before
     // any PASS prose is emitted (validate-before-stream). The UI renders the
@@ -282,7 +295,7 @@ async function ask(){
     if(!r.ok)throw await errFor(r);const data=await r.json();
     render(data,question);saveHist({q:question,d:data.decision+"/"+(data.reason_code||"")});
     statusEl.textContent=(data.cached?"From cache · ":"")+Math.round(data.latency_ms||0)+" ms · $"+(data.cost_usd??0);
-  }catch(e){results.innerHTML='<div class="alert" role="alert"><strong>Could not check.</strong> '+escapeHtml(e.message)+'</div>';statusEl.textContent="Failed";}
+  }catch(e){results.innerHTML='<div class="alert" role="alert"><strong>Could not check.</strong> '+escapeHtml(e.message)+'<br><button class="retry" type="button" onclick="ask()">retry</button></div>';statusEl.textContent="Failed";}
   finally{prog.classList.remove("on");}
 }
 async function errFor(r){const t=await r.text().catch(()=>r.statusText);
@@ -364,7 +377,7 @@ function render(d,question){
       ${table?'<button class="btn" id="csvBtn" type="button">Export CSV</button>':""}
       <button class="btn" id="goodBtn" type="button" aria-label="Mark answer helpful">Helpful</button>
       <button class="btn" id="badBtn" type="button" aria-label="Report a bad answer">Report issue</button>
-      <select id="reasonSel" class="btn" aria-label="Feedback reason" title="Why was this answer wrong?">
+      <select id="reasonSel" aria-label="Feedback reason" title="Why was this answer wrong?">
         <option value="">reason (optional)</option>
         <option value="incorrect_incomplete">incorrect / incomplete</option>
         <option value="not_what_asked">not what I asked for</option>
