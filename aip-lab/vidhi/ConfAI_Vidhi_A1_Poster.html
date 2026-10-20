@@ -138,30 +138,37 @@
   .thesis2 b{ color:var(--info-bar); }
 
   /* ================= flow diagram ================= */
-  .flow{ display:flex; flex-direction:column; }
+  .flow{ display:flex; flex-direction:column; position:relative; }
+  /* the spine: one line down the number axis, behind everything */
+  .flow::before{ content:""; position:absolute; left:8.4mm; top:5mm; bottom:5mm; width:2.2px;
+    background:var(--accent); opacity:.30; z-index:0; }
+  .frow, .fgate, .ffreeze, .fconn{ position:relative; z-index:1; }
   /* quiet rows: the input and the output are not the point */
-  .frow{ display:flex; gap:4.5mm; align-items:flex-start; padding:1mm 0; }
+  .frow{ display:flex; gap:4.5mm; align-items:flex-start; padding:.6mm 0; }
   .frow .fn{ margin-top:.6mm; }
   .fbody{ font-size:17.5pt; font-weight:600; color:var(--ink); min-width:0; }
   .fbody small{ display:block; font-weight:400; color:var(--muted); font-size:13pt; margin-top:.7mm; }
   /* the rail: a line down the number axis, with a solid arrowhead in every gap */
-  .fconn{ position:relative; height:3.2mm; }
-  .fconn::before{ content:""; position:absolute; left:8.4mm; top:0; bottom:1.2mm; width:1.8px;
-    background:var(--accent); opacity:.5; }
-  .fconn::after{ content:""; position:absolute; left:6.2mm; bottom:0; width:0; height:0;
-    border-left:2.4mm solid transparent; border-right:2.4mm solid transparent;
-    border-top:3.2mm solid var(--accent); }
-  .fn{ flex:none; width:9mm; height:9mm; border-radius:50%; background:var(--tint2); color:var(--accent-ink);
-    font-weight:800; font-size:14pt; display:flex; align-items:center; justify-content:center; }
+  .fconn{ position:relative; height:4.4mm; }
+  .fconn::before{ content:""; position:absolute; left:7.4mm; top:0; bottom:0; width:2.2px;
+    background:var(--accent); opacity:.8; }
+  .fconn::after{ content:""; position:absolute; left:5.9mm; bottom:0; width:0; height:0;
+    border-left:2.9mm solid transparent; border-right:2.9mm solid transparent;
+    border-top:3.6mm solid var(--accent); }
+  .fn{ flex:none; width:9mm; height:9mm; border-radius:50%; background:var(--accent); color:#fff;
+    font-weight:800; font-size:14pt; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 0 1.4mm var(--paper); }
+  .fgate .fn{ box-shadow:0 0 0 1.4mm #FBF9F2; }
+  .ffreeze .fn{ box-shadow:0 0 0 1.4mm #1F2A27; }
   /* THE GATE: the only heavy box in the flow */
   .fgate{ background:linear-gradient(180deg,#fff,#FBF9F2); border:1.6px solid var(--teal);
     border-radius:4mm; padding:3.4mm 4.4mm 3.4mm 3.4mm; }
-  .fgate-head{ display:flex; gap:4mm; align-items:flex-start; padding-bottom:2.4mm;
-    border-bottom:1.4px solid var(--teal); margin-bottom:2.4mm; }
+  .fgate-head{ display:flex; gap:4mm; align-items:flex-start; padding-bottom:2mm;
+    border-bottom:1.4px solid var(--teal); margin-bottom:2mm; }
   .fgate-head b{ font-size:19pt; color:var(--teal); line-height:1.1; }
   .fgate-head small{ display:block; font-size:12pt; color:var(--muted); margin-top:.8mm; line-height:1.28; }
   .fstage{ display:grid; grid-template-columns:8.5mm 39mm 1fr; align-items:baseline;
-    padding:1.5mm 3mm; border-radius:2.5mm; margin-bottom:1.1mm; }
+    padding:1.2mm 3mm; border-radius:2.5mm; margin-bottom:.9mm; }
   .fstage b{ font-family:var(--mono); font-size:13pt; }
   .fstage u{ text-decoration:none; font-size:14.5pt; font-weight:700; }
   .fstage span{ font-size:12pt; color:var(--ink-soft); }
