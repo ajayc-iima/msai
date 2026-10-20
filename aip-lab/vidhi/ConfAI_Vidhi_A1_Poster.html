@@ -140,21 +140,19 @@
   /* ================= flow diagram ================= */
   .flow{ display:flex; flex-direction:column; position:relative; }
   /* the spine: one line down the number axis, behind everything */
-  .flow::before{ content:""; position:absolute; left:8.4mm; top:5mm; bottom:5mm; width:2.2px;
-    background:var(--accent); opacity:.30; z-index:0; }
+  .flow::before{ content:""; position:absolute; left:8.7mm; top:4.5mm; bottom:4mm; width:2.2px;
+    background:var(--accent); opacity:.55; z-index:0; }
   .frow, .fgate, .ffreeze, .fconn{ position:relative; z-index:1; }
   /* quiet rows: the input and the output are not the point */
-  .frow{ display:flex; gap:4.5mm; align-items:flex-start; padding:.6mm 0; }
+  .frow{ display:flex; gap:4.5mm; align-items:flex-start; padding:.6mm 0 .6mm 4.5mm; }
   .frow .fn{ margin-top:.6mm; }
   .fbody{ font-size:17.5pt; font-weight:600; color:var(--ink); min-width:0; }
   .fbody small{ display:block; font-weight:400; color:var(--muted); font-size:13pt; margin-top:.7mm; }
   /* the rail: a line down the number axis, with a solid arrowhead in every gap */
-  .fconn{ position:relative; height:4.4mm; }
-  .fconn::before{ content:""; position:absolute; left:7.4mm; top:0; bottom:0; width:2.2px;
-    background:var(--accent); opacity:.8; }
-  .fconn::after{ content:""; position:absolute; left:5.9mm; bottom:0; width:0; height:0;
+  .fconn{ position:relative; height:4.6mm; }
+  .fconn::after{ content:""; position:absolute; left:6.1mm; bottom:.2mm; width:0; height:0;
     border-left:2.9mm solid transparent; border-right:2.9mm solid transparent;
-    border-top:3.6mm solid var(--accent); }
+    border-top:2.9mm solid var(--accent); }
   .fn{ flex:none; width:9mm; height:9mm; border-radius:50%; background:var(--accent); color:#fff;
     font-weight:800; font-size:14pt; display:flex; align-items:center; justify-content:center;
     box-shadow:0 0 0 1.4mm var(--paper); }
@@ -162,7 +160,7 @@
   .ffreeze .fn{ box-shadow:0 0 0 1.4mm #1F2A27; }
   /* THE GATE: the only heavy box in the flow */
   .fgate{ background:linear-gradient(180deg,#fff,#FBF9F2); border:1.6px solid var(--teal);
-    border-radius:4mm; padding:3.4mm 4.4mm 3.4mm 3.4mm; }
+    border-radius:4mm; padding:3.4mm 4.4mm 3.4mm 4.5mm; }
   .fgate-head{ display:flex; gap:4mm; align-items:flex-start; padding-bottom:2mm;
     border-bottom:1.4px solid var(--teal); margin-bottom:2mm; }
   .fgate-head b{ font-size:19pt; color:var(--teal); line-height:1.1; }
@@ -239,17 +237,20 @@
   .lim li{ margin:1.8mm 0; }
 
   /* ================= first-rule-fires band ================= */
-  .band{ border-top:1.4px solid var(--teal); padding:3mm 16mm 3mm; background:var(--tint); }
-  .band-title{ font-family:var(--serif); font-size:19pt; font-weight:700; color:var(--teal); margin-bottom:3mm;
-    padding-bottom:1.6mm; border-bottom:1px solid var(--line); }
-  .band-grid{ display:grid; grid-template-columns:1fr 1fr; gap:4.5mm 10mm; align-items:start; }
+  .band{ border-top:1.4px solid var(--teal); padding:2.6mm 16mm 2.6mm; background:var(--tint); }
+  .band-title{ font-family:var(--serif); font-size:17.5pt; font-weight:700; color:var(--teal); margin-bottom:2.4mm;
+    padding-bottom:1.4mm; border-bottom:1px solid var(--line); }
+  .band-grid{ display:grid; grid-template-columns:1.25fr 1fr; gap:8mm; align-items:start; }
   .trace-t .rc{ font-family:var(--mono); font-size:11.5pt; opacity:.9; }
+  .trace-t td.q{ font-family:var(--serif); font-size:12.5pt; color:var(--ink); width:29%; padding-right:3.5mm; }
+  .trace-t td.c1{ width:26mm; }
+  .band-notes{ display:flex; flex-direction:column; gap:3.5mm; }
   .tq{ font-family:var(--serif); font-size:15.5pt; color:var(--ink); margin-bottom:2mm; }
-  .trace table.cmp{ font-size:13pt; }
-  .trace-t th, .trace-t td{ padding:1.5mm 2.4mm; }
+  table.trace-t{ font-size:12.5pt; }
+  table.trace-t th, table.trace-t td{ padding:1.1mm 2.2mm; }
   .trace-t td.c1{ width:40mm; }
   .trace table.cmp td{ padding:1.8mm 2.4mm; }
-  .band-note{ font-size:12.5pt; line-height:1.36; color:var(--ink-soft); }
+  .band-note{ font-size:12pt; line-height:1.34; color:var(--ink-soft); }
   .band-note b{ color:var(--ink); }
 
   /* ================= guarantees strip ================= */
@@ -513,35 +514,29 @@
 
   <!-- ======================= FIRST-RULE-FIRES BAND ======================= -->
   <div class="band">
-    <div class="band-title">First rule fires — two real traces from the running service</div>
+    <div class="band-title">First rule fires — two real traces, and what the hash does not prove</div>
     <div class="band-grid">
-      <div class="trace">
-        <div class="tq">“Compare average MPCE in 2011-12 vs 2023-24.”</div>
-        <table class="cmp trace-t">
-          <tbody>
-            <tr><td class="c1">S1 Safety-A</td><td class="good">pass — no injection signal</td></tr>
-            <tr><td class="c1">S2 Scope</td><td class="good">pass — descriptive</td></tr>
-            <tr><td class="c1">S3 Comparability</td><td class="bad"><b>WARN</b> — comparability break <span class="rc">R_COMPARABILITY_HCES_METHOD</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="trace">
-        <div class="tq">“Will unemployment fall in 2027?”</div>
-        <table class="cmp trace-t">
-          <tbody>
-            <tr><td class="c1">S1 Safety-A</td><td class="good">pass — no injection signal</td></tr>
-            <tr><td class="c1">S2 Scope</td><td class="bad"><b>REFUSE</b> — no such round exists <span class="rc">R_FORECAST</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="band-note">
-        <b>What the hash proves.</b> In scope: reproducible and replayable — same question, same hash, and a planted
-        chunk cannot move it. Out of scope: tamper-evidence against someone who holds the store. The attestation binds a
-        <i>number</i> to a <i>row</i> — not that the row’s reading of the PDF is the only sensible one.
-      </div>
-      <div class="band-note">
-        <b>Next.</b> 1) A plain RAG+LLM baseline on the same 100 goldens and 28 red-team cases — the thesis is asserted
-        today, not demonstrated. 2) A held-out set written by someone else. 3) Onboard CPI or ASI.
+      <table class="cmp trace-t">
+        <tbody>
+          <tr><td class="q" rowspan="3">“Compare average MPCE in 2011-12 vs 2023-24.”</td>
+              <td class="c1">S1 Safety-A</td><td class="good">pass — no injection signal</td></tr>
+          <tr><td class="c1">S2 Scope</td><td class="good">pass — descriptive</td></tr>
+          <tr><td class="c1">S3 Comparability</td><td class="bad"><b>WARN</b> — comparability break <span class="rc">R_COMPARABILITY_HCES_METHOD</span></td></tr>
+          <tr><td class="q" rowspan="2">“Will unemployment fall in 2027?”</td>
+              <td class="c1">S1 Safety-A</td><td class="good">pass — no injection signal</td></tr>
+          <tr><td class="c1">S2 Scope</td><td class="bad"><b>REFUSE</b> — no such round exists <span class="rc">R_FORECAST</span></td></tr>
+        </tbody>
+      </table>
+      <div class="band-notes">
+        <div class="band-note">
+          <b>What the hash proves.</b> In scope: reproducible and replayable — same question, same hash, and a planted
+          chunk cannot move it. Out of scope: tamper-evidence against someone who holds the store. The attestation binds a
+          <i>number</i> to a <i>row</i> — not that the row’s reading of the PDF is the only sensible one.
+        </div>
+        <div class="band-note">
+          <b>Next.</b> 1) A plain RAG+LLM baseline on the same 100 goldens and 28 red-team cases — the thesis is asserted
+          today, not demonstrated. 2) A held-out set written by someone else. 3) Onboard CPI or ASI.
+        </div>
       </div>
     </div>
   </div>
