@@ -172,8 +172,8 @@
   .fstage.s-ok{ background:var(--ok-bg); color:var(--ok-fg); }
   .fstage.s-ok span{ color:#1B5A2C; }
   /* the early exit: a red row inside the gate */
-  .fexitrow{ margin-top:1.8mm; padding:2.4mm 3mm; background:#fff; border-left:2.6mm solid var(--ref-bar);
-    border-radius:0 2.6mm 2.6mm 0; font-size:12.5pt; line-height:1.32; color:var(--ink); }
+  .fexitrow{ margin-top:1.6mm; padding:2.2mm 3mm; background:#fff; border-left:2.6mm solid var(--ref-bar);
+    border-radius:0 2.6mm 2.6mm 0; font-size:12.5pt; line-height:1.3; color:var(--ink); }
   .fexitrow b{ color:var(--ref-fg); }
   .fexitrow .fxmark{ color:var(--ref-fg); font-weight:800; }
   .ffreeze{ background:#1F2A27; color:#E8F0EC; border:1px solid #31403A; border-left:5px solid var(--accent);
@@ -198,12 +198,17 @@
 
   /* ================= innovations ================= */
   .inno{ border:1px solid var(--line); border-left:4px solid var(--gold); background:var(--card);
-    border-radius:4mm; padding:4.5mm 5.5mm; }
+    border-radius:4mm; padding:4mm 5.2mm; }
   .inno h3{ font-size:15.5pt; margin:0 0 2mm; color:var(--gold); text-transform:none; letter-spacing:0;
-    padding-bottom:1.6mm; border-bottom:1px solid var(--line-soft); }
-  .inno p{ font-size:15.5pt; line-height:1.4; color:var(--ink-soft); }
+    padding-bottom:1.6mm; border-bottom:1px solid var(--line-soft);
+    display:flex; align-items:baseline; gap:3mm; }
+  .inno h3 .tag{ margin-left:auto; flex:none; font-family:var(--mono); font-size:10.5pt; font-weight:400;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+  .subhead{ font-size:12pt; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent-ink);
+    padding-bottom:1.4mm; border-bottom:1px solid var(--line); margin:0 0 -1.5mm; }
+  .inno p{ font-size:15pt; line-height:1.38; color:var(--ink-soft); }
   .inno .formula{ font-family:var(--mono); font-size:12.5pt; color:var(--ink); background:var(--tint);
-    border:1px solid var(--line-soft); border-radius:2.5mm; padding:1.8mm 3.2mm; margin:1.6mm 0;
+    border:1px solid var(--line-soft); border-radius:2.5mm; padding:1.3mm 3mm; margin:1.1mm 0;
     word-break:normal; overflow-wrap:anywhere; }
 
   /* ================= results ================= */
@@ -379,8 +384,8 @@
           <div class="fstage s-warn"><b>S3</b><u>Comparability</u><span>survey breaks</span></div>
           <div class="fstage s-warn"><b>S4</b><u>Metadata</u><span>taxonomy check</span></div>
           <div class="fstage s-ok"><b>S5</b><u>Numeric</u><span>verified rows only</span></div>
-          <div class="fexitrow"><span class="fxmark">↳</span> <b>the first rule that fires ends the answer</b> — a cited
-            rule, and <b>no number</b>. All five must pass to continue.</div>
+          <div class="fexitrow"><span class="fxmark">↳</span> <b>the first rule to fire decides the outcome</b> — no
+            figure is endorsed without one; a REFUSE produces <b>no number at all</b>. All five must pass to continue.</div>
         </div>
         <div class="fconn"></div>
 
@@ -397,8 +402,9 @@
           <div class="fbody">Templated render + citations<small>WARN/REFUSE wording is fixed</small></div></div>
       </div>
 
+      <div class="subhead">Why it holds — four properties</div>
       <div class="inno">
-        <h3>Safety-B · freeze before retrieval + figure attestation</h3>
+        <h3>Safety-B · freeze before retrieval + figure attestation<span class="tag">steps 4 &amp; 6</span></h3>
         <p>The verdict hash is locked before any document is read. A planted "ignore the caveat" chunk changes nothing —
           the hash is byte-identical with or without poisoning. A second hash binds the <b>number you see</b> to its cell.</p>
         <div class="formula">frozen_hash = SHA-256(claim ⊕ decision ⊕ sub_code ⊕ reason ⊕ rule_version)</div>
@@ -406,14 +412,14 @@
       </div>
 
       <div class="inno">
-        <h3>Field-guarded cache · no safe threshold</h3>
+        <h3>Field-guarded cache · no safe threshold<span class="tag">the cache</span></h3>
         <p>Danger-pair and paraphrase cosine ranges overlap on both measured embedders, so <b>no similarity threshold is
-          safe</b>. Reuse only on exact critical-field match.</p>
+          safe</b> — reuse only on exact critical-field match.</p>
         <div class="formula">0 collisions / 19 danger pairs · 1708 verified rows</div>
       </div>
 
       <div class="inno">
-        <h3>Generalised, not hard-coded</h3>
+        <h3>Generalised, not hard-coded<span class="tag">step 2</span></h3>
         <p>The translator resolves <b>every</b> state/UT the store carries, in any spelling — “mp”, “up”, “m.p.”,
           “orissa”, “maharastra” — one state or several at once. An open slice returns <b>every published cell</b>,
           never one narrowed figure.</p>
@@ -421,10 +427,10 @@
       </div>
 
       <div class="inno">
-        <h3>What stops the three attacks</h3>
+        <h3>What stops the three attacks<span class="tag">steps 1–6</span></h3>
         <p><b>Prompt injection</b> (EN · Hindi · Hinglish) — S1 refuses before any lookup, with a cited rule.
-          <b>Poisoned chunk</b> — the hash is already frozen, so the chunk changes prose, never the verdict.
-          <b>Cache poisoning</b> — exact critical-field match only, so a national row can never answer a state slice.</p>
+          <b>Poisoned chunk</b> — the hash is frozen, so the chunk changes prose, never the verdict. <b>Cache poisoning</b> —
+          exact critical-field match only, so a national row can never answer a state slice.</p>
       </div>
 
     </div>
