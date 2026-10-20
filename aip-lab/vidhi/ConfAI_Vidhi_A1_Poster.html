@@ -39,100 +39,109 @@
   }
 
   /* ================= header ================= */
-  header{ padding:11mm 16mm 8mm; border-bottom:3mm solid var(--teal); position:relative; }
+  header{ padding:9mm 16mm 7mm; border-bottom:3mm solid var(--teal); position:relative; }
   header::after{ content:""; position:absolute; left:16mm; bottom:-3mm; width:56mm; height:3mm; background:var(--accent); }
   .kicker{ font-size:14pt; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin:0 0 4mm; }
-  h1{ font-family:var(--serif); font-size:66pt; line-height:1.0; font-weight:700; color:var(--teal); margin:0 0 3mm; letter-spacing:-.5pt; }
-  .subtitle{ font-family:var(--serif); font-size:27pt; color:var(--ink-soft); font-style:italic; margin:0 0 7mm; }
+  h1{ font-family:var(--serif); font-size:74pt; line-height:1.0; font-weight:700; color:var(--teal); margin:0 0 3mm; letter-spacing:-.5pt; }
+  .subtitle{ font-family:var(--serif); font-size:29pt; color:var(--ink-soft); font-style:italic; margin:0 0 7mm; }
+  .oneline{ font-size:17.5pt; line-height:1.4; color:var(--ink-soft); margin:0 0 5mm; max-width:150mm;
+    border-left:3px solid var(--accent); padding-left:4mm; }
+  .oneline b{ color:var(--ink); }
   .hero{ display:flex; gap:8mm; align-items:stretch; }
   .thesis{ flex:1.45; background:var(--teal); color:#F4EFE4; border-radius:4mm; padding:6.5mm 8mm;
-    font-family:var(--serif); font-size:23pt; line-height:1.28; display:flex; flex-direction:column; justify-content:center; }
+    font-family:var(--serif); font-size:25pt; line-height:1.28; display:flex; flex-direction:column; justify-content:center; }
   .thesis b{ color:#F5C77A; }
-  .meta{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:3mm; font-size:14pt; color:var(--ink-soft); }
-  .meta .who{ font-weight:700; color:var(--ink); font-size:18pt; }
+  .meta{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:3mm; font-size:15pt; color:var(--ink-soft); }
+  .meta .who{ font-weight:700; color:var(--ink); font-size:19pt; }
   .meta .who span{ color:var(--muted); font-weight:400; }
+  .metatext{ flex:1; min-width:0; }
+  .qr{ display:flex; align-items:center; gap:4mm; flex:none; }
+  .qrbox{ width:26mm; height:26mm; border:1.6px dashed var(--accent); border-radius:2mm; color:var(--accent);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12pt; }
+  .qrlabel{ font-size:11.5pt; line-height:1.3; color:var(--muted); }
+  .qrlabel b{ color:var(--accent-ink); }
   .badges{ display:flex; flex-wrap:wrap; gap:3mm; }
-  .badge{ font-size:12pt; font-weight:700; padding:2mm 4.5mm; border-radius:10mm; white-space:nowrap;
+  .badge{ font-size:13pt; font-weight:700; padding:2mm 4.5mm; border-radius:10mm; white-space:nowrap;
     border:1px solid var(--line); background:var(--card); color:var(--ink-soft); }
   .badge.ok{ background:var(--ok-bg); color:var(--ok-fg); border-color:transparent; }
   .badge.acc{ background:var(--accent); color:#fff; border-color:transparent; }
 
   /* ================= columns ================= */
   .cols{ display:grid; grid-template-columns:1fr 1.2fr 1fr; gap:6mm; padding:7mm 16mm; align-items:start; }
-  .col{ display:flex; flex-direction:column; gap:5mm; min-width:0; }
+  .col{ display:flex; flex-direction:column; gap:4mm; min-width:0; }
   .sec-title{ display:flex; align-items:baseline; gap:3.5mm; border-bottom:1.4px solid var(--line); padding-bottom:2.6mm; }
-  .sec-num{ font-family:var(--serif); font-weight:700; color:var(--accent); font-size:26pt; line-height:1; }
-  .sec-title h2{ font-family:var(--serif); font-size:29pt; color:var(--teal); margin:0; font-weight:700; line-height:1.02; }
+  .sec-num{ font-family:var(--serif); font-weight:700; color:var(--accent); font-size:30pt; line-height:1; }
+  .sec-title h2{ font-family:var(--serif); font-size:33pt; color:var(--teal); margin:0; font-weight:700; line-height:1.02; }
 
   .card{ background:var(--card); border:1px solid var(--line); border-radius:4mm; padding:5.5mm 6mm; box-shadow:0 1px 3px rgba(60,50,20,.06); }
-  .card h3{ font-size:15.5pt; margin:0 0 2.5mm; color:var(--accent-ink); text-transform:uppercase; letter-spacing:.05em; font-weight:700; }
-  .card p{ font-size:14.5pt; line-height:1.45; margin:0; color:var(--ink-soft); }
+  .card h3{ font-size:17.5pt; margin:0 0 2.5mm; color:var(--accent-ink); text-transform:uppercase; letter-spacing:.05em; font-weight:700; }
+  .card p{ font-size:16pt; line-height:1.45; margin:0; color:var(--ink-soft); }
   .card p + p{ margin-top:3mm; }
   .card code{ font-family:var(--mono); font-size:.92em; }
 
   /* ---- worked example (a real answer, rendered) ---- */
   .example{ background:var(--card); border:1px solid var(--line); border-radius:4mm; overflow:hidden; }
-  .exhead{ background:var(--teal); color:#F4EFE4; padding:3.4mm 5mm; font-size:13.5pt; font-weight:700; letter-spacing:.02em; }
-  .exbody{ padding:4.5mm 5mm; }
-  .exq{ font-family:var(--serif); font-size:19pt; color:var(--ink); line-height:1.25; margin:0 0 4mm; }
+  .exhead{ background:var(--teal); color:#F4EFE4; padding:4mm 5.5mm; font-size:15pt; font-weight:700; letter-spacing:.02em; }
+  .exbody{ padding:5.5mm 6mm; }
+  .exq{ font-family:var(--serif); font-size:22pt; color:var(--ink); line-height:1.25; margin:0 0 4mm; }
   .exq::before{ content:"“"; color:var(--accent); }
   .exq::after{ content:"”"; color:var(--accent); }
   .exrow{ display:flex; align-items:center; gap:2.6mm; margin-bottom:3mm; }
-  .expill{ font-size:12pt; font-weight:700; padding:1.3mm 3.4mm; border-radius:8mm; background:var(--ok-bg); color:var(--ok-fg); }
+  .expill{ font-size:13.5pt; font-weight:700; padding:1.3mm 3.4mm; border-radius:8mm; background:var(--ok-bg); color:var(--ok-fg); }
   .expill.warn{ background:var(--warn-bg); color:var(--warn-fg); }
   .expill.ref{ background:var(--ref-bg); color:var(--ref-fg); }
-  .exrow .exlabel{ font-size:10.5pt; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
-  .exfig{ font-family:var(--serif); font-weight:700; color:var(--gold); font-size:34pt; line-height:1; margin:0 0 1.2mm; }
-  .exfig small{ font-size:16pt; font-weight:400; color:var(--muted); }
-  .exslice{ font-size:13.5pt; color:var(--ink-soft); margin:0 0 3mm; }
-  .exmeta{ font-family:var(--mono); font-size:11.5pt; line-height:1.6; color:var(--ink); background:var(--tint);
+  .exrow .exlabel{ font-size:11.5pt; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .exfig{ font-family:var(--serif); font-weight:700; color:var(--gold); font-size:40pt; line-height:1; margin:0 0 1.5mm; }
+  .exfig small{ font-size:18pt; font-weight:400; color:var(--muted); }
+  .exslice{ font-size:15pt; color:var(--ink-soft); margin:0 0 3.5mm; }
+  .exmeta{ font-family:var(--mono); font-size:12.5pt; line-height:1.6; color:var(--ink); background:var(--tint);
     border:1px solid var(--line-soft); border-radius:3mm; padding:2.8mm 3.6mm; }
   .exmeta .k{ color:var(--muted); }
-  .exfoot{ border-top:1px dotted var(--line); margin-top:3mm; padding-top:2.4mm; font-size:12.5pt; color:var(--accent-ink); }
+  .exfoot{ border-top:1px dotted var(--line); margin-top:3mm; padding-top:2.6mm; font-size:13.5pt; color:var(--accent-ink); }
 
   /* ---- rule vocabulary ---- */
   .codes{ display:grid; grid-template-columns:1fr 1fr; gap:2mm 3.4mm; margin:0; }
-  .codes div{ font-size:12.5pt; line-height:1.28; color:var(--ink-soft); }
-  .codes b{ font-family:var(--mono); font-size:11.5pt; color:var(--accent-ink); display:block; }
+  .codes div{ font-size:14pt; line-height:1.3; color:var(--ink-soft); }
+  .codes b{ font-family:var(--mono); font-size:12.5pt; color:var(--accent-ink); display:block; }
   .codes div.w b{ color:var(--warn-fg); }
   .codes div.r b{ color:var(--ref-fg); }
   .codes div.g b{ color:var(--ok-fg); }
 
   /* ---- artefact list ---- */
   .arte{ margin:0; padding:0; list-style:none; }
-  .arte li{ font-size:13pt; line-height:1.35; color:var(--ink-soft); padding:1.9mm 0; border-bottom:1px solid var(--line-soft); }
+  .arte li{ font-size:14pt; line-height:1.36; color:var(--ink-soft); padding:1.9mm 0; border-bottom:1px solid var(--line-soft); }
   .arte li:last-child{ border-bottom:0; }
   .arte b{ color:var(--ink); }
   .arte code{ font-family:var(--mono); font-size:12.5pt; }
 
-  .intro{ font-size:15pt; line-height:1.45; color:var(--ink-soft); margin:0; }
+  .intro{ font-size:17pt; line-height:1.45; color:var(--ink-soft); margin:0; }
   .intro b{ color:var(--ink); }
 
   .fail{ display:flex; gap:3.5mm; background:var(--card); border:1px solid var(--line); border-left:3.5px solid var(--ref-bar);
     border-radius:3.5mm; padding:4.5mm 5.5mm; }
-  .fail .x{ font-family:var(--serif); font-weight:700; color:var(--ref-fg); font-size:21pt; line-height:1; flex:none; }
-  .fail .t{ font-size:14.5pt; line-height:1.4; color:var(--ink-soft); }
+  .fail .x{ font-family:var(--serif); font-weight:700; color:var(--ref-fg); font-size:23pt; line-height:1; flex:none; }
+  .fail .t{ font-size:16.5pt; line-height:1.4; color:var(--ink-soft); }
   .fail .t b{ color:var(--ink); }
 
   .thesis2{ background:var(--info-bg); border-left:3.5px solid var(--info-bar); border-radius:0 4mm 4mm 0;
-    padding:5.5mm 6.5mm; font-size:16pt; line-height:1.45; color:var(--ink); }
+    padding:6mm 7mm; font-size:18pt; line-height:1.45; color:var(--ink); }
   .thesis2 b{ color:var(--info-bar); }
 
   /* ================= flow diagram ================= */
   .flow{ display:flex; flex-direction:column; align-items:stretch; }
-  .fnode{ background:var(--card); border:1px solid var(--line); border-radius:3.5mm; padding:2.8mm 4.5mm;
-    font-size:15.5pt; font-weight:600; color:var(--ink); }
+  .fnode{ background:var(--card); border:1px solid var(--line); border-radius:3.5mm; padding:3.4mm 5mm;
+    font-size:17.5pt; font-weight:600; color:var(--ink); }
   .fnode .n{ display:inline-flex; align-items:center; justify-content:center; width:9mm; height:9mm; border-radius:50%;
     background:var(--tint2); color:var(--accent-ink); font-weight:800; font-size:14pt; margin-right:3mm; }
-  .fnode small{ display:block; font-weight:400; color:var(--muted); font-size:12.5pt; margin-top:1mm; }
-  .farrow{ text-align:center; color:var(--accent); font-size:17pt; line-height:1; padding:0; font-family:var(--serif); }
+  .fnode small{ display:block; font-weight:400; color:var(--muted); font-size:14pt; margin-top:1.2mm; }
+  .farrow{ text-align:center; color:var(--accent); font-size:19pt; line-height:1; padding:.5mm 0; font-family:var(--serif); }
   .fnode.firewall{ border:1.6px solid var(--teal); background:linear-gradient(180deg,#fff,#FBF9F2); }
   .stages{ display:flex; gap:2.2mm; margin-top:2.2mm; flex-wrap:wrap; }
-  .stage{ flex:1 1 auto; text-align:center; font-size:13pt; font-weight:800; padding:2.1mm 1.4mm; border-radius:2.6mm; letter-spacing:.01em; }
+  .stage{ flex:1 1 auto; text-align:center; font-size:14.5pt; font-weight:800; padding:2.1mm 1.4mm; border-radius:2.6mm; letter-spacing:.01em; }
   .stage.s-ref{ background:var(--ref-bg); color:var(--ref-fg); }
   .stage.s-warn{ background:var(--warn-bg); color:var(--warn-fg); }
   .stage.s-ok{ background:var(--ok-bg); color:var(--ok-fg); }
-  .stage .sub{ display:block; font-weight:500; font-size:11pt; opacity:.85; margin-top:.5mm; }
+  .stage .sub{ display:block; font-weight:500; font-size:12pt; opacity:.85; margin-top:.5mm; }
   .fnode.freeze{ background:#1F2A27; color:#E8F0EC; border-color:#31403A; border-left:5px solid var(--accent); }
   .fnode.freeze b{ color:#F5C77A; }
   .fnode.freeze code{ color:#F5C77A; font-family:var(--mono); }
@@ -141,48 +150,58 @@
   /* ================= innovations ================= */
   .inno{ border:1px solid var(--line); border-left:4px solid var(--gold); background:var(--card);
     border-radius:4mm; padding:5mm 6mm; }
-  .inno h3{ font-size:16pt; margin:0 0 2mm; color:var(--gold); text-transform:none; letter-spacing:0; }
-  .inno p{ font-size:13.5pt; line-height:1.38; color:var(--ink-soft); }
-  .inno .formula{ font-family:var(--mono); font-size:12pt; color:var(--ink); background:var(--tint);
+  .inno h3{ font-size:17.5pt; margin:0 0 2mm; color:var(--gold); text-transform:none; letter-spacing:0; }
+  .inno p{ font-size:15.5pt; line-height:1.4; color:var(--ink-soft); }
+  .inno .formula{ font-family:var(--mono); font-size:13pt; color:var(--ink); background:var(--tint);
     border:1px solid var(--line-soft); border-radius:2.5mm; padding:1.8mm 3.2mm; margin:1.6mm 0; word-break:break-all; }
 
   /* ================= results ================= */
   .kpis{ display:grid; grid-template-columns:1fr 1fr; gap:2.8mm; }
   .kpi{ background:var(--card); border:1px solid var(--line); border-radius:3.5mm; padding:3.8mm 4.2mm; }
-  .kpi .v{ font-family:var(--serif); font-weight:700; color:var(--gold); font-size:30pt; line-height:1.0; }
+  .kpi .v{ font-family:var(--serif); font-weight:700; color:var(--gold); font-size:34pt; line-height:1.0; }
   .kpi .v small{ font-size:16pt; color:var(--muted); font-weight:400; }
-  .kpi .l{ font-size:11.5pt; color:var(--muted); line-height:1.28; margin-top:1.2mm; }
+  .kpi .l{ font-size:12.5pt; color:var(--muted); line-height:1.3; margin-top:1.4mm; }
 
-  table.cmp{ border-collapse:collapse; width:100%; font-size:12.5pt; }
+  table.cmp{ border-collapse:collapse; width:100%; font-size:14pt; }
   table.cmp th, table.cmp td{ padding:2mm 2.6mm; text-align:left; vertical-align:top; border-bottom:1px solid var(--line-soft); }
-  table.cmp thead th{ background:var(--tint2); font-size:10.5pt; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); }
+  table.cmp thead th{ background:var(--tint2); font-size:11.5pt; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); }
   table.cmp td.c1{ font-weight:700; color:var(--ink); white-space:nowrap; }
   table.cmp td.bad{ color:var(--ref-fg); }
   table.cmp td.good{ color:var(--ok-fg); }
   table.cmp tr:last-child td{ border-bottom:0; }
-  .legend{ font-size:11.5pt; color:var(--muted); font-style:italic; margin-top:2.5mm; line-height:1.35; }
+  .legend{ font-size:12.5pt; color:var(--muted); font-style:italic; margin-top:2.5mm; line-height:1.35; }
 
-  .lim{ font-size:13.5pt; line-height:1.42; color:var(--ink-soft); margin:0; padding-left:5mm; }
+  .lim{ font-size:15pt; line-height:1.42; color:var(--ink-soft); margin:0; padding-left:5mm; }
   .lim li{ margin:1.8mm 0; }
 
+  /* ================= first-rule-fires band ================= */
+  .band{ border-top:1.4px solid var(--line); padding:4.5mm 16mm 4mm; background:var(--card); }
+  .band-title{ font-family:var(--serif); font-size:20pt; font-weight:700; color:var(--teal); margin-bottom:3mm; }
+  .band-grid{ display:grid; grid-template-columns:1.15fr 1fr .95fr; gap:9mm; align-items:start; }
+  .tq{ font-family:var(--serif); font-size:15.5pt; color:var(--ink); margin-bottom:2mm; }
+  .trace table.cmp{ font-size:13pt; }
+  .trace table.cmp td{ padding:1.8mm 2.4mm; }
+  .band-note{ font-size:14pt; line-height:1.4; color:var(--ink-soft); }
+  .band-note b{ color:var(--ink); }
+
   /* ================= guarantees strip ================= */
-  .guarantees{ border-top:3mm solid var(--teal); background:var(--tint); padding:6mm 16mm; position:relative; }
-  .guarantees::before{ content:"Six guarantees — the soul of the system"; display:block;
-    font-family:var(--serif); font-size:18pt; font-weight:700; color:var(--accent-ink); margin-bottom:4mm; }
+  .guarantees{ border-top:3mm solid var(--teal); background:var(--tint); padding:5mm 16mm; position:relative; }
+  .guarantees::before{ content:"Six guarantees"; display:block;
+    font-family:var(--serif); font-size:20pt; font-weight:700; color:var(--accent-ink); margin-bottom:4mm; }
   .grow{ display:grid; grid-template-columns:repeat(6,1fr); gap:3mm; }
   .g{ background:var(--card); border:1px solid var(--line); border-radius:3mm; padding:3.4mm 3.6mm; }
-  .g .gn{ font-family:var(--serif); font-weight:700; color:var(--accent); font-size:18pt; margin-bottom:1mm; }
-  .g .gt{ font-size:12pt; line-height:1.3; color:var(--ink-soft); }
+  .g .gn{ font-family:var(--serif); font-weight:700; color:var(--accent); font-size:20pt; margin-bottom:1mm; }
+  .g .gt{ font-size:13pt; line-height:1.3; color:var(--ink-soft); }
 
   /* ================= footer ================= */
-  footer{ border-top:3mm solid var(--teal); background:var(--tint2); padding:6mm 16mm 7mm; position:relative; }
+  footer{ border-top:3mm solid var(--teal); background:var(--tint2); padding:5mm 16mm 4mm; position:relative; }
   footer::after{ content:""; position:absolute; left:16mm; top:-3mm; width:56mm; height:3mm; background:var(--accent); }
   .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:8mm; align-items:start; }
-  footer h3{ font-size:13.5pt; text-transform:uppercase; letter-spacing:.06em; color:var(--accent-ink); margin:0 0 3mm; }
-  pre.cmds{ font-family:var(--mono); font-size:12pt; line-height:1.5; margin:0; background:#1F2A27; color:#E8F0EC;
+  footer h3{ font-size:15pt; text-transform:uppercase; letter-spacing:.06em; color:var(--accent-ink); margin:0 0 3mm; }
+  pre.cmds{ font-family:var(--mono); font-size:12.5pt; line-height:1.45; margin:0; background:#1F2A27; color:#E8F0EC;
     border-radius:3mm; padding:3.2mm 4mm; border:1px solid #31403A; white-space:pre; }
   pre.cmds .cm{ color:#8FB8AC; }
-  .foot-note{ font-size:13.5pt; line-height:1.4; color:var(--ink-soft); margin:0 0 2.5mm; }
+  .foot-note{ font-size:15pt; line-height:1.4; color:var(--ink-soft); margin:0 0 2.5mm; }
   .foot-note b{ color:var(--ink); }
   .foot-note code{ font-family:var(--mono); font-size:.92em; }
 
@@ -197,19 +216,28 @@
     <p class="kicker">ConfAI 2026 · Plaksha University · Track 06 — Responsible &amp; Ethical AI</p>
     <h1>Refuse to Hallucinate</h1>
     <p class="subtitle">A deterministic validity firewall for Indian official survey statistics</p>
+    <p class="oneline">Every question gets a <b>cited verdict</b> — frozen with SHA-256 <b>before</b> any document is read.
+      1,708 verified rows · $0.00 per query · no API key, no GPU.</p>
     <div class="hero">
       <div class="thesis">
         MoSPI's tools help you <b>find</b> the number. This firewall checks whether you are
         <b>allowed to say</b> it — and stops you, with a cited rule, when you are not.
       </div>
       <div class="meta">
+        <div class="qr" aria-label="QR placeholder for the public live-demo URL">
+          <div class="qrbox">QR</div>
+          <div class="qrlabel">scan for the<br><b>public demo</b></div>
+        </div>
+        <div class="metatext">
         <div class="who">Ajay Choudhary <span>· MSAI @ Plaksha University</span></div>
-        <div style="font-size:15pt">ajay.pg26@plaksha.edu.in</div>
+        <div style="font-size:15pt">ajay.pg26@plaksha.edu.in · github.com/ajayc-iima/msai</div>
         <div class="badges">
           <span class="badge acc">Poster + live demo</span>
-          <span class="badge">localhost:8001/demo</span>
+          <span class="badge">Live demo → QR</span>
           <span class="badge ok">offline · no API key · no GPU</span>
           <span class="badge">$0.00 / query</span>
+          <span class="badge">Service · MCP tool · Agent · Library</span>
+        </div>
         </div>
       </div>
     </div>
@@ -220,10 +248,10 @@
 
     <!-- LEFT -->
     <div class="col">
-      <div class="sec-title"><span class="sec-num">1</span><h2>The problem</h2></div>
+      <div class="sec-title"><span class="sec-num">1</span><h2>The problem, and the fix</h2></div>
       <p class="intro">Retrieval over official PDFs is solved. <b>Governance is not.</b>
         Unconstrained RAG over sovereign statistics fails in three ways — observed live in MoSPI's
-        StatsDoc pilot (<i>archived transcripts, chats 2472–2480</i>, per <code>evaluation/statsdoc_audit/</code>):</p>
+        StatsDoc pilot (<i>archived transcripts, chats 2472–2480</i>):</p>
       <div class="fail"><span class="x">✕</span><span class="t"><b>Inconsistent figures in one answer.</b> Measured MP MPCE
         quoted as both 3,158 and 5,589 for urban, and 5,538 vs 4,987 for "All", in a single response (chat 2474).</span></div>
       <div class="fail"><span class="x">✕</span><span class="t"><b>Unguided cross-round arithmetic.</b> ~40% MPCE growth
@@ -233,35 +261,16 @@
       <div class="thesis2"><b>The thesis.</b> You cannot fix a probabilistic system with more probabilistic prompts.
         The decision — <i>is this claim allowed?</i> — must come from <b>versioned, deterministic rules</b>, before
         generation. Models translate; rules judge.</div>
-      <div class="card">
-        <h3>Where it sits</h3>
-        <p>A drop-in governance layer for journalists, fact-checkers, legislative researchers and statistical agencies —
-          a standalone service/CLI <b>and</b> an MCP tool that other agents call as a governance oracle.</p>
-        <ul class="arte" style="margin-top:3mm">
-          <li><b>Service</b> — <code>POST /ask</code>, one JSON endpoint, streaming variant included.</li>
-          <li><b>MCP tool</b> — <code>vidhi.mcp_server</code>, 4 governance tools, schemas validated.</li>
-          <li><b>Agent</b> — <code>POST /analyze</code> decomposes a policy question and briefs each claim.</li>
-          <li><b>Library</b> — <code>vidhi.rules.Firewall</code> imported directly, no service needed.</li>
-        </ul>
-      </div>
 
       <div class="example">
-        <div class="exhead">One answer, end to end — a real response from the running service</div>
+        <div class="exhead">The fix, end to end — a real response from the running service</div>
         <div class="exbody">
           <p class="exq">mpce for madhya pradesh</p>
           <div class="exrow"><span class="exlabel">Verdict</span><span class="expill">PASS_WITH_NUMBER</span><span class="exlabel">rule R_OK</span></div>
           <p class="exfig">3,522 <small>Rs/month</small></p>
-          <p class="exslice">Madhya Pradesh · rural · with imputation — and the slice is not narrowed: the
-            under-specified question returns <b>every published cell</b>.</p>
-          <table class="cmp" style="font-size:12.5pt;margin:0 0 4mm">
-            <thead><tr><th>Cell</th><th>Figure</th><th>Row id</th></tr></thead>
-            <tbody>
-              <tr><td class="c1">rural · with imputation</td><td class="good">3,522</td><td><code>…rural_with_MadhyaPradesh</code></td></tr>
-              <tr><td class="c1">urban · with imputation</td><td class="good">5,589</td><td><code>…urban_with_MadhyaPradesh</code></td></tr>
-              <tr><td class="c1">rural · without imputation</td><td class="good">3,441</td><td><code>…rural_MadhyaPradesh</code></td></tr>
-              <tr><td class="c1">urban · without imputation</td><td class="good">5,538</td><td><code>…urban_MadhyaPradesh</code></td></tr>
-            </tbody>
-          </table>
+          <p class="exslice">Madhya Pradesh · rural · with imputation. The slice is not narrowed — the open question
+            returns <b>every published cell</b>: 3,522 / 5,589 with imputation, 3,441 / 5,538 without —
+            <b>4 cells, 4 row ids</b>.</p>
           <div class="exmeta">
             <span class="k">source</span> HCES 2023-24 factsheet, Statement 7<br>
             <span class="k">row</span> HCES_2023_24_MPCE_2023-24_rural_with_MadhyaPradesh<br>
@@ -272,11 +281,11 @@
       </div>
 
       <div class="card">
-        <h3>The rule vocabulary — every refusal is cited</h3>
-        <p style="font-size:14.5pt;margin-bottom:4mm">A verdict is never bare prose: it carries a stable reason code.</p>
+        <h3>Every refusal is cited</h3>
+        <p style="font-size:15pt;margin-bottom:3mm">A verdict is never bare prose — it carries a stable reason code.</p>
         <div class="codes">
           <div class="g"><b>R_OK</b>verified row matched</div>
-          <div class="w"><b>R_NO_CURATED_ROW</b>slice not curated → coverage note, no figure</div>
+          <div class="w"><b>R_NO_CURATED_ROW</b>not curated → coverage note, no figure</div>
           <div class="w"><b>R_NUMERIC_MISMATCH</b>asserted number ≠ the store</div>
           <div class="w"><b>R_COMPARABILITY_*</b>survey break → mandatory caveat</div>
           <div class="r"><b>R_SCOPE_OUT / R_FORECAST</b>forecast, causal, political → refused</div>
@@ -285,6 +294,7 @@
           <div class="w"><b>R_LOW_EXTRACTION_CONF</b>extraction confidence too low</div>
         </div>
       </div>
+
     </div>
 
     <!-- CENTER -->
@@ -315,6 +325,7 @@
         <div class="farrow">↓</div>
         <div class="fnode"><span class="n">6</span> Templated render + citations <small>WARN/REFUSE wording is fixed</small></div>
       </div>
+
       <div class="inno">
         <h3>Safety-B · freeze before retrieval + figure attestation</h3>
         <p>The verdict hash is locked before any document is read. A planted "ignore the caveat" chunk changes nothing —
@@ -322,50 +333,32 @@
         <div class="formula">frozen_hash = SHA-256(claim ⊕ decision ⊕ sub_code ⊕ reason ⊕ rule_version)</div>
         <div class="formula">attestation = SHA-256(frozen_hash ⊕ row_id ⊕ value ⊕ unit ⊕ pdf_sha256)</div>
       </div>
+
       <div class="inno">
         <h3>Field-guarded cache · no safe threshold</h3>
         <p>Danger-pair and paraphrase cosine ranges overlap on both measured embedders, so <b>no similarity threshold is
           safe</b>. Reuse only on exact critical-field match.</p>
         <div class="formula">0 collisions across 19 danger pairs · 1708 verified rows (55 touched by the golden set)</div>
       </div>
+
       <div class="inno">
         <h3>Generalised, not hard-coded</h3>
-        <p>The claim translator resolves <b>every</b> state/UT the store carries, in any spelling — “mp”, “up”, “m.p.”,
-          “orissa”, “maharastra” — and answers one state or several at once. A slice the question leaves open is
-          answered with <b>every published cell</b>, each with its own row id: complete, never silently narrowed.</p>
+        <p>The translator resolves <b>every</b> state/UT the store carries, in any spelling — “mp”, “up”, “m.p.”,
+          “orissa”, “maharastra” — and answers one state or several at once. An open slice returns
+          <b>every published cell</b>, never one narrowed figure.</p>
         <div class="formula">“MPCE in Madhya Pradesh, UP, Maharashtra” → 12 cells · 12 row ids</div>
       </div>
-      <div class="card">
-        <h3>First rule fires — two real traces</h3>
-        <table class="cmp">
-          <thead><tr><th>Stage</th><th>Question</th><th>Outcome</th></tr></thead>
-          <tbody>
-            <tr><td class="c1">1 Safety-A</td><td rowspan="3" style="vertical-align:top">“Compare average MPCE in 2011-12 vs 2023-24.”</td>
-              <td class="good">pass — no injection signal</td></tr>
-            <tr><td class="c1">2 Scope</td><td class="good">pass — descriptive</td></tr>
-            <tr><td class="c1">3 Comparability</td><td class="bad"><b>WARN</b> R_COMPARABILITY_HCES_METHOD — 68th-round paper vs 3-visit CAPI</td></tr>
-            <tr><td class="c1">1 Safety-A</td><td rowspan="2" style="vertical-align:top">“Will unemployment fall in 2027?”</td>
-              <td class="good">pass — no injection signal</td></tr>
-            <tr><td class="c1">2 Scope</td><td class="bad"><b>REFUSE</b> R_FORECAST — no such round exists</td></tr>
-          </tbody>
-        </table>
-        <p class="legend">A stage that fires ends the adjudication: stages 4–5 are never reached in either trace. The order is the guarantee.</p>
-      </div>
-      <div class="inno">
-        <h3>What stops the three attacks</h3>
-        <p><b>Prompt injection</b> — Safety-A refuses before any lookup. <b>Poisoned chunk</b> — the hash is already frozen;
-          the chunk changes prose, never the verdict. <b>Cache poisoning</b> — exact critical-field match only.</p>
-      </div>
+
     </div>
 
     <!-- RIGHT -->
     <div class="col">
       <div class="sec-title"><span class="sec-num">3</span><h2>Results</h2></div>
       <div class="kpis">
-        <div class="kpi"><div class="v">0.000</div><div class="l">hallucination rate — 0 of 36 must-abstain questions answered wrongly</div></div>
-        <div class="kpi"><div class="v">1.000</div><div class="l">abstention recall — every must-abstain question refused/warned</div></div>
+        <div class="kpi"><div class="v">0.000</div><div class="l">hallucination rate — 0 of 36 <b>must-abstain goldens</b> answered wrongly</div></div>
+        <div class="kpi"><div class="v">1.000</div><div class="l">abstention recall — 36 of 36 must-abstain goldens refused or warned</div></div>
         <div class="kpi"><div class="v">100<small>/100</small></div><div class="l">verdict accuracy [Wilson 0.963–1.000]</div></div>
-        <div class="kpi"><div class="v">60<small>/60</small></div><div class="l">numeric exact match [0.940–1.000]</div></div>
+        <div class="kpi"><div class="v">60<small>/60</small></div><div class="l">numeric exact match, on the 60 numeric goldens</div></div>
         <div class="kpi"><div class="v">0<small>/19</small></div><div class="l">danger-pair cache collisions</div></div>
         <div class="kpi"><div class="v">1708<small>/1708</small></div><div class="l">verified rows with provenance</div></div>
         <div class="kpi"><div class="v">1.000</div><div class="l">Safety-A P/R/F1 · n=28 (EN · hi · hi-en)</div></div>
@@ -376,46 +369,57 @@
         <table class="cmp">
           <thead><tr><th>Check</th><th>StatsDoc (archived)</th><th>Vidhi (measured)</th></tr></thead>
           <tbody>
-            <tr><td class="c1">Definition</td><td class="bad">"Monthly…" (got lucky)</td><td class="good">statutory, pinned</td></tr>
+            <tr><td class="c1">Definition</td><td>"Monthly…" — matched (by chance)</td><td class="good">statutory, pinned by rule</td></tr>
             <tr><td class="c1">Consistency</td><td class="bad">3,158 vs 5,589 urban</td><td class="good">one row id per figure</td></tr>
-            <tr><td class="c1">Cross-round math</td><td class="bad">~40% growth, no caveat</td><td class="good">halts with R_COMPARABILITY_HCES_METHOD</td></tr>
-            <tr><td class="c1">Poisoned context</td><td class="bad">overrides verdict</td><td class="good">SHA-256 frozen pre-retrieval</td></tr>
+            <tr><td class="c1">Cross-round math</td><td class="bad">~40% growth, no caveat</td><td class="good">halts · R_COMPARABILITY_HCES_METHOD</td></tr>
+            <tr><td class="c1">Poisoned context</td><td class="bad">not tested — <i>no such row</i></td><td class="good">SHA-256 frozen pre-retrieval (tested)</td></tr>
             <tr><td class="c1">Cost / latency</td><td class="bad">~$0.02–0.05 · 3.5–8 s <i>(est.)</i></td><td class="good">$0.00 · p50 &lt; 200 ms</td></tr>
           </tbody>
         </table>
         <p class="legend">StatsDoc rows are transcribed from archived live transcripts (chats 2472–2480, same nine
-          prompts); Vidhi rows are measured offline. One prompt set, one session — an observation, not a benchmark.</p>
+          prompts); Vidhi rows are measured offline. One prompt set, one session — an observation, not a benchmark.
+          The poisoned-context row was <b>not</b> tested live.</p>
       </div>
       <div class="card">
         <h3>Honest limits</h3>
         <ul class="lim">
           <li><b>Coverage is the limit, not logic</b> — 1,708 verified rows: the PLFS Highlights battery (11 rounds ×
-            usual + CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells of both annual reports), the TUS 2024 battery
-            (9 ICATUS divisions × gender/sector/age × participation/per-participant/per-person), and the HCES 2023-24
-            state + trend columns. State-wise MPCE covers <b>all 36 states/UTs</b> in any spelling; an open slice returns
-            <b>every published cell</b>, never one narrowed figure. Uncovered slices (state-level labour, non-badge rounds)
+            usual + CWS × LFPR/WPR/UR × 9 sector-sex cells), the TUS 2024 battery (9 ICATUS divisions), and the HCES
+            2023-24 state + trend columns. State-wise MPCE covers <b>all 36 states/UTs</b> in any spelling. Uncovered slices
             return <code>WARN_NO_DATA</code> + a coverage note, never a guess.</li>
           <li>Heuristic extraction breaks on exotic phrasing; an LLM translator port exists (<code>VIDHI_USE_LLM=1</code>), unmeasured.</li>
-          <li>No load test yet; eSankhyiki live-API path inherits third-party cert-verification weakness (query path is offline).</li>
+          <li>No load test yet; the eSankhyiki live-API path inherits third-party cert-verification weakness (query path is offline).</li>
         </ul>
       </div>
-      <div class="card">
-        <h3>What you can inspect</h3>
-        <ul class="arte">
-          <li><b>Rules, store, claim translator, service, MCP server</b> — <code>vidhi/</code>; 1,708 rows, each sha256-bound to its source PDF.</li>
-          <li><b>Archived StatsDoc transcripts</b> (chats 2472–2480) + access log + comparison — <code>evaluation/statsdoc_audit/</code>: reproducible, not anecdotal.</li>
-          <li><b>The four official MoSPI PDFs</b> — <code>data/raw/</code>, committed, so every figure can be re-checked at the page.</li>
-          <li><b>117 tests</b> — golden set, danger pairs, 28-case multilingual red-team, Safety-B hash invariant.</li>
-        </ul>
+    </div>
+  </div>
+
+  <!-- ======================= FIRST-RULE-FIRES BAND ======================= -->
+  <div class="band">
+    <div class="band-title">First rule fires — two real traces from the running service</div>
+    <div class="band-grid">
+      <div class="trace">
+        <div class="tq">“Compare average MPCE in 2011-12 vs 2023-24.”</div>
+        <table class="cmp">
+          <tbody>
+            <tr><td class="c1">1 Safety-A</td><td class="good">pass — no injection signal</td></tr>
+            <tr><td class="c1">2 Scope</td><td class="good">pass — descriptive</td></tr>
+            <tr><td class="c1">3 Comparability</td><td class="bad"><b>WARN</b> R_COMPARABILITY_HCES_METHOD — 68th-round paper vs 3-visit CAPI</td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="card">
-        <h3>Runtime</h3>
-        <ul class="arte">
-          <li><b>p50 150–190 ms</b> warm, CPU-only — the deterministic adjudication itself is sub-millisecond.</li>
-          <li><b>Cold start 13–43 s</b> — one-time model load, paid at startup, never per query.</li>
-          <li><b>$0.00 marginal cost</b> — no API key, no GPU, no network on the query path.</li>
-          <li><b>Laptop, server or small container</b> — the same image runs the demo and the service.</li>
-        </ul>
+      <div class="trace">
+        <div class="tq">“Will unemployment fall in 2027?”</div>
+        <table class="cmp">
+          <tbody>
+            <tr><td class="c1">1 Safety-A</td><td class="good">pass — no injection signal</td></tr>
+            <tr><td class="c1">2 Scope</td><td class="bad"><b>REFUSE</b> R_FORECAST — no such round exists</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="band-note">
+        A stage that fires <b>ends</b> the adjudication — stages 4 and 5 are never reached in either trace. The order
+        <i>is</i> the guarantee: a later stage can never rescue a claim an earlier rule refused.
       </div>
     </div>
   </div>
@@ -427,7 +431,7 @@
       <div class="g"><div class="gn">2</div><div class="gt">Freeze before retrieval</div></div>
       <div class="g"><div class="gn">3</div><div class="gt">No cosine threshold is safe</div></div>
       <div class="g"><div class="gn">4</div><div class="gt">No PASS without provenance</div></div>
-      <div class="g"><div class="gn">5</div><div class="gt">Ambiguity is never contradiction</div></div>
+      <div class="g"><div class="gn">5</div><div class="gt">Ambiguity → every cell, never one guess</div></div>
       <div class="g"><div class="gn">6</div><div class="gt">Honest coverage — never a guess</div></div>
     </div>
   </div>
@@ -445,10 +449,12 @@ python -m uvicorn vidhi.service:app --port 8001  <span class="cm"># → /demo</s
       </div>
       <div>
         <h3>Try the live demo</h3>
-        <p class="foot-note"><b>localhost:8001/demo</b> — ask a PLFS / HCES / TUS / MIS question. Watch the verdict freeze,
-          the citations resolve, and every figure name its source row.</p>
+        <p class="foot-note"><b>Live demo — scan the QR</b> (or <code>localhost:8001/demo</code> on the laptop):
+          ask a PLFS / HCES / TUS / MIS question. Watch the verdict freeze, the citations resolve, and every figure
+          name its source row.</p>
         <p class="foot-note"><b>MCP:</b> <code>python -m vidhi.mcp_server</code> (4 governance tools) ·
           <b>Agent:</b> <code>POST /analyze</code> for a policy briefing.</p>
+        <p class="foot-note"><b>Repo:</b> <code>github.com/ajayc-iima/msai</code> — 117 tests, 1,708 sha256-bound rows, the four source PDFs committed.</p>
       </div>
       <div>
         <h3>The question this work won't hallucinate</h3>
