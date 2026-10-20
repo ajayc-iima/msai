@@ -1,0 +1,15 @@
+# Keep the image small: raw PDFs (~150 MB) are not needed at runtime;
+# store.json + excerpts are baked in.
+data/raw/
+*.pdf
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+.git/
+tests/
+docs/
+decks/
+*.pptx
+*.ipynb
