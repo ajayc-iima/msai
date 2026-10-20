@@ -8,7 +8,7 @@ MoSPI's tools help you FIND the number. This firewall checks whether you are ALL
 
 ## The Problem
 Generative AI over sovereign statistics fails at governance, not retrieval:
-- **Definitional hallucination:** MPCE expanded as "Mean Per Capita Expenditure" instead of "Monthly Per Capita Consumption Expenditure"
+- **Inconsistent figures in one answer:** measured MP MPCE quoted as both 3,158 and 5,589 for urban in a single StatsDoc response (chat 2474); Vidhi binds one row id per figure
 - **Unguided cross-round arithmetic:** ~40% MPCE growth quoted across the HCES paper-to-3-visit-CAPI break with no warning
 - **Adversarial vulnerability:** Retrieved document chunks can override system guardrails
 

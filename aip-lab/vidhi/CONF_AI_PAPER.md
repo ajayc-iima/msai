@@ -12,7 +12,7 @@ Track 06: Responsible and Ethical AI — Poster + live demo
 
 ## Abstract
 
-Generative AI over sovereign statistics fails at governance, not retrieval: unconstrained RAG hallucinates statutory definitions, compares incomparable survey rounds without warning, and lets poisoned document chunks override verdicts. We probed MoSPI's StatsDoc pilot live (session `https://statsdoc.ai.mospi.gov.in/c/2402`) and observed it expanding MPCE as "Mean Per Capita Expenditure," quoting ~40% MPCE growth across the HCES paper-to-3-visit-CAPI break with no warning. Per our audit protocol (`evaluation/statsdoc_audit/PROTOCOL.md`), these observations are anecdotal — live tests without archived transcripts — and are not presented as a measured baseline.
+Generative AI over sovereign statistics fails at governance, not retrieval: unconstrained RAG hallucinates statutory definitions, compares incomparable survey rounds without warning, and lets poisoned document chunks override verdicts. We probed MoSPI's StatsDoc pilot live (sessions archived in `evaluation/statsdoc_audit/sessions/2026-10-20/`, chats 2472-2480) and measured: it got the MPCE expansion right this run but its Madhya Pradesh answer quoted urban MPCE as both 3,158 and 5,589 in one response, it could not resolve the short code "mp", and it quoted ~40% MPCE growth across the HCES paper-to-3-visit-CAPI break with no method-break caveat. Per our audit protocol (`evaluation/statsdoc_audit/PROTOCOL.md`), these observations are anecdotal — live tests without archived transcripts — and are not presented as a measured baseline.
 
 We present a deterministic validity firewall (`vidhi`) that adjudicates questions about Indian official survey data before any document is retrieved. Every question is parsed into a typed claim; five versioned rule stages (Safety-A → Scope → Comparability → Metadata → Numeric) fire in fixed order, and the verdict is frozen into a SHA-256 hash before any document is read, so untrusted chunks cannot move it (Safety-B). Safety-A runs first and blocks prompt injection in English, Hindi and Hinglish across all signal classes. Only `verified` ground-truth rows may `PASS`; anything uncovered returns an honest `WARN_NO_DATA` with a live coverage note rather than a guess. The semantic cache is guarded by deterministic field comparison because danger-pair and paraphrase cosine ranges overlap on two measured embedders (bge-small, nemotron-3-embed-1b), so no cosine threshold is safe (0 collisions across 19 danger pairs).
 
@@ -24,7 +24,7 @@ Measured offline on 100 golden queries: 100/100 verdict accuracy [0.963–1.000]
 
 Government statistical agencies worldwide are deploying AI assistants over official data (e.g., MoSPI's StatsDoc pilot at `statsdoc.ai.mospi.gov.in`, session `https://statsdoc.ai.mospi.gov.in/c/2402`). Retrieval is largely solved; **statistical governance is not**. Unconstrained RAG over sovereign statistics produces three failure modes we observed in live probing:
 
-1. **Definitional hallucination:** StatsDoc expands MPCE as "Mean Per Capita Expenditure" instead of the statutory "Monthly Per Capita Consumption Expenditure."
+1. **Inconsistent figures in one answer:** StatsDoc's Madhya Pradesh MPCE response quoted urban as both 3,158 and 5,589 (and "All" as both 5,538 and 4,987) in a single answer (measured, chat 2474).
 2. **Unguided cross-round arithmetic:** It quotes ~40% MPCE growth between HCES 2011-12 and 2023-24 without warning that the 2023-24 round switched from 1-visit paper canvassing to 3-visit CAPI with restructured item lists — a methodological break that makes direct level comparison invalid.
 3. **Adversarial vulnerability:** Retrieved document chunks can override system guardrails (prompt injection via RAG documents).
 
@@ -126,7 +126,7 @@ Generation is templated, not autoregressive; the deterministic adjudication path
 
 | Dimension | Vidhi (measured) | MoSPI StatsDoc (anecdotal, per PROTOCOL.md) |
 |---|---|---|
-| Definitional precision | Statutory "Monthly Per Capita Consumption Expenditure" enforced | Observed expanding MPCE as "Mean Per Capita Expenditure" |
+| Definitional precision | Statutory "Monthly Per Capita Consumption Expenditure" enforced via metadata-pinned definitions | Got the expansion right this run, but answers are not stable (LLM); inconsistent figures in one answer |
 | Survey-break comparability | Fires `R_COMPARABILITY_HCES_METHOD`; halts bad math | Observed quoting ~40% growth with no caveat |
 | Verdict immutability | SHA-256 frozen before retrieval; identical under poisoning | Observed vulnerable to retrieved-chunk override |
 | Per-query cost | $0.0000 (0 model calls) | Order-of-magnitude estimate ~$0.02–$0.05 (not metered) |

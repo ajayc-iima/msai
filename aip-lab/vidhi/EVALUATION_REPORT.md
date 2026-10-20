@@ -135,7 +135,7 @@ baseline. What follows is an honest separation:
 
 | Dimension | What we can prove (Vidhi) | MoSPI StatsDoc (anecdotal, per PROTOCOL.md) |
 |---|---|---|
-| Definitional precision | Enforces statutory "Monthly Per Capita Consumption Expenditure" via metadata-pinned definitions | Observed expanding MPCE as "Mean Per Capita Expenditure" |
+| Definitional precision | Enforces statutory "Monthly Per Capita Consumption Expenditure" via metadata-pinned definitions | Got the expansion right this run, but answers are not stable (LLM); also inconsistent figures in one answer |
 | Survey-break comparability | Fires `R_COMPARABILITY_HCES_METHOD`; halts unguided cross-round arithmetic | Observed quoting ~40% growth with no caveat on paper-to-3-visit-CAPI break |
 | Verdict immutability | SHA-256 freeze computed BEFORE any document is read; identical hash under corpus poisoning | Observed vulnerable to retrieved-chunk override (no pre-retrieval lock) |
 | Per-query cost | $0.0000 (0 model calls, deterministic path) | Order-of-magnitude estimate ~$0.02–$0.05/query (hosted LLM RAG, not metered) |

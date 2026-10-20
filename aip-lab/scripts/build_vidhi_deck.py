@@ -170,7 +170,7 @@ def build_slide_1(prs):
 
     bullets_l = [
         "Discovery vs Validity: MoSPI StatsDoc helps users FIND statistics via vector search, but cannot adjudicate whether a statement is statistically defensible.",
-        "Definitional Hallucination: StatsDoc expands MPCE as 'Mean Per Capita...' instead of canonical 'Monthly Per Capita Consumption Expenditure'.",
+        "Unstable figures: StatsDoc's MP answer quoted urban MPCE as both 3,158 and 5,589 in one response (measured, chat 2474); short code 'mp' was not resolved.",
         "Comparability Blindness: Compares HCES 2011-12 and 2023-24 directly without flagging the radical 3-visit CAPI survey questionnaire break.",
         "Retrieval Poisoning: Standard RAG answers are swayed by adversarial chunks or contradictory secondary commentary in the vector index."
     ]
@@ -391,7 +391,7 @@ def build_slide_3(prs):
         slide,
         "EMPIRICAL AUDIT · STATSDOC.AI.MOSPI.GOV.IN VS. VALIDITY FIREWALL",
         "MoSPI StatsDoc vs. Validity Firewall: Head-to-Head Forensic Audit",
-        "Benchmarked against live production responses from MoSPI StatsDoc AI (Sessions #2402 & #2399)"
+        "Benchmarked against live production responses from MoSPI StatsDoc AI (archived transcripts, chats 2472-2480)"
     )
     add_footer(slide, 3)
 
@@ -431,7 +431,7 @@ def build_slide_3(prs):
     matrix = [
         (
             "MPCE Acronym Precision",
-            "HALLUCINATES 'Mean Per Capita Expenditure' in headline answers; misses official statutory definition.",
+            "Got the expansion right this run, but answers are unstable (LLM); also quoted urban MPCE as both 3,158 and 5,589 in one response.",
             "STRICT ENFORCEMENT of canonical 'Monthly Per Capita Consumption Expenditure' verified against metadata."
         ),
         (

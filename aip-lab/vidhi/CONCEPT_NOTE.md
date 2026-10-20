@@ -13,7 +13,7 @@
 
 In the deployment of generative AI across official sovereign data, search and retrieval are solved problems, but statistical governance is not. Official government AI pilots—exemplified by the Ministry of Statistics and Programme Implementation's (MoSPI) StatsDoc AI Assistant (`statsdoc.ai.mospi.gov.in`)—retrieve textual document chunks via semantic embeddings, leaving synthesis and interpretation to probabilistic Large Language Models. 
 
-In high-stakes public policy, this creates dangerous vulnerabilities: LLMs hallucinate statutory definitions (e.g., expanding MPCE as *"Mean Per Capita..."*), compare non-comparable survey rounds across radical methodological revisions without warning, and can be easily subverted by adversarial text chunks.
+In high-stakes public policy, this creates dangerous vulnerabilities: unconstrained RAG over sovereign statistics produces unstable, sometimes internally contradictory figures (measured: StatsDoc's Madhya Pradesh MPCE answer quoted urban as both 3,158 and 5,589 in one response), compares non-comparable survey rounds across radical methodological revisions without warning, and can be easily subverted by adversarial text chunks.
 
 **Statistical Evidence & Validity Firewall** introduces a deterministic validity firewall placed *ahead* of generation. Natural language inquiries are mapped to a strictly typed `StructuredStatisticalClaim`. Adjudication is executed entirely by versioned, transparent rules across five sequential stages. The final verdict is cryptographically frozen into a SHA-256 hash *before* retrieval runs, guaranteeing that untrusted context chunks cannot alter the verdict (Safety-B guarantee).
 
@@ -29,7 +29,7 @@ To maintain the rigorous scientific and policy standards required in national st
    - The Household Consumption Expenditure Survey (HCES) 2022-23 and 2023-24 introduced a radical 3-visit CAPI (Computer Assisted Personal Interviewing) canvassing method with restructured item lists, breaking direct backward comparability with the paper-canvassed NSS 68th Round (2011-12).
 
 2. **INFERENCE (Observed failure modes of MoSPI AI pilot):**
-   - Live probing of MoSPI StatsDoc (`statsdoc.ai.mospi.gov.in`) OBSERVED (anecdotal; Sessions #2402 & #2399; re-runnable prompts in `evaluation/statsdoc_audit/PROTOCOL.md`): unconstrained RAG-style answers can hallucinate definitions, compute unguided cross-round growth rates without methodological warnings, with hosted-RAG latency and per-query cost.
+   - Live probing of MoSPI StatsDoc (`statsdoc.ai.mospi.gov.in`) MEASURED (archived transcripts in `evaluation/statsdoc_audit/sessions/2026-10-20/`, chats 2472-2480): unconstrained RAG-style answers produced internally contradictory figures (MP urban 3,158 vs 5,589), failed to resolve short codes ("mp"), quoted ~40% growth with no method-break caveat, and abstained generically; hosted-RAG latency and per-query cost. See `evaluation/statsdoc_audit/ISSUES_AND_IMPROVEMENTS.md`.
 
 3. **CONTRIBUTION (Our Engineered System):**
    - A deterministic, 5-stage validity firewall that decouples translation from adjudication.
@@ -150,7 +150,7 @@ To make Statistical Evidence & Validity Firewall fully interoperable across mode
 
 | Audit Dimension | MoSPI StatsDoc (`statsdoc.ai.mospi.gov.in`) | Statistical Evidence & Validity Firewall (`vidhi/pipeline.py`) |
 |---|---|---|
-| **Definitional Precision** | Hallucinates *"Mean Per Capita..."* for MPCE | Enforces canonical *"Monthly Per Capita Consumption Expenditure"* |
+| **Definitional Precision** | Got it right this run, but answers are not stable (LLM) | Enforces canonical *"Monthly Per Capita Consumption Expenditure"* via metadata-pinned definitions |
 | **Survey Breaks** | Outputs 40% growth without warning on 3-visit CAPI break | Fires `R_COMPARABILITY_HCES_METHOD`; halts unguided comparisons |
 | **Comparative Arithmetic** | Quotes disjointed 40% & 4% figures; fails compound math | Refuses synthetic math without official chained series |
 | **Adversarial Injection** | Susceptible to instruction override in retrieved text | **Immune:** Verdict frozen via SHA-256 before retrieval |

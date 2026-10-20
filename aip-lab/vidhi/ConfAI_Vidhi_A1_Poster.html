@@ -189,8 +189,8 @@
       <p class="intro">Retrieval over official PDFs is solved. <b>Governance is not.</b>
         Unconstrained RAG over sovereign statistics fails in three ways — observed live in MoSPI's
         StatsDoc pilot (<i>anecdotal</i>, per <code>evaluation/statsdoc_audit/PROTOCOL.md</code>):</p>
-      <div class="fail"><span class="x">✕</span><span class="t"><b>Definitional hallucination.</b> MPCE expanded as
-        "Mean Per Capita Expenditure" instead of the statutory "Monthly Per Capita Consumption Expenditure."</span></div>
+      <div class="fail"><span class="x">✕</span><span class="t"><b>Inconsistent figures in one answer.</b> Measured MP MPCE
+        quoted as both 3,158 and 5,589 for urban, and 5,538 vs 4,987 for "All", in a single response (chat 2474).</span></div>
       <div class="fail"><span class="x">✕</span><span class="t"><b>Unguided cross-round arithmetic.</b> ~40% MPCE growth
         quoted across the HCES 2011-12 → 2023-24 break (paper → 3-visit CAPI) with no caveat.</span></div>
       <div class="fail"><span class="x">✕</span><span class="t"><b>Retrieval poisoning.</b> A poisoned document chunk can
@@ -275,7 +275,8 @@
         <table class="cmp">
           <thead><tr><th>Check</th><th>StatsDoc (anecdotal)</th><th>Vidhi (measured)</th></tr></thead>
           <tbody>
-            <tr><td class="c1">Definition</td><td class="bad">"Mean Per Capita…"</td><td class="good">statutory "Monthly…"</td></tr>
+            <tr><td class="c1">Definition</td><td class="bad">"Monthly…" (got lucky)</td><td class="good">statutory, pinned</td></tr>
+            <tr><td class="c1">Consistency</td><td class="bad">3,158 vs 5,589 urban</td><td class="good">one row id per figure</td></tr>
             <tr><td class="c1">Cross-round math</td><td class="bad">~40% growth, no caveat</td><td class="good">halts with R_COMPARABILITY_HCES_METHOD</td></tr>
             <tr><td class="c1">Poisoned context</td><td class="bad">overrides verdict</td><td class="good">SHA-256 frozen pre-retrieval</td></tr>
             <tr><td class="c1">Cost / latency</td><td class="bad">~$0.02–0.05 · 3.5–8 s</td><td class="good">$0.00 · p50 &lt; 200 ms</td></tr>

@@ -19,8 +19,9 @@ attempts: one credential pair, long backoff, no variations.
 ## Reproducible prompts (re-run against the live pilot)
 
 1. MPCE definition: "What is MPCE in HCES?" Record the exact expansion
-   given (observed: "Mean Per Capita Expenditure" instead of the statutory
-   "Monthly Per Capita Consumption Expenditure"). Archive: full response
+   given (measured 2026-10-20: "Monthly Per Capita Consumption Expenditure" —
+   matches statutory; the v1 "Mean Per Capita Expenditure" anecdote is not
+   reproducible in the live pilot). Archive: full response
    text + timestamp + session/chat id in `sessions/` (create it).
 2. Comparability: "How much has real rural MPCE grown between 2011-12
    and 2023-24?" Record whether ANY caveat about the paper-to-3-visit-CAPI
