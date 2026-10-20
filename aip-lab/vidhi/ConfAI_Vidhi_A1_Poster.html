@@ -43,8 +43,8 @@
   header::after{ content:""; position:absolute; left:16mm; bottom:-3mm; width:56mm; height:3mm; background:var(--accent); }
   .kicker{ font-size:14pt; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin:0 0 4mm; }
   h1{ font-family:var(--serif); font-size:70pt; line-height:1.0; font-weight:700; color:var(--teal); margin:0 0 3mm; letter-spacing:-.5pt; }
-  .subtitle{ font-family:var(--serif); font-size:29pt; color:var(--ink-soft); font-style:italic; margin:0 0 7mm; }
-  .oneline{ font-size:15pt; line-height:1.38; color:var(--ink-soft); margin:0 0 6mm;
+  .subtitle{ font-family:var(--serif); font-size:27pt; color:var(--ink-soft); font-style:italic; margin:0 0 7mm; }
+  .oneline{ font-size:14.5pt; line-height:1.36; color:var(--ink-soft); margin:0 0 6mm;
     border-left:3px solid var(--accent); padding-left:5mm; max-width:none; }
   .oneline b{ color:var(--ink); }
   .hero{ display:flex; gap:8mm; align-items:stretch; }
@@ -75,10 +75,12 @@
     display:flex; align-items:center; justify-content:center; }
   .sec-title h2{ font-family:var(--serif); font-size:28pt; color:var(--teal); margin:0; font-weight:700; line-height:1.02; }
 
-  .card{ background:var(--card); border:1px solid var(--line); border-radius:4mm; padding:4.5mm 5mm; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:4mm; padding:4.2mm 4.8mm; }
   .card h3{ font-size:13pt; margin:0 0 2.4mm; color:var(--accent-ink); text-transform:uppercase; letter-spacing:.12em;
     font-weight:700; padding-bottom:1.8mm; border-bottom:1px solid var(--line-soft); }
-  .card p{ font-size:16pt; line-height:1.45; margin:0; color:var(--ink-soft); }
+  .card p{ font-size:15.5pt; line-height:1.42; margin:0; color:var(--ink-soft); }
+  table.refusals{ font-size:13pt; }
+  table.refusals th, table.refusals td{ padding:1.6mm 2.2mm; }
   .card p + p{ margin-top:3mm; }
   .card code{ font-family:var(--mono); font-size:.92em; }
 
@@ -98,7 +100,7 @@
     display:flex; align-items:baseline; gap:2.5mm; }
   .exfig small{ font-family:var(--sans); font-size:17pt; font-weight:400; color:var(--muted); }
   .exslice{ font-size:15pt; color:var(--ink-soft); margin:0 0 3.5mm; }
-  .exmeta{ font-family:var(--mono); font-size:11.5pt; line-height:1.6; color:var(--ink); background:var(--tint);
+  .exmeta{ font-family:var(--mono); font-size:12pt; line-height:1.6; color:var(--ink); background:var(--tint);
     border:1px solid var(--line-soft); border-radius:3mm; padding:2.8mm 3.6mm; overflow-wrap:anywhere; }
   .exmeta .k{ color:var(--muted); }
   .exfoot{ border-top:1px dotted var(--line); margin-top:3mm; padding-top:2.6mm; font-size:13.5pt; color:var(--accent-ink); }
@@ -107,8 +109,8 @@
   .ex2x2 thead th{ font-size:10.5pt; }
 
   /* ---- rule vocabulary ---- */
-  .codes{ display:grid; grid-template-columns:1fr 1fr; gap:2.4mm 4mm; margin:0; }
-  .codes div{ font-size:13.5pt; line-height:1.3; color:var(--ink-soft); padding-left:3.4mm;
+  .codes{ display:grid; grid-template-columns:1fr 1fr; gap:2mm 4mm; margin:0; }
+  .codes div{ font-size:13pt; line-height:1.28; color:var(--ink-soft); padding-left:3.4mm;
     border-left:2px solid var(--line); }
   .codes b{ font-family:var(--mono); font-size:12pt; color:var(--accent-ink); display:block; letter-spacing:-.01em; }
   .codes div.w b{ color:var(--warn-fg); }
@@ -117,7 +119,7 @@
 
   /* ---- artefact list ---- */
   .arte{ margin:0; padding:0; list-style:none; }
-  .arte li{ font-size:14pt; line-height:1.36; color:var(--ink-soft); padding:1.9mm 0; border-bottom:1px solid var(--line-soft); }
+  .arte li{ font-size:12.5pt; line-height:1.34; color:var(--ink-soft); padding:1.7mm 0; border-bottom:1px solid var(--line-soft); }
   .arte li:last-child{ border-bottom:0; }
   .arte b{ color:var(--ink); }
   .arte code{ font-family:var(--mono); font-size:12.5pt; }
@@ -158,20 +160,20 @@
   .fbranch{ display:flex; align-items:flex-start; padding-left:0; }
   .fbar{ flex:none; width:4.5mm; height:1.8mm; margin-top:7mm; background:var(--ref-bar); border-radius:0 1mm 1mm 0; }
   .fexit{ flex:1; background:var(--ref-bg); border:1px solid #EBC7C1; border-left:2.4mm solid var(--ref-bar);
-    border-radius:0 3mm 3mm 0; padding:3mm 3.4mm; font-size:12.5pt; line-height:1.35; color:var(--ink);
+    border-radius:0 3mm 3mm 0; padding:3mm 3.4mm; font-size:13pt; line-height:1.35; color:var(--ink);
     display:flex; flex-direction:column; gap:1.6mm; }
   .fexit .fxhead{ font-weight:800; color:var(--ref-fg); font-size:12.5pt; letter-spacing:.02em; }
   .fexit .fxnone{ color:var(--ref-fg); font-weight:700; }
-  .fexit .fxnote{ color:var(--ink-soft); font-size:11pt; line-height:1.3; }
+  .fexit .fxnote{ color:var(--ink-soft); font-size:11.5pt; line-height:1.3; }
   .ffreeze{ background:#1F2A27; color:#E8F0EC; border-color:#31403A; border-left:5px solid var(--accent); }
   .ffreeze .fbody{ color:#E8F0EC; }
   .ffreeze b{ color:#F5C77A; }
   .ffreeze .fn{ background:#31403A; color:#F5C77A; }
   .ffreeze small{ color:#8FB8AC; font-family:var(--mono); font-size:11.5pt; }
   .stages{ display:flex; gap:1.4mm; margin-top:2.8mm; }
-  .stage{ flex:1; text-align:center; font-size:10.5pt; font-weight:700; padding:2mm .5mm; border-radius:2.2mm;
+  .stage{ flex:1; text-align:center; font-size:11.5pt; font-weight:700; padding:2.2mm .5mm; border-radius:2.2mm;
     line-height:1.12; }
-  .stage b{ display:block; font-size:12pt; letter-spacing:.02em; margin-bottom:.6mm; }
+  .stage b{ display:block; font-size:13pt; letter-spacing:.02em; margin-bottom:.6mm; }
   .stage.s-ref{ background:var(--ref-bg); color:var(--ref-fg); }
   .stage.s-warn{ background:var(--warn-bg); color:var(--warn-fg); }
   .stage.s-ok{ background:var(--ok-bg); color:var(--ok-fg); }
@@ -193,7 +195,7 @@
   .kpi .v{ font-family:var(--serif); font-weight:700; color:var(--gold); font-size:26pt; line-height:1.0;
     display:flex; align-items:baseline; gap:1mm; }
   .kpi .v small{ font-size:16pt; color:var(--muted); font-weight:400; }
-  .kpi .l{ font-size:10.5pt; color:var(--muted); line-height:1.26; margin-top:.9mm; }
+  .kpi .l{ font-size:12pt; color:var(--muted); line-height:1.28; margin-top:1mm; }
 
   table.cmp{ border-collapse:collapse; width:100%; font-size:14pt; }
   table.cmp th, table.cmp td{ padding:2mm 2.6mm; text-align:left; vertical-align:top; border-bottom:1px solid var(--line-soft); }
@@ -204,18 +206,18 @@
   table.cmp tr:last-child td{ border-bottom:0; }
   .legend{ font-size:12.5pt; color:var(--muted); font-style:italic; margin-top:2.5mm; line-height:1.35; }
 
-  .lim{ font-size:15pt; line-height:1.42; color:var(--ink-soft); margin:0; padding-left:5mm; }
+  .lim{ font-size:14.5pt; line-height:1.4; color:var(--ink-soft); margin:0; padding-left:5mm; }
   .lim li{ margin:1.8mm 0; }
 
   /* ================= first-rule-fires band ================= */
-  .band{ border-top:1.4px solid var(--teal); padding:4mm 16mm 4mm; background:var(--tint); }
+  .band{ border-top:1.4px solid var(--teal); padding:3.2mm 16mm 3.2mm; background:var(--tint); }
   .band-title{ font-family:var(--serif); font-size:19pt; font-weight:700; color:var(--teal); margin-bottom:3.5mm;
     padding-bottom:2mm; border-bottom:1px solid var(--line); }
   .band-grid{ display:grid; grid-template-columns:1fr 1fr 1.05fr 1.05fr; gap:7mm; align-items:start; }
   .tq{ font-family:var(--serif); font-size:15.5pt; color:var(--ink); margin-bottom:2mm; }
   .trace table.cmp{ font-size:13pt; }
   .trace table.cmp td{ padding:1.8mm 2.4mm; }
-  .band-note{ font-size:12.5pt; line-height:1.35; color:var(--ink-soft); }
+  .band-note{ font-size:12.5pt; line-height:1.36; color:var(--ink-soft); }
   .band-note b{ color:var(--ink); }
 
   /* ================= guarantees strip ================= */
@@ -223,12 +225,12 @@
   .guarantees::before{ content:"Six guarantees"; display:block;
     font-family:var(--serif); font-size:18pt; font-weight:700; color:var(--accent-ink); margin-bottom:3mm; }
   .grow{ display:grid; grid-template-columns:repeat(6,1fr); gap:3mm; }
-  .g{ background:var(--card); border:1px solid var(--line); border-radius:3mm; padding:2.8mm 3.2mm;
+  .g{ background:var(--card); border:1px solid var(--line); border-radius:3mm; padding:2.6mm 3.2mm;
     display:flex; gap:2.4mm; align-items:flex-start; }
   .g .gn{ font-family:var(--serif); font-weight:700; color:#fff; background:var(--accent); font-size:10.5pt;
     width:6.2mm; height:6.2mm; border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center;
     margin-top:.2mm; }
-  .g .gt{ font-size:12.5pt; line-height:1.28; color:var(--ink-soft); }
+  .g .gt{ font-size:13.5pt; line-height:1.3; color:var(--ink-soft); }
 
   /* ================= footer ================= */
   footer{ border-top:3mm solid var(--teal); background:var(--tint2); padding:3.5mm 16mm 2.5mm; position:relative; }
@@ -285,17 +287,20 @@
     <div class="col">
       <div class="sec-title"><span class="sec-num">1</span><h2>The problem, and the fix</h2></div>
       <p class="intro">Retrieval over official PDFs is solved. <b>Governance is not.</b> Unconstrained RAG over sovereign
-        statistics fails in three ways — observed live in MoSPI’s StatsDoc pilot (<i>archived transcripts, chats
-        2472–2480</i>):</p>
+        statistics fails three ways — <b>two observed live</b> in MoSPI’s StatsDoc pilot (<i>archived transcripts, chats
+        2472–2480</i>), the third general to RAG:</p>
       <div class="fail"><span class="x">✕</span><span class="t"><b>Inconsistent figures in one answer.</b> Measured MP MPCE
         quoted as both 3,158 and 5,589 for urban, and 5,538 vs 4,987 for "All", in a single response (chat 2474).</span></div>
       <div class="fail"><span class="x">✕</span><span class="t"><b>Unguided cross-round arithmetic.</b> ~40% MPCE growth
         quoted across the HCES 2011-12 → 2023-24 break (paper → 3-visit CAPI) with no caveat.</span></div>
       <div class="fail"><span class="x">✕</span><span class="t"><b>Retrieval poisoning.</b> A poisoned document chunk can
-        override guardrails and flip a verdict.</span></div>
-      <div class="thesis2"><b>The thesis.</b> You cannot fix a probabilistic system with more probabilistic prompts.
+        override guardrails and flip a verdict. <i>(Not observed in the pilot — general to RAG; we test it against
+        ourselves.)</i></span></div>
+      <div class="thesis2"><b>Why it matters.</b> A journalist who prints 3,158 instead of 3,522 changes a state’s
+        consumption figure; a ministry repeats it. <b>The thesis.</b> You cannot fix a probabilistic system with more
+        probabilistic prompts.
         The decision — <i>is this claim allowed?</i> — must come from <b>versioned, deterministic rules</b>, before
-        generation. Models translate; rules judge.</div>
+        generation.</div>
 
       <div class="example">
         <div class="exhead">The fix, end to end — a real response from the running service</div>
@@ -303,8 +308,8 @@
           <p class="exq">mpce for madhya pradesh</p>
           <div class="exrow"><span class="exlabel">Verdict</span><span class="expill">PASS_WITH_NUMBER</span><span class="exlabel">rule R_OK</span></div>
           <p class="exfig">3,522 <small>Rs/month</small></p>
-          <p class="exslice">Madhya Pradesh · rural · with imputation — and the slice is not narrowed: the open
-            question returns <b>every published cell</b>, each with its own row id.</p>
+          <p class="exslice">Madhya Pradesh · rural · with imputation — and the slice is not narrowed: the open question
+            returns <b>every published cell</b>, each with its own row id.</p>
           <table class="cmp ex2x2">
             <thead><tr><th>MP 2023-24</th><th>rural</th><th>urban</th><th>all-India</th></tr></thead>
             <tbody>
@@ -394,14 +399,14 @@
         <h3>Field-guarded cache · no safe threshold</h3>
         <p>Danger-pair and paraphrase cosine ranges overlap on both measured embedders, so <b>no similarity threshold is
           safe</b>. Reuse only on exact critical-field match.</p>
-        <div class="formula">0 collisions across 19 danger pairs · 1708 verified rows (55 touched by the golden set)</div>
+        <div class="formula">0 collisions / 19 danger pairs · 1708 verified rows</div>
       </div>
 
       <div class="inno">
         <h3>Generalised, not hard-coded</h3>
         <p>The translator resolves <b>every</b> state/UT the store carries, in any spelling — “mp”, “up”, “m.p.”,
-          “orissa”, “maharastra” — and answers one state or several at once. An open slice returns
-          <b>every published cell</b>, never one narrowed figure.</p>
+          “orissa”, “maharastra” — one state or several at once. An open slice returns <b>every published cell</b>,
+          never one narrowed figure.</p>
         <div class="formula">“MPCE in Madhya Pradesh, UP, Maharashtra” → 12 cells · 12 row ids</div>
       </div>
 
@@ -418,29 +423,28 @@
     <div class="col">
       <div class="sec-title"><span class="sec-num">3</span><h2>Results</h2></div>
       <div class="kpis">
-        <div class="kpi"><div class="v">0.000</div><div class="l">hallucination rate — 0 of 36 must-abstain goldens</div></div>
-        <div class="kpi"><div class="v">1.000</div><div class="l">abstention recall — 36 of 36 must-abstain goldens</div></div>
-        <div class="kpi"><div class="v">100<small>/100</small></div><div class="l">verdict accuracy [Wilson 0.963–1.000] · 60/60 numeric exact</div></div>
-        <div class="kpi"><div class="v">1.000</div><div class="l">answer rate — 64 of 64 answerable goldens, 0 wrongly refused</div></div>
-        <div class="kpi"><div class="v">1400<small>/1400</small></div><div class="l">page-anchored rows re-verified on the PDF</div></div>
-        <div class="kpi"><div class="v">1.000</div><div class="l">Safety-A P/R/F1 per language — en · hi · hi-en</div></div>
-        <div class="kpi"><div class="v">0.952</div><div class="l">typed-claim accuracy — 20/21 on typos, codes, Hindi</div></div>
-        <div class="kpi"><div class="v">0.981<small>/0.785</small></div><div class="l">cosine overlap, bge-small — no threshold is safe</div></div>
+        <div class="kpi"><div class="v">0.000</div><div class="l">hallucination rate · 36 must-abstain goldens</div></div>
+        <div class="kpi"><div class="v">1.000</div><div class="l">abstention recall · 36 of 36 goldens</div></div>
+        <div class="kpi"><div class="v">100<small>/100</small></div><div class="l">verdict accuracy [0.963–1.000] · 60/60 numeric</div></div>
+        <div class="kpi"><div class="v">1.000</div><div class="l">answer rate · 64 of 64 answerable, 0 refused</div></div>
+        <div class="kpi"><div class="v">1400<small>/1400</small></div><div class="l">rows re-verified on their PDF page</div></div>
+        <div class="kpi"><div class="v">1.000</div><div class="l">Safety-A P/R/F1 · n=28, en · hi · hi-en</div></div>
+        <div class="kpi"><div class="v">0.952</div><div class="l">typed-claim accuracy · n=21, typos · codes · Hindi</div></div>
+        <div class="kpi"><div class="v">0.981<small>/0.785</small></div><div class="l">cosine overlap · n=19 dangers, 6 paraphrases</div></div>
       </div>
       <div class="card">
         <h3>Vidhi vs StatsDoc — honest comparison</h3>
         <table class="cmp">
           <thead><tr><th>Check</th><th>StatsDoc (archived)</th><th>Vidhi (measured)</th></tr></thead>
           <tbody>
-            <tr><td class="c1">Definition</td><td>"Monthly…" — matched, by chance</td><td class="good">statutory, pinned by rule</td></tr>
             <tr><td class="c1">Consistency</td><td class="bad">3,158 vs 5,589 urban</td><td class="good">one row id per figure</td></tr>
             <tr><td class="c1">Cross-round math</td><td class="bad">~40% growth, no caveat</td><td class="good">halts, cites the rule</td></tr>
-            <tr><td class="c1">Poisoned context</td><td class="bad">not tested</td><td class="good">SHA-256 frozen pre-retrieval</td></tr>
             <tr><td class="c1">Cost / latency</td><td class="bad">~$0.02–0.05 · 3.5–8 s <i>(est.)</i></td><td class="good">$0.00 · &lt; 200 ms</td></tr>
           </tbody>
         </table>
-        <p class="legend">StatsDoc rows: archived transcripts (chats 2472–2480). Vidhi rows: measured offline. One prompt
-          set, one session — an observation, not a benchmark. The poisoned-context row was <b>not</b> tested live.</p>
+        <p class="legend">StatsDoc rows: archived transcripts (chats 2472–2480, nine prompts). Vidhi rows: measured
+          offline. One prompt set, one session — an observation, not a benchmark. Full table, including the rows not tested
+          live, in <code>evaluation/statsdoc_audit/</code>.</p>
       </div>
       <div class="card">
         <h3>The store at a glance</h3>
@@ -450,8 +454,21 @@
           <li><b>Rows</b> — 1,708 verified; 1,397 (82%) also carry the PDF page they were read from, and 1,400 of 1,400
             re-verify on that page.</li>
           <li><b>Rules</b> — version 4; six comparability rules with verbatim MoSPI quotes, and a freshness rule
-            (store as of 2026-10-20).</li>
+            (store as of 2026-10-20). <b>Authored by the developer and not yet reviewed by a statistician</b> — that review
+            is the first thing I would want next.</li>
         </ul>
+      </div>
+      <div class="card">
+        <h3>When the system refuses</h3>
+        <table class="cmp refusals">
+          <thead><tr><th>Asked</th><th>What happens</th></tr></thead>
+          <tbody>
+            <tr><td class="c1">“MPCE in biharr”</td><td class="bad">abstains — “Did you mean <b>Bihar</b>?”</td></tr>
+            <tr><td class="c1">“MPCE in अफगानिस्तान”</td><td class="bad">abstains — never the all-India figure</td></tr>
+            <tr><td class="c1">“Is rural MPCE Rs 5,000?”</td><td class="bad"><b>R_NUMERIC_MISMATCH</b> — 3,522 is the row</td></tr>
+            <tr><td class="c1">“मध्य प्रदेश में MPCE?”</td><td class="good">answers — Hindi resolves to the same row</td></tr>
+          </tbody>
+        </table>
       </div>
       <div class="card">
         <h3>Honest limits</h3>
@@ -461,8 +478,8 @@
           <li><b>Coverage is the limit, not logic</b> — the PLFS Highlights battery, the TUS 2024 battery and the HCES
             2023-24 state + trend columns. State-wise MPCE covers <b>all 36 states/UTs</b> in any spelling. Uncovered
             slices return <code>WARN_NO_DATA</code> + a coverage note, never a guess.</li>
-          <li>Heuristic extraction breaks on exotic phrasing; an LLM translator port exists (<code>VIDHI_USE_LLM=1</code>), unmeasured.</li>
-          <li>No load test yet; the eSankhyiki live-API path inherits third-party cert-verification weakness (query path is offline).</li>
+          <li>Heuristic extraction breaks on exotic phrasing (an LLM translator port exists, <code>VIDHI_USE_LLM=1</code>,
+            unmeasured); no load test yet.</li>
         </ul>
       </div>
     </div>
@@ -494,12 +511,11 @@
       <div class="band-note">
         <b>What the hash proves.</b> In scope: reproducible and replayable — same question, same hash, and a planted
         chunk cannot move it. Out of scope: tamper-evidence against someone who holds the store. The attestation binds a
-        <i>number</i> to a <i>row</i>; it does not certify that the row’s reading of the PDF is the only sensible one.
+        <i>number</i> to a <i>row</i> — not that the row’s reading of the PDF is the only sensible one.
       </div>
       <div class="band-note">
         <b>Next.</b> 1) A plain RAG+LLM baseline on the same 100 goldens and 28 red-team cases — the thesis is asserted
-        today, not demonstrated. 2) A held-out set written by someone else, to break author-written-golden circularity.
-        3) Onboard CPI or ASI.
+        today, not demonstrated. 2) A held-out set written by someone else. 3) Onboard CPI or ASI.
       </div>
     </div>
   </div>
