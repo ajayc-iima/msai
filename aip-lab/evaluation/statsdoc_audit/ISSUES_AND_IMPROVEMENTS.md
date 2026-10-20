@@ -101,6 +101,39 @@ reverse-engineered SvelteKit bundle (`/tmp/opencode/sd_bundle/`, 102 files).
 
 ## E. Tests
 
-`python -m pytest tests/ -q` → 117 passed. `python vidhi/eval.py` →
+`python -m pytest tests/ -q` → 123 passed. `python vidhi/eval.py` →
 verdict/reason/numeric/citation 1.000, abstention recall 1.000,
 hallucination 0.000.
+
+## What the audit actually changed in Vidhi (not just the write-up)
+
+The reviewer-style audit of the poster was not only cosmetic. Working through
+it produced four code changes and two new measurements:
+
+1. **A real geography bug (found by measuring the translator).** `"MPCE in
+   biharr"` — a lowercase misspelt state — resolved to *no* state, and the
+   question was answered with the **all-India** MPCE. The unknown-place guard
+   only looked at capitalised words, so a lowercase or Devanagari place was
+   invisible to it. The geographic slot now sees any word; a lowercase token
+   counts as a place only when it looks like a misspelt state, so ordinary
+   nouns ("for age 15+", "in urban areas", "in a day") do not trip the guard.
+   `"MPCE in biharr"`, `"MPCE in अफगानिस्तान"` and `"MPCE in Atlantis"` now all
+   abstain.
+2. **Devanagari in the vocabulary.** All 36 states/UTs gained a Devanagari
+   alias, the normaliser became Unicode-aware (it had been stripping
+   combining marks), and a Hindi geographic slot was added (Hindi is
+   verb-final: the place precedes the postposition). A Hindi question now
+   resolves to the same canonical row as its English twin.
+3. **Page-anchored provenance.** The build now anchors each verified row to
+   the PDF page it was read from (1,397 of 1,708; 82%), and
+   `scripts/store_reaudit.py` re-opens those pages: 1,400 / 1,400 rows
+   re-verify, 6 / 6 source PDFs re-hash. The answer now carries
+   "· PDF p.N", and the page is part of the figure attestation.
+4. **A measured translator.** `scripts/measure_translator.py` measures
+   typed-claim accuracy on 21 cases: 20 / 21 = 0.952.
+5. **New measurement: the answer rate.** 64 of 64 answerable goldens
+   answered, 0 wrongly refused — reported next to the abstention numbers so
+   a zero hallucination rate cannot be bought by refusing everything.
+6. **The cosine overlap is now shown**, not just the collision count: on
+   bge-small-en-v1.5 the danger-pair maximum (0.981) sits above the
+   paraphrase minimum (0.785), which is *why* no threshold is safe.

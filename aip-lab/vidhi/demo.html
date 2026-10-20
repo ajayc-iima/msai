@@ -363,7 +363,8 @@ function render(d,question){
   }
   const cites=(d.citations||[]).map(c=>`<button class="citebtn" type="button" data-i="${c.index}" aria-label="Open source ${c.index}: ${escapeHtml(c.doc_id||"")}">[${c.index}]</button>`).join(" ");
   const att=d.verdict_attestation?` · figure ${escapeHtml(d.verdict_attestation.slice(0,8))}`:"";
-  const prov=`<p class="hashline">hash ${(d.verdict_frozen_hash||"").slice(0,8)}${att} · tier ${escapeHtml(d.evidence_tier||"NONE")} · rule ${escapeHtml(d.reason_code||"")}</p>`;
+  const page=d.pdf_page?` · PDF p.${escapeHtml(d.pdf_page)}`:"";
+  const prov=`<p class="hashline">hash ${(d.verdict_frozen_hash||"").slice(0,8)}${att} · tier ${escapeHtml(d.evidence_tier||"NONE")} · rule ${escapeHtml(d.reason_code||"")}${page}</p>`;
   let bodyHtml="";
   if(d.decision==="REFUSE"){
     bodyHtml=`<div class="refuse-mark" role="img" aria-label="Refusal: no number will be produced">

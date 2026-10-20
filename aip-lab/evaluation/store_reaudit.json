@@ -1,0 +1,33 @@
+{
+  "verified_rows": 1708,
+  "pdfs": {
+    "mospi_HCES_2023-24_Factsheet.pdf": {
+      "sha256": "31d4ce93ce9396b4042d226408b6d12e4be2006e0b716a0d63995d913b13f76e",
+      "rows": 148
+    },
+    "mospi_HCES_2023-24_FinalReport.pdf": {
+      "sha256": "368deb9c858dcc71c3bf0e6cad096a31b5b337a724cf92a113637f3302ea268e",
+      "rows": 6
+    },
+    "mospi_PLFS_2023-24_AnnualReport.pdf": {
+      "sha256": "ab4ead2cee181a13c7ab40f164d2dceb46419cfb58f30f8baa58e35f79d33d39",
+      "rows": 756
+    },
+    "mospi_PLFS_2025_F_REV_29052026.pdf": {
+      "sha256": "134bf2de5e4b1142d3bae4899c90ec5be3bf5ec03a2ff4b3f7b0bba34eee0da7",
+      "rows": 432
+    },
+    "mospi_TUS_2024_Factsheet.pdf": {
+      "sha256": "43b262ab6c8f82d5c4e180192a6fecfbdce1eef402a31653a1c948c25a9a5119",
+      "rows": 240
+    },
+    "mospi_TUS_2024_Report.pdf": {
+      "sha256": "a4380137658c886985c5312c199dc71a8e95c0b39d7b969396ca2f4c859788c9",
+      "rows": 126
+    }
+  },
+  "checked_with_page": 1400,
+  "found_on_page": 1400,
+  "not_found": [],
+  "rows_without_page": 308
+}

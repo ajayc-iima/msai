@@ -1162,3 +1162,107 @@ def test_sourced_render_carries_provenance_without_network():
     assert resp.figure["params"] == {"state_code": 4}
 
 
+# ---------------------------------------------------------------------------
+# Geography honesty: an unknown place must NEVER fall back to the all-India
+# figures, in Latin script (any capitalisation) or in Devanagari.
+# ---------------------------------------------------------------------------
+
+
+def test_unknown_lowercase_place_abstains_not_all_india():
+    """'in biharr' used to resolve to no state and answer with all-India."""
+    from vidhi.claims import extract
+    from vidhi.rules import Firewall
+
+    c = extract("MPCE in biharr")
+    v = Firewall().adjudicate(c)
+    assert c.unknown_geography == "biharr"
+    assert (v.decision, v.sub_code) == ("WARN", "WARN_NO_DATA")
+    assert "4247" not in v.message  # no all-India figure leaked in
+
+
+def test_unknown_devanagari_place_abstains():
+    from vidhi.claims import extract
+    from vidhi.rules import Firewall
+
+    c = extract("MPCE in अफगानिस्तान")
+    v = Firewall().adjudicate(c)
+    assert c.unknown_geography == "अफगानिस्तान"
+    assert (v.decision, v.sub_code) == ("WARN", "WARN_NO_DATA")
+
+
+def test_devanagari_state_resolves_to_the_same_row():
+    from vidhi.claims import extract
+    from vidhi.rules import Firewall
+
+    c = extract("मध्य प्रदेश में MPCE क्या है?")
+    assert c.state == "Madhya Pradesh"
+    v = Firewall().adjudicate(c)
+    assert v.decision == "PASS"
+    assert "3522" in v.message  # the Madhya Pradesh rural figure
+
+
+def test_ordinary_english_words_are_not_places():
+    """'for age 15+', 'in urban areas', 'in a day' must not trip the guard."""
+    from vidhi.claims import extract
+
+    for q in (
+        "What was all-India LFPR for age 15+ in usual status in PLFS 2025?",
+        "The nominal MPCE in urban areas increased to Rs 6,996 in 2023-24",
+        "How many minutes did women spend on unpaid domestic work in a day in TUS 2024?",
+    ):
+        c = extract(q)
+        assert not getattr(c, "unknown_geography", None), (q, c.unknown_geography)
+
+
+# ---------------------------------------------------------------------------
+# Page anchors: a figure must be re-checkable at a PDF page.
+# ---------------------------------------------------------------------------
+
+
+def test_store_rows_carry_a_pdf_page_anchor():
+    """Most verified rows are anchored to the PDF page they were read from."""
+    import json as _json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    doc = _json.loads((root / "vidhi" / "store.json").read_text(encoding="utf-8"))
+    rows = [r for r in doc["rows"] if r.get("verification_status") == "verified"]
+    anchored = [
+        r for r in rows if (r.get("provenance") or {}).get("pdf_page") is not None
+    ]
+    assert len(rows) > 1500
+    assert len(anchored) / len(rows) > 0.75, len(anchored)
+    for r in anchored[:50]:
+        assert isinstance(r["provenance"]["pdf_page"], int)
+        assert r["provenance"]["pdf_page"] >= 1
+
+
+def test_anchored_value_is_present_on_its_cited_page():
+    """Non-circular re-check: the value must actually be on the cited page."""
+    import json as _json
+    from pathlib import Path
+
+    import pymupdf as fitz
+
+    from vidhi.sources.pages import _value_pattern
+
+    root = Path(__file__).resolve().parents[1]
+    doc = _json.loads((root / "vidhi" / "store.json").read_text(encoding="utf-8"))
+    rows = [
+        r
+        for r in doc["rows"]
+        if r.get("verification_status") == "verified"
+        and (r.get("provenance") or {}).get("pdf_page")
+    ]
+    assert rows
+    checked = 0
+    for r in rows[:120]:
+        src = r["source_document"]
+        page = int(r["provenance"]["pdf_page"])
+        with fitz.open(root / "data" / "raw" / src) as f:
+            text = f[page - 1].get_text()  # printed page number is 1-based
+        pat = _value_pattern(r["value"])
+        assert pat is not None
+        assert pat.search(text), (r["row_id"], r["value"], page)
+        checked += 1
+    assert checked >= 100

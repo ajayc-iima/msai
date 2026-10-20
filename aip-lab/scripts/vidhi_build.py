@@ -123,6 +123,22 @@ def main() -> int:
             }
         )
     rows, fails = A.audit_rows(RAW, rows)
+    # Anchor every row to the PDF page it was read from, so a reader can
+    # re-check any figure at the page. Conservative: ambiguous rows stay
+    # un-anchored (value + table + sha256 only) rather than guessed.
+    from vidhi.sources import pages as PG
+
+    doc_for_pages = {"rows": rows}
+    anchors = PG.locate_pages(doc_for_pages, RAW)
+    for r in rows:
+        a = anchors.get(r.get("row_id"))
+        if a:
+            r.setdefault("provenance", {})["pdf_page"] = a["pdf_page"]
+            r["provenance"]["pdf_page_confidence"] = a["pdf_page_confidence"]
+    print(
+        f"page anchors: {len(anchors)}/{len(rows)} rows anchored to a PDF page "
+        f"({len(anchors) / max(len(rows), 1):.1%}); the rest keep value+table+sha256"
+    )
     info = S.build(rows, OUT, {"inputs": manifests, "audit_failures": fails})
     print(f"store: {info['rows']} rows, {info['verified']} verified -> {OUT}")
     for f in fails:

@@ -58,9 +58,23 @@ pip install -r requirements.txt
 python -m pytest tests/ -q
 ```
 
-Expected: all tests pass (~45 tests covering firewall, cache, Safety-B, API, consistency, MCP, agent, store provenance).
+Expected: all tests pass (123 tests covering firewall, cache, Safety-B, API, consistency, MCP, agent, store provenance, page anchors, and unknown-place abstention in Latin and Devanagari).
 
-### 3.3 Full evaluation harness
+### 3.3 Page-anchor re-verification and translator accuracy
+
+```bash
+python scripts/store_reaudit.py        # re-open every anchored row's PDF page and find the value
+python scripts/measure_translator.py   # typed-claim accuracy: typos, codes, paraphrases, Hindi
+```
+
+Expected (2026-10-20): `1,400 / 1,400` page-anchored rows re-verify on their
+cited page (1,397 of the 1,708 rows are page-anchored; the rest keep
+value + table + sha256), all six source PDFs re-hash to the same sha256, and
+typed-claim accuracy is `20 / 21 = 0.952` (the one miss, `"MPCE in biharr"`,
+abstains with a "Did you mean 'Bihar'?" hint rather than answering with the
+all-India figures).
+
+### 3.4 Full evaluation harness
 
 ```bash
 python vidhi/eval.py

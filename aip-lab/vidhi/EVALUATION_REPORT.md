@@ -33,7 +33,7 @@ returning PASS/WARN/REFUSE with a frozen verdict hash and citations.
 | Hallucination rate (must-abstain → answered) | 0/37 = 0.000 |
 | Safety-A injection P/R/F1 (committed red-team, n=28) | P=1.000 R=1.000 F1=1.000 — en (6 inj/13 ben), hi (3 inj/3 ben), hi-en (2 inj/1 ben); 0 misses, 0 false positives. Expanded 2026-10-20 with 4 benign FP-regression cases (survey-instructions / "key findings" phrasings the earlier patterns mis-flagged) |
 | Determinism (repeat ask = same hash/decision/value) | ok |
-| Unit tests | 117 passed (`python -m pytest tests/ -q`, offline) |
+| Unit tests | 123 passed (`python -m pytest tests/ -q`, offline) |
 | Latency p50 / p95 / p99 / max (in-process) | 154 ms / 2.6 s / 42.7 s / 42.7 s (2026-10-20 run; warm p50 has ranged 138–187 ms run-to-run on this laptop. p95/p99/max are dominated by the one-time cold-start embedding-model load — the service pre-warms at startup, so the first user query is warm) |
 | Cost per query | $0.0000 (deterministic path, 0 model calls) |
 
@@ -181,3 +181,40 @@ retrieval ordering. Even so, warm p50 is 20–50× below hosted-LLM TTFT
 1. Extend the store toward state-level labour annexes and MIS tabular rows → raises the catalog toward the full MoSPI output (no code change; the firewall is data-driven; the 1708-row Highlights/TUS/HCES battery already proves the pattern end-to-end).
 2. Add paraphrase-robustness cases to the golden set (synonyms, word order) and measure extraction failure modes honestly.
 3. Load test the service (20+ concurrent) to replace the current "unmeasured" note with a number.
+
+### Page-anchor re-verification (`python scripts/store_reaudit.py`)
+
+The store binds every row to a source PDF by SHA-256. That proves the row
+came from *a* committed PDF; it does not prove the transcription. So the
+build now **anchors each row to the PDF page it was read from** and the
+audit re-opens that page and looks for the value in its printed form:
+
+| Measure | Result |
+|---|---|
+| Verified rows | 1,708 |
+| Rows anchored to a single PDF page | 1,397 (82%) — the rest keep value + table + sha256, never a guess |
+| Rows re-checked on their cited page | 1,400 (anchored rows + the rows the extractor already paged) |
+| Value found on the cited page | **1,400 / 1,400 = 1.000** |
+| Source PDF sha256 re-computed at audit time | 6 / 6 match |
+
+This is a **non-circular** check: it does not re-run the extractor, it
+re-opens the page. It proves the number is on the cited page and the page
+reference is right; it does not certify that the row's *reading* of the
+table is the only sensible one (that still needs a human read).
+
+### Typed-claim accuracy (`python scripts/measure_translator.py`)
+
+The firewall is only as good as the claim the translator builds. Measured
+on 21 hand-built cases — misspellings, abbreviations and short codes,
+paraphrases, Hindi, multi-state questions:
+
+| Measure | Result |
+|---|---|
+| Typed-claim accuracy (critical fields) | **20 / 21 = 0.952** |
+| Failing case | `"MPCE in biharr"` — a one-letter typo of *Bihar* (typo tolerance is one edit for names ≥ 8 characters) |
+| Behaviour on that case | **abstains** (`WARN_NO_DATA` + "Did you mean 'Bihar'?") — it does not answer with the all-India figures |
+
+Hindi state names are in the vocabulary (36 Devanagari aliases), so
+"मध्य प्रदेश में MPCE क्या है?" resolves to Madhya Pradesh; an unknown
+Devanagari place ("MPCE in अफगानिस्तान") abstains rather than substituting
+the national figures.

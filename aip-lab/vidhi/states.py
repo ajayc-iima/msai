@@ -31,18 +31,26 @@ import re
 # Canonical store name -> accepted spellings (lowercase, punctuation-free).
 CANON: dict[str, tuple[str, ...]] = {
     "Andaman & Nicobar Islands": (
+        "अंडमान और निकोबार द्वीपसमूह",
         "andaman and nicobar islands",
         "andaman nicobar islands",
         "andaman nicobar",
         "anp",
     ),
-    "Andhra Pradesh": ("andhra pradesh", "ap"),
-    "Arunachal Pradesh": ("arunachal pradesh", "arunachal"),
-    "Assam": ("assam", "asm"),
-    "Bihar": ("bihar", "br"),
-    "Chandigarh": ("chandigarh", "ch"),
-    "Chhattisgarh": ("chhattisgarh", "chhattisgarh", "cg"),
+    "Andhra Pradesh": (
+        "आंध्र प्रदेश","andhra pradesh", "ap"),
+    "Arunachal Pradesh": (
+        "अरृणाचल प्रदेश","arunachal pradesh", "arunachal"),
+    "Assam": (
+        "असम","assam", "asm"),
+    "Bihar": (
+        "बिहार","bihar", "br"),
+    "Chandigarh": (
+        "चंडीगढ","chandigarh", "ch"),
+    "Chhattisgarh": (
+        "छत्तीसगढ","chhattisgarh", "chhattisgarh", "cg"),
     "Dadra & Nagar Haveli and Daman & Diu": (
+        "दादरा और नगर हवेली और दमन और दीव",
         "dadra and nagar haveli and daman and diu",
         "dadra nagar haveli and daman and diu",
         "dadra nagar haveli daman diu",
@@ -50,39 +58,67 @@ CANON: dict[str, tuple[str, ...]] = {
         "dadra nagar haveli",
         "dnh",
     ),
-    "Delhi": ("delhi", "new delhi", "nct of delhi", "dl"),
-    "Goa": ("goa",),
-    "Gujarat": ("gujarat", "gj"),
-    "Haryana": ("haryana", "hr"),
-    "Himachal Pradesh": ("himachal pradesh", "himachal", "hp"),
+    "Delhi": (
+        "दिल्ली","delhi", "new delhi", "nct of delhi", "dl"),
+    "Goa": (
+        "गोवा","goa",),
+    "Gujarat": (
+        "गुजराट","gujarat", "gj"),
+    "Haryana": (
+        "हरियाणा","haryana", "hr"),
+    "Himachal Pradesh": (
+        "हिमाचल प्रदेश","himachal pradesh", "himachal", "hp"),
     "Jammu & Kashmir": (
+        "जम्मू और कश्मीर",
         "jammu and kashmir",
         "jammu kashmir",
         "j k",
         "jk",
     ),
-    "Jharkhand": ("jharkhand", "jh"),
-    "Karnataka": ("karnataka", "ka"),
-    "Kerala": ("kerala", "kl"),
-    "Ladakh": ("ladakh",),
-    "Lakshadweep": ("lakshadweep", "lakshadweep islands"),
-    "Madhya Pradesh": ("madhya pradesh", "mp", "m p"),
-    "Maharashtra": ("maharashtra", "mh", "m h"),
-    "Manipur": ("manipur", "mn"),
-    "Meghalaya": ("meghalaya", "ml"),
-    "Mizoram": ("mizoram", "mz"),
-    "Nagaland": ("nagaland", "nl"),
-    "Odisha": ("odisha", "orissa", "od"),
-    "Puducherry": ("puducherry", "pondicherry", "py"),
-    "Punjab": ("punjab", "pb"),
-    "Rajasthan": ("rajasthan", "rj"),
-    "Sikkim": ("sikkim", "sk"),
-    "Tamil Nadu": ("tamil nadu", "tamilnadu", "tn", "t n"),
-    "Telangana": ("telangana", "ts"),
-    "Tripura": ("tripura", "tr"),
-    "Uttar Pradesh": ("uttar pradesh", "up", "u p"),
-    "Uttarakhand": ("uttarakhand", "uk", "u k"),
-    "West Bengal": ("west bengal", "wb", "w b"),
+    "Jharkhand": (
+        "झारखंड","jharkhand", "jh"),
+    "Karnataka": (
+        "कर्नाटक","karnataka", "ka"),
+    "Kerala": (
+        "केरल","kerala", "kl"),
+    "Ladakh": (
+        "लद्दाख","ladakh",),
+    "Lakshadweep": (
+        "लक्षद्वीप","lakshadweep", "lakshadweep islands"),
+    "Madhya Pradesh": (
+        "मध्य प्रदेश","madhya pradesh", "mp", "m p"),
+    "Maharashtra": (
+        "महाराष्ट्र","maharashtra", "mh", "m h"),
+    "Manipur": (
+        "मणिपुर","manipur", "mn"),
+    "Meghalaya": (
+        "मेगहलय","meghalaya", "ml"),
+    "Mizoram": (
+        "मिज़ोरम","mizoram", "mz"),
+    "Nagaland": (
+        "नागालैंड","nagaland", "nl"),
+    "Odisha": (
+        "ओडिशा","odisha", "orissa", "od"),
+    "Puducherry": (
+        "पुदुचेरी","puducherry", "pondicherry", "py"),
+    "Punjab": (
+        "पंजाब","punjab", "pb"),
+    "Rajasthan": (
+        "राजस्थान","rajasthan", "rj"),
+    "Sikkim": (
+        "सिक्किम","sikkim", "sk"),
+    "Tamil Nadu": (
+        "तमिल नाडु","tamil nadu", "tamilnadu", "tn", "t n"),
+    "Telangana": (
+        "तेलंगाना","telangana", "ts"),
+    "Tripura": (
+        "त्रिपुरा","tripura", "tr"),
+    "Uttar Pradesh": (
+        "उत्तर प्रदेश","uttar pradesh", "up", "u p"),
+    "Uttarakhand": (
+        "उत्तराखंड","uttarakhand", "uk", "u k"),
+    "West Bengal": (
+        "पश्चिम बंगाल","west bengal", "wb", "w b"),
 }
 
 # A short code is only a state when the question places it in a geographic
@@ -99,8 +135,12 @@ _FUZZY_MAX_EDITS = 1
 
 
 def normalize(text: str) -> str:
-    """Lowercase, drop punctuation, collapse whitespace."""
-    q = re.sub(r"[^a-z0-9]+", " ", text.lower())
+    """Lowercase, drop punctuation, collapse whitespace.
+
+    Unicode-aware: Devanagari is kept, so a Hindi question can name a
+    state ("मध्य प्रदेश") and resolve to the same canonical row.
+    """
+    q = re.sub(r"[^a-z0-9\u0900-\u097F]+", " ", text.lower())
     return " ".join(q.split())
 
 
@@ -138,8 +178,8 @@ def _alias_pattern(alias: str) -> re.Pattern:
     "andaman & nicobar islands".
     """
     parts = alias.split()
-    body = r"[^a-z0-9]{0,3}".join(re.escape(p) for p in parts)
-    return re.compile(rf"(?<![a-z0-9]){body}(?![a-z0-9])", re.IGNORECASE)
+    body = r"[^a-z0-9\u0900-\u097F]{0,3}".join(re.escape(p) for p in parts)
+    return re.compile(rf"(?<![a-z0-9\u0900-\u097F]){body}(?![a-z0-9\u0900-\u097F])", re.IGNORECASE)
 
 
 _PATTERN_INDEX = [(a, c, _alias_pattern(a)) for a, c, _ in _ALIAS_INDEX]
@@ -293,7 +333,83 @@ _NOT_A_PLACE = {
 # A geographic slot: "in Bihar", "for Kerala", "from Goa".
 _GEO_SLOT = re.compile(
     r"\b(?:in|for|at|from)\s+"
-    r"((?:[A-Z][A-Za-z.&'-]*)(?:\s+(?:and|of|the)?\s*[A-Z][A-Za-z.&'-]*){0,2})"
+    r"((?:[A-Za-z\u0900-\u097F][A-Za-z.&'\u0900-\u097F]*)"
+    r"(?:\s+(?:and|of|the)?\s*[A-Za-z\u0900-\u097F][A-Za-z.&'\u0900-\u097F]*){0,2})"
+)
+
+# Hindi function words and question words that can follow a geographic slot
+# but never name a place ("मध्य प्रदेश में क्या है?").
+_NOT_A_PLACE_HI = {
+    "क्या",
+    "कितना",
+    "कितनी",
+    "है",
+    "हैं",
+    "था",
+    "थी",
+    "थे",
+    "दिया",
+    "बताओ",
+    "बताइए",
+    "दो",
+    "जो",
+    "यह",
+    "वह",
+    "इस",
+    "उस",
+    "और",
+    "का",
+    "की",
+    "के",
+    "में",
+    "से",
+    "को",
+    "पर",
+    "लिए",
+    "साल",
+    "वर्ष",
+    "आंकड़े",
+    "आँकड़े",
+    "आंकडे",
+    "दर",
+    "प्रतिशत",
+    "रुपये",
+    "रु",
+    "औरतन",
+    "औसत",
+    "देश",
+    "राज्य",
+    "कुल",
+    "अनुपस्थित",
+    "उपलब्ध",
+    "जानकारी",
+    "मिलता",
+    "नहीं",
+    "न",
+    "एक",
+    "दो",
+    "तीन",
+    "रहा",
+    "रही",
+    "रहे",
+    "जा",
+    "जाना",
+    "कर",
+    "करो",
+    "भी",
+    "कोई",
+    "किसी",
+    "सकता",
+    "भारत",
+    "अखिल",
+    "भारतीय",
+    "अखिल भारतीय",
+}
+
+# A geographic slot in Hindi: "मध्य प्रदेश में", "बिहार का", "केरल से".
+_GEO_SLOT_HI = re.compile(
+    r"((?:[\u0900-\u097F]+\s*){1,3})\s*"
+    r"(?:में|का|की|के|से|को|लिए|द्वारा)(?![ऀ-ॿ])"
 )
 
 _KNOWN_PHRASES = {
@@ -314,7 +430,10 @@ def known_place(phrase: str) -> bool:
     words = [w for w in p.split() if w not in ("and", "of", "the")]
     if not words:
         return True
-    return all(w in _KNOWN_WORDS or w in _NOT_A_PLACE for w in words)
+    return all(
+        w in _KNOWN_WORDS or w in _NOT_A_PLACE or w in _NOT_A_PLACE_HI
+        for w in words
+    )
 
 
 def unknown_places(question: str) -> list[str]:
@@ -325,20 +444,23 @@ def unknown_places(question: str) -> list[str]:
     answering with the all-India figures.
     """
     out: list[str] = []
-    for m in _GEO_SLOT.finditer(question or ""):
-        phrase = m.group(1)
-        if known_place(phrase):
-            continue
-        for word in re.split(r"[\s,.;:]+", phrase):
-            w = word.strip(".,;:'\"")
-            if not w or known_place(w):
+    for rx in (_GEO_SLOT, _GEO_SLOT_HI):
+        for m in rx.finditer(question or ""):
+            phrase = m.group(1)
+            if known_place(phrase):
                 continue
-            if w.lower() in _NOT_A_PLACE:
-                continue
-            if w.lower() in _KNOWN_WORDS:
-                continue
-            if w not in out:
-                out.append(w)
+            for word in re.split(r"[\s,.;:]+", phrase):
+                w = word.strip(".,;:'\"")
+                if not w or known_place(w):
+                    continue
+                if w.lower() in _NOT_A_PLACE or w.lower() in _NOT_A_PLACE_HI:
+                    continue
+                if w.lower() in _KNOWN_WORDS:
+                    continue
+                if w[:1].islower() and not suggest_state(w):
+                    continue  # an ordinary word, not a misspelt place
+                if w not in out:
+                    out.append(w)
     return out
 def suggest_state(name: str) -> str | None:
     """Closest curated state/UT name for a possibly-misspelled place, or None.

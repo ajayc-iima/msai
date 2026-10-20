@@ -37,6 +37,8 @@ class Verdict:
     row_id: str | None = None
     value: object = None
     unit: str | None = None
+    pdf_page: int | None = None
+    source_document: str | None = None
     frozen_hash: str = ""
     rule_version: str = ""
     attestation: str = ""
@@ -67,6 +69,8 @@ class Verdict:
             self.attestation = ""
             return self
         prov = (row or {}).get("provenance", {}) or {}
+        self.pdf_page = prov.get("pdf_page")
+        self.source_document = (row or {}).get("source_document")
         blob = json.dumps(
             {
                 "frozen_hash": self.frozen_hash,
@@ -75,6 +79,7 @@ class Verdict:
                 "unit": self.unit,
                 "source_document": (row or {}).get("source_document"),
                 "pdf_sha256": prov.get("pdf_sha256"),
+                "pdf_page": prov.get("pdf_page"),
                 "table_or_section": (row or {}).get("table_or_section"),
             },
             sort_keys=True,

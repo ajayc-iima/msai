@@ -106,6 +106,37 @@ Measured offline by `python vidhi/eval.py`:
 | Determinism (repeat ask) | identical hash/decision/value | — |
 | Row utilization (verified rows touched by golden set) | 55/1708 = 3.2% | — |
 
+**Page-anchored provenance.** Every verified row is bound to a source PDF by
+SHA-256 *and*, where the page can be identified unambiguously, to the PDF
+**page** it was read from: 1,397 of the 1,708 rows (82%) carry a page anchor;
+the rest keep value + table + sha256 rather than a guess. `scripts/store_reaudit.py`
+then re-opens each anchored page and looks for the value in its printed form:
+**1,400 / 1,400 = 1.000** rows re-verify, and all six source PDFs re-hash to
+the same sha256 at audit time. This check is deliberately non-circular — it
+does not re-run the extractor, it re-opens the page — so it tests the
+transcription's anchor, not the extractor's self-consistency. It does not
+certify that a row's *reading* of a table is the only sensible one; that
+still needs a human read, and is listed as an open item.
+
+**Translator.** The weakest link is the NL → typed-claim step: a mistranslated
+claim yields a confidently wrong, correctly cited verdict. `scripts/measure_translator.py`
+measures 21 hand-built cases — misspellings, abbreviations and short codes
+("mp", "m.p.", "orissa", "j&k"), paraphrases, Hindi, multi-state questions —
+against the critical fields only: **20 / 21 = 0.952**. The single miss
+("MPCE in biharr", a one-letter typo of *Bihar*) is *abstained* on
+(`WARN_NO_DATA` + "Did you mean 'Bihar'?") rather than answered with the
+all-India figures. Devanagari state names are in the vocabulary (36
+aliases), so "मध्य प्रदेश में MPCE क्या है?" resolves to Madhya Pradesh, and an
+unknown Devanagari place ("MPCE in अफगानिस्तान") abstains instead of
+substituting the national figures.
+
+**Answer rate (the over-abstention check).** A system that refuses everything
+would score a perfect hallucination rate, so the abstention numbers are always
+reported together with the answer rate: on the 64 goldens the store can
+answer, Vidhi answered **64 / 64 (1.000)** with **0** wrongly refused, while
+the 36 must-abstain goldens were all abstained on. False-abstention rate
+**0.000**.
+
 **Coverage.** Golden questions exercise all five firewall stages (scope 6, safety 1, comparability 6, metadata 5, numeric 82), all three decisions (PASS 64, WARN 28, REFUSE 8), and all four survey families (HCES 48, PLFS 29, TUS 17, MIS 2). Uncovered slices return `WARN_NO_DATA` rather than a guess; beyond the golden set, `scripts/coverage_probe.py` answers a natural question for each of the 1708 verified rows and requires the exact figure and source row every time.
 
 ### 3.2 Latency & cost

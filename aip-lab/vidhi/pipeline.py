@@ -190,6 +190,8 @@ def ask(question: str, top_k: int = 3) -> dict:
                 "invalid_citations": bad,
                 "value": verdict.value,
                 "unit": verdict.unit,
+                "pdf_page": verdict.pdf_page,
+                "source_document": verdict.source_document,
                 "verdict_attestation": verdict.attestation,
                 "cache_info": {"exact": False, "semantic": guard},
                 "cost_usd": round(cost.global_budget().spent_usd, 6),

@@ -393,7 +393,9 @@ def render(claim, verdict, hits: list[dict], sourced: dict | None = None) -> Res
             return Response(
                 headline=f"Caution — {verdict.message} Official figure: "
                 f"{_fmt(verdict.value)} {verdict.unit or ''} "
-                f"(row {verdict.row_id}). {cites}".strip(),
+                f"(row {verdict.row_id}"
+                f"{f' · PDF p.{verdict.pdf_page}' if getattr(verdict, 'pdf_page', None) else ''}"
+                f"). {cites}".strip(),
                 figure={
                     "value": verdict.value,
                     "unit": verdict.unit,
@@ -514,9 +516,10 @@ def render(claim, verdict, hits: list[dict], sourced: dict | None = None) -> Res
     # eSankhyiki shows 4 rows (rural/urban x with/without). Match it with a
     # frozen-verdict table: primary figure stays the looked-up row (contract),
     # siblings listed with row_ids. No verdict change, no architecture change.
+    page = f" · PDF p.{verdict.pdf_page}" if getattr(verdict, "pdf_page", None) else ""
     head = (f"{claim.indicator}: {_fmt(verdict.value)} "
             f"{verdict.unit or ''} [{claim.survey}, {claim.round}]. "
-            f"Row {verdict.row_id}. {cites}".strip())
+            f"Row {verdict.row_id}{page}. {cites}".strip())
     if table_note:
         head = f"{head} {table_note}"
     return Response(
