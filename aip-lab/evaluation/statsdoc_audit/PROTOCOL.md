@@ -1,11 +1,16 @@
 # StatsDoc observation protocol (reproducibility repair)
 
-Status: HONEST DISCLOSURE. The "Sessions #2402 & #2399" figures cited in
-decks and notes are contemporaneous observations from live testing of
-`statsdoc.ai.mospi.gov.in`, not committed transcripts: no screenshots or
-session logs were archived at the time. Every claim about StatsDoc below
-is therefore ANECDOTAL until re-run under this protocol. Do not present
-it as a measured baseline.
+Status: RE-RUN DONE. The protocol below was executed on 2026-10-20
+against the live pilot with an account; the full transcripts, screenshots,
+chat URLs and timestamps are archived in `sessions/2026-10-20/`
+(`sd-<prompt>.txt` / `.png`, chats 2472-2480). The older "Sessions #2402 &
+#2399" figures cited in early notes were never archived and are
+SUPERSEDED by this run.
+
+Honest scope: this is ONE session, ONE prompt set, on one account. It is
+an observation of a system's behaviour, not a benchmark. StatsDoc's
+cost/latency figures remain order-of-magnitude estimates, not metered
+observations. Never present any of it as our measured baseline.
 
 **Access (re-verified 2026-10-20, see ACCESS_2026-10-20.md):** the pilot
 is account-gated — `/` and every `/c/<id>` route redirect to `/login`, and

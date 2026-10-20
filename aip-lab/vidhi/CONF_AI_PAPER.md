@@ -12,7 +12,7 @@ Track 06: Responsible and Ethical AI — Poster + live demo
 
 ## Abstract
 
-Generative AI over sovereign statistics fails at governance, not retrieval: unconstrained RAG hallucinates statutory definitions, compares incomparable survey rounds without warning, and lets poisoned document chunks override verdicts. We probed MoSPI's StatsDoc pilot live (sessions archived in `evaluation/statsdoc_audit/sessions/2026-10-20/`, chats 2472-2480) and measured: it got the MPCE expansion right this run but its Madhya Pradesh answer quoted urban MPCE as both 3,158 and 5,589 in one response, it could not resolve the short code "mp", and it quoted ~40% MPCE growth across the HCES paper-to-3-visit-CAPI break with no method-break caveat. Per our audit protocol (`evaluation/statsdoc_audit/PROTOCOL.md`), these observations are anecdotal — live tests without archived transcripts — and are not presented as a measured baseline.
+Generative AI over sovereign statistics fails at governance, not retrieval: unconstrained RAG hallucinates statutory definitions, compares incomparable survey rounds without warning, and lets poisoned document chunks override verdicts. We probed MoSPI's StatsDoc pilot live (sessions archived in `evaluation/statsdoc_audit/sessions/2026-10-20/`, chats 2472-2480) and measured: it got the MPCE expansion right this run but its Madhya Pradesh answer quoted urban MPCE as both 3,158 and 5,589 in one response, it could not resolve the short code "mp", and it quoted ~40% MPCE growth across the HCES paper-to-3-visit-CAPI break with no method-break caveat. Per our audit protocol (`evaluation/statsdoc_audit/PROTOCOL.md`), every StatsDoc answer above is transcribed from an archived transcript in `evaluation/statsdoc_audit/sessions/2026-10-20/`. They are observations of one session on one prompt set, not a benchmark of the system, and are not presented as our measured baseline.
 
 We present a deterministic validity firewall (`vidhi`) that adjudicates questions about Indian official survey data before any document is retrieved. Every question is parsed into a typed claim; five versioned rule stages (Safety-A → Scope → Comparability → Metadata → Numeric) fire in fixed order, and the verdict is frozen into a SHA-256 hash before any document is read, so untrusted chunks cannot move it (Safety-B). Safety-A runs first and blocks prompt injection in English, Hindi and Hinglish across all signal classes. Only `verified` ground-truth rows may `PASS`; anything uncovered returns an honest `WARN_NO_DATA` with a live coverage note rather than a guess. The semantic cache is guarded by deterministic field comparison because danger-pair and paraphrase cosine ranges overlap on two measured embedders (bge-small, nemotron-3-embed-1b), so no cosine threshold is safe (0 collisions across 19 danger pairs).
 
@@ -28,7 +28,7 @@ Government statistical agencies worldwide are deploying AI assistants over offic
 2. **Unguided cross-round arithmetic:** It quotes ~40% MPCE growth between HCES 2011-12 and 2023-24 without warning that the 2023-24 round switched from 1-visit paper canvassing to 3-visit CAPI with restructured item lists — a methodological break that makes direct level comparison invalid.
 3. **Adversarial vulnerability:** Retrieved document chunks can override system guardrails (prompt injection via RAG documents).
 
-Per `evaluation/statsdoc_audit/PROTOCOL.md`, these StatsDoc observations are **anecdotal** — contemporaneous live tests without archived transcripts. We do not present them as a measured baseline, nor do we claim a measured head-to-head latency/cost victory over StatsDoc.
+Per `evaluation/statsdoc_audit/PROTOCOL.md`, these StatsDoc observations are **archived transcripts** (chats 2472-2480, `evaluation/statsdoc_audit/sessions/2026-10-20/`) — one session, one prompt set. We do not present them as a benchmark, nor do we claim a measured head-to-head latency/cost victory over StatsDoc (its cost/latency figures are order-of-magnitude estimates).
 
 Existing tools help users **find** the number; none checks whether they are **allowed to say** what they want with it — and stops them with a cited rule when they are not.
 
@@ -124,7 +124,7 @@ Generation is templated, not autoregressive; the deterministic adjudication path
 
 ## 4. Vidhi vs MoSPI StatsDoc — honest comparison
 
-| Dimension | Vidhi (measured) | MoSPI StatsDoc (anecdotal, per PROTOCOL.md) |
+| Dimension | Vidhi (measured) | MoSPI StatsDoc (archived transcripts, chats 2472-2480) |
 |---|---|---|
 | Definitional precision | Statutory "Monthly Per Capita Consumption Expenditure" enforced via metadata-pinned definitions | Got the expansion right this run, but answers are not stable (LLM); inconsistent figures in one answer |
 | Survey-break comparability | Fires `R_COMPARABILITY_HCES_METHOD`; halts bad math | Observed quoting ~40% growth with no caveat |

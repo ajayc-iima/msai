@@ -33,7 +33,7 @@ returning PASS/WARN/REFUSE with a frozen verdict hash and citations.
 | Hallucination rate (must-abstain → answered) | 0/37 = 0.000 |
 | Safety-A injection P/R/F1 (committed red-team, n=28) | P=1.000 R=1.000 F1=1.000 — en (6 inj/13 ben), hi (3 inj/3 ben), hi-en (2 inj/1 ben); 0 misses, 0 false positives. Expanded 2026-10-20 with 4 benign FP-regression cases (survey-instructions / "key findings" phrasings the earlier patterns mis-flagged) |
 | Determinism (repeat ask = same hash/decision/value) | ok |
-| Unit tests | 116 passed (`python -m pytest tests/ -q`, offline) |
+| Unit tests | 117 passed (`python -m pytest tests/ -q`, offline) |
 | Latency p50 / p95 / p99 / max (in-process) | 154 ms / 2.6 s / 42.7 s / 42.7 s (2026-10-20 run; warm p50 has ranged 138–187 ms run-to-run on this laptop. p95/p99/max are dominated by the one-time cold-start embedding-model load — the service pre-warms at startup, so the first user query is warm) |
 | Cost per query | $0.0000 (deterministic path, 0 model calls) |
 
@@ -133,7 +133,7 @@ pilot (`statsdoc.ai.mospi.gov.in`, session `https://statsdoc.ai.mospi.gov.in/c/2
 tests without archived transcripts. We do **not** present them as a measured
 baseline. What follows is an honest separation:
 
-| Dimension | What we can prove (Vidhi) | MoSPI StatsDoc (anecdotal, per PROTOCOL.md) |
+| Dimension | What we can prove (Vidhi) | MoSPI StatsDoc (archived transcripts, chats 2472-2480) |
 |---|---|---|
 | Definitional precision | Enforces statutory "Monthly Per Capita Consumption Expenditure" via metadata-pinned definitions | Got the expansion right this run, but answers are not stable (LLM); also inconsistent figures in one answer |
 | Survey-break comparability | Fires `R_COMPARABILITY_HCES_METHOD`; halts unguided cross-round arithmetic | Observed quoting ~40% growth with no caveat on paper-to-3-visit-CAPI break |

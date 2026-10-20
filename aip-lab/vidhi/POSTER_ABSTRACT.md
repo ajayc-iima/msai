@@ -12,7 +12,7 @@ Generative AI over sovereign statistics fails at governance, not retrieval:
 - **Unguided cross-round arithmetic:** ~40% MPCE growth quoted across the HCES paper-to-3-visit-CAPI break with no warning
 - **Adversarial vulnerability:** Retrieved document chunks can override system guardrails
 
-Per `evaluation/statsdoc_audit/PROTOCOL.md`, these MoSPI StatsDoc observations (session `https://statsdoc.ai.mospi.gov.in/c/2402`) are anecdotal (live tests without archived transcripts) and are not presented as a measured baseline.
+These MoSPI StatsDoc observations are transcribed from archived live transcripts (chats 2472-2480, same nine prompts) in `evaluation/statsdoc_audit/sessions/2026-10-20/`; they are observations of one session on one prompt set, not a benchmark of the system.
 
 ## The Solution: A Deterministic Validity Firewall
 

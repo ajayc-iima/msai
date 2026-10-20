@@ -192,7 +192,7 @@ def main():
     s = prs.slides.add_slide(prs.slide_layouts[6]); bg(s)
     header(s, "Problem · StatsDoc failure modes from live probing",
            "Retrieval is solved. Governance is not.",
-           "Session statsdoc.ai.mospi.gov.in/c/2402 — anecdotal observations, not a measured baseline (see evaluation/statsdoc_audit/PROTOCOL.md)")
+           "Archived transcripts, chats 2472-2480 (evaluation/statsdoc_audit/sessions/2026-10-20/) — one session, one prompt set; an observation, not a benchmark")
     footer(s, 2)
     compare_table(s, 0.7, 2.0, 11.9, 4.7, [
         ("MPCE definition", "expands “Mean …” (wrong)", "enforces statutory “Monthly …”, cites ₹4,122"),
