@@ -64,6 +64,10 @@ class Claim(BaseModel):
     measure: str | None = None
     geography: str | None = None
     state: str | None = None
+    # A place named in the question that the store does not cover
+    # ("MPCE in Atlantis"): the firewall must abstain rather than answer
+    # with another geography's figures.
+    unknown_geography: str | None = None
     # Every state the question names (a question may name several: "MPCE in
     # Madhya Pradesh, UP, Maharashtra"). `state` stays set only for a
     # single-state question, so a multi-state question can never be answered
@@ -331,6 +335,12 @@ def extract(question: str) -> Claim:
         c.geography, c.state = "India", None
     if c.geography is None:
         c.geography = "India"
+    # A place we do not cover ("MPCE in Atlantis") must not be answered with
+    # the national figures.
+    if not c.states:
+        unknown = S.unknown_places(question)
+        if unknown:
+            c.unknown_geography = unknown[0]
     if re.search(r"15\s*(?:years?|\+|yrs)", q) or "15+" in q:
         c.age_group = "15plus"
     if c.age_group is None:

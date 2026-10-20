@@ -268,3 +268,74 @@ def canonical_names() -> list[str]:
 def lower_names() -> list[str]:
     """Lowercase canonical names, for text proximity checks."""
     return [c.lower() for c in CANON]
+
+
+# Capitalised words that are never a place: survey programme names, month
+# names and common non-place nouns. Anything else in a geographic slot
+# ("in X", "for X") is an unknown geography -- the firewall must abstain
+# rather than answer with another geography's figures.
+_NOT_A_PLACE = {
+    "hces", "plfs", "tus", "mis", "nss", "nso", "mospi", "nsfi", "ai",
+    "rs", "inr", "rupees", "india", "all", "the", "state", "states", "and",
+    "of", "for", "in", "at", "from", "nation", "country", "every", "each",
+    "january", "february", "march", "april", "may", "june", "july", "august",
+    "september", "october", "november", "december", "quarter", "year",
+    "rural", "urban", "male", "female", "males", "females", "person",
+    "persons", "total", "overall", "average", "labour", "force", "consumption",
+    "expenditure", "time", "use", "survey", "round", "report", "factsheet",
+    "annual", "current", "weekly", "status", "usual", "per", "capita",
+    "monthly", "implicit", "explicit", "imputed", "values", "value", "free",
+    "items", "item", "with", "without", "mpce", "lfpr", "wpr", "ur", "cws",
+    "magnitude", "growth", "rate", "level", "levels",
+}
+
+# A geographic slot: "in Bihar", "for Kerala", "from Goa".
+_GEO_SLOT = re.compile(
+    r"\b(?:in|for|at|from)\s+"
+    r"((?:[A-Z][A-Za-z.&'-]*)(?:\s+(?:and|of|the)?\s*[A-Z][A-Za-z.&'-]*){0,2})"
+)
+
+_KNOWN_PHRASES = {
+    normalize(a) for a, _, _ in _ALIAS_INDEX
+} | {normalize(c) for c in CANON}
+
+_KNOWN_WORDS = {w for phrase in _KNOWN_PHRASES for w in phrase.split()}
+
+
+def known_place(phrase: str) -> bool:
+    """True when the phrase names a state/UT the store curates (or is not a
+    place at all)."""
+    p = normalize(phrase)
+    if not p:
+        return True
+    if p in _KNOWN_PHRASES:
+        return True
+    words = [w for w in p.split() if w not in ("and", "of", "the")]
+    if not words:
+        return True
+    return all(w in _KNOWN_WORDS or w in _NOT_A_PLACE for w in words)
+
+
+def unknown_places(question: str) -> list[str]:
+    """Place-like words in a geographic slot that the store does not cover.
+
+    "MPCE in Atlantis" -> ["Atlantis"]: the question is about a place we
+    have no rows for, so the firewall must abstain instead of quietly
+    answering with the all-India figures.
+    """
+    out: list[str] = []
+    for m in _GEO_SLOT.finditer(question or ""):
+        phrase = m.group(1)
+        if known_place(phrase):
+            continue
+        for word in re.split(r"[\s,.;:]+", phrase):
+            w = word.strip(".,;:'\"")
+            if not w or known_place(w):
+                continue
+            if w.lower() in _NOT_A_PLACE:
+                continue
+            if w.lower() in _KNOWN_WORDS:
+                continue
+            if w not in out:
+                out.append(w)
+    return out

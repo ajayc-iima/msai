@@ -747,6 +747,22 @@ def test_state_question_never_falls_back_to_all_india():
     assert v.value is None
 
 
+def test_unknown_place_abstains_instead_of_borrowing_all_india():
+    """A place the store does not cover ('MPCE in Atlantis') must abstain.
+    Answering with the all-India figures would be exactly the
+    reification failure this firewall exists to prevent."""
+    from vidhi.claims import extract
+
+    c = extract("MPCE in Atlantis")
+    assert c.unknown_geography == "Atlantis"
+    v = FW.adjudicate(c)
+    assert (v.decision, v.sub_code) == ("WARN", "WARN_NO_DATA")
+    assert v.value is None
+    assert "4247" not in (v.message or "")  # no all-India figure
+    ok = FW.adjudicate(extract("MPCE in India"))
+    assert ok.decision == "PASS"  # the national question still answers
+
+
 def test_store_provenance_and_uniqueness():
     with open("vidhi/store.json", encoding="utf-8") as f:
         doc = json.load(f)

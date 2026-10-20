@@ -606,6 +606,20 @@ class Firewall:
                 "Methodology question answered from official excerpts.",
                 "numeric",
             )
+        unknown = getattr(c, "unknown_geography", None)
+        if unknown:
+            # The question names a place the store does not cover. Answering
+            # with another geography's figures (all-India, or a different
+            # state) is exactly the reification failure this firewall exists
+            # to prevent -- abstain and say what IS covered.
+            return _warn(
+                "WARN_NO_DATA",
+                "R_NO_CURATED_ROW",
+                f"No curated rows for '{unknown}'. This store covers all-India "
+                f"and the states/UTs of the HCES 2023-24 factsheet; no figure "
+                f"given for another place.",
+                "numeric",
+            )
         if c.asserted_pairs:
             return self._pairs(c)
         if c.claim_type == "comparative" and c.user_asserted_value is None:
