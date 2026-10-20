@@ -164,7 +164,7 @@ footer .in{max-width:720px;margin:0 auto}
 <main id="main" tabindex="-1">
   <p class="kicker">Live demo · checked Indian survey figures</p>
   <h1>Every number names its source row. Guesses get stopped.</h1>
-  <p class="sub">Ask about PLFS, HCES, Time Use or MIS. Passages are cited; comparisons carry the official caveat.</p>
+  <p class="sub">Ask about PLFS, HCES, Time Use or MIS. Every figure cites its source row; comparisons carry the official caveat.</p>
 
   <form class="search" role="search" id="form" aria-label="Ask a statistics question">
     <div class="searchbox">
@@ -204,7 +204,23 @@ footer .in{max-width:720px;margin:0 auto}
   <details class="adv">
     <summary>How checking works</summary>
     <div class="body">
-      <p>Question → typed claim → five rule stages (safety, scope, comparability, metadata, numeric) → verdict frozen with SHA-256 <em>before</em> any document is read → evidence retrieved → answer rendered with citations. Untrusted text can never change the verdict. Only <code>verified</code> rows can pass.</p>
+      <svg viewBox="0 0 640 60" width="100%" height="60" role="img" aria-label="Pipeline: question to typed claim to five rule stages to frozen verdict to evidence to answer" style="margin:8px 0">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#B4530A"/></marker></defs>
+      <g font-family="system-ui,sans-serif" font-size="11" fill="#22302B">
+        <rect x="4" y="16" width="92" height="28" rx="6" fill="#F5EFE0" stroke="#E3DCCB"/><text x="50" y="34" text-anchor="middle">Question</text>
+        <rect x="112" y="16" width="92" height="28" rx="6" fill="#F5EFE0" stroke="#E3DCCB"/><text x="158" y="34" text-anchor="middle">Typed claim</text>
+        <rect x="220" y="16" width="120" height="28" rx="6" fill="#FBF0D9" stroke="#D97706"/><text x="280" y="34" text-anchor="middle">5 rule stages</text>
+        <rect x="356" y="16" width="112" height="28" rx="6" fill="#F9E4E1" stroke="#B3261E"/><text x="412" y="34" text-anchor="middle">Verdict + hash</text>
+        <rect x="484" y="16" width="76" height="28" rx="6" fill="#F5EFE0" stroke="#E3DCCB"/><text x="522" y="34" text-anchor="middle">Evidence</text>
+        <rect x="576" y="16" width="60" height="28" rx="6" fill="#E7F0E4" stroke="#1E6B34"/><text x="606" y="34" text-anchor="middle">Answer</text>
+      </g>
+      <g stroke="#B4530A" stroke-width="1.5" fill="none" marker-end="url(#ar)">
+        <line x1="96" y1="30" x2="110" y2="30"/><line x1="204" y1="30" x2="218" y2="30"/>
+        <line x1="340" y1="30" x2="354" y2="30"/><line x1="468" y1="30" x2="482" y2="30"/>
+        <line x1="560" y1="30" x2="574" y2="30"/>
+      </g>
+    </svg>
+    <p>Question → typed claim → five rule stages (safety, scope, comparability, metadata, numeric) → verdict frozen with SHA-256 <em>before</em> any document is read → evidence retrieved → answer rendered with citations. Untrusted text can never change the verdict. Only <code>verified</code> rows can pass.</p>
       <p>Safety-A runs first and blocks prompt injection in English, Hindi and Hinglish. Comparability rules are versioned data (<code>data/vidhi/comparability_rules.yaml</code> v3, all active with verbatim MoSPI quotes), not hidden prompts.</p>
     </div>
   </details>
@@ -248,7 +264,7 @@ document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{q.
 /* health */
 async function health(){try{const r=await fetch("health");const h=await r.json();
 const stale=h.index&&h.index.store_stale;$("#healthDot").className="dot"+(stale?" stale":"");
-$("#healthText").textContent=(h.index?h.index.verified_rows+" verified · "+h.index.excerpts+" excerpts · ":"")+("rules "+(h.rules||"").slice(0,8))+(stale?" · stale "+h.index.store_staleness_days+"d":" · fresh");
+$("#healthText").textContent=(h.index?h.index.verified_rows+" verified rows · "+h.index.excerpts+" source documents · ":"")+("rules "+(h.rules||"").slice(0,8))+(stale?" · stale "+h.index.store_staleness_days+"d":" · fresh");
 if(h.index&&h.index.verified_rows){const fs=$("#footStats");if(fs)fs.textContent=h.index.verified_rows+" verified rows · 100 golden checks · 19 danger pairs";}
 if(!navigator.onLine){$("#healthDot").className="dot off";$("#healthText").textContent+=" · offline";}}catch{$("#healthDot").className="dot off";$("#healthText").textContent="Service unreachable";results.innerHTML='<div class="alert" role="alert"><strong>Service unreachable.</strong> Start it with <code>python -m uvicorn vidhi.service:app --port 8001</code>, then <button class="retry" type="button" onclick="health();renderEmpty();">retry</button></div>';}}
 renderEmpty();
