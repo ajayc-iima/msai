@@ -3,7 +3,7 @@
 **Author:** Ajay Choudhary (MSAI @ Plaksha University, `ajay.pg26@plaksha.edu.in`)  
 **Course:** AI in Practice – 1 (Term Final Track Assignment — Policy Track)  
 **Instructor:** Subrat  
-**Associated Deliverables:** 4-Slide Executive Deck (`vidhi/Vidhi_Guardian_Demo.pptx`), Lab 7 Bonus Concept Note (`vidhi/LAB7_CONCEPT_NOTE.md`), Evaluation Report (`vidhi/EVALUATION_REPORT.md`), Interactive Web Portal (`localhost:8001/demo`)  
+**Associated Deliverables:** 4-Slide Executive Deck (`decks/Vidhi_Guardian_Demo.pptx`), Evaluation Report (`vidhi/EVALUATION_REPORT.md`), Interactive Web Portal (`localhost:8001/demo`)  
 
 ---
 

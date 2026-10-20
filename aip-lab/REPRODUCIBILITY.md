@@ -140,7 +140,7 @@ pip install python-pptx
 python scripts/build_confai_deck.py
 ```
 
-Output: `vidhi/ConfAI_Vidhi_Firewall_7Slides_v2.pptx` — all demo text generated live from `P.ask()` runs; nothing hardcoded.
+Output: `vidhi/ConfAI_Vidhi_Firewall_7Slides_v3.pptx` — all demo text generated live from `P.ask()` runs; nothing hardcoded.
 
 ---
 
