@@ -474,11 +474,16 @@ def extract(question: str) -> Claim:
     if "poverty" in q or "real change" in q or "actually rose" in q:
         c.asserts_poverty_or_real_change = True
     # Definitional only when the user asks about a concept. "What is the UR in
-    # PLFS 2023-24?" is a value question (a round/year is present), and
+    # PLFS 2023-24?" is a value question (a round/year is present), and so is
+    # "What is the MPCE in Madhya Pradesh?" (a geography is present);
     # forecast/causal/microdata intents are never downgraded to methodology.
     if c.claim_type not in ("forecast", "causal", "microdata") and (
         any(w in q for w in ("define", "definition", "meaning of"))
-        or ("what is" in q and not re.search(r"\b(?:19|20)\d{2}\b", q))
+        or (
+            "what is" in q
+            and not re.search(r"\b(?:19|20)\d{2}\b", q)
+            and not c.states
+        )
     ):
         c.claim_type = "definitional"
     if c.survey is None and c.indicator is None:
