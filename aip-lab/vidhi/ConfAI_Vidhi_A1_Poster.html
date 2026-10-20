@@ -245,7 +245,7 @@
         <h3>Field-guarded cache · no safe threshold</h3>
         <p>Danger-pair and paraphrase cosine ranges overlap on both measured embedders, so <b>no similarity threshold is
           safe</b>. Reuse only on exact critical-field match — a national row never answers a state/sex slice.</p>
-        <div class="formula">0 collisions across 19 danger pairs · 54/173 rows (31.2% utilization)</div>
+        <div class="formula">0 collisions across 19 danger pairs · 1708 verified rows (55 touched by the golden set)</div>
       </div>
     </div>
 
@@ -253,12 +253,12 @@
     <div class="col">
       <div class="sec-title"><span class="sec-num">3</span><h2>Results</h2></div>
       <div class="kpis">
-        <div class="kpi"><div class="v">0.000</div><div class="l">hallucination rate — 0 of 37 must-abstain questions answered wrongly</div></div>
+        <div class="kpi"><div class="v">0.000</div><div class="l">hallucination rate — 0 of 36 must-abstain questions answered wrongly</div></div>
         <div class="kpi"><div class="v">1.000</div><div class="l">abstention recall — every must-abstain question refused/warned</div></div>
         <div class="kpi"><div class="v">100<small>/100</small></div><div class="l">verdict accuracy [Wilson 0.963–1.000]</div></div>
         <div class="kpi"><div class="v">59<small>/59</small></div><div class="l">numeric exact match [0.939–1.000]</div></div>
         <div class="kpi"><div class="v">0<small>/19</small></div><div class="l">danger-pair cache collisions</div></div>
-        <div class="kpi"><div class="v">173<small>/173</small></div><div class="l">verified rows with provenance</div></div>
+        <div class="kpi"><div class="v">1708<small>/1708</small></div><div class="l">verified rows with provenance</div></div>
         <div class="kpi"><div class="v">1.000</div><div class="l">Safety-A P/R/F1 · n=28 (EN · hi · hi-en)</div></div>
         <div class="kpi"><div class="v">$0.00</div><div class="l">marginal cost · p50 &lt; 200 ms, CPU-only</div></div>
       </div>
@@ -279,8 +279,12 @@
       <div class="card">
         <h3>Honest limits</h3>
         <ul class="lim">
-          <li><b>Coverage is the limit, not logic</b> — 173 verified rows (HCES state MPCE, PLFS LFPR/WPR/UR, TUS minutes).
-            Uncovered slices return <code>WARN_NO_DATA</code> + a coverage note, never a guess.</li>
+          <li><b>Coverage is the limit, not logic</b> — 1708 verified rows: the full PLFS Highlights battery (11 survey
+            rounds × usual + CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells of both committed annual reports),
+            the TUS 2024 battery (9 ICATUS divisions × gender/sector/age × participation/per-participant/per-person,
+            plus Tables 10–11 group rows), and HCES 2023-24 trend columns (2022-23 and 2011-12 legs).
+            Uncovered slices (e.g. state-level labour figures, non-badge rounds) return <code>WARN_NO_DATA</code> + a
+            coverage note, never a guess.</li>
           <li>Heuristic extraction breaks on exotic phrasing; an LLM translator port exists (<code>VIDHI_USE_LLM=1</code>), unmeasured.</li>
           <li>No load test yet; eSankhyiki live-API path inherits third-party cert-verification weakness (query path is offline).</li>
         </ul>
@@ -307,7 +311,7 @@
         <h3>Reproduce everything (offline)</h3>
         <pre class="cmds"><span class="cm"># no API key · no GPU · no network</span>
 pip install -r requirements.txt
-python -m pytest tests/ -q        <span class="cm"># 108 passed · every store row reachable</span>
+python -m pytest tests/ -q        <span class="cm"># 110 passed · every store row reachable</span>
 python vidhi/eval.py               <span class="cm"># 100 golden + 19 danger + 28 red-team + Safety-B</span>
 python -m uvicorn vidhi.service:app --port 8001  <span class="cm"># → /demo</span></pre>
       </div>

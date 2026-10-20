@@ -16,7 +16,7 @@ This checklist is the go/no-go gate. Every item must be green before submitting.
 | G1 | Verdicts come only from versioned deterministic rules — no LLM output can change a verdict | `python vidhi/eval.py` → all golden verdicts/reasons exact; LLM path off by default | ☐ |
 | G2 | Verdict frozen (SHA-256) BEFORE retrieval; poisoned chunks cannot move it | `eval.py` Safety-B: direct-adjudicate hash == pipeline hash | ☐ |
 | G3 | No safe cosine threshold — cache reuses only on exact field-guard match | `eval.py` danger pairs: 0 collisions across 19 pairs (canonical + pipeline) | ☐ |
-| G4 | No `PASS` without a `verified` store row | `eval.py` store audit: 173/173 verified, unique IDs, provenance present | ☐ |
+| G4 | No `PASS` without a `verified` store row | `eval.py` store audit: 1708/1708 verified, unique IDs, provenance present | ☐ |
 | G5 | Conservative attribution — ambiguity is never contradiction | `tests/test_vidhi.py` consistency regression tests pass | ☐ |
 | G6 | Honest coverage — uncovered slices return `WARN_NO_DATA` + coverage note | `tests/test_vidhi.py::test_firewall_honest_warn_on_uncovered_slice` | ☐ |
 
@@ -43,7 +43,7 @@ This checklist is the go/no-go gate. Every item must be green before submitting.
 | D1 | Valid PLFS question (e.g. all-India LFPR 2025) | `PASS_WITH_NUMBER / R_OK`, verified figure + frozen hash | ☐ |
 | D2 | HCES 2011-12 vs 2023-24 comparison | `WARN_COMPARABILITY / R_COMPARABILITY_HCES_METHOD`, halts bad math | ☐ |
 | D3 | "Will unemployment fall in 2027?" | `REFUSE_SCOPE / R_FORECAST` | ☐ |
-| D4 | "urban female LFPR in PLFS 2025" | `WARN_NO_DATA / R_NO_CURATED_ROW` + coverage note, no guess | ☐ |
+| D4 | "female LFPR in Bihar in PLFS 2025" | `WARN_NO_DATA / R_NO_CURATED_ROW` + coverage note, no guess (plain urban female LFPR 2025 now PASSes with the sourced 27.7% battery cell) | ☐ |
 | D5 | Poisoned excerpt planted alongside D2 | Byte-identical frozen hash (Safety-B unchanged) | ☐ |
 
 ---
@@ -66,8 +66,8 @@ Build the deck: `pip install python-pptx && python scripts/build_confai_deck.py`
 
 ## 5. Honest limits (state these in the poster / Q&A)
 
-- **Coverage is the limit, not logic:** 173 verified rows cover HCES state MPCE both imputation legs + PLFS national LFPR/WPR/UR + TUS minutes. State/sex PLFS splits and TUS/MIS numerics return `WARN_NO_DATA` — never a guess.
-- **All four YAML comparability rules are active** with verbatim caveat quotes and PDF provenance (v3).
+- **Coverage is the limit, not logic:** 1708 verified rows cover the PLFS Highlights battery (11 rounds × usual/CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells of both committed annual reports), the TUS 2024 battery (9 divisions × gender/sector/age × participation/per-participant/per-person + Tables 10-11 group rows) and HCES 2023-24 MPCE (state + all-India + 2011-12 trend legs). State-level labour figures, non-badge rounds (e.g. 2016-17) and MIS numerics return `WARN_NO_DATA` — never a guess.
+- **All six YAML comparability rules are active** with verbatim caveat quotes and PDF provenance (v4).
 - **Heuristic extraction** misreads exotic phrasings; an LLM translator port exists (`VIDHI_USE_LLM=1`) but is unmeasured on this machine.
 - **No load test** yet (20-concurrent behavior unmeasured) — first bottleneck expected to be the file-cache lock.
 - **eSankhyiki live-API path** disables certificate verification (inherited from the third-party client); query-time path is offline and unaffected.

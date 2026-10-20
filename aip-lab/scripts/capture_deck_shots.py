@@ -10,7 +10,7 @@ OUT.mkdir(exist_ok=True)
 SHOTS = [
     ("shot_pass.png", "What was all-India LFPR for age 15+ in usual status in PLFS 2025?"),
     ("shot_bihar.png", "mpce for bihar"),
-    ("shot_warn.png", "What was urban female LFPR in PLFS 2025?"),
+    ("shot_warn.png", "What was female LFPR in Bihar in PLFS 2025?"),
     ("shot_refuse.png", "Will unemployment fall in 2027?"),
 ]
 

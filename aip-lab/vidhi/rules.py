@@ -172,6 +172,9 @@ class Firewall:
                     "allowed_disaggregations": [
                         str(d).lower() for d in (ind.get("allowed_disaggregations") or [])
                     ],
+                    "age_groups": [
+                        str(a).lower() for a in (ind.get("age_groups") or [])
+                    ],
                 }
             out[sid] = {"indicators": inds, "round": item.get("round", "")}
         return out
@@ -285,11 +288,27 @@ class Firewall:
                 "HCES 2011-12 vs 2022-23+ uses different instruments; level comparison needs caution.",
                 "comparability",
             )
-        if "plfs_2025" in ss and ss & {"plfs_2022_23", "plfs_2023_24"}:
+        plfs_ids = {s for s in ss if s.startswith("plfs_")}
+        if "plfs_2025" in ss and plfs_ids - {"plfs_2025"}:
             return _warn(
                 "WARN_COMPARABILITY",
                 "R_COMPARABILITY_PLFS_REVAMP",
                 "PLFS sampling was revamped from January 2025 (Jan-Dec reporting; earlier annuals Jul-Jun); do not mix series without the revamp caveat.",
+                "comparability",
+            )
+        # Calendar rounds ("PLFS 2022/2023/2024", Jan-Dec) and traditional
+        # July-June annuals are distinct survey ids in the store; a claim
+        # comparing across the two series needs the reference-period caveat.
+        calendar = plfs_ids & {"plfs_2022", "plfs_2023", "plfs_2024"}
+        traditional = plfs_ids & {
+            "plfs_2017_18", "plfs_2018_19", "plfs_2019_20",
+            "plfs_2020_21", "plfs_2021_22", "plfs_2022_23", "plfs_2023_24",
+        }
+        if calendar and traditional:
+            return _warn(
+                "WARN_COMPARABILITY",
+                "R_COMPARABILITY_PLFS_CALENDAR",
+                "PLFS calendar rounds (Jan-Dec 2022/2023/2024) and traditional July-June annuals cover different reference periods; do not mix the series without the caveat.",
                 "comparability",
             )
         if "nss_eus_2011_12" in ss and any(s.startswith("plfs") for s in ss):
@@ -382,18 +401,20 @@ class Firewall:
                     f"{c.indicator} in {c.survey}.",
                     "metadata",
                 )
-        if (
-            c.age_group
-            and str(c.age_group).lower() not in ("all", "mixed")
-            and "age_group_15plus" not in allowed
-        ):
-            return _warn(
-                "WARN_METADATA",
-                "R_METADATA_UNSUPPORTED_DISAGGREGATION",
-                f"Disaggregation age_group={c.age_group} is not supported for "
-                f"{c.indicator} in {c.survey}.",
-                "metadata",
-            )
+        if c.age_group and str(c.age_group).lower() not in ("all", "mixed"):
+            # Taxonomy lists the age buckets each survey's indicators carry
+            # (age_groups); fall back to the legacy age_group_15plus key.
+            allowed_ages = set(ind.get("age_groups", []))
+            if not allowed_ages and "age_group_15plus" in allowed:
+                allowed_ages = {"15plus"}
+            if str(c.age_group).lower() not in allowed_ages:
+                return _warn(
+                    "WARN_METADATA",
+                    "R_METADATA_UNSUPPORTED_DISAGGREGATION",
+                    f"Disaggregation age_group={c.age_group} is not supported for "
+                    f"{c.indicator} in {c.survey}.",
+                    "metadata",
+                )
         return None
 
     # -- stage 5: numeric (confidence gate embedded inside) ----

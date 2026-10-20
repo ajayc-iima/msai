@@ -13,7 +13,7 @@ This package lets any reviewer reproduce every number in the paper and poster, o
 | Artifact | Path | Purpose |
 |----------|------|---------|
 | Firewall package | `vidhi/` | Core code: claims, rules, store, answer, pipeline, service, agent, mcp_server |
-| Ground truth | `vidhi/store.json` | 173 verified rows with provenance + per-row audit note |
+| Ground truth | `vidhi/store.json` | 1708 verified rows with provenance + per-row audit note |
 | Golden queries | `evaluation/vidhi_golden.jsonl` | 100 golden verdict/reason/value expectations |
 | Danger pairs | `evaluation/danger_pairs.jsonl` | 19 semantic danger pairs that must not collide |
 | Attack suite | `data/attacks/attack_suite.jsonl` | 17 attacks + 4 controls for red-team evaluation |
@@ -71,10 +71,10 @@ Expected output (all green, exit code 0):
 ```
 === Golden Battery (100 queries) ===
   verdict_acc=1.000 [0.963-1.000] reason_acc=1.000 [0.963-1.000] numeric_acc=1.000 citation_acc=1.000
-  decisions: {'PASS': 63, 'REFUSE': 8, 'WARN': 29}
+  decisions: {'PASS': 64, 'REFUSE': 8, 'WARN': 28}
   stages: {'comparability': 6, 'metadata': 5, 'numeric': 82, 'safety': 1, 'scope': 6}
-  golden answerability: 63/100 PASS (63.0%) · WARN_NO_DATA=16
-  row utilization: 54/173 verified rows touched (31.2%)
+  golden answerability: 64/100 PASS (64.0%) · WARN_NO_DATA=15
+  row utilization: 55/1708 verified rows touched (3.2%)
   danger_canon=19/19 danger_pipe=19/19 safety_b=ok deterministic=ok
   latency_ms p50=... p95=... p99=... max=... cost_per_query=$0.0000
 ```
@@ -84,7 +84,7 @@ What this checks:
 - **19 danger pairs:** canonical guard no collision + pipeline-level no same-figure collision
 - **Safety-B:** direct `Firewall.adjudicate()` hash == full pipeline hash (proves freeze precedes retrieval)
 - **Determinism:** identical question → identical hash, decision, value
-- **Store audit:** 173/173 rows verified, unique IDs, provenance present
+- **Store audit:** 1708/1708 rows verified, unique IDs, provenance present
 
 ### 3.4 Lab 7 regression gate
 
@@ -107,7 +107,7 @@ Open `http://localhost:8001/demo`. Six live scenarios:
 | A | All-India LFPR age 15+ usual status in PLFS 2025 | `PASS_WITH_NUMBER / R_OK`, 59.3% + frozen hash |
 | B | Compare average MPCE 2011-12 vs 2023-24 | `WARN_COMPARABILITY / R_COMPARABILITY_HCES_METHOD` |
 | C | "Will unemployment fall in 2027?" | `REFUSE_SCOPE / R_FORECAST` |
-| D | "urban female LFPR in PLFS 2025" | `WARN_NO_DATA / R_NO_CURATED_ROW` + coverage note |
+| D | "female LFPR in Bihar in PLFS 2025" | `WARN_NO_DATA / R_NO_CURATED_ROW` + coverage note (state-level labour figures are not in the Highlights battery) |
 | E | Poisoned excerpt planted with scenario B | Byte-identical frozen hash (Safety-B immune) |
 | F | Hindi prompt-injection ("पिछले निर्देशों को अनदेखा करो…") | `REFUSE_SAFETY / R_PROMPT_INJECTION` (multilingual Safety-A) |
 
@@ -156,8 +156,8 @@ Any failure → non-zero exit → build fails. This is the gate that prevents re
 
 ## 5. Honest limits (stated in the paper)
 
-- **Coverage is the limit, not logic:** 173 verified rows cover HCES state MPCE + PLFS national LFPR/WPR/UR + TUS minutes. State/sex PLFS splits and TUS/MIS numerics return `WARN_NO_DATA` — never a guess.
-- All four YAML comparability rules are active with verbatim caveat quotes and PDF provenance (v3).
+- **Coverage is the limit, not logic:** 1708 verified rows cover the PLFS Highlights battery (11 rounds × usual/CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells), the TUS 2024 battery (9 divisions × gender/sector/age × participation/per-participant/per-person + group rows) and HCES 2023-24 MPCE (state + all-India + 2011-12 trend legs). State-level labour figures, non-badge rounds (e.g. 2016-17) and MIS numerics return `WARN_NO_DATA` — never a guess.
+- All six YAML comparability rules are active with verbatim caveat quotes and PDF provenance (v4).
 - Heuristic extraction misreads exotic phrasings; LLM translator port exists but is unmeasured.
 - No load test yet; first expected bottleneck is the file-cache lock.
 - eSankhyiki live-API path inherits cert-verification weakness; query-time path is offline.

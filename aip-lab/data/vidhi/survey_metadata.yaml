@@ -1,26 +1,35 @@
 # Vidhi Guardian — survey registry (metadata only, no statistical values here)
 # Values live in data/truth/ground_truth_tables.json with page-level provenance.
-version: 3
+version: 4
 in_corpus:
+  # PLFS has TWO coexisting series in the annual reports: calendar-year
+  # rounds ("PLFS 2022/2023/2024", Jan-Dec of each year) and traditional
+  # July-June annuals ("PLFS 2017-18 ... 2023-24"). Distinct survey ids keep
+  # the two series from colliding in the store; the Highlights battery
+  # (vidhi/sources/plfs_tables.py) carries both for every round.
   - id: PLFS_2025
     name: Periodic Labour Force Survey
     round: "2025"
     reference_period: "January 2025 - December 2025"
     geographic_coverage: India, states/UTs, rural/urban
     design_note: Revamped sample design + cycle shifted July-June to Jan-Dec; see PLFS_Changes-in-2025_rev.pdf
+    series: calendar
     indicators:
       - indicator: LFPR
         measures: [usual_status_ps_ss, CWS]
         definition_ref: PLFS_2025 report + Jan-Dec 2025 schedules
-        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
       - indicator: WPR
         measures: [usual_status_ps_ss, CWS]
         definition_ref: PLFS_2025 report + Jan-Dec 2025 schedules
-        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
       - indicator: UR
         measures: [usual_status_ps_ss, CWS]
         definition_ref: PLFS_2025 report + Jan-Dec 2025 schedules
-        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
     methodology_notes: microdata DDI-IND-NSO-PLFS-Jan2025-Dec2025 schedules + field-staff instructions
   - id: HCES_2023_24
     name: Household Consumption Expenditure Survey
@@ -42,10 +51,12 @@ in_corpus:
       - indicator: participation_rate
         measures: [by_activity]
         definition_ref: TODO_TUS_2024_docs
+        age_groups: [6plus, 6-14, 15-29, 15-59, 60plus]
         allowed_disaggregations: [sex, residence, activity]
       - indicator: average_time
-        measures: [by_activity]
+        measures: [by_activity, per_participant, per_person]
         definition_ref: TODO_TUS_2024_docs
+        age_groups: [6plus, 6-14, 15-29, 15-59, 60plus]
         allowed_disaggregations: [sex, residence, activity]
     methodology_notes: microdata DDI-IND-NSO-TUS-2024-24 instructions + estimation
   - id: NSS78_MIS_2020_21
@@ -59,30 +70,195 @@ in_corpus:
         definition_ref: TODO_MIS_report_section
         allowed_disaggregations: [residence]
     methodology_notes: TODO_from_PDF
-reference_only:
-  # Known but out-of-corpus: hit Comparability stage, not blunt out-of-scope.
+  # Traditional July-June PLFS annuals: all curated in the Highlights
+  # battery of both committed annual-report PDFs.
   - id: PLFS_2023_24
     name: Periodic Labour Force Survey
     round: "2023-24"
-    note: Superseded in-corpus round (v2); pre-revamp July-June design, comparability break vs 2025.
+    reference_period: "July 2023 - June 2024"
+    series: traditional
     indicators:
       - indicator: LFPR
         measures: [usual_status_ps_ss, CWS]
-        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
       - indicator: WPR
         measures: [usual_status_ps_ss, CWS]
-        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
       - indicator: UR
         measures: [usual_status_ps_ss, CWS]
-        allowed_disaggregations: [sex, residence, state, age_group_15plus]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
   - id: PLFS_2022_23
     name: Periodic Labour Force Survey
     round: "2022-23"
-    note: Superseded in-corpus round (v1); kept for round-mismatch guard.
+    reference_period: "July 2022 - June 2023"
+    series: traditional
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+  - id: PLFS_2024
+    name: Periodic Labour Force Survey (calendar round)
+    round: "2024"
+    reference_period: "January 2024 - December 2024"
+    series: calendar
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+  - id: PLFS_2023
+    name: Periodic Labour Force Survey (calendar round)
+    round: "2023"
+    reference_period: "January 2023 - December 2023"
+    series: calendar
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+  - id: PLFS_2022
+    name: Periodic Labour Force Survey (calendar round)
+    round: "2022"
+    reference_period: "January 2022 - December 2022"
+    series: calendar
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+  - id: PLFS_2021_22
+    name: Periodic Labour Force Survey
+    round: "2021-22"
+    reference_period: "July 2021 - June 2022"
+    series: traditional
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+  - id: PLFS_2020_21
+    name: Periodic Labour Force Survey
+    round: "2020-21"
+    reference_period: "July 2020 - June 2021"
+    series: traditional
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+  - id: PLFS_2019_20
+    name: Periodic Labour Force Survey
+    round: "2019-20"
+    reference_period: "July 2019 - June 2020"
+    series: traditional
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+  - id: PLFS_2018_19
+    name: Periodic Labour Force Survey
+    round: "2018-19"
+    reference_period: "July 2018 - June 2019"
+    series: traditional
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+  - id: PLFS_2017_18
+    name: Periodic Labour Force Survey
+    round: "2017-18"
+    reference_period: "July 2017 - June 2018"
+    series: traditional
+    indicators:
+      - indicator: LFPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: WPR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+      - indicator: UR
+        measures: [usual_status_ps_ss, CWS]
+        age_groups: [15plus, all]
+        allowed_disaggregations: [sex, residence, state]
+reference_only:
+  # Known but out-of-corpus: hit Comparability stage, not blunt out-of-scope.
+  # No numeric rows committed for these surveys.
   - id: HCES_2022_23
     name: Household Consumption Expenditure Survey
     round: "2022-23"
-    note: Superseded in-corpus round (v1); comparability baseline vs 2011-12 break.
+    note: Comparability baseline vs 2011-12 break; HCES trend figures live under HCES_2023_24 (Statement 10).
   - id: TUS_2019
     name: Time Use Survey
     round: "2019"
@@ -90,7 +266,7 @@ reference_only:
   - id: HCES_2011_12
     name: Household Consumption Expenditure Survey
     round: "2011-12"
-    note: Reference only for comparability trap; no numeric rows committed.
+    note: The 2011-12 MPCE figures live under HCES_2023_24 round=2011-12 (Statement 10 trend table); this id stays out-of-corpus for pre-2022 methodology-break caveats.
   - id: NSS_EUS_2011_12
     name: Employment-Unemployment Survey
     round: "2011-12"

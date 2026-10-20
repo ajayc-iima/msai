@@ -107,7 +107,7 @@ Four distinct official surveys are curated into the initial proof-of-mechanism c
 3. **HCES 2023-24 Factsheet & Press Note** (`mospi_HCES_2023-24_Factsheet.pdf`)
 4. **Time Use Survey (TUS) 2024 & NSS 78th Multiple Indicator Survey (MIS)**
 
-A curated ground truth dataset of 173 verified numeric rows represents the absolute source of truth. Valid filtered questions outside this curated set honestly return `WARN_NO_DATA` rather than probabilistic guesses.
+A curated ground truth dataset of 1708 verified numeric rows represents the absolute source of truth. Valid filtered questions outside this curated set honestly return `WARN_NO_DATA` rather than probabilistic guesses.
 
 ### 3.2 The Semantic Danger-Pair Trap & Cache Field-Guards
 During caching experiments, queries differing only in sensitive sub-populations (e.g., *"urban Bihar female LFPR"* vs. *"rural Bihar female LFPR"* or *"all-India LFPR"*) were embedded using `bge-small`. 
@@ -173,7 +173,7 @@ Statistical Evidence & Validity Firewall is evaluated using an automated offline
 
 ## 6. Scope Boundaries & Scaling Roadmap
 
-- **Proof of Mechanism vs Full Catalog:** The current build locks 173 verified numeric rows to demonstrate architectural correctness. Questions requesting non-curated rows honestly return `WARN_NO_DATA` rather than fabricating numbers.
+- **Proof of Mechanism vs Full Catalog:** The current build locks 1708 verified numeric rows (the full PLFS Highlights battery of both annual reports, the TUS 2024 tables battery and the HCES 2023-24 trend columns) to demonstrate architectural correctness. Questions requesting non-curated rows (state-level labour figures, off-badge rounds, MIS numerics) honestly return `WARN_NO_DATA` rather than fabricating numbers.
 - **Catalog Scaling:** Scaling to all 10,000+ MoSPI indicators requires running an automated tabular PDF ingestion pipeline to extract and verify factsheet tables into `ground_truth_tables.json`. No architectural modifications are required.
 - **Newsroom & Policy Integration:** Statistical Evidence & Validity Firewall is designed as a sovereign drop-in API for journalists, fact-checkers, and legislative researchers to verify statistical claims before public dissemination.
 

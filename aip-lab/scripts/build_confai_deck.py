@@ -151,7 +151,7 @@ def live_answers():
         "pass": "What was all-India LFPR for age 15+ in usual status in PLFS 2025?",
         "warn_comp": "Compare average MPCE in 2011-12 vs 2023-24.",
         "refuse": "Will unemployment fall in 2027?",
-        "hard": "What was urban female LFPR in PLFS 2025?",
+        "hard": "What was female LFPR in Bihar in PLFS 2025?",
         "mpce": "What was rural MPCE in HCES 2023-24?",
     }.items():
         r = P.ask(q)
@@ -186,7 +186,7 @@ def main():
         card(s, x, 4.3, 2.8, 1.7)
         textbox(s, x, 4.4, 2.8, 1.5, [(v, 22, True, ACCENT), (t, 11, False, MUTED)])
     textbox(s, 0.7, 6.2, 11.9, 0.5, [
-        ("Live question for the room: “What was urban female LFPR in PLFS 2025?” — it refuses to guess and shows exactly why (slide 5).", 11, True, INK)])
+        ("Live question for the room: “What was female LFPR in Bihar in PLFS 2025?” — it refuses to guess and shows exactly why (slide 5).", 11, True, INK)])
 
     # 2 — Problem
     s = prs.slides.add_slide(prs.slide_layouts[6]); bg(s)
@@ -245,7 +245,7 @@ def main():
            "SOURCED tier (online): exact live figure, verdict stays WARN — never silently PASS")
     footer(s, 5)
     shot_box(s, 0.7, 1.85, 5.85, 4.3, shots / "shot_warn.png",
-             "WARN_NO_DATA — urban female LFPR (SOURCED 27.7%)", AMBER,
+             "WARN_NO_DATA — female LFPR in Bihar (state splits, coverage note)", AMBER,
              "Offline twin: coverage note + NOT-the-figure guard, tier NONE")
     shot_box(s, 6.8, 1.85, 5.85, 4.3, shots / "shot_refuse.png",
              "REFUSE_SCOPE / R_FORECAST", RED,
@@ -255,18 +255,18 @@ def main():
     s = prs.slides.add_slide(prs.slide_layouts[6]); bg(s)
     header(s, "Measured, offline, reproducible · python vidhi/eval.py + pytest",
            "Every number below is a test output, not a slide claim",
-           "173 verified rows · 100 golden · 19 danger · 28 red-team · offline unit tests")
+           "1708 verified rows · 100 golden · 19 danger · 28 red-team · offline unit tests")
     footer(s, 6)
     card(s, 0.7, 1.85, 5.85, 4.9)
     textbox(s, 0.95, 1.95, 5.4, 4.7, [
         ("Correctness gates (all must pass)", 12, True, ACCENT),
         ("Golden verdicts 100/100 [0.963–1.000]", 11, True, INK),
-        ("Reason codes 100/100 · figures 59/59 [0.939–1.000]", 11, False, INK),
+        ("Reason codes 100/100 · figures 60/60 [0.940–1.000]", 11, False, INK),
         ("Citations valid 1.000 · danger collisions 0/19", 11, False, INK),
         ("Abstention recall 1.000 · hallucination rate 0.000", 11, True, INK),
         ("Safety-A P/R/F1 1.000 · n=28 (en/hi/hi-en, 0 FP/FN)", 11, True, INK),
         ("Safety-B: frozen hash unchanged under injection", 11, False, INK),
-        ("Unit tests: 108 passed, offline, no key", 11, False, INK),
+        ("Unit tests: 110 passed, offline, no key", 11, False, INK),
         ("Refusals: tp=8 fp=0 fn=0, raw counts (n=8)", 11, False, INK),
     ])
     card(s, 6.8, 1.85, 5.85, 4.9)
@@ -282,21 +282,21 @@ def main():
     # 7 — Roadmap
     s = prs.slides.add_slide(prs.slide_layouts[6]); bg(s)
     header(s, "Roadmap · what ConfAI feedback would shape",
-           "From 173 rows to national coverage without touching the firewall",
+           "From 1708 verified rows to national coverage without touching the firewall",
            "Try it: uvicorn vidhi.service:app --port 8001 → /demo · MCP: python -m vidhi.mcp_server")
     footer(s, 7)
     card(s, 0.7, 1.85, 5.85, 4.9)
     textbox(s, 0.95, 1.95, 5.4, 4.7, [
         ("Next three moves, ranked", 12, True, ACCENT),
         ("1. Operating model: eSankhyiki adapter at release time → machine ingestion → audit gate → frozen JSON. Human work per release: one comparability entry plus diff review.", 10, False, INK),
-        ("2. One parser per table family (Statement 7 done: 37/37 pairs, 0 mismatches); TUS and MIS tables next.", 10, False, INK),
+        ("2. One parser per table family: PLFS Highlights battery (both annual reports), TUS tables/battery and HCES Statement 10 done; MIS tables next.", 10, False, INK),
         ("3. Verify-then-publish endpoint for journalists and fact-checkers.", 10, False, INK),
         ("Already built: MCP server (4 tools) + policy-briefing agent.", 10, True, INK),
     ])
     card(s, 6.8, 1.85, 5.85, 4.9)
     textbox(s, 7.05, 1.95, 5.4, 4.7, [
         ("Reproduce everything in 5 minutes", 12, True, TEAL_D),
-        ("pytest tests/ -q  →  108 passed, offline, no key", 10.5, False, INK),
+        ("pytest tests/ -q  →  110 passed, offline, no key", 10.5, False, INK),
         ("vidhi/eval.py  →  100/100 · 0/19 · Safety-B ok", 10.5, False, INK),
         ("Ask the hard question; expect WARN_NO_DATA + coverage note.", 10.5, True, INK),
         ("Thank you — questions and red-team attempts welcome.", 10.5, True, ACCENT),

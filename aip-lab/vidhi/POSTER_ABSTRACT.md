@@ -37,14 +37,14 @@ Danger pairs embed at cosine 0.93–0.99 (inseparable from paraphrases). No cosi
 |---|---|
 | Verdict accuracy | 100/100 = 1.000 |
 | Reason-code accuracy | 100/100 = 1.000 |
-| Numeric exact match | 59/59 = 1.000 |
+| Numeric exact match | 60/60 = 1.000 |
 | Danger-pair collisions | 0 (19 pairs) |
 | Safety-B (freeze before retrieval) | unchanged under injection |
-| Abstention recall (must-abstain → abstained) | 37/37 = 1.000 |
-| Hallucination rate (must-abstain → answered) | 0/37 = 0.000 |
+| Abstention recall (must-abstain → abstained) | 36/36 = 1.000 |
+| Hallucination rate (must-abstain → answered) | 0/36 = 0.000 |
 | Safety-A P/R/F1 (n=28: en · hi · hi-en red-team) | 1.000 — 0 misses, 0 false positives |
-| Verified store rows | 173/173 |
-| Row utilization (verified rows touched) | 54/173 = 31.2% |
+| Verified store rows | 1708/1708 |
+| Row utilization (verified rows touched by goldens) | 55/1708 = 3.2% |
 | Stages exercised | 5/5 |
 | Decisions exercised | 3/3 |
 | Surveys covered | 4/4 (PLFS/HCES/TUS/MIS) |
@@ -52,10 +52,10 @@ Danger pairs embed at cosine 0.93–0.99 (inseparable from paraphrases). No cosi
 | Cost per query | $0.0000 |
 
 ## Honest Limits
-Coverage is the limit, not logic: 173 verified rows cover HCES state MPCE both imputation legs, PLFS national LFPR/WPR/UR, TUS minutes; measured coverage is 54/173 (31.2%). Uncurated slices return WARN_NO_DATA — never a guess. All five YAML comparability rules are active with verbatim caveat quotes and PDF provenance.
+Coverage is the limit, not logic: 1708 verified rows cover the PLFS Highlights battery (11 survey rounds × usual + CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells of both committed annual reports), the TUS 2024 battery (9 ICATUS divisions × gender/sector/age × participation/per-participant/per-person, plus Tables 10-11 group rows) and HCES 2023-24 MPCE (state + all-India + the 2011-12 trend leg). Uncovered slices (state-level labour figures, off-badge rounds, MIS numerics) return WARN_NO_DATA — never a guess. All six YAML comparability rules are active with verbatim caveat quotes and PDF provenance. Every verified row is answerable with its exact figure (`scripts/coverage_probe.py`).
 
 ## Demo
-`localhost:8001/demo` — offline, no API key, no GPU. Six live scenarios including refusal of "urban female LFPR in PLFS 2025" with honesty, not a guess.
+`localhost:8001/demo` — offline, no API key, no GPU. Six live scenarios including the state-level "female LFPR in Bihar in PLFS 2025" refusal with honesty, not a guess.
 
 **Author:** Ajay Choudhary, MSAI @ Plaksha University  
 **Track:** Track 06 — Responsible and Ethical AI

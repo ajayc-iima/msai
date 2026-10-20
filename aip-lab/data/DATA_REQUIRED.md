@@ -42,7 +42,7 @@ Record for each file: portal URL, download date, on-screen filter selection, sha
 
 ## 3. Shipped state (what runs out of the box)
 
-- `vidhi/store.json` ships with **173 verified rows** (HCES 2023-24 Statement 7 state × rural/urban MPCE, all-India MPCE pairs, PLFS LFPR/WPR/UR, TUS minutes), each with provenance + per-row audit note. The firewall `PASS`es only from these verified rows.
-- `data/truth/ground_truth_tables.json` is the legacy Lab-1 scratch table; the served pipeline reads `vidhi/store.json`. Until fresh official PDFs land in `data/raw/`, any question outside the 173 curated rows honestly returns `WARN_NO_DATA` — never invents.
+- `vidhi/store.json` ships with **1708 verified rows**: the PLFS Highlights battery (both committed annual reports — 11 survey rounds × usual + CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells), the TUS 2024 battery (9 ICATUS divisions × gender/sector/age × participation/per-participant/per-person plus Tables 10-11 group rows), and HCES 2023-24 MPCE rows (Statement 7 state × rural/urban, all-India pairs, and the Statement 10 2011-12 trend legs), each with provenance + per-row audit note. The firewall `PASS`es only from these verified rows.
+- `data/truth/ground_truth_tables.json` is the legacy Lab-1 scratch table; the served pipeline reads `vidhi/store.json`. Until fresh official PDFs land in `data/raw/`, any question outside the 1708 curated rows honestly returns `WARN_NO_DATA` — never invents.
 - `data/excerpts/` contains only `SAFETY_B_ADVERSARIAL` synthetic test chunk (clearly marked, never cited as fact).
 - Official excerpts + `citation_index.json` stay empty.

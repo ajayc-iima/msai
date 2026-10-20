@@ -160,7 +160,11 @@ def records(raw_dir: Path) -> tuple[list[dict], dict]:
                 "survey": "TUS_2024",
                 "round": "2024",
                 "indicator": ind,
-                "measure": None,
+                # Every factsheet-prose average-time figure is a
+                # per-participant statistic ("female participants spent...");
+                # the same slice is carried by the Tables 4-6 battery, and
+                # vidhi_build's merge requires equal values on the collision.
+                "measure": "per_participant" if ind == "average_time" else None,
                 "geography": "India",
                 "state": None,
                 "residence": "all",

@@ -276,9 +276,13 @@
 <ul>
   <li><b>Store</b> (<code>store.json</code>): the built truth artifact, generated — never hand-edited. Each row carries <span class="mono">survey, round, indicator, measure, geography, state, residence, sex, age_group, activity, value, unit, source_document, table_or_section, verification_status, provenance{extractor, pdf_sha256, …}</span> and a per-row <span class="mono">audit_note</span>.</li>
   <li><b>Audit gate</b> (<code>audit.py</code>): every candidate value must be traceable to its cited source text (value near its anchor word or state name). Untraceable values or duplicate row IDs <b>fail the build</b>. A dual-source rule requires API and PDF parsers to agree exactly on any overlapping row.</li>
-  <li><b>Current coverage:</b> 173 verified rows — HCES state MPCE (both imputation legs, all states/UTs, rural+urban), PLFS national LFPR/WPR/UR, TUS activity minutes. Measured store coverage of the golden set ≈ 54/173 (31.2%).</li>
-  <li><b>Comparability rules</b> (<code>data/vidhi/comparability_rules.yaml</code>, v3): each rule carries <span class="mono">verdict, sub_code, reason_code, caveat_quote (verbatim), source_doc, source_page, active</span>. Rules are <b>data</b>, so the frozen hash binds the exact YAML version.</li>
-  <li><b>Survey taxonomy</b> (<code>data/vidhi/survey_metadata.yaml</code>, v3): in-corpus surveys with indicators, measures, allowed disaggregations; plus <span class="mono">reference_only</span> surveys (kept so cross-round comparisons hit Comparability rather than blunt out-of-scope).</li>
+  <li><b>Current coverage:</b> 1708 verified rows (as of the Oct 2026 raw-PDF expansion; the v1 build below shipped 173) —
+     the PLFS Highlights battery (both committed annual reports: 11 survey rounds × usual+CWS × LFPR/WPR/UR ×
+     15+/all-ages × 9 sector-sex cells), the TUS 2024 tables battery (9 ICATUS divisions × gender/sector/age ×
+     participation/per-participant/per-person + Tables 10-11 group rows), and HCES 2023-24 MPCE (state + all-India +
+     Statement 10 trend legs). Golden-set row utilization is now 55/1708.</li>
+  <li><b>Comparability rules</b> (<code>data/vidhi/comparability_rules.yaml</code>, v4 — six rules since the PLFS calendar-series rule was added): each rule carries <span class="mono">verdict, sub_code, reason_code, caveat_quote (verbatim), source_doc, source_page, active</span>. Rules are <b>data</b>, so the frozen hash binds the exact YAML version.</li>
+  <li><b>Survey taxonomy</b> (<code>data/vidhi/survey_metadata.yaml</code>, v4): in-corpus surveys with indicators, measures, allowed disaggregations and age buckets; plus <span class="mono">reference_only</span> surveys (kept so cross-round comparisons hit Comparability rather than blunt out-of-scope).</li>
 </ul>
 
 <h3>2.6 Retrieval, service, agent, MCP, demo</h3>

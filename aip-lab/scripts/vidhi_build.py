@@ -21,17 +21,59 @@ from vidhi import store as S
 from vidhi.sources import factsheet as F
 from vidhi.sources import plfs as P
 from vidhi.sources import tus as T
+from vidhi.sources import hces_trend as HT
+from vidhi.sources import plfs_tables as PT
+from vidhi.sources import tus_tables as TT
 
 RAW = ROOT / "data" / "raw"
 OUT = ROOT / "vidhi" / "store.json"
 
 
+def semantic_key(r: dict) -> tuple:
+    return (
+        r["survey"],
+        r["round"],
+        r["indicator"],
+        r.get("measure"),
+        r.get("geography"),
+        r.get("state"),
+        r.get("residence"),
+        r.get("sex"),
+        r.get("age_group"),
+        r.get("activity"),
+    )
+
+
+def merge(rows: list[dict]) -> list[dict]:
+    """Collapse duplicate semantic keys across extractors. Key collisions
+    are dual-source overlaps: the values MUST agree exactly or the build
+    aborts. The first occurrence wins (prose-anchored rows were added
+    first, so sentence-level provenance is preferred)."""
+    seen: dict[tuple, dict] = {}
+    for r in rows:
+        k = semantic_key(r)
+        if k in seen:
+            if abs(float(seen[k]["value"]) - float(r["value"])) > 1e-9:
+                raise ValueError(
+                    f"dual-source disagreement on {k}: "
+                    f"{seen[k]['row_id']}={seen[k]['value']} vs "
+                    f"{r['row_id']}={r['value']}"
+                )
+            continue
+        seen[k] = r
+    return list(seen.values())
+
+
 def main() -> int:
     rows, manifests = [], []
-    for fn in (F.records, F.extended, P.records, T.records):
+    for fn in (
+        F.records, F.extended, P.records, T.records,
+        PT.records, TT.records, HT.records,
+    ):
         r, m = fn(RAW)
         rows.extend(r)
         manifests.append(m)
+    rows = merge(rows)
     if "--with-api" in sys.argv:
         from vidhi.claims import extract
         from vidhi.sources import esankhyiki as E

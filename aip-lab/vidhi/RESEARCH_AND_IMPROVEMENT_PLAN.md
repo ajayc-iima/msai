@@ -4,16 +4,24 @@
 > (abstention confusion matrix, figure attestation + store-binding, measured
 > multilingual Safety-A P/R, plus Unicode normalization). Full test suite:
 > **108 passed**. See "Part 2" for what remains (P2/P3).
+> (*Updated 2026-10-20: the raw-PDF expansion grew the store from 173 to
+> 1708 verified rows — PLFS Highlights battery, TUS 2024 tables battery,
+> HCES Statement 10 legs — suite is now **110 passed**, and
+> `scripts/coverage_probe.py` proves all 1708 rows answerable with exact
+> figures.*)
 >
 > **2026-10-20 line-by-line audit:** every `vidhi/` file was re-read and
 > hardened — wrong-granularity PASS eliminated (an unspecified dimension is
 > now satisfied only by an aggregate row), the WARN_NO_DATA coverage note
 > never substitutes another state, Safety-A false positives on legitimate
 > methodology/Hinglish phrasings were fixed (red-team grown to n=28, still
-> P/R/F1 1.000 with 0 FP / 0 FN), uncurated PLFS rounds (2024 / 2024-25)
-> now WARN instead of silently serving 2025 data, "what is … <round>" is
+> P/R/F1 1.000 with 0 FP / 0 FN), out-of-corpus PLFS rounds are pinned and
+> WARN instead of silently serving 2025 data (the calendar round "2024" and
+> the traditional 2017-18…2023-24 annuals have since been curated by the
+> raw-PDF expansion; "2024-25", "2016-17" etc. genuinely have no rows and
+> still WARN), "what is … <round>" is
 > treated as a value question, cache/MCP responses are truthful, and dead
-> code was removed. All green: 108 tests, eval 100/100, demo 6/6. Details in
+> code was removed. All green: 110 tests, eval 100/100, demo 6/6. Details in
 > `EVALUATION_REPORT.md` (revision log).
 
 **Context:** Vidhi Guardian (the ConfAI 2026 poster project) is a deterministic

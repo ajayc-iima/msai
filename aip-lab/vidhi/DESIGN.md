@@ -63,19 +63,20 @@ Any step failing stops the chain with a non-zero exit.
 ## Build order (each step green before the next)
 
 - [x] 1. claims + schema tests (4 tests)
-- [x] 2. store + sources/PLFS + sources/factsheet + audit (173/173 reproduced)
+- [x] 2. store + sources/PLFS + sources/factsheet + audit (173/173 reproduced → 1708/1708 after the raw-PDF expansion: PLFS Highlights battery, TUS tables battery, HCES Statement 10 legs)
 - [x] 3. rules + freeze + stage-order tests
 - [x] 4. guard + retrieve + render + consistency (+3 regression tests)
 - [x] 5. pipeline + service + eval + demo
 - [x] 6. Cross-check: identical verdicts to vidhi/ on all 100 golden,
   100/100 reason parity, stable at top_k 3/5/10
-- [x] 7. ConfAI materials re-pointed (README / demo / evaluation report unified on 100 golden + 173 verified rows)
+- [x] 7. ConfAI materials re-pointed (README / demo / evaluation report unified on 100 golden + 1708 verified rows)
 
 ## Flexibility record (no hardcoded values; APIs where they help)
 - eSankhyiki live API answers what the frozen store cannot
-  (`_live_source` in pipeline): urban Bihar female LFPR 2023-24 = 16.7%,
-  urban female LFPR 2025 = 27.7% (the latter cross-checked against PDF
-  Table 1). Governance verdicts never move (still WARN); a separate
+  (`_live_source` in pipeline): urban Bihar female LFPR 2023-24 = 16.7%
+  (urban female LFPR 2025 = 27.7% has since become a verified store row
+  of the Highlights battery — store and live API agree). Governance
+  verdicts never move (still WARN); a separate
   `evidence_tier` (VERIFIED | SOURCED | NONE) labels provenance, and
   SOURCED answers are explicitly "sourced, not certified".
 - Positioning: governance + sourcing layer that StatsDoc could plug in,

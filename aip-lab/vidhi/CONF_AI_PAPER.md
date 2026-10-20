@@ -16,7 +16,7 @@ Generative AI over sovereign statistics fails at governance, not retrieval: unco
 
 We present a deterministic validity firewall (`vidhi`) that adjudicates questions about Indian official survey data before any document is retrieved. Every question is parsed into a typed claim; five versioned rule stages (Safety-A → Scope → Comparability → Metadata → Numeric) fire in fixed order, and the verdict is frozen into a SHA-256 hash before any document is read, so untrusted chunks cannot move it (Safety-B). Safety-A runs first and blocks prompt injection in English, Hindi and Hinglish across all signal classes. Only `verified` ground-truth rows may `PASS`; anything uncovered returns an honest `WARN_NO_DATA` with a live coverage note rather than a guess. The semantic cache is guarded by deterministic field comparison because danger-pair and paraphrase cosine ranges overlap on two measured embedders (bge-small, nemotron-3-embed-1b), so no cosine threshold is safe (0 collisions across 19 danger pairs).
 
-Measured offline on 100 golden queries: 100/100 verdict accuracy [0.963–1.000], 100/100 reason-code accuracy, 59/59 numeric exact match [0.939–1.000], 0 collisions across 19 danger pairs [floor 0.83], refusal tp=8 fp=0 fn=0 raw counts (n=8, floor 0.68), Safety-B hash unchanged under injection, abstention recall 1.000 with hallucination rate 0.000 (37 must-abstain goldens), Safety-A P/R/F1 = 1.000 on a 28-case multilingual red-team (0 misses, 0 false positives), 173/173 verified store rows with provenance, 54/173 (31.2%) store coverage, $0.00 marginal model cost per query on the deterministic path plus hosting, p50 ≈ 150–190 ms warm in-process (run-to-run, CPU-only; the one-time cold model load is paid at service startup). All results reproducible with `python vidhi/eval.py` — no API key, no GPU, no network.
+Measured offline on 100 golden queries: 100/100 verdict accuracy [0.963–1.000], 100/100 reason-code accuracy, 60/60 numeric exact match [0.939–1.000], 0 collisions across 19 danger pairs [floor 0.83], refusal tp=8 fp=0 fn=0 raw counts (n=8, floor 0.68), Safety-B hash unchanged under injection, abstention recall 1.000 with hallucination rate 0.000 (36 must-abstain goldens), Safety-A P/R/F1 = 1.000 on a 28-case multilingual red-team (0 misses, 0 false positives), 1708/1708 verified store rows with provenance — and every one of those rows is answerable through the live pipeline with its exact figure (`scripts/coverage_probe.py`) — $0.00 marginal model cost per query on the deterministic path plus hosting, p50 ≈ 150–190 ms warm in-process (run-to-run, CPU-only; the one-time cold model load is paid at service startup). All results reproducible with `python vidhi/eval.py` — no API key, no GPU, no network.
 
 ---
 
@@ -82,7 +82,7 @@ Danger pairs (e.g., "urban Bihar female LFPR" vs "rural Bihar female LFPR") embe
 
 ### 2.5 Verified-only ground truth
 
-`store.json` contains 173 rows, each with `source_document`, `table_or_section`, PDF sha256, and a per-row audit note tracing the value to cited PDF text. The `audit.py` gate fails the build on any untraceable value or duplicate ID. `PASS` requires a `verification_status: verified` row; `store.lookup` performs strict matching — an all-India row never answers a female/urban/Bihar question, and an unspecified dimension is satisfied only by an aggregate row, so a bare "MPCE" question is WARNed rather than answered with the rural slice.
+`store.json` contains 1708 rows, each with `source_document`, `table_or_section`, PDF sha256, and a per-row audit note tracing the value to cited PDF text. Extractors re-derive rows from the committed raw PDFs at build time and merge only on exactly-equal duplicates (`scripts/vidhi_build.py`); the `audit.py` gate fails the build on any untraceable value or duplicate ID. `PASS` requires a `verification_status: verified` row; `store.lookup` performs strict matching — an all-India row never answers a female/urban/Bihar question, an unspecified dimension is satisfied only by an aggregate row, and a pinned non-badge round never serves another round's figure, so a bare "MPCE for 2016-17" is WARNed rather than answered with 2023-24 data.
 
 ---
 
@@ -96,7 +96,7 @@ Measured offline by `python vidhi/eval.py`:
 |--------|----------|------|
 | Verdict accuracy | 100/100 = 1.000 | ≥ 0.75 |
 | Reason-code accuracy | 100/100 = 1.000 | — |
-| Numeric exact match | 59/59 valued queries = 1.000 | — |
+| Numeric exact match | 60/60 valued queries = 1.000 | — |
 | Citation validity | 100/100 = 1.000 | ≥ 0.98 |
 | Danger-pair collisions (canonical) | 0 across 19 pairs | — |
 | Danger-pair collisions (pipeline) | 0 across 19 pairs | — |
@@ -104,9 +104,9 @@ Measured offline by `python vidhi/eval.py`:
 | Abstention recall / hallucination rate | 37/37 = 1.000 / 0.000 | — |
 | Safety-A injection P/R/F1 (red-team, n=28) | 1.000 — 0 misses, 0 false positives (en / hi / hi-en) | — |
 | Determinism (repeat ask) | identical hash/decision/value | — |
-| Row utilization (verified rows touched by golden set) | 54/173 = 31.2% | — |
+| Row utilization (verified rows touched by golden set) | 55/1708 = 3.2% | — |
 
-**Coverage.** Golden questions exercise all five firewall stages (scope 6, safety 1, comparability 6, metadata 5, numeric 82), all three decisions (PASS 63, WARN 29, REFUSE 8), and all four surveys (HCES 48, PLFS 29, TUS 17, MIS 2). Uncovered slices return `WARN_NO_DATA` rather than a guess.
+**Coverage.** Golden questions exercise all five firewall stages (scope 6, safety 1, comparability 6, metadata 5, numeric 82), all three decisions (PASS 64, WARN 28, REFUSE 8), and all four survey families (HCES 48, PLFS 29, TUS 17, MIS 2). Uncovered slices return `WARN_NO_DATA` rather than a guess; beyond the golden set, `scripts/coverage_probe.py` answers a natural question for each of the 1708 verified rows and requires the exact figure and source row every time.
 
 ### 3.2 Latency & cost
 
@@ -139,7 +139,7 @@ We do **not** claim a measured latency/cost victory over StatsDoc — their numb
 
 ## 5. Limitations (stated honestly)
 
-- **Coverage is the limit, not logic.** 173 verified rows cover HCES state MPCE both imputation legs (all states/UTs, rural + urban), PLFS national LFPR/WPR/UR, and TUS activity minutes; measured coverage is 54/173 (31.2%). Uncurated slices correctly return `WARN_NO_DATA` — never a guess. All five YAML comparability rules are active with verbatim caveat quotes and PDF provenance (v3).
+- **Coverage is the limit, not logic.** The 1708 verified rows cover the PLFS Highlights battery (11 survey rounds — calendar PLFS 2022/2023/2024/2025 and traditional 2017-18…2023-24 — × usual + CWS × LFPR/WPR/UR × 15+/all-ages × 9 sector-sex cells of both committed annual reports), the TUS 2024 battery (9 ICATUS divisions × gender/sector/age × participation/per-participant/per-person plus Tables 10-11 group rows), and HCES 2023-24 MPCE (state + all-India, both imputation legs plus the Statement 10 2011-12 trend column). Out-of-vocabulary slices — state-level labour figures, non-badge rounds (e.g. 2016-17), MIS numerics — correctly return `WARN_NO_DATA` — never a guess. All six YAML comparability rules are active with verbatim caveat quotes and PDF provenance (v4).
 - **Heuristic extraction** misreads exotic phrasings; an LLM translator port exists (`VIDHI_USE_LLM=1`) but is unmeasured on this machine.
 - **No load test** yet; expected first bottleneck is the file-cache lock under 20+ concurrent requests.
 - **eSankhyiki live-API path** inherits certificate-verification weakness from the third-party client; the query-time path is fully offline and unaffected.

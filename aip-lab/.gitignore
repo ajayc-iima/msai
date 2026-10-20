@@ -18,7 +18,10 @@ __pycache__/
 # AIP cache & traces
 .aip_cache/
 .aip_traces/
-# path-shaped cache dirs created by a literal-path bug (C:\Users\... -> CUserschou_...)
+# path-bug cache dirs (C:\Users\... -> mojibake "C<PUA>Users<PUA>chou_<PUA>.aip_traces"):
+# suffix globs match the unicode-mangled names too.
+*aip_cache/
+*aip_traces/
 CUserschou_*/
 
 # Tool/editor caches that are never source

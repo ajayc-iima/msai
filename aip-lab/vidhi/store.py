@@ -99,7 +99,9 @@ def lookup(doc: dict, claim, round_override: str | None = None) -> dict | None:
             continue
         for f in ("measure", "age_group"):
             cv, rv = _norm(getattr(claim, f, None)), _norm(r.get(f))
-            if cv in (None, "", "all") or rv in (None, "", "all"):
+            if cv in (None, ""):
+                continue
+            if rv in (None, ""):
                 continue
             if cv != rv:
                 ok = False

@@ -247,7 +247,7 @@ def build_slide_1(prs):
     p_steps.space_after = Pt(2)
 
     p_note = tf_f.add_paragraph()
-    p_note.text = "Proof-of-mechanism verified on 4 surveys: PLFS 2025 revamp, PLFS 2023-24, HCES 2023-24, TUS 2024, NSS-78 MIS (173 verified ground truth rows)."
+    p_note.text = "Proof-of-mechanism verified on 4 surveys: PLFS 2025 revamp, PLFS 2023-24, HCES 2023-24, TUS 2024, NSS-78 MIS (1708 verified ground truth rows)."
     p_note.font.name = "Segoe UI"
     p_note.font.size = Pt(9)
     p_note.font.color.rgb = LIGHT_GREY

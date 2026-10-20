@@ -196,15 +196,31 @@ def test_firewall_explicit_noncurated_round_never_serves_curated_figure():
     from vidhi.claims import extract
 
     for q, rnd in (
-        ("What was rural MPCE in HCES 2011-12?", "2011-12"),
-        ("What was the PLFS 2022-23 WPR?", "2022-23"),
-        ("What was the PLFS 2017-18 LFPR?", "2017-18"),
+        ("What was rural MPCE in HCES 2016-17?", "2016-17"),
+        ("What was the PLFS 2016-17 LFPR?", "2016-17"),
+        ("What was the PLFS 2019 LFPR?", "2019"),
     ):
         c = extract(q)
         assert c.round == rnd, (q, c.round)
         v = FW.adjudicate(c)
         assert v.decision == "WARN" and v.sub_code == "WARN_NO_DATA", (q, v.sub_code)
         assert v.value is None
+
+
+def test_expanded_rounds_now_answerable():
+    """Store expansion: rounds that used to be honest abstentions are now
+    curated with page-level provenance (PLFS Highlights Tables 1-6 of both
+    committed annual reports; HCES factsheet Statement 10 trend columns).
+    The guarantee runs both ways: the new slices return their exact
+    verified figure, and anything still outside the store abstains."""
+    from vidhi.claims import extract
+
+    v = FW.adjudicate(extract("What was rural MPCE in HCES 2011-12?"))
+    assert v.decision == "PASS" and v.value == 1430
+    assert "2011-12" in v.row_id
+    v = FW.adjudicate(extract("What was the PLFS 2017-18 LFPR?"))
+    assert v.decision == "PASS" and v.value == 49.8
+    assert "2017-18" in v.row_id
 
 
 def test_split_answer_cites_every_row():
@@ -227,7 +243,7 @@ def test_every_verified_row_is_answerable_with_exact_figure():
         (ROOT / "vidhi" / "store.json").read_text(encoding="utf-8"))
     rows = [r for r in doc.get("rows", [])
             if r.get("verification_status") == "verified"]
-    assert len(rows) >= 170, len(rows)
+    assert len(rows) >= 1600, len(rows)
     for r in rows:
         q, _expected = question_for(r)
         v = FW.adjudicate(heuristic_extract(q))
@@ -364,10 +380,15 @@ def test_unemployment_substring_is_not_male():
 
 
 def test_filtered_question_never_gets_all_india_figure():
+    """A filtered question returns the EXACT filtered figure -- never the
+    all-India aggregate. (The slice used to WARN; the Highlights battery
+    curates every sector-sex cell now, with the same no-silent-narrowing
+    rule enforced by store lookup.)"""
     c = heuristic_extract(
         "Female unemployment rate in urban areas PLFS 2023-24?")
     v = FW.adjudicate(c)
-    assert v.decision == "WARN" and v.value is None
+    assert v.decision == "PASS" and v.value == 7.1
+    assert v.row_id.endswith("urban_female_15plus")
 
 
 def test_cpi_definition_without_anchor_is_out_of_scope():
@@ -589,11 +610,17 @@ def test_firewall_passes_verified_headline():
 
 
 def test_firewall_honest_warn_on_uncovered_slice():
+    """No state-level labour figures are curated (the Highlights battery
+    carries all-India cells only): a state slice must WARN_NO_DATA, never
+    substitute a national figure. (Plain urban-female LFPR 2025 became
+    answerable in the expansion -- it now PASSes with 40.0.)"""
     from vidhi.claims import extract
 
-    v = FW.adjudicate(extract("What was urban female LFPR in PLFS 2025?"))
+    v = FW.adjudicate(extract("What was female LFPR in Bihar in PLFS 2025?"))
     assert (v.decision, v.sub_code) == ("WARN", "WARN_NO_DATA")
     assert v.value is None
+    ok = FW.adjudicate(extract("What was urban female LFPR in PLFS 2025?"))
+    assert ok.decision == "PASS" and ok.value == 27.7
 
 
 def test_freeze_is_claim_bound():
@@ -754,9 +781,25 @@ def test_metadata_allowed_disaggregation_passes():
     assert c.sex == "female"
     assert c.residence == "urban"
     v = FW.adjudicate(c)
-    # metadata passes (sex/residence allowed); numeric returns WARN_NO_DATA
+    # metadata passes (sex/residence allowed); the slice is curated now and
+    # returns its exact verified figure from the Highlights battery.
     assert v.stage == "numeric"
-    assert v.reason_code == "R_NO_CURATED_ROW"
+    assert v.reason_code == "R_OK"
+    assert v.value == 27.7
+
+
+def test_metadata_unsupported_disaggregation_warns():
+    """The taxonomy's age_groups list drives the metadata check: the PLFS
+    Highlights battery covers 15-plus and all-ages only, so an age bucket
+    it never prints (6-14) must WARN at the metadata stage -- the TUS
+    battery, which does print 6-14, must not."""
+    from vidhi.claims import extract
+
+    v = FW.adjudicate(extract("What was the LFPR for children aged 6-14 in PLFS 2025?"))
+    assert (v.decision, v.reason_code) == (
+        "WARN", "R_METADATA_UNSUPPORTED_DISAGGREGATION")
+    ok = FW.adjudicate(extract("What was the participation rate for learning among children aged 6-14 in TUS 2024?"))
+    assert ok.decision == "PASS" and ok.value == 89.3
 
 
 def test_five_stages_fixed_order():
@@ -939,7 +982,7 @@ def test_comparability_yaml_all_active():
 
     p = Path("data/vidhi/comparability_rules.yaml")
     doc = yaml.safe_load(p.read_text(encoding="utf-8"))
-    assert doc.get("version") == 3
+    assert doc.get("version") == 4
     for r in doc.get("rules", []):
         assert r.get("active") is True, r.get("rule_id")
         assert r.get("caveat_quote") and "TODO" not in r["caveat_quote"], r["rule_id"]

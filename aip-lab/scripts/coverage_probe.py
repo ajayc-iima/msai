@@ -3,11 +3,13 @@ through the real claim-extract -> firewall pipeline with its exact figure.
 
     python scripts/coverage_probe.py
 
-Prints every row that cannot be reached naturally, plus a summary. Exit 0
-iff all 173 rows are reachable with exact values. This is the executable
-form of the demo guarantee: every figure that exists in the source PDFs
-(every verified store row) has a natural question that returns exactly that
-figure, and nothing outside the store is ever answered.
+The store now carries ~1700 verified rows: the whole PLFS Highlights battery
+(11 survey rounds x usual+CWS x LFPR/WPR/UR x {15+/all ages} x 9 sector-sex
+cells), the TUS 2024 battery (nine ICATUS divisions x gender/sector/age x
+participation/per-participant/per-person + Tables 10/11 group rows + report
+Statement 5/6 age-sex rows) and the HCES 2023-24 factsheet trend columns.
+The probe prints every row that cannot be reached naturally. Exit 0 iff all
+rows are reachable with exact values.
 
 `question_for(r)` is imported by tests/test_vidhi.py, so the guarantee is
 enforced on every test run, not just when this script is run by hand.
@@ -35,17 +37,31 @@ ACT_PHRASE = {
     "employment": "paid employment activities",
     "learning": "learning activities",
     "selfcare": "self care",
+    "production_own_use": "production of goods for own use",
+    "unpaid_volunteer": "volunteer and other unpaid work",
+    "socializing_religious": "socializing and religious practice",
+    "unpaid_activities": "unpaid activities",
+    "paid_activities": "paid activities",
+    "unpaid_paid": "unpaid and paid activities",
+    "residual_other": "residual other activities",
 }
 IMP = {"with_imputation": "with imputation", "without_imputation": "without imputation"}
 STATUS = {"usual_status_ps_ss": "in usual status", "CWS": "in current weekly status"}
 SEX = {"male": "male", "female": "female"}
+RES_PFX = {"rural": "rural ", "urban": "urban "}
+TUS_AGE = {
+    "6-14": "aged 6-14 ",
+    "15-29": "aged 15-29 ",
+    "15-59": "aged 15-59 ",
+    "60plus": "aged 60 and above ",
+}
 
 
 def question_for(r: dict) -> tuple[str, object]:
     """Natural-language question that must reach exactly this store row."""
     survey, rnd, ind = r["survey"], r["round"], r["indicator"]
     if survey.startswith("HCES"):
-        res = f"{r['residence']} " if r.get("residence") in ("rural", "urban") else ""
+        res = RES_PFX.get(r.get("residence"), "")
         st = (STATE_TXT.get(r["state"], (r["state"] or "").lower())
               if r.get("state") else "india")
         imp = IMP.get(r.get("measure"))
@@ -55,16 +71,24 @@ def question_for(r: dict) -> tuple[str, object]:
     if survey.startswith("PLFS"):
         sex = SEX.get(r.get("sex"), "")
         status = STATUS.get(r.get("measure"), "")
+        res = RES_PFX.get(r.get("residence"), "")
         phrase = {"LFPR": "LFPR", "WPR": "WPR", "UR": "unemployment rate"}[ind]
-        q = f"What was the {sex} {phrase} for age 15+ {status} in PLFS {rnd}?"
+        age = "for all ages" if r.get("age_group") == "all" else "for age 15+"
+        q = (f"What was the {res}{sex} {phrase} {age} {status} "
+             f"in PLFS {rnd}?")
         return " ".join(q.split()), r["value"]
     if survey.startswith("TUS"):
-        act = ACT_PHRASE.get(r.get("activity"), "")
+        act = ACT_PHRASE[r.get("activity")]
         sex = SEX.get(r.get("sex"), "")
+        res = RES_PFX.get(r.get("residence"), "")
+        agerm = TUS_AGE.get(r.get("age_group"), "")
         if ind == "participation_rate":
-            q = f"What was the {sex} participation rate for {act} as per TUS {rnd}?"
+            q = (f"What was the {res}{sex} participation rate for {act} "
+                 f"{agerm}as per TUS {rnd}?")
         else:
-            q = f"How much time did {sex} persons spend on {act} as per TUS {rnd}?"
+            pp = " per person" if r.get("measure") == "per_person" else ""
+            q = (f"How much time did {res}{sex} persons {agerm}"
+                 f"spend{pp} on {act} as per TUS {rnd}?")
         return " ".join(q.split()), r["value"]
     raise AssertionError(survey)
 

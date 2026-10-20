@@ -148,9 +148,16 @@ def confidence(c: Claim) -> tuple[float, str]:
 _SURVEYS = (
     # Specific aliases must precede the generic "plfs" alias: the first match
     # wins, and a fixed round must not be re-derived from a bare survey token.
+    # The PLFS annual reports define BOTH series: calendar-year rounds named
+    # "PLFS 2022/2023/2024" (Jan-Dec of each year) and traditional July-June
+    # rounds "2017-18 ... 2023-24". The store carries both under distinct
+    # survey ids (PLFS_2023 vs PLFS_2023_24), so bare-year tokens resolve to
+    # the calendar round and hyphenated tokens to the traditional round.
     ("plfs 2025", "PLFS_2025", "2025"),
+    ("plfs 2024", "PLFS_2024", "2024"),
     ("plfs 2023-24", "PLFS_2023_24", "2023-24"),
-    ("plfs 2023", "PLFS_2023_24", "2023-24"),
+    ("plfs 2023", "PLFS_2023", "2023"),
+    ("plfs 2022", "PLFS_2022", "2022"),
     ("plfs", "PLFS_2025", "2025"),
     ("hces", "HCES_2023_24", "2023-24"),
     ("mpce", "HCES_2023_24", "2023-24"),
@@ -161,6 +168,23 @@ _SURVEYS = (
     ("multiple indicator", "NSS78_MIS_2020_21", "2020-21"),
     ("drinking water", "NSS78_MIS_2020_21", "2020-21"),
 )
+
+# PLFS round-token -> (survey id, canonical round). Rounds the store
+# curates; anything else keeps the survey identity and pins the round,
+# which yields an honest WARN_NO_DATA downstream.
+_PLFS_ROUNDS = {
+    "2025": "PLFS_2025",
+    "2024": "PLFS_2024",
+    "2023-24": "PLFS_2023_24",
+    "2023": "PLFS_2023",
+    "2022-23": "PLFS_2022_23",
+    "2022": "PLFS_2022",
+    "2021-22": "PLFS_2021_22",
+    "2020-21": "PLFS_2020_21",
+    "2019-20": "PLFS_2019_20",
+    "2018-19": "PLFS_2018_19",
+    "2017-18": "PLFS_2017_18",
+}
 
 _INDICATORS = (
     ("labour force participation", "LFPR"),
@@ -181,11 +205,22 @@ _INDICATORS = (
 )
 
 _ACTIVITIES = (
+    # Group rows (Tables 10/11) before their substrings: "unpaid and paid
+    # activities" must not resolve to plain "paid activities".
+    ("unpaid and paid", "unpaid_paid"),
+    ("unpaid activities", "unpaid_activities"),
+    ("paid activities", "paid_activities"),
     ("unpaid domestic", "unpaid_domestic"),
     ("domestic services", "unpaid_domestic"),
     ("caregiving", "caregiving"),
     ("caring for", "caregiving"),
     ("caring their", "caregiving"),
+    ("volunteer", "unpaid_volunteer"),
+    ("training and other unpaid work", "unpaid_volunteer"),
+    ("production of goods", "production_own_use"),
+    ("goods for own", "production_own_use"),
+    ("socializing", "socializing_religious"),
+    ("religious practice", "socializing_religious"),
     ("culture", "culture_leisure"),
     ("leisure", "culture_leisure"),
     ("mass media", "culture_leisure"),
@@ -195,6 +230,7 @@ _ACTIVITIES = (
     ("selfcare", "selfcare"),
     ("employment and related", "employment"),
     ("employment", "employment"),
+    ("residual other", "residual_other"),
 )
 
 _STATES = (
@@ -291,12 +327,14 @@ def extract(question: str) -> Claim:
         c.indicator = "MPCE"
         if c.survey is None:
             c.survey, c.round = "HCES_2023_24", "2023-24"
-    # Bare-year inference for labour indicators.
+    # Bare-year inference for labour indicators. Hyphenated tokens map to
+    # the traditional July-June series via the same map the PLFS block uses.
     if c.survey is None and c.indicator in ("LFPR", "WPR", "UR"):
-        if "2025" in q:
-            c.survey, c.round = "PLFS_2025", "2025"
-        elif "2023" in q:
-            c.survey, c.round = "PLFS_2023_24", "2023-24"
+        m = _YEAR_TOKEN.search(q)
+        if m:
+            req = f"{m.group(1)}-{m.group(2)}" if m.group(2) else m.group(1)
+            if req in _PLFS_ROUNDS:
+                c.survey, c.round = _PLFS_ROUNDS[req], req
 
     if "usual" in q:
         c.measure = "usual_status_ps_ss"
@@ -333,25 +371,37 @@ def extract(question: str) -> Claim:
         c.geography = "India"
     if re.search(r"15\s*(?:years?|\+|yrs)", q) or "15+" in q:
         c.age_group = "15plus"
+    if c.age_group is None:
+        # Explicit age buckets: "6-14"/"6 to 14", "15-29", "15-59",
+        # "60 years and above"/"60+", "all ages". Exact tokens so "2015-29"
+        # style round strings can never leak in.
+        m = re.search(
+            r"\b(6-14|15-29|15-59|6 to 14|15 to 29|15 to 59)\b", q
+        )
+        if m:
+            c.age_group = m.group(1).replace(" ", "").replace("to", "-")
+        elif re.search(r"60\s*\+|60\s*(?:years?|yrs)?\s*and above|\baged 60\b", q):
+            c.age_group = "60plus"
 
     # Round tokens override alias defaults. An explicit round that matches no
     # curated row yields an honest WARN_NO_DATA downstream -- the one thing
     # that must never happen is silently serving a different round's figure
     # for a question pinned to an explicit year.
     if c.survey and c.survey.startswith("PLFS"):
-        if "2025" in q:
-            c.survey, c.round = "PLFS_2025", "2025"
-        elif "2023" in q:
-            c.survey, c.round = "PLFS_2023_24", "2023-24"
-        else:
-            m = _YEAR_TOKEN.search(q)
-            if m:
-                # Non-curated round (2017-18, 2022, 2022-23, 2024,
-                # 2024-25, ...): keep the survey identity so metadata
-                # validation still applies, but pin the requested round, which
-                # matches no curated row -> WARN_NO_DATA (never 2025 data).
-                yr, end = m.group(1), m.group(2)
-                c.round = f"{yr}-{end}" if end else yr
+        m = _YEAR_TOKEN.search(q)
+        if m:
+            yr, end = m.group(1), m.group(2)
+            req = f"{yr}-{end}" if end else yr
+            if req in _PLFS_ROUNDS:
+                # Calendar/traditional identity from the token itself: a
+                # bare "2025" is PLFS_2025, "2023-24" PLFS_2023_24, etc.
+                c.survey, c.round = _PLFS_ROUNDS[req], req
+            else:
+                # Non-curated round (2016-17, 2025-26, 2021, ...): keep the
+                # survey identity so metadata validation still applies, but
+                # pin the requested round, which matches no curated row ->
+                # WARN_NO_DATA (never a different round's figure).
+                c.round = req
     if c.survey and c.survey.startswith("HCES"):
         if "2023" in q:
             c.round = "2023-24"
@@ -403,14 +453,13 @@ def extract(question: str) -> Claim:
             ss.add("HCES_2011_12")
         if "eus" in q or "employment-unemployment" in q:
             ss.add("NSS_EUS_2011_12")
-        if "2025" in q:
-            ss.add("PLFS_2025")
-        if "2023" in q:
-            ss.add("PLFS_2023_24" if "plfs" in q else "HCES_2023_24")
-        if "2022" in q:
-            # Pre-2025 PLFS annuals and HCES 2022-23 have their own ids so the
-            # revamp/method-break caveats in rules.py can fire on them.
-            ss.add("PLFS_2022_23" if "plfs" in q else "HCES_2022_23")
+        # PLFS comparisons: every curated PLFS round mentioned maps through
+        # the same round->survey map (calendar vs traditional series).
+        if "plfs" in q:
+            for m in _YEAR_TOKEN.finditer(q):
+                req = f"{m.group(1)}-{m.group(2)}" if m.group(2) else m.group(1)
+                if req in _PLFS_ROUNDS:
+                    ss.add(_PLFS_ROUNDS[req])
         if c.survey:
             ss.add(c.survey)
         c.comparison_surveys = sorted(ss)
@@ -481,6 +530,27 @@ def extract(question: str) -> Claim:
         if c.claim_type != "definitional" or not anchored:
             c.claim_type = "out_of_scope"
 
+    # Determinism defaults, applied ONLY when the question set nothing
+    # explicit (an explicit token always wins; see the extraction above):
+    #   * PLFS Highlights pair every LFPR/WPR/UR with a usual-status and a
+    #     CWS figure; questions without "CWS/current weekly" ask the
+    #     usual-status headline. Age default: questions saying "all ages"
+    #     take the all-ages row, everything else the 15-plus row.
+    #   * TUS minutes default to the per-participant basis (Tables 4-6/10);
+    #     "per person" wording flips to the per-person basis (Tables 7-9/
+    #     11). Sample default: persons aged 6 years and above.
+    if (
+        c.measure is None
+        and c.survey == "TUS_2024"
+        and c.indicator == "average_time"
+    ):
+        c.measure = "per_person" if "per person" in q else "per_participant"
+    if c.measure is None and c.survey and c.survey.startswith("PLFS"):
+        c.measure = "usual_status_ps_ss"
+    if c.age_group is None and c.survey == "TUS_2024":
+        c.age_group = "6plus"
+    if c.age_group is None and c.survey and c.survey.startswith("PLFS"):
+        c.age_group = "all" if "all ages" in q else "15plus"
     c.extraction_confidence, c.extraction_notes = confidence(c)
     return c
 
